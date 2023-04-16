@@ -13,7 +13,7 @@ public record Slot(int column, int row) {
      * @throws IllegalArgumentException if either the column is less than 0 or greater than 8
      * or the row is less than 0 or greater than 5
      * @see #of(int, int)
-     * @since 1.0
+     * @since 0.1
      */
     public Slot {
 
@@ -37,7 +37,7 @@ public record Slot(int column, int row) {
      * @throws IllegalArgumentException if either the column is less than 0 or greater than 8
      * or the row is less than 0 or greater than 5
      * @see #Slot(int, int)
-     * @since 1.0
+     * @since 0.1
      */
     public static Slot of(int column, int row) {
 

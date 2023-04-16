@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * Represents a GUI.
  *
- * @since 1.0
+ * @since 0.1
  */
 @NullMarked
 public interface Gui {
@@ -21,7 +21,7 @@ public interface Gui {
      * @see Builder
      * @see #gui(Component, int)
      * @see #gui(int)
-     * @since 1.0
+     * @since 0.1
      */
     static Builder gui() {
 
@@ -37,7 +37,7 @@ public interface Gui {
      * @throws IllegalArgumentException if the amount of rows is less than 1 or greater than 6.
      * @see #gui()
      * @see #gui(int)
-     * @since 1.0
+     * @since 0.1
      */
     static Gui gui(final @Nullable Component title, int rows) {
 
@@ -52,7 +52,7 @@ public interface Gui {
      * @throws IllegalArgumentException if the amount of rows is less than 1 or greater than 6.
      * @see #gui()
      * @see #gui(Component, int)
-     * @since 1.0
+     * @since 0.1
      */
     static Gui gui(int rows) {
 
@@ -66,7 +66,7 @@ public interface Gui {
      * which is usually a translatable component of the form {@literal "container.<container>"}.
      *
      * @return the title of this GUI
-     * @since 1.0
+     * @since 0.1
      */
     Component title();
 
@@ -74,7 +74,7 @@ public interface Gui {
      * Gets the amount of rows this GUI has.
      *
      * @return the amount of rows this GUI has
-     * @since 1.0
+     * @since 0.1
      */
     int rows();
 
@@ -86,7 +86,7 @@ public interface Gui {
      * @return this GUI instance (for chaining)
      * @throws IllegalArgumentException if the slot is out of bounds.
      * @throws NullPointerException if the slot is {@code null}.
-     * @since 1.0
+     * @since 0.1
      */
     Gui button(Slot slot, @Nullable Button button);
 
@@ -97,7 +97,7 @@ public interface Gui {
      * @return the button at the specified slot or {@link Optional#empty()} if there is no button.
      * @throws IllegalArgumentException if the slot is out of bounds.
      * @throws NullPointerException if the slot is {@code null}.
-     * @since 1.0
+     * @since 0.1
      */
     Optional<Gui> button(Slot slot);
 
@@ -128,7 +128,7 @@ public interface Gui {
          * @param title the title
          * @return this builder instance (for chaining)
          * @throws NullPointerException if the title is {@code null}.
-         * @since 1.0
+         * @since 0.1
          */
         Builder title(Component title);
 
@@ -139,7 +139,7 @@ public interface Gui {
          * @param button the button
          * @return this builder instance (for chaining)
          * @throws NullPointerException if the slot or button is {@code null}.
-         * @since 1.0
+         * @since 0.1
          */
         Builder button(Slot slot, Button button);
 
@@ -149,7 +149,7 @@ public interface Gui {
          * @param rows the amount of rows
          * @return the built GUI
          * @throws IllegalArgumentException if the amount of rows is less than 1 or greater than 6.
-         * @since 1.0
+         * @since 0.1
          */
         Gui rows(int rows);
     }

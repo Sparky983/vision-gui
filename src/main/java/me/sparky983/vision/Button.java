@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @see #button()
  * @see #of(ItemType)
- * @since 1.0
+ * @since 0.1
  */
 @NullMarked
 public interface Button {
@@ -22,7 +22,7 @@ public interface Button {
      * @return the newly created button builder
      * @see Builder
      * @see #of(ItemType)
-     * @since 1.0
+     * @since 0.1
      */
     static Builder button() {
 
@@ -35,7 +35,7 @@ public interface Button {
      * @param type the type of the button
      * @return the newly created button
      * @see #button()
-     * @since 1.0
+     * @since 0.1
      */
     static Button of(final ItemType type) {
 
@@ -47,7 +47,7 @@ public interface Button {
      *
      * @param name the name or {@code null} to remove the name
      * @return this button instance (for chaining)
-     * @since 1.0
+     * @since 0.1
      */
     Button name(@Nullable Component name);
 
@@ -55,7 +55,7 @@ public interface Button {
      * Gets the name of this button.
      *
      * @return the name of this button
-     * @since 1.0
+     * @since 0.1
      */
     Component name();
 
@@ -67,7 +67,7 @@ public interface Button {
      * @param lore the lore or an empty array to remove the lore
      * @return this button instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
-     * @since 1.0
+     * @since 0.1
      */
     Button lore(Component... lore);
 
@@ -79,7 +79,7 @@ public interface Button {
      * @param lore the lore or an empty array to remove the lore
      * @return this button instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
-     * @since 1.0
+     * @since 0.1
      */
     Button lore(List<Component> lore);
 
@@ -88,7 +88,7 @@ public interface Button {
      *
      * @return an unmodifiable list containing the lore of this button or an empty list if no lore
      * is set
-     * @since 1.0
+     * @since 0.1
      */
     List<Component> lore();
 
@@ -99,7 +99,7 @@ public interface Button {
      * @return this button instance (for chaining)
      * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
      * {@code 64}.
-     * @since 1.0
+     * @since 0.1
      */
     Button amount(int amount);
 
@@ -107,7 +107,7 @@ public interface Button {
      * Gets the amount items in this button.
      *
      * @return the amount of items in this button
-     * @since 1.0
+     * @since 0.1
      */
     int amount();
 
@@ -117,7 +117,7 @@ public interface Button {
      * @param type the type or {@code null} to remove the type
      * @return this button instance (for chaining)
      * @throws NullPointerException if the type is {@code null}.
-     * @since 1.0
+     * @since 0.1
      */
     Button type(ItemType type);
 
@@ -125,7 +125,7 @@ public interface Button {
      * Gets the type of this button.
      *
      * @return the type of this button
-     * @since 1.0
+     * @since 0.1
      */
     ItemType type();
 
@@ -148,7 +148,7 @@ public interface Button {
      *
      * @see #button()
      * @see #type(ItemType)
-     * @since 1.0
+     * @since 0.1
      */
     interface Builder {
 
@@ -158,7 +158,7 @@ public interface Button {
          * @param name the name
          * @return this button instance (for chaining)
          * @throws NullPointerException if the name is {@code null}.
-         * @since 1.0
+         * @since 0.1
          */
         Builder name(Component name);
 
@@ -170,7 +170,7 @@ public interface Button {
          * @param lore the lore
          * @return this button instance (for chaining)
          * @throws NullPointerException if the lore is or contains {@code null}.
-         * @since 1.0
+         * @since 0.1
          */
         Builder lore(Component... lore);
 
@@ -182,7 +182,7 @@ public interface Button {
          * @param lore the lore
          * @return this button instance (for chaining)
          * @throws NullPointerException if the lore is or contains {@code null}.
-         * @since 1.0
+         * @since 0.1
          */
         Builder lore(List<Component> lore);
 
@@ -193,7 +193,7 @@ public interface Button {
          * @return this button instance (for chaining)
          * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
          * {@code 64}.
-         * @since 1.0
+         * @since 0.1
          */
         Builder amount(int amount);
 
@@ -203,7 +203,7 @@ public interface Button {
          * @param item the item type
          * @return the new button
          * @throws NullPointerException if the item type is {@code null}.
-         * @since 1.0
+         * @since 0.1
          */
         Button type(ItemType item);
     }
