@@ -33,6 +33,7 @@ public record Slot(int column, int row) {
      *
      * @param column the column of the slot
      * @param row the row of the slot
+     * @return the newly created slot
      * @throws IllegalArgumentException if either the column is less than 0 or greater than 8
      * or the row is less than 0 or greater than 5
      * @see #Slot(int, int)
