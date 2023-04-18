@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jspecify.nullness.NullMarked;
 import sun.misc.Unsafe;
 
@@ -16,9 +17,10 @@ public interface PaperVision extends Vision {
      * Creates a new paper gui manager.
      *
      * @return the newly created paper gui manager
+     * @throws NullPointerException if the plugin is {@code null}.
      * @since 0.1
      */
-    static PaperVision create() {
+    static PaperVision create(final Plugin plugin) {
         
         return null;
     }
@@ -28,6 +30,7 @@ public interface PaperVision extends Vision {
      *
      * @param player the player
      * @param gui the GUI
+     * @throws NullPointerException if the player or the GUI is {@code null}.
      * @since 0.1
      */
     void open(Player player, Gui gui);
