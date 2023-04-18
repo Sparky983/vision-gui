@@ -1,3 +1,6 @@
 rootProject.name = "vision-gui"
 
-sequenceOf("vision-api").forEach { include(it) }
+sequenceOf(
+    "vision-api",
+    "vision-paper"
+).forEach { include(it) }
