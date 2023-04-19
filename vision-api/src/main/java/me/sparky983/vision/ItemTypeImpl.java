@@ -11,7 +11,7 @@ import java.util.Optional;
  * The default implementation of {@link ItemType}.
  */
 @NullMarked
-record ItemTypeImpl(@Override Key key) implements ItemType {
+record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
 
     private static final HashMap<Key, ItemType> itemTypes = new HashMap<>();
 
@@ -19,6 +19,7 @@ record ItemTypeImpl(@Override Key key) implements ItemType {
      * Constructs a new {@code ItemTypeImpl}.
      *
      * @param key the key
+     * @param isBlock whether the item type is a block
      * @throws NullPointerException if the key is {@code null}
      */
     ItemTypeImpl {
@@ -30,12 +31,13 @@ record ItemTypeImpl(@Override Key key) implements ItemType {
      * Creates a new {@link ItemType} for the given {@link Key}.
      *
      * @param key the key
+     * @param isBlock whether the item type is a block
      * @return the new item type
      * @throws NullPointerException if the key is {@code null}.
      */
-    static ItemType of(final Key key) {
+    static ItemType of(final Key key, final boolean isBlock) {
 
-        final ItemType item = new ItemTypeImpl(key);
+        final ItemType item = new ItemTypeImpl(key, isBlock);
         itemTypes.put(key, item);
         return item;
     }
