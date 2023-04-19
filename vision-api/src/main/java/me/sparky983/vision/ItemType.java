@@ -2,6 +2,7 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
+import net.kyori.adventure.translation.Translatable;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @NullMarked
-public sealed interface ItemType extends Keyed permits ItemTypeImpl {
+public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImpl {
 
     // <editor-fold desc="ItemTypes" defaultstate="collapsed">
     // @formatter:off

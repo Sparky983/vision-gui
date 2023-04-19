@@ -20,7 +20,7 @@ class ItemTypeTest {
                 Arguments.of(ItemType.STONE, Key.key("minecraft", "stone")),
                 Arguments.of(ItemType.GRANITE, Key.key("minecraft", "granite")),
                 Arguments.of(ItemType.DIORITE, Key.key("minecraft", "diorite")),
-                Arguments.of(ItemType.ANDESITE, Key.key("minecraft", "andesite")),
+                Arguments.of(ItemType.DIAMOND_SWORD, Key.key("minecraft", "diamond_sword")),
                 Arguments.of(ItemType.COPPER_ORE, Key.key("minecraft", "copper_ore"))
         );
     }
@@ -30,6 +30,24 @@ class ItemTypeTest {
     void testItemTypeHasKey(final ItemType itemType, final Key key) {
 
         assertEquals(key, itemType.key());
+    }
+
+    static List<Arguments> provideItemTypesAndName() {
+
+        return List.of(
+                Arguments.of(ItemType.STONE, "block.minecraft.stone"),
+                Arguments.of(ItemType.GRANITE, "block.minecraft.granite"),
+                Arguments.of(ItemType.DIORITE, "block.minecraft.diorite"),
+                Arguments.of(ItemType.DIAMOND_SWORD, "item.minecraft.diamond_sword"),
+                Arguments.of(ItemType.COPPER_ORE, "block.minecraft.copper_ore")
+        );
+    }
+
+    @MethodSource("provideItemTypesAndName")
+    @ParameterizedTest
+    void testItemTranslationKey(final ItemType itemType, final String translationKey) {
+
+        assertEquals(translationKey, itemType.translationKey());
     }
 
     @SuppressWarnings("ConstantConditions")
