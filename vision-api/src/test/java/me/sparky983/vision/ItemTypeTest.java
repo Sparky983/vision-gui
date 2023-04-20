@@ -54,7 +54,10 @@ class ItemTypeTest {
     @Test
     void testFindByKeyWhenKeyIsNull() {
 
-        assertThrows(NullPointerException.class, () -> ItemType.findByKey(null));
+        final Exception e =
+                assertThrows(NullPointerException.class, () -> ItemType.findByKey(null));
+
+        assertEquals("key cannot be null", e.getMessage());
     }
 
     @Test
