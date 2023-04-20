@@ -35,7 +35,7 @@ class SlotTest {
         final Exception e =
                 assertThrows(IllegalArgumentException.class, () -> new Slot(0, row));
 
-        assertEquals("Slot must be between 0 and 5", e.getMessage());
+        assertEquals("Row must be between 0 and 5", e.getMessage());
     }
 
     @ValueSource(ints = {6, 10, Integer.MAX_VALUE})
@@ -45,7 +45,7 @@ class SlotTest {
         final Exception e =
                 assertThrows(IllegalArgumentException.class, () -> new Slot(0, row));
 
-        assertEquals("Slot must be between 0 and 5", e.getMessage());
+        assertEquals("Row must be between 0 and 5", e.getMessage());
     }
 
     @Test
@@ -89,7 +89,7 @@ class SlotTest {
         final Exception e =
                 assertThrows(IllegalArgumentException.class, () -> Slot.of(0, row));
 
-        assertEquals("Slot must be between 0 and 5", e.getMessage());
+        assertEquals("Row must be between 0 and 5", e.getMessage());
     }
 
     @ValueSource(ints = {6, 10, Integer.MAX_VALUE})
@@ -99,7 +99,7 @@ class SlotTest {
         final Exception e =
                 assertThrows(IllegalArgumentException.class, () -> Slot.of(0, row));
 
-        assertEquals("Slot must be between 0 and 5", e.getMessage());
+        assertEquals("Row must be between 0 and 5", e.getMessage());
     }
 
     @Test
