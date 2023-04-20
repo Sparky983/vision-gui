@@ -21,12 +21,12 @@ public record Slot(int column, int row) {
 
         if (column < 0 || column > 8) {
 
-            throw new IllegalArgumentException("Column must be between 0 and 8");
+            throw new IllegalArgumentException("column must be between 0 and 8");
         }
 
         if (row < 0 || row > 5) {
 
-            throw new IllegalArgumentException("Row must be between 0 and 5");
+            throw new IllegalArgumentException("row must be between 0 and 5");
         }
     }
 
