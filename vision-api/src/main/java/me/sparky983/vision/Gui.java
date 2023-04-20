@@ -62,7 +62,7 @@ public interface Gui {
     /**
      * Gets the title of this GUI.
      * <p>
-     * If the GUI is untitled, the returned component will match Minecraft's default GUI title
+     * If this GUI is untitled, the returned component will match Minecraft's default GUI title
      * which is usually a translatable component of the form {@literal "container.<container>"}.
      *
      * @return the title of this GUI

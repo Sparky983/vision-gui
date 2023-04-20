@@ -53,6 +53,10 @@ public interface Button {
 
     /**
      * Gets the name of this button.
+     * <p>
+     * If this button is untitled, the returned component will match Minecraft's default item name
+     * which is usually a translatable component of the form {@literal "item.minecraft.<item_id>}
+     * or {@code literal "block.minecraft.<item_id>}.
      *
      * @return the name of this button
      * @since 0.1
