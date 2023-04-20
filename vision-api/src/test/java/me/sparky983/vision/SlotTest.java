@@ -13,27 +13,39 @@ class SlotTest {
     @ParameterizedTest
     void testNewSlotWhenColumnIsLessThanZero(final int column) {
 
-        assertThrows(IllegalArgumentException.class, () -> new Slot(column, 0));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> new Slot(column, 0));
+
+        assertEquals("Column must be between 0 and 8", e.getMessage());
     }
 
     @ValueSource(ints = {9, 10, Integer.MAX_VALUE})
     @ParameterizedTest
     void testNewSlotWhenColumnIsGreaterThanEight(final int column) {
 
-        assertThrows(IllegalArgumentException.class, () -> new Slot(column, 0));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> new Slot(column, 0));
+
+        assertEquals("Column must be between 0 and 8", e.getMessage());
     }
 
     @ValueSource(ints = {-1, -10, Integer.MIN_VALUE})
     void testNewSlotWhenRowIsLessThanZero(final int row) {
 
-        assertThrows(IllegalArgumentException.class, () -> new Slot(0, row));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> new Slot(0, row));
+
+        assertEquals("Slot must be between 0 and 5", e.getMessage());
     }
 
     @ValueSource(ints = {6, 10, Integer.MAX_VALUE})
     @ParameterizedTest
     void testNewSlotWhenRowIsGreaterThanFive(final int row) {
 
-        assertThrows(IllegalArgumentException.class, () -> new Slot(0, row));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> new Slot(0, row));
+
+        assertEquals("Slot must be between 0 and 5", e.getMessage());
     }
 
     @Test
@@ -55,27 +67,39 @@ class SlotTest {
     @ParameterizedTest
     void testSlotOfWhenColumnIsLessThanZero(final int column) {
 
-        assertThrows(IllegalArgumentException.class, () -> Slot.of(column, 0));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> Slot.of(column, 0));
+
+        assertEquals("Column must be between 0 and 8", e.getMessage());
     }
 
     @ValueSource(ints = {9, 10, Integer.MAX_VALUE})
     @ParameterizedTest
     void testSlotOfWhenColumnIsGreaterThanEight(final int column) {
 
-        assertThrows(IllegalArgumentException.class, () -> Slot.of(column, 0));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> Slot.of(column, 0));
+
+        assertEquals("Column must be between 0 and 8", e.getMessage());
     }
 
     @ValueSource(ints = {-1, -10, Integer.MIN_VALUE})
     void testSlotOfWhenRowIsLessThanZero(final int row) {
 
-        assertThrows(IllegalArgumentException.class, () -> Slot.of(0, row));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> Slot.of(0, row));
+
+        assertEquals("Slot must be between 0 and 5", e.getMessage());
     }
 
     @ValueSource(ints = {6, 10, Integer.MAX_VALUE})
     @ParameterizedTest
     void testSlotOfWhenRowIsGreaterThanFive(final int row) {
 
-        assertThrows(IllegalArgumentException.class, () -> Slot.of(0, row));
+        final Exception e =
+                assertThrows(IllegalArgumentException.class, () -> Slot.of(0, row));
+
+        assertEquals("Slot must be between 0 and 5", e.getMessage());
     }
 
     @Test
