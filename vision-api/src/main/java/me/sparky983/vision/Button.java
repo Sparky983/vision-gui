@@ -26,7 +26,7 @@ public interface Button {
      */
     static Builder button() {
 
-        return null;
+        return new ButtonImpl.BuilderImpl();
     }
 
     /**
@@ -39,7 +39,7 @@ public interface Button {
      */
     static Button of(final ItemType type) {
 
-        return null;
+        return button().type(type);
     }
 
     /**
