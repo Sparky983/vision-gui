@@ -96,7 +96,7 @@ class GuiImplTest {
             final Gui gui = Gui.gui().rows(1);
             final Button button = Button.of(ItemType.STONE);
 
-            gui.button(Slot.of(0, 0), button);
+            assertEquals(gui, gui.button(Slot.of(0, 0), button));
 
             assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
         }
@@ -227,7 +227,7 @@ class GuiImplTest {
             final Gui gui = Gui.gui(null, 1);
             final Button button = Button.of(ItemType.STONE);
 
-            gui.button(Slot.of(0, 0), button);
+            assertEquals(gui, gui.button(Slot.of(0, 0), button));
 
             assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
         }
@@ -311,7 +311,7 @@ class GuiImplTest {
             final Gui gui = Gui.gui(1);
             final Button button = Button.of(ItemType.STONE);
 
-            gui.button(Slot.of(0, 0), button);
+            assertEquals(gui, gui.button(Slot.of(0, 0), button));
 
             assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
         }
