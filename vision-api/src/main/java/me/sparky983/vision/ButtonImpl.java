@@ -20,9 +20,9 @@ final class ButtonImpl implements Button {
     private int amount;
 
     private ButtonImpl(final ItemType type,
-               final @Nullable Component name,
-               final List<Component> lore,
-               final int amount) {
+                       final @Nullable Component name,
+                       final List<Component> lore,
+                       final int amount) {
 
         assert type != null;
         assert lore != null;
@@ -48,15 +48,15 @@ final class ButtonImpl implements Button {
         if (name != null) {
             return name;
         }
-        
+
         return Component.translatable(type.translationKey());
     }
 
     @Override
     public Button lore(final Component... lore) {
-        
+
         Objects.requireNonNull(lore, "lore cannot be null");
-        
+
         return lore(Arrays.asList(lore));
     }
 
@@ -85,7 +85,7 @@ final class ButtonImpl implements Button {
         if (amount <= 0 || amount > 64) {
             throw new IllegalArgumentException("amount must be between 1 and 64");
         }
-        
+
         this.amount = amount;
         return this;
     }
@@ -107,14 +107,14 @@ final class ButtonImpl implements Button {
 
     @Override
     public ItemType type() {
-        
+
         return type;
     }
 
     /**
      * The default implementation of {@link Button.Builder}.
      *
-     * @see Button#button() 
+     * @see Button#button()
      */
     static final class BuilderImpl implements Builder {
 
@@ -167,7 +167,7 @@ final class ButtonImpl implements Button {
         public Button type(final ItemType item) {
 
             Objects.requireNonNull(item, "type cannot be null");
-            
+
             return new ButtonImpl(
                     item,
                     name,

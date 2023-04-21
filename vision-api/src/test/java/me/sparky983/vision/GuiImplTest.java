@@ -295,7 +295,9 @@ class GuiImplTest {
                 "8, 5, 5"
         })
         @ParameterizedTest
-        void testButtonWhenSlotIsOutOfRange(final int slotColumn, final int slotRow, final int guiRows) {
+        void testButtonWhenSlotIsOutOfRange(final int slotColumn,
+                                            final int slotRow,
+                                            final int guiRows) {
 
             final Gui gui = Gui.gui(guiRows);
 
