@@ -133,17 +133,6 @@ public interface Gui {
         Builder title(Component title);
 
         /**
-         * Specifies the button at the specified slot of the GUI.
-         *
-         * @param slot the slot
-         * @param button the button
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the slot or button is {@code null}.
-         * @since 0.1
-         */
-        Builder button(Slot slot, Button button);
-
-        /**
          * Specifies the amount of rows of the GUI and returns the built GUI.
          *
          * @param rows the amount of rows
