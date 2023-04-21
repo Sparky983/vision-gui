@@ -1113,6 +1113,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType BROWN_WOOL = block(Key.key("brown_wool"));
 
     /**
+     * The minecraft:brush item type.
+     *
+     * @since 0.1
+     */
+    ItemType BRUSH = item(Key.key("brush"));
+
+    /**
      * The minecraft:bubble_coral item type.
      *
      * @since 0.1
@@ -1295,6 +1302,125 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType CHARCOAL = item(Key.key("charcoal"));
 
     /**
+     * The minecraft:cherry_boat item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_BOAT = item(Key.key("cherry_boat"));
+
+    /**
+     * The minecraft:cherry_button item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_BUTTON = block(Key.key("cherry_button"));
+
+    /**
+     * The minecraft:cherry_chest_boat item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_CHEST_BOAT = item(Key.key("cherry_chest_boat"));
+
+    /**
+     * The minecraft:cherry_door item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_DOOR = block(Key.key("cherry_door"));
+
+    /**
+     * The minecraft:cherry_fence item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_FENCE = block(Key.key("cherry_fence"));
+
+    /**
+     * The minecraft:cherry_fence_gate item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_FENCE_GATE = block(Key.key("cherry_fence_gate"));
+
+    /**
+     * The minecraft:cherry_hanging_sign item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_HANGING_SIGN = block(Key.key("cherry_hanging_sign"));
+
+    /**
+     * The minecraft:cherry_leaves item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_LEAVES = block(Key.key("cherry_leaves"));
+
+    /**
+     * The minecraft:cherry_log item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_LOG = block(Key.key("cherry_log"));
+
+    /**
+     * The minecraft:cherry_planks item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_PLANKS = block(Key.key("cherry_planks"));
+
+    /**
+     * The minecraft:cherry_pressure_plate item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_PRESSURE_PLATE = block(Key.key("cherry_pressure_plate"));
+
+    /**
+     * The minecraft:cherry_sapling item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_SAPLING = block(Key.key("cherry_sapling"));
+
+    /**
+     * The minecraft:cherry_sign item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_SIGN = block(Key.key("cherry_sign"));
+
+    /**
+     * The minecraft:cherry_slab item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_SLAB = block(Key.key("cherry_slab"));
+
+    /**
+     * The minecraft:cherry_stairs item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_STAIRS = block(Key.key("cherry_stairs"));
+
+    /**
+     * The minecraft:cherry_trapdoor item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_TRAPDOOR = block(Key.key("cherry_trapdoor"));
+
+    /**
+     * The minecraft:cherry_wood item type.
+     *
+     * @since 0.1
+     */
+    ItemType CHERRY_WOOD = block(Key.key("cherry_wood"));
+
+    /**
      * The minecraft:chest item type.
      *
      * @since 0.1
@@ -1454,6 +1580,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType COARSE_DIRT = block(Key.key("coarse_dirt"));
+
+    /**
+     * The minecraft:coast_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType COAST_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("coast_armor_trim_smithing_template"));
 
     /**
      * The minecraft:cobbled_deepslate item type.
@@ -2289,6 +2422,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType DEBUG_STICK = item(Key.key("debug_stick"));
 
     /**
+     * The minecraft:decorated_pot item type.
+     *
+     * @since 0.1
+     */
+    ItemType DECORATED_POT = block(Key.key("decorated_pot"));
+
+    /**
      * The minecraft:deepslate item type.
      *
      * @since 0.1
@@ -2632,6 +2772,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType DROWNED_SPAWN_EGG = item(Key.key("drowned_spawn_egg"));
 
     /**
+     * The minecraft:dune_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType DUNE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("dune_armor_trim_smithing_template"));
+
+    /**
      * The minecraft:echo_shard item type.
      *
      * @since 0.1
@@ -2840,6 +2987,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType EXPOSED_CUT_COPPER_STAIRS = block(Key.key("exposed_cut_copper_stairs"));
+
+    /**
+     * The minecraft:eye_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType EYE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("eye_armor_trim_smithing_template"));
 
     /**
      * The minecraft:farmland item type.
@@ -5152,6 +5306,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType NETHERITE_SWORD = item(Key.key("netherite_sword"));
 
     /**
+     * The minecraft:netherite_upgrade_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType NETHERITE_UPGRADE_SMITHING_TEMPLATE = item(Key.key("netherite_upgrade_smithing_template"));
+
+    /**
      * The minecraft:netherrack item type.
      *
      * @since 0.1
@@ -5621,6 +5782,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType PINK_GLAZED_TERRACOTTA = block(Key.key("pink_glazed_terracotta"));
 
     /**
+     * The minecraft:pink_petals item type.
+     *
+     * @since 0.1
+     */
+    ItemType PINK_PETALS = block(Key.key("pink_petals"));
+
+    /**
      * The minecraft:pink_shulker_box item type.
      *
      * @since 0.1
@@ -5906,6 +6074,34 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType POTION = item(Key.key("potion"));
+
+    /**
+     * The minecraft:pottery_shard_archer item type.
+     *
+     * @since 0.1
+     */
+    ItemType POTTERY_SHARD_ARCHER = item(Key.key("pottery_shard_archer"));
+
+    /**
+     * The minecraft:pottery_shard_arms_up item type.
+     *
+     * @since 0.1
+     */
+    ItemType POTTERY_SHARD_ARMS_UP = item(Key.key("pottery_shard_arms_up"));
+
+    /**
+     * The minecraft:pottery_shard_prize item type.
+     *
+     * @since 0.1
+     */
+    ItemType POTTERY_SHARD_PRIZE = item(Key.key("pottery_shard_prize"));
+
+    /**
+     * The minecraft:pottery_shard_skull item type.
+     *
+     * @since 0.1
+     */
+    ItemType POTTERY_SHARD_SKULL = item(Key.key("pottery_shard_skull"));
 
     /**
      * The minecraft:powder_snow_bucket item type.
@@ -6524,6 +6720,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType RESPAWN_ANCHOR = block(Key.key("respawn_anchor"));
 
     /**
+     * The minecraft:rib_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType RIB_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("rib_armor_trim_smithing_template"));
+
+    /**
      * The minecraft:rooted_dirt item type.
      *
      * @since 0.1
@@ -6676,6 +6879,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType SEAGRASS = block(Key.key("seagrass"));
+
+    /**
+     * The minecraft:sentry_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("sentry_armor_trim_smithing_template"));
 
     /**
      * The minecraft:shears item type.
@@ -6895,6 +7105,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType SMOOTH_STONE_SLAB = block(Key.key("smooth_stone_slab"));
 
     /**
+     * The minecraft:sniffer_spawn_egg item type.
+     *
+     * @since 0.1
+     */
+    ItemType SNIFFER_SPAWN_EGG = item(Key.key("sniffer_spawn_egg"));
+
+    /**
+     * The minecraft:snout_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("snout_armor_trim_smithing_template"));
+
+    /**
      * The minecraft:snow item type.
      *
      * @since 0.1
@@ -6984,6 +7208,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType SPIDER_SPAWN_EGG = item(Key.key("spider_spawn_egg"));
+
+    /**
+     * The minecraft:spire_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("spire_armor_trim_smithing_template"));
 
     /**
      * The minecraft:splash_potion item type.
@@ -7315,6 +7546,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType STRIPPED_BIRCH_WOOD = block(Key.key("stripped_birch_wood"));
 
     /**
+     * The minecraft:stripped_cherry_log item type.
+     *
+     * @since 0.1
+     */
+    ItemType STRIPPED_CHERRY_LOG = block(Key.key("stripped_cherry_log"));
+
+    /**
+     * The minecraft:stripped_cherry_wood item type.
+     *
+     * @since 0.1
+     */
+    ItemType STRIPPED_CHERRY_WOOD = block(Key.key("stripped_cherry_wood"));
+
+    /**
      * The minecraft:stripped_crimson_hyphae item type.
      *
      * @since 0.1
@@ -7448,6 +7693,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType SUNFLOWER = block(Key.key("sunflower"));
 
     /**
+     * The minecraft:suspicious_sand item type.
+     *
+     * @since 0.1
+     */
+    ItemType SUSPICIOUS_SAND = block(Key.key("suspicious_sand"));
+
+    /**
      * The minecraft:suspicious_stew item type.
      *
      * @since 0.1
@@ -7497,6 +7749,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType TERRACOTTA = block(Key.key("terracotta"));
 
     /**
+     * The minecraft:tide_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType TIDE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("tide_armor_trim_smithing_template"));
+
+    /**
      * The minecraft:tinted_glass item type.
      *
      * @since 0.1
@@ -7530,6 +7789,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType TORCH = block(Key.key("torch"));
+
+    /**
+     * The minecraft:torchflower item type.
+     *
+     * @since 0.1
+     */
+    ItemType TORCHFLOWER = block(Key.key("torchflower"));
+
+    /**
+     * The minecraft:torchflower_seeds item type.
+     *
+     * @since 0.1
+     */
+    ItemType TORCHFLOWER_SEEDS = item(Key.key("torchflower_seeds"));
 
     /**
      * The minecraft:totem_of_undying item type.
@@ -7651,6 +7924,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType VERDANT_FROGLIGHT = block(Key.key("verdant_froglight"));
 
     /**
+     * The minecraft:vex_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType VEX_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("vex_armor_trim_smithing_template"));
+
+    /**
      * The minecraft:vex_spawn_egg item type.
      *
      * @since 0.1
@@ -7684,6 +7964,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType WANDERING_TRADER_SPAWN_EGG = item(Key.key("wandering_trader_spawn_egg"));
+
+    /**
+     * The minecraft:ward_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType WARD_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("ward_armor_trim_smithing_template"));
 
     /**
      * The minecraft:warden_spawn_egg item type.
@@ -8090,6 +8377,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     ItemType WHITE_WOOL = block(Key.key("white_wool"));
+
+    /**
+     * The minecraft:wild_armor_trim_smithing_template item type.
+     *
+     * @since 0.1
+     */
+    ItemType WILD_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("wild_armor_trim_smithing_template"));
 
     /**
      * The minecraft:witch_spawn_egg item type.
