@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * The default implementation of {@link Gui}.
+ */
 @NullMarked
 final class GuiImpl implements Gui {
 
@@ -61,7 +64,12 @@ final class GuiImpl implements Gui {
 
         return Optional.ofNullable(slots.get(slot));
     }
-    
+
+    /**
+     * The default implementation of {@link Gui.Builder}.
+     *
+     * @see Gui#gui()
+     */
     static final class BuilderImpl implements Builder {
 
         private @Nullable Component title;

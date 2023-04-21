@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The default implementation of {@link Button}.
+ */
 @NullMarked
 final class ButtonImpl implements Button {
 
@@ -108,6 +111,11 @@ final class ButtonImpl implements Button {
         return type;
     }
 
+    /**
+     * The default implementation of {@link Button.Builder}.
+     *
+     * @see Button#button() 
+     */
     static final class BuilderImpl implements Builder {
 
         private @Nullable Component name;
