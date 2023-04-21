@@ -99,7 +99,7 @@ public interface Gui {
      * @throws NullPointerException if the slot is {@code null}.
      * @since 0.1
      */
-    Optional<Gui> button(Slot slot);
+    Optional<Button> button(Slot slot);
 
     /**
      * A typesafe GUI builder.
