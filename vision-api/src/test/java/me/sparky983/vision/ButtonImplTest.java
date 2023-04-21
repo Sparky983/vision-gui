@@ -10,9 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ButtonImplTest {
 
@@ -357,6 +359,80 @@ class ButtonImplTest {
             assertEquals(button, button.type(ItemType.DIRT));
             assertEquals(button.type(), ItemType.DIRT);
         }
+
+        @Test
+        void testEqualsWhenOtherIsDifferent() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("different name"))
+                    .amount(1)
+                    .type(ItemType.DIAMOND);
+
+            final boolean equal = button.equals(other);
+
+            assertFalse(equal);
+        }
+
+        @Test
+        void testEqualsWhenOtherIsEqual() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final boolean equal = button.equals(other);
+
+            assertTrue(equal);
+        }
+
+        @Test
+        void testHashcodeWhenOtherIsDifferent() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("different name"))
+                    .amount(1)
+                    .type(ItemType.DIAMOND);
+
+            assertNotEquals(other.hashCode(), button.hashCode());
+        }
+
+        @Test
+        void testHashcodeWhenOtherIsEqual() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            assertEquals(other.hashCode(), button.hashCode());
+        }
     }
 
     @Nested
@@ -537,6 +613,68 @@ class ButtonImplTest {
 
             assertEquals(button, button.type(ItemType.DIRT));
             assertEquals(button.type(), ItemType.DIRT);
+        }
+
+        @Test
+        void testEqualsWhenOtherIsDifferent() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"));
+
+            final Button other = Button.of(ItemType.DIAMOND)
+                    .lore(Component.text("lore"))
+                    .amount(64);
+
+            final boolean equal = button.equals(other);
+
+            assertFalse(equal);
+        }
+
+        @Test
+        void testEqualsWhenOtherIsEqual() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final Button other = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final boolean equal = button.equals(other);
+
+            assertTrue(equal);
+        }
+
+        @Test
+        void testHashcodeWhenOtherIsDifferent() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"));
+
+            final Button other = Button.of(ItemType.DIAMOND)
+                    .lore(Component.text("lore"))
+                    .amount(64);
+
+            assertNotEquals(other.hashCode(), button.hashCode());
+        }
+
+        @Test
+        void testHashcodeWhenOtherIsEqual() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final Button other = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            assertEquals(other.hashCode(), button.hashCode());
         }
     }
 }

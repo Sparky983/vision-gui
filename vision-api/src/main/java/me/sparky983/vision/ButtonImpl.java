@@ -97,6 +97,29 @@ final class ButtonImpl implements Button {
     }
 
     @Override
+    public boolean equals(final Object other) {
+
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof Button button)) {
+            return false;
+        }
+
+        return type() == button.type() &&
+                name().equals(button.name()) &&
+                lore().equals(button.lore()) &&
+                amount() == button.amount();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(type(), name(), lore(), amount());
+    }
+
+    @Override
     public Button type(final ItemType type) {
 
         Objects.requireNonNull(type, "type cannot be null");
