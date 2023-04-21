@@ -28,6 +28,7 @@ class SlotTest {
         }
 
         @ValueSource(ints = { -1, -10, Integer.MIN_VALUE })
+        @ParameterizedTest
         void testNewSlotWhenRowIsLessThanZero(final int row) {
 
                 final Exception e = assertThrows(IllegalArgumentException.class, () -> new Slot(0, row));
@@ -78,6 +79,7 @@ class SlotTest {
         }
 
         @ValueSource(ints = { -1, -10, Integer.MIN_VALUE })
+        @ParameterizedTest
         void testSlotOfWhenRowIsLessThanZero(final int row) {
 
                 final Exception e = assertThrows(IllegalArgumentException.class, () -> Slot.of(0, row));
