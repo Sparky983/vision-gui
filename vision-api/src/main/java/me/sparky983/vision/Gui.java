@@ -25,7 +25,7 @@ public interface Gui {
      */
     static Builder gui() {
 
-        return null;
+        return new GuiImpl.BuilderImpl();
     }
 
     /**
@@ -41,7 +41,13 @@ public interface Gui {
      */
     static Gui gui(final @Nullable Component title, int rows) {
 
-        return null;
+        final Gui.Builder builder = gui();
+
+        if (title != null) {
+            builder.title(title);
+        }
+
+        return builder.rows(rows);
     }
 
     /**
@@ -54,9 +60,9 @@ public interface Gui {
      * @see #gui(Component, int)
      * @since 0.1
      */
-    static Gui gui(int rows) {
+    static Gui gui(final int rows) {
 
-        return null;
+        return gui(null, rows);
     }
 
     /**
