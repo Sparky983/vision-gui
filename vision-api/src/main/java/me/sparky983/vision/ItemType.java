@@ -147,13 +147,6 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     ItemType ACTIVATOR_RAIL = block(Key.key("activator_rail"));
 
     /**
-     * The minecraft:air item type.
-     *
-     * @since 0.1
-     */
-    ItemType AIR = block(Key.key("air"));
-
-    /**
      * The minecraft:allay_spawn_egg item type.
      *
      * @since 0.1
