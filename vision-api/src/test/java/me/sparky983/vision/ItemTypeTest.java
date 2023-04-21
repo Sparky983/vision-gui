@@ -25,13 +25,6 @@ class ItemTypeTest {
         );
     }
 
-    @MethodSource("provideItemTypesAndKey")
-    @ParameterizedTest
-    void testItemTypeHasKey(final ItemType itemType, final Key key) {
-
-        assertEquals(key, itemType.key());
-    }
-
     static List<Arguments> provideItemTypesAndName() {
 
         return List.of(
@@ -41,6 +34,13 @@ class ItemTypeTest {
                 Arguments.of(ItemType.DIAMOND_SWORD, "item.minecraft.diamond_sword"),
                 Arguments.of(ItemType.COPPER_ORE, "block.minecraft.copper_ore")
         );
+    }
+
+    @MethodSource("provideItemTypesAndKey")
+    @ParameterizedTest
+    void testItemTypeHasKey(final ItemType itemType, final Key key) {
+
+        assertEquals(key, itemType.key());
     }
 
     @MethodSource("provideItemTypesAndName")

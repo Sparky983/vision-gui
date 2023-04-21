@@ -17,7 +17,7 @@ class GuiImplTest {
 
     @Nested
     class Builder {
-        
+
         @SuppressWarnings("ConstantConditions")
         @Test
         void testBuilderTitleWhenTitleIsNull() {
@@ -80,7 +80,9 @@ class GuiImplTest {
                 "8, 5, 5"
         })
         @ParameterizedTest
-        void testButtonWhenSlotIsOutOfRange(final int slotColumn, final int slotRow, final int guiRows) {
+        void testButtonWhenSlotIsOutOfRange(final int slotColumn,
+                                            final int slotRow,
+                                            final int guiRows) {
 
             final Gui gui = Gui.gui().rows(guiRows);
 
@@ -101,7 +103,7 @@ class GuiImplTest {
             assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
         }
 
-        @ValueSource(ints = { 0, -1, Integer.MIN_VALUE })
+        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
         @ParameterizedTest
         void testBuilderRowsWhenRowsIsLessThan1(final int rows) {
 
@@ -112,7 +114,7 @@ class GuiImplTest {
             assertEquals("rows must be between 1 and 6", e.getMessage());
         }
 
-        @ValueSource(ints = { 7, 8, Integer.MAX_VALUE })
+        @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
         @ParameterizedTest
         void testBuilderRowsWhenRowsIsGreaterThan6(final int rows) {
 
@@ -123,7 +125,7 @@ class GuiImplTest {
             assertEquals("rows must be between 1 and 6", e.getMessage());
         }
 
-        @ValueSource(ints = { 1, 2, 4, 5, 6 })
+        @ValueSource(ints = {1, 2, 4, 5, 6})
         @ParameterizedTest
         void testBuilderRows(final int rows) {
 
@@ -152,7 +154,7 @@ class GuiImplTest {
             assertEquals(Component.text("awesome title"), gui.title());
         }
 
-        @ValueSource(ints = { 0, -1, Integer.MIN_VALUE })
+        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
         @ParameterizedTest
         void testGuiWhenRowsIsLessThan1(final int rows) {
 
@@ -161,7 +163,7 @@ class GuiImplTest {
             assertEquals("rows must be between 1 and 6", e.getMessage());
         }
 
-        @ValueSource(ints = { 7, 8, Integer.MAX_VALUE })
+        @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
         @ParameterizedTest
         void testGuiWhenRowsIsGreaterThan6(final int rows) {
 
@@ -170,7 +172,7 @@ class GuiImplTest {
             assertEquals("rows must be between 1 and 6", e.getMessage());
         }
 
-        @ValueSource(ints = { 1, 2, 4, 5, 6 })
+        @ValueSource(ints = {1, 2, 4, 5, 6})
         @ParameterizedTest
         void testGuiRows(final int rows) {
 
@@ -211,7 +213,9 @@ class GuiImplTest {
                 "8, 5, 5"
         })
         @ParameterizedTest
-        void testButtonWhenSlotIsOutOfRange(final int slotColumn, final int slotRow, final int guiRows) {
+        void testButtonWhenSlotIsOutOfRange(final int slotColumn,
+                                            final int slotRow,
+                                            final int guiRows) {
 
             final Gui gui = Gui.gui(null, guiRows);
 
@@ -236,7 +240,7 @@ class GuiImplTest {
     @Nested
     class GuiRows {
 
-        @ValueSource(ints = { 0, -1, Integer.MIN_VALUE })
+        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
         @ParameterizedTest
         void testGuiWhenRowsIsLessThan1(final int rows) {
 
@@ -245,7 +249,7 @@ class GuiImplTest {
             assertEquals("rows must be between 1 and 6", e.getMessage());
         }
 
-        @ValueSource(ints = { 7, 8, Integer.MAX_VALUE })
+        @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
         @ParameterizedTest
         void testGuiWhenRowsIsGreaterThan6(final int rows) {
 
@@ -254,7 +258,7 @@ class GuiImplTest {
             assertEquals("rows must be between 1 and 6", e.getMessage());
         }
 
-        @ValueSource(ints = { 1, 2, 4, 5, 6 })
+        @ValueSource(ints = {1, 2, 4, 5, 6})
         @ParameterizedTest
         void testGuiRows(final int rows) {
 
