@@ -97,6 +97,21 @@ final class ButtonImpl implements Button {
     }
 
     @Override
+    public Button type(final ItemType type) {
+
+        Objects.requireNonNull(type, "type cannot be null");
+
+        this.type = type;
+        return this;
+    }
+
+    @Override
+    public ItemType type() {
+
+        return type;
+    }
+
+    @Override
     public boolean equals(final Object other) {
 
         if (this == other) {
@@ -120,18 +135,11 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public Button type(final ItemType type) {
+    public boolean equalsIgnoreAmount(final Button other) {
 
-        Objects.requireNonNull(type, "type cannot be null");
-
-        this.type = type;
-        return this;
-    }
-
-    @Override
-    public ItemType type() {
-
-        return type;
+        return type() == other.type() &&
+                name().equals(other.name()) &&
+                lore().equals(other.lore());
     }
 
     /**

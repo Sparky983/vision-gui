@@ -361,6 +361,85 @@ class ButtonImplTest {
         }
 
         @Test
+        void testEqualsIgnoreAmountWhenOtherIsEqualWithDifferentAmount() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(1)
+                    .type(ItemType.STONE);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertTrue(equal);
+        }
+
+        @Test
+        void testEqualsIgnoreAmountWhenOtherIsEqual() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertTrue(equal);
+        }
+
+        @Test
+        void testEqualsIgnoreAmountWhenOtherHasDifferentAmount() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(1)
+                    .type(ItemType.STONE);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertFalse(equal);
+        }
+
+        @Test
+        void testEqualsIgnoreAmountWhenOtherIsDifferent() {
+
+            final Button button = Button.button()
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5)
+                    .type(ItemType.STONE);
+
+            final Button other = Button.button()
+                    .name(Component.text("different name"))
+                    .amount(5)
+                    .type(ItemType.DIAMOND);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertFalse(equal);
+        }
+
+        @Test
         void testEqualsWhenOtherIsDifferent() {
 
             final Button button = Button.button()
@@ -613,6 +692,77 @@ class ButtonImplTest {
 
             assertEquals(button, button.type(ItemType.DIRT));
             assertEquals(button.type(), ItemType.DIRT);
+        }
+
+        @Test
+        void testEqualsIgnoreAmountWhenOtherIsEqualWithDifferentAmount() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final Button other = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(1);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertTrue(equal);
+        }
+
+        @Test
+        void testEqualsIgnoreAmountWhenOtherIsEqual() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final Button other = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertTrue(equal);
+        }
+
+        @Test
+        void testEqualsIgnoreAmountWhenOtherHasDifferentAmount() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final Button other = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(1);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertFalse(equal);
+        }
+
+        @Test
+        void testEqualsIgnoreAmountWhenOtherIsDifferent() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(Component.text("name"))
+                    .lore(Component.text("line 1"), Component.text("line 2"))
+                    .amount(5);
+
+            final Button other = Button.of(ItemType.STONE)
+                    .name(Component.text("different name"))
+                    .amount(5);
+
+            final boolean equal = button.equalsIgnoreAmount(other);
+
+            assertFalse(equal);
         }
 
         @Test
