@@ -1,7 +1,6 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.key.Key;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.HashMap;
@@ -65,7 +64,7 @@ record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
     }
 
     @Override
-    public @NotNull String translationKey() {
+    public String translationKey() {
 
         final String category = isBlock ? "block." : "item.";
         return category + key.namespace() + "." + key.value().replace('/', '.');
