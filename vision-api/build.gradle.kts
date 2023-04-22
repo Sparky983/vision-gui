@@ -7,6 +7,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly("org.jetbrains:annotations:24.0.1")
     compileOnly("org.jspecify:jspecify:0.2.0")
     // TODO: Update to 0.3.0 when more tools add support
 

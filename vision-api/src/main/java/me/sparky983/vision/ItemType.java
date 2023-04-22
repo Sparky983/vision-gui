@@ -3,6 +3,7 @@ package me.sparky983.vision;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
 import net.kyori.adventure.translation.Translatable;
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Optional;
@@ -67,6 +68,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType ACACIA_HANGING_SIGN = block(Key.key("acacia_hanging_sign"));
 
     /**
@@ -298,6 +300,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_BLOCK = block(Key.key("bamboo_block"));
 
     /**
@@ -305,6 +308,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_BUTTON = block(Key.key("bamboo_button"));
 
     /**
@@ -312,6 +316,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_CHEST_RAFT = item(Key.key("bamboo_chest_raft"));
 
     /**
@@ -319,6 +324,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_DOOR = block(Key.key("bamboo_door"));
 
     /**
@@ -326,6 +332,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_FENCE = block(Key.key("bamboo_fence"));
 
     /**
@@ -333,6 +340,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_FENCE_GATE = block(Key.key("bamboo_fence_gate"));
 
     /**
@@ -340,6 +348,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_HANGING_SIGN = block(Key.key("bamboo_hanging_sign"));
 
     /**
@@ -347,6 +356,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_MOSAIC = block(Key.key("bamboo_mosaic"));
 
     /**
@@ -354,6 +364,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_MOSAIC_SLAB = block(Key.key("bamboo_mosaic_slab"));
 
     /**
@@ -361,6 +372,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_MOSAIC_STAIRS = block(Key.key("bamboo_mosaic_stairs"));
 
     /**
@@ -368,6 +380,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_PLANKS = block(Key.key("bamboo_planks"));
 
     /**
@@ -375,6 +388,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_PRESSURE_PLATE = block(Key.key("bamboo_pressure_plate"));
 
     /**
@@ -382,6 +396,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_RAFT = item(Key.key("bamboo_raft"));
 
     /**
@@ -389,6 +404,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_SIGN = block(Key.key("bamboo_sign"));
 
     /**
@@ -396,6 +412,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_SLAB = block(Key.key("bamboo_slab"));
 
     /**
@@ -403,6 +420,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_STAIRS = block(Key.key("bamboo_stairs"));
 
     /**
@@ -410,6 +428,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BAMBOO_TRAPDOOR = block(Key.key("bamboo_trapdoor"));
 
     /**
@@ -564,6 +583,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BIRCH_HANGING_SIGN = block(Key.key("birch_hanging_sign"));
 
     /**
@@ -1117,6 +1137,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType BRUSH = item(Key.key("brush"));
 
     /**
@@ -1187,6 +1208,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CAMEL_SPAWN_EGG = item(Key.key("camel_spawn_egg"));
 
     /**
@@ -1306,6 +1328,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_BOAT = item(Key.key("cherry_boat"));
 
     /**
@@ -1313,6 +1336,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_BUTTON = block(Key.key("cherry_button"));
 
     /**
@@ -1320,6 +1344,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_CHEST_BOAT = item(Key.key("cherry_chest_boat"));
 
     /**
@@ -1327,6 +1352,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_DOOR = block(Key.key("cherry_door"));
 
     /**
@@ -1334,6 +1360,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_FENCE = block(Key.key("cherry_fence"));
 
     /**
@@ -1341,6 +1368,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_FENCE_GATE = block(Key.key("cherry_fence_gate"));
 
     /**
@@ -1348,6 +1376,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_HANGING_SIGN = block(Key.key("cherry_hanging_sign"));
 
     /**
@@ -1355,6 +1384,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_LEAVES = block(Key.key("cherry_leaves"));
 
     /**
@@ -1362,6 +1392,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_LOG = block(Key.key("cherry_log"));
 
     /**
@@ -1369,6 +1400,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_PLANKS = block(Key.key("cherry_planks"));
 
     /**
@@ -1376,6 +1408,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_PRESSURE_PLATE = block(Key.key("cherry_pressure_plate"));
 
     /**
@@ -1383,6 +1416,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_SAPLING = block(Key.key("cherry_sapling"));
 
     /**
@@ -1390,6 +1424,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_SIGN = block(Key.key("cherry_sign"));
 
     /**
@@ -1397,6 +1432,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_SLAB = block(Key.key("cherry_slab"));
 
     /**
@@ -1404,6 +1440,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_STAIRS = block(Key.key("cherry_stairs"));
 
     /**
@@ -1411,6 +1448,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_TRAPDOOR = block(Key.key("cherry_trapdoor"));
 
     /**
@@ -1418,6 +1456,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHERRY_WOOD = block(Key.key("cherry_wood"));
 
     /**
@@ -1460,6 +1499,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CHISELED_BOOKSHELF = block(Key.key("chiseled_bookshelf"));
 
     /**
@@ -1586,6 +1626,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType COAST_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("coast_armor_trim_smithing_template"));
 
     /**
@@ -1915,6 +1956,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType CRIMSON_HANGING_SIGN = block(Key.key("crimson_hanging_sign"));
 
     /**
@@ -2202,6 +2244,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType DARK_OAK_HANGING_SIGN = block(Key.key("dark_oak_hanging_sign"));
 
     /**
@@ -2426,6 +2469,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType DECORATED_POT = block(Key.key("decorated_pot"));
 
     /**
@@ -2776,6 +2820,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType DUNE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("dune_armor_trim_smithing_template"));
 
     /**
@@ -2993,6 +3038,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType EYE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("eye_armor_trim_smithing_template"));
 
     /**
@@ -4022,6 +4068,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType JUNGLE_HANGING_SIGN = block(Key.key("jungle_hanging_sign"));
 
     /**
@@ -4729,6 +4776,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType MANGROVE_HANGING_SIGN = block(Key.key("mangrove_hanging_sign"));
 
     /**
@@ -5310,6 +5358,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType NETHERITE_UPGRADE_SMITHING_TEMPLATE = item(Key.key("netherite_upgrade_smithing_template"));
 
     /**
@@ -5373,6 +5422,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType OAK_HANGING_SIGN = block(Key.key("oak_hanging_sign"));
 
     /**
@@ -5709,6 +5759,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType PIGLIN_HEAD = block(Key.key("piglin_head"));
 
     /**
@@ -5786,6 +5837,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType PINK_PETALS = block(Key.key("pink_petals"));
 
     /**
@@ -6080,6 +6132,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType POTTERY_SHARD_ARCHER = item(Key.key("pottery_shard_archer"));
 
     /**
@@ -6087,6 +6140,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType POTTERY_SHARD_ARMS_UP = item(Key.key("pottery_shard_arms_up"));
 
     /**
@@ -6094,6 +6148,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType POTTERY_SHARD_PRIZE = item(Key.key("pottery_shard_prize"));
 
     /**
@@ -6101,6 +6156,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType POTTERY_SHARD_SKULL = item(Key.key("pottery_shard_skull"));
 
     /**
@@ -6724,6 +6780,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType RIB_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("rib_armor_trim_smithing_template"));
 
     /**
@@ -6885,6 +6942,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("sentry_armor_trim_smithing_template"));
 
     /**
@@ -7109,6 +7167,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType SNIFFER_SPAWN_EGG = item(Key.key("sniffer_spawn_egg"));
 
     /**
@@ -7116,6 +7175,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("snout_armor_trim_smithing_template"));
 
     /**
@@ -7214,6 +7274,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("spire_armor_trim_smithing_template"));
 
     /**
@@ -7284,6 +7345,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType SPRUCE_HANGING_SIGN = block(Key.key("spruce_hanging_sign"));
 
     /**
@@ -7529,6 +7591,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType STRIPPED_BAMBOO_BLOCK = block(Key.key("stripped_bamboo_block"));
 
     /**
@@ -7550,6 +7613,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType STRIPPED_CHERRY_LOG = block(Key.key("stripped_cherry_log"));
 
     /**
@@ -7557,6 +7621,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType STRIPPED_CHERRY_WOOD = block(Key.key("stripped_cherry_wood"));
 
     /**
@@ -7697,6 +7762,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType SUSPICIOUS_SAND = block(Key.key("suspicious_sand"));
 
     /**
@@ -7753,6 +7819,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType TIDE_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("tide_armor_trim_smithing_template"));
 
     /**
@@ -7795,6 +7862,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType TORCHFLOWER = block(Key.key("torchflower"));
 
     /**
@@ -7802,6 +7870,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType TORCHFLOWER_SEEDS = item(Key.key("torchflower_seeds"));
 
     /**
@@ -7928,6 +7997,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType VEX_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("vex_armor_trim_smithing_template"));
 
     /**
@@ -7970,6 +8040,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType WARD_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("ward_armor_trim_smithing_template"));
 
     /**
@@ -8026,6 +8097,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType WARPED_HANGING_SIGN = block(Key.key("warped_hanging_sign"));
 
     /**
@@ -8383,6 +8455,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      *
      * @since 0.1
      */
+    @ApiStatus.Experimental
     ItemType WILD_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("wild_armor_trim_smithing_template"));
 
     /**
