@@ -216,11 +216,11 @@ public interface Button {
         /**
          * Specifies the type of the button and returns the built button.
          *
-         * @param item the item type
+         * @param type the item type
          * @return the new button
          * @throws NullPointerException if the item type is {@code null}.
          * @since 0.1
          */
-        Button type(ItemType item);
+        Button type(ItemType type);
     }
 }
