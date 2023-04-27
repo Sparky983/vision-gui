@@ -195,12 +195,12 @@ final class ButtonImpl implements Button {
         }
 
         @Override
-        public Button type(final ItemType item) {
+        public Button type(final ItemType type) {
 
-            Objects.requireNonNull(item, "type cannot be null");
+            Objects.requireNonNull(type, "type cannot be null");
 
             return new ButtonImpl(
-                    item,
+                    type,
                     name,
                     lore,
                     amount
