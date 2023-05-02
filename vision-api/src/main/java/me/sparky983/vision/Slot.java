@@ -1,10 +1,13 @@
 package me.sparky983.vision;
 
+import org.jspecify.nullness.NullMarked;
+
 /**
  * Represents a slot inside a {@link Gui}.
  *
  * @since 0.1
  */
+@NullMarked
 public record Slot(int column, int row) {
 
     /**
