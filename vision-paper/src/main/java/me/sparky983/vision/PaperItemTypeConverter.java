@@ -22,6 +22,9 @@ interface PaperItemTypeConverter {
 
     /**
      * Converts the specified {@link Material} to an {@link ItemType}.
+     * <p>
+     * If the given material is {@link Material#AIR} or any legacy material,
+     * {@link Optional#empty()} will be returned.
      *
      * @param material the material
      * @return the item type or {@link Optional#empty()} if the item type could not be found
