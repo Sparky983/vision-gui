@@ -3,7 +3,8 @@ package me.sparky983.vision;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jspecify.nullness.NullMarked;
-import sun.misc.Unsafe;
+
+import java.util.Objects;
 
 /**
  * The paper gui manager.
@@ -21,8 +22,14 @@ public interface PaperVision extends Vision {
      * @since 0.1
      */
     static PaperVision create(final Plugin plugin) {
-        
-        return null;
+
+        Objects.requireNonNull(plugin, "plugin cannot be null");
+
+        return new PaperVisionImpl(
+                new CloningPaperButtonMirror(
+                        new ModernPaperItemTypeConverter()
+                )
+        );
     }
 
     /**
