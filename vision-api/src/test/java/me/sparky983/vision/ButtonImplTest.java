@@ -15,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 class ButtonImplTest {
 
@@ -360,6 +363,60 @@ class ButtonImplTest {
             assertEquals(button.type(), ItemType.DIRT);
         }
 
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testSubscribeWhenSubscriberIsNull() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.subscribe(null));
+            assertEquals("subscriber cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testSubscribe() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+
+            button.subscribe(subscriber);
+
+            button.name(Component.text("name"));
+            verify(subscriber).name(Component.text("name"));
+
+            button.lore(List.of(Component.text("line 1"), Component.text("line 2")));
+            verify(subscriber).lore(List.of(Component.text("line 1"), Component.text("line 2")));
+
+            button.lore(Component.text("varargs line 1"), Component.text("varargs line 2"));
+            verify(subscriber)
+                    .lore(List.of(Component.text("varargs line 1"),
+                            Component.text("varargs line 2")));
+
+            button.amount(5);
+            verify(subscriber).amount(5);
+
+            button.type(ItemType.DIAMOND);
+            verify(subscriber).type(ItemType.DIAMOND);
+        }
+
+        @Test
+        void testCancelSubscription() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+
+            button.subscribe(subscriber).cancel();
+
+            button.name(Component.text("name"));
+            button.lore(List.of(Component.text("line 1"), Component.text("line 2")));
+            button.lore(Component.text("varargs line 1"), Component.text("varargs line 2"));
+            button.amount(5);
+            button.type(ItemType.DIAMOND);
+
+            verifyNoInteractions(subscriber);
+        }
+
         @Test
         void testEqualsIgnoreAmountWhenOtherIsEqualWithDifferentAmount() {
 
@@ -672,6 +729,60 @@ class ButtonImplTest {
 
             assertEquals(button, button.type(ItemType.DIRT));
             assertEquals(button.type(), ItemType.DIRT);
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testSubscribeWhenSubscriberIsNull() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.subscribe(null));
+            assertEquals("subscriber cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testSubscribe() {
+
+            final Button button = Button.of(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+
+            button.subscribe(subscriber);
+
+            button.name(Component.text("name"));
+            verify(subscriber).name(Component.text("name"));
+
+            button.lore(List.of(Component.text("line 1"), Component.text("line 2")));
+            verify(subscriber).lore(List.of(Component.text("line 1"), Component.text("line 2")));
+
+            button.lore(Component.text("varargs line 1"), Component.text("varargs line 2"));
+            verify(subscriber)
+                    .lore(List.of(Component.text("varargs line 1"),
+                            Component.text("varargs line 2")));
+
+            button.amount(5);
+            verify(subscriber).amount(5);
+
+            button.type(ItemType.DIAMOND);
+            verify(subscriber).type(ItemType.DIAMOND);
+        }
+
+        @Test
+        void testCancelSubscription() {
+
+            final Button button = Button.of(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+
+            button.subscribe(subscriber).cancel();
+
+            button.name(Component.text("name"));
+            button.lore(List.of(Component.text("line 1"), Component.text("line 2")));
+            button.lore(Component.text("varargs line 1"), Component.text("varargs line 2"));
+            button.amount(5);
+            button.type(ItemType.DIAMOND);
+
+            verifyNoInteractions(subscriber);
         }
 
         @Test

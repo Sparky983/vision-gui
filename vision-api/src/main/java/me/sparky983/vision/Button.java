@@ -135,6 +135,16 @@ public interface Button {
     ItemType type();
 
     /**
+     * Subscribes the specified subscriber to changes in this button.
+     *
+     * @param subscriber the subscriber
+     * @return a subscription that can be used to unsubscribe the subscriber
+     * @throws NullPointerException if the subscriber is {@code null}.
+     * @since 0.1
+     */
+    Subscription subscribe(Subscriber subscriber);
+
+    /**
      * Compares this button to another button, ignoring the {@link #amount()}.
      *
      * @param other the button to compare with this button
@@ -144,6 +154,80 @@ public interface Button {
      */
     @ApiStatus.Experimental // name may be changed in the future
     boolean equalsIgnoreAmount(Button other);
+
+    /**
+     * Represents a subscriber to a button's changes.
+     *
+     * @see #subscribe(Subscriber)
+     * @since 0.1
+     */
+    interface Subscriber {
+
+        /**
+         * Called when the name of the button changes.
+         *
+         * @param name the new name
+         * @throws NullPointerException if the name is {@code null} (optional).
+         * @since 0.1
+         */
+        void name(Component name);
+
+        /**
+         * Called when the lore of the button changes.
+         *
+         * @param lore the new lore
+         * @throws NullPointerException if the lore is or contains {@code null} (optional).
+         * @see #lore(List)
+         * @see #lore(Component...)
+         * @since 0.1
+         */
+        void lore(List<Component> lore);
+
+        /**
+         * Called when the amount of the button changes.
+         *
+         * @param amount the new amount
+         * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
+         * {@code 64} (optional).
+         * @see #amount(int)
+         * @since 0.1
+         */
+        void amount(int amount);
+
+        /**
+         * Called when the type of the button changes.
+         *
+         * @param type the new type
+         * @throws NullPointerException if the type is {@code null} (optional).
+         * @see #type(ItemType)
+         * @since 0.1
+         */
+        void type(ItemType type);
+    }
+
+    /**
+     * Represents a subscription to a button.
+     *
+     * @see #subscribe(Subscriber)
+     * @since 0.1
+     */
+    interface Subscription {
+
+        /**
+         * Cancels this subscription.
+         *
+         * @since 0.1
+         */
+        void cancel();
+
+        /**
+         * Checks whether this subscription is cancelled.
+         *
+         * @return whether this subscription is cancelled
+         * @since 0.1
+         */
+        boolean isCancelled();
+    }
 
     /**
      * A typesafe button builder.
