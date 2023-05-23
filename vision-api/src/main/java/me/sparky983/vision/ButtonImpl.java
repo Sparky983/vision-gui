@@ -111,37 +111,6 @@ final class ButtonImpl implements Button {
         return type;
     }
 
-    @Override
-    public boolean equals(final Object other) {
-
-        if (this == other) {
-            return true;
-        }
-
-        if (!(other instanceof Button button)) {
-            return false;
-        }
-
-        return type() == button.type() &&
-                name().equals(button.name()) &&
-                lore().equals(button.lore()) &&
-                amount() == button.amount();
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(type(), name(), lore(), amount());
-    }
-
-    @Override
-    public boolean equalsIgnoreAmount(final Button other) {
-
-        return type() == other.type() &&
-                name().equals(other.name()) &&
-                lore().equals(other.lore());
-    }
-
     /**
      * The default implementation of {@link Button.Builder}.
      *

@@ -1,7 +1,6 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
-import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
@@ -133,17 +132,6 @@ public interface Button {
      * @since 0.1
      */
     ItemType type();
-
-    /**
-     * Compares this button to another button, ignoring the {@link #amount()}.
-     *
-     * @param other the button to compare with this button
-     * @return whether this and the other button are equal
-     * @see #equals(Object)
-     * @since 0.1
-     */
-    @ApiStatus.Experimental // name may be changed in the future
-    boolean equalsIgnoreAmount(Button other);
 
     /**
      * A typesafe button builder.
