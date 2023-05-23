@@ -1,7 +1,6 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
-import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
@@ -55,8 +54,10 @@ public interface Button {
     /**
      * Gets the name of this button.
      * <p>
-     * If this button is untitled, the returned component will match Minecraft's default item name
-     * which is usually a translatable component of the form {@literal "item.minecraft.<item_id>}
+     * If this button is untitled, the returned component will match Minecraft's
+     * default item name
+     * which is usually a translatable component of the form
+     * {@literal "item.minecraft.<item_id>}
      * or {@code literal "block.minecraft.<item_id>}.
      *
      * @return the name of this button
@@ -91,8 +92,9 @@ public interface Button {
     /**
      * Gets the lore of this button.
      *
-     * @return an unmodifiable list containing the lore of this button or an empty list if no lore
-     * is set
+     * @return an unmodifiable list containing the lore of this button or an empty
+     *         list if no lore
+     *         is set
      * @since 0.1
      */
     List<Component> lore();
@@ -102,8 +104,9 @@ public interface Button {
      *
      * @param amount the amount
      * @return this button instance (for chaining)
-     * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
-     * {@code 64}.
+     * @throws IllegalArgumentException if the amount is less than {@code 1} or
+     *                                  greater than
+     *                                  {@code 64}.
      * @since 0.1
      */
     Button amount(int amount);
@@ -145,17 +148,6 @@ public interface Button {
     Subscription subscribe(Subscriber subscriber);
 
     /**
-     * Compares this button to another button, ignoring the {@link #amount()}.
-     *
-     * @param other the button to compare with this button
-     * @return whether this and the other button are equal
-     * @see #equals(Object)
-     * @since 0.1
-     */
-    @ApiStatus.Experimental // name may be changed in the future
-    boolean equalsIgnoreAmount(Button other);
-
-    /**
      * Represents a subscriber to a button's changes.
      *
      * @see #subscribe(Subscriber)
@@ -176,7 +168,8 @@ public interface Button {
          * Called when the lore of the button changes.
          *
          * @param lore the new lore
-         * @throws NullPointerException if the lore is or contains {@code null} (optional).
+         * @throws NullPointerException if the lore is or contains {@code null}
+         *                              (optional).
          * @see #lore(List)
          * @see #lore(Component...)
          * @since 0.1
@@ -187,8 +180,9 @@ public interface Button {
          * Called when the amount of the button changes.
          *
          * @param amount the new amount
-         * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
-         * {@code 64} (optional).
+         * @throws IllegalArgumentException if the amount is less than {@code 1} or
+         *                                  greater than
+         *                                  {@code 64} (optional).
          * @see #amount(int)
          * @since 0.1
          */
@@ -235,15 +229,17 @@ public interface Button {
      * To build the button, use {@link #type(ItemType)}.
      * <p>
      * Examples:
+     * 
      * <pre>
      * Button button = Button.button()
      *         .name(Component.text("Stone"))
      *         .type(ItemType.STONE); // builds the button
      * </pre>
+     * 
      * <pre>
      * Button button = Button.button()
-     *          .type(ItemType.STONE) // builds the button
-     *          .lore(Component.text("Line 1"), Component.text("Line 2"));
+     *         .type(ItemType.STONE) // builds the button
+     *         .lore(Component.text("Line 1"), Component.text("Line 2"));
      * </pre>
      *
      * @see #button()
@@ -291,8 +287,9 @@ public interface Button {
          *
          * @param amount the amount
          * @return this button instance (for chaining)
-         * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
-         * {@code 64}.
+         * @throws IllegalArgumentException if the amount is less than {@code 1} or
+         *                                  greater than
+         *                                  {@code 64}.
          * @since 0.1
          */
         Builder amount(int amount);

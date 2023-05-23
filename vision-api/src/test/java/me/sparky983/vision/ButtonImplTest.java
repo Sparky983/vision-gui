@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -83,8 +82,7 @@ class ButtonImplTest {
 
             final Button.Builder builder = Button.button();
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore((Component[]) null));
+            final Exception e = assertThrows(NullPointerException.class, () -> builder.lore((Component[]) null));
 
             assertEquals("lore cannot be null", e.getMessage());
 
@@ -98,8 +96,8 @@ class ButtonImplTest {
 
             final Button.Builder builder = Button.button();
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore(new Component[]{Component.text("line 1"), null}));
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> builder.lore(new Component[] { Component.text("line 1"), null }));
             assertEquals("lore[1] cannot be null", e.getMessage());
 
             final Button button = builder.type(ItemType.STONE);
@@ -126,8 +124,7 @@ class ButtonImplTest {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
+            final Exception e = assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
             assertEquals("lore cannot be null", e.getMessage());
 
             assertNotNull(button.lore());
@@ -138,8 +135,8 @@ class ButtonImplTest {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    button.lore(Arrays.asList(Component.text("line 1"), null)));
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.lore(Arrays.asList(Component.text("line 1"), null)));
             assertEquals("lore[1] cannot be null", e.getMessage());
 
             assertNotEquals(Arrays.asList(Component.text("line 1"), null), button.lore());
@@ -161,8 +158,7 @@ class ButtonImplTest {
 
             final Button.Builder builder = Button.button();
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore((List<Component>) null));
+            final Exception e = assertThrows(NullPointerException.class, () -> builder.lore((List<Component>) null));
 
             assertEquals("lore cannot be null", e.getMessage());
 
@@ -175,8 +171,8 @@ class ButtonImplTest {
 
             final Button.Builder builder = Button.button();
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore(Arrays.asList(Component.text("line 1"), null)));
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> builder.lore(Arrays.asList(Component.text("line 1"), null)));
 
             assertEquals("lore[1] cannot be null", e.getMessage());
 
@@ -204,8 +200,7 @@ class ButtonImplTest {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
+            final Exception e = assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
             assertEquals("lore cannot be null", e.getMessage());
 
             assertNotNull(button.lore());
@@ -216,8 +211,8 @@ class ButtonImplTest {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    button.lore(Arrays.asList(Component.text("line 1"), null)));
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.lore(Arrays.asList(Component.text("line 1"), null)));
             assertEquals("lore[1] cannot be null", e.getMessage());
         }
 
@@ -240,28 +235,26 @@ class ButtonImplTest {
             assertEquals(List.of(), button.lore());
         }
 
-        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
+        @ValueSource(ints = { 0, -1, Integer.MIN_VALUE })
         @ParameterizedTest
         void testBuilderAmountWhenAmountIsLessThan1(final int amount) {
 
             final Button.Builder builder = Button.button();
 
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> builder.amount(amount));
+            final Exception e = assertThrows(IllegalArgumentException.class, () -> builder.amount(amount));
             assertEquals("amount must be between 1 and 64", e.getMessage());
 
             final Button button = builder.type(ItemType.STONE);
             assertNotEquals(amount, button.amount());
         }
 
-        @ValueSource(ints = {65, 66, Integer.MAX_VALUE})
+        @ValueSource(ints = { 65, 66, Integer.MAX_VALUE })
         @ParameterizedTest
         void testBuilderAmountWhenAmountIsGreaterThanOrEqualTo64(final int amount) {
 
             final Button.Builder builder = Button.button();
 
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> builder.amount(amount));
+            final Exception e = assertThrows(IllegalArgumentException.class, () -> builder.amount(amount));
             assertEquals("amount must be between 1 and 64", e.getMessage());
 
             final Button button = builder.type(ItemType.STONE);
@@ -288,33 +281,31 @@ class ButtonImplTest {
             assertEquals(1, button.amount());
         }
 
-        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
+        @ValueSource(ints = { 0, -1, Integer.MIN_VALUE })
         @ParameterizedTest
         void testAmountWhenAmountIsLessThan1(final int amount) {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
+            final Exception e = assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
             assertEquals("amount must be between 1 and 64", e.getMessage());
 
             assertNotEquals(amount, button.amount());
         }
 
-        @ValueSource(ints = {65, 66, Integer.MAX_VALUE})
+        @ValueSource(ints = { 65, 66, Integer.MAX_VALUE })
         @ParameterizedTest
         void testAmountWhenAmountIsGreaterThanOrEqualTo64(final int amount) {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
+            final Exception e = assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
             assertEquals("amount must be between 1 and 64", e.getMessage());
 
             assertNotEquals(amount, button.amount());
         }
 
-        @ValueSource(ints = {1, 5, 64})
+        @ValueSource(ints = { 1, 5, 64 })
         @ParameterizedTest
         void testAmount(final int amount) {
 
@@ -416,139 +407,6 @@ class ButtonImplTest {
 
             verifyNoInteractions(subscriber);
         }
-
-        @Test
-        void testEqualsIgnoreAmountWhenOtherIsEqualWithDifferentAmount() {
-
-            final Button button = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final Button other = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(1)
-                    .type(ItemType.STONE);
-
-            final boolean equal = button.equalsIgnoreAmount(other);
-
-            assertTrue(equal);
-        }
-
-        @Test
-        void testEqualsIgnoreAmountWhenOtherIsEqual() {
-
-            final Button button = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final Button other = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final boolean equal = button.equalsIgnoreAmount(other);
-
-            assertTrue(equal);
-        }
-
-        @Test
-        void testEqualsIgnoreAmountWhenOtherIsDifferent() {
-
-            final Button button = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final Button other = Button.button()
-                    .name(Component.text("different name"))
-                    .amount(5)
-                    .type(ItemType.DIAMOND);
-
-            final boolean equal = button.equalsIgnoreAmount(other);
-
-            assertFalse(equal);
-        }
-
-        @Test
-        void testEqualsWhenOtherIsDifferent() {
-
-            final Button button = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final Button other = Button.button()
-                    .name(Component.text("different name"))
-                    .amount(1)
-                    .type(ItemType.DIAMOND);
-
-            final boolean equal = button.equals(other);
-
-            assertFalse(equal);
-        }
-
-        @Test
-        void testEqualsWhenOtherIsEqual() {
-
-            final Button button = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final Button other = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final boolean equal = button.equals(other);
-
-            assertTrue(equal);
-        }
-
-        @Test
-        void testHashcodeWhenOtherIsDifferent() {
-
-            final Button button = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final Button other = Button.button()
-                    .name(Component.text("different name"))
-                    .amount(1)
-                    .type(ItemType.DIAMOND);
-
-            assertNotEquals(other.hashCode(), button.hashCode());
-        }
-
-        @Test
-        void testHashcodeWhenOtherIsEqual() {
-
-            final Button button = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            final Button other = Button.button()
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5)
-                    .type(ItemType.STONE);
-
-            assertEquals(other.hashCode(), button.hashCode());
-        }
     }
 
     @Nested
@@ -595,8 +453,7 @@ class ButtonImplTest {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
+            final Exception e = assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
             assertEquals("lore cannot be null", e.getMessage());
 
             assertNotNull(button.lore());
@@ -607,8 +464,8 @@ class ButtonImplTest {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    button.lore(Arrays.asList(Component.text("line 1"), null)));
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.lore(Arrays.asList(Component.text("line 1"), null)));
             assertEquals("lore[1] cannot be null", e.getMessage());
 
             assertNotEquals(Arrays.asList(Component.text("line 1"), null), button.lore());
@@ -630,8 +487,7 @@ class ButtonImplTest {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
+            final Exception e = assertThrows(NullPointerException.class, () -> button.lore((Component[]) null));
             assertEquals("lore cannot be null", e.getMessage());
 
             assertNotNull(button.lore());
@@ -642,8 +498,8 @@ class ButtonImplTest {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    button.lore(Arrays.asList(Component.text("line 1"), null)));
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.lore(Arrays.asList(Component.text("line 1"), null)));
             assertEquals("lore[1] cannot be null", e.getMessage());
         }
 
@@ -674,33 +530,31 @@ class ButtonImplTest {
             assertEquals(1, button.amount());
         }
 
-        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
+        @ValueSource(ints = { 0, -1, Integer.MIN_VALUE })
         @ParameterizedTest
         void testAmountWhenAmountIsLessThan1(final int amount) {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
+            final Exception e = assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
             assertEquals("amount must be between 1 and 64", e.getMessage());
 
             assertNotEquals(amount, button.amount());
         }
 
-        @ValueSource(ints = {65, 66, Integer.MAX_VALUE})
+        @ValueSource(ints = { 65, 66, Integer.MAX_VALUE })
         @ParameterizedTest
         void testAmountWhenAmountIsGreaterThanOrEqualTo64(final int amount) {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
+            final Exception e = assertThrows(IllegalArgumentException.class, () -> button.amount(amount));
             assertEquals("amount must be between 1 and 64", e.getMessage());
 
             assertNotEquals(amount, button.amount());
         }
 
-        @ValueSource(ints = {1, 5, 64})
+        @ValueSource(ints = { 1, 5, 64 })
         @ParameterizedTest
         void testAmount(final int amount) {
 
@@ -783,121 +637,6 @@ class ButtonImplTest {
             button.type(ItemType.DIAMOND);
 
             verifyNoInteractions(subscriber);
-        }
-
-        @Test
-        void testEqualsIgnoreAmountWhenOtherIsEqualWithDifferentAmount() {
-
-            final Button button = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            final Button other = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(1);
-
-            final boolean equal = button.equalsIgnoreAmount(other);
-
-            assertTrue(equal);
-        }
-
-        @Test
-        void testEqualsIgnoreAmountWhenOtherIsEqual() {
-
-            final Button button = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            final Button other = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            final boolean equal = button.equalsIgnoreAmount(other);
-
-            assertTrue(equal);
-        }
-
-        @Test
-        void testEqualsIgnoreAmountWhenOtherIsDifferent() {
-
-            final Button button = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            final Button other = Button.of(ItemType.STONE)
-                    .name(Component.text("different name"))
-                    .amount(5);
-
-            final boolean equal = button.equalsIgnoreAmount(other);
-
-            assertFalse(equal);
-        }
-
-        @Test
-        void testEqualsWhenOtherIsDifferent() {
-
-            final Button button = Button.of(ItemType.STONE)
-                    .name(Component.text("name"));
-
-            final Button other = Button.of(ItemType.DIAMOND)
-                    .lore(Component.text("lore"))
-                    .amount(64);
-
-            final boolean equal = button.equals(other);
-
-            assertFalse(equal);
-        }
-
-        @Test
-        void testEqualsWhenOtherIsEqual() {
-
-            final Button button = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            final Button other = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            final boolean equal = button.equals(other);
-
-            assertTrue(equal);
-        }
-
-        @Test
-        void testHashcodeWhenOtherIsDifferent() {
-
-            final Button button = Button.of(ItemType.STONE)
-                    .name(Component.text("name"));
-
-            final Button other = Button.of(ItemType.DIAMOND)
-                    .lore(Component.text("lore"))
-                    .amount(64);
-
-            assertNotEquals(other.hashCode(), button.hashCode());
-        }
-
-        @Test
-        void testHashcodeWhenOtherIsEqual() {
-
-            final Button button = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            final Button other = Button.of(ItemType.STONE)
-                    .name(Component.text("name"))
-                    .lore(Component.text("line 1"), Component.text("line 2"))
-                    .amount(5);
-
-            assertEquals(other.hashCode(), button.hashCode());
         }
     }
 }

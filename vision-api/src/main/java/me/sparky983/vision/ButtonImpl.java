@@ -22,9 +22,9 @@ final class ButtonImpl implements Button {
     private int amount;
 
     private ButtonImpl(final ItemType type,
-                       final Component name,
-                       final List<Component> lore,
-                       final int amount) {
+            final Component name,
+            final List<Component> lore,
+            final int amount) {
 
         assert type != null;
         assert lore != null;
@@ -74,7 +74,8 @@ final class ButtonImpl implements Button {
             Objects.requireNonNull(lore.get(i), "lore[" + i + "] cannot be null");
         }
 
-        final List<Component> loreToUse = List.copyOf(lore);;
+        final List<Component> loreToUse = List.copyOf(lore);
+        ;
         this.lore = loreToUse;
         subscriptionManager.lore(loreToUse);
         return this;
@@ -118,37 +119,6 @@ final class ButtonImpl implements Button {
     public ItemType type() {
 
         return type;
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-
-        if (this == other) {
-            return true;
-        }
-
-        if (!(other instanceof Button button)) {
-            return false;
-        }
-
-        return type() == button.type() &&
-                name().equals(button.name()) &&
-                lore().equals(button.lore()) &&
-                amount() == button.amount();
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(type(), name(), lore(), amount());
-    }
-
-    @Override
-    public boolean equalsIgnoreAmount(final Button other) {
-
-        return type() == other.type() &&
-                name().equals(other.name()) &&
-                lore().equals(other.lore());
     }
 
     @Override
@@ -218,12 +188,9 @@ final class ButtonImpl implements Button {
 
             return new ButtonImpl(
                     type,
-                    name == null ?
-                            Component.translatable(type.translationKey()) :
-                            name,
+                    name == null ? Component.translatable(type.translationKey()) : name,
                     lore,
-                    amount
-            );
+                    amount);
         }
     }
 }
