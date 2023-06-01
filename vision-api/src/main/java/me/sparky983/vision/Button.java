@@ -54,10 +54,8 @@ public interface Button {
     /**
      * Gets the name of this button.
      * <p>
-     * If this button is untitled, the returned component will match Minecraft's
-     * default item name
-     * which is usually a translatable component of the form
-     * {@literal "item.minecraft.<item_id>}
+     * If this button is untitled, the returned component will match Minecraft's default item name
+     * which is usually a translatable component of the form {@literal "item.minecraft.<item_id>}
      * or {@code literal "block.minecraft.<item_id>}.
      *
      * @return the name of this button
@@ -92,9 +90,8 @@ public interface Button {
     /**
      * Gets the lore of this button.
      *
-     * @return an unmodifiable list containing the lore of this button or an empty
-     *         list if no lore
-     *         is set
+     * @return an unmodifiable list containing the lore of this button or an empty list if no lore
+     * is set
      * @since 0.1
      */
     List<Component> lore();
@@ -228,13 +225,11 @@ public interface Button {
      * To build the button, use {@link #type(ItemType)}.
      * <p>
      * Examples:
-     * 
      * <pre>
      * Button button = Button.button()
      *         .name(Component.text("Stone"))
      *         .type(ItemType.STONE); // builds the button
      * </pre>
-     * 
      * <pre>
      * Button button = Button.button()
      *         .type(ItemType.STONE) // builds the button
@@ -286,9 +281,8 @@ public interface Button {
          *
          * @param amount the amount
          * @return this button instance (for chaining)
-         * @throws IllegalArgumentException if the amount is less than {@code 1} or
-         *                                  greater than
-         *                                  {@code 64}.
+         * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
+         * {@code 64}.
          * @since 0.1
          */
         Builder amount(int amount);

@@ -22,9 +22,9 @@ final class ButtonImpl implements Button {
     private int amount;
 
     private ButtonImpl(final ItemType type,
-            final Component name,
-            final List<Component> lore,
-            final int amount) {
+                       final Component name,
+                       final List<Component> lore,
+                       final int amount) {
 
         assert type != null;
         assert lore != null;
@@ -75,7 +75,7 @@ final class ButtonImpl implements Button {
         }
 
         final List<Component> loreToUse = List.copyOf(lore);
-        ;
+
         this.lore = loreToUse;
         subscriptionManager.lore(loreToUse);
         return this;
