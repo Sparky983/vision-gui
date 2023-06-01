@@ -11,9 +11,9 @@ import java.util.stream.IntStream;
 @NullMarked
 final class PaperVisionImpl implements PaperVision {
 
-    private final PaperButtonMirror paperButtonMirror;
+    private final PaperItemFactory paperButtonMirror;
 
-    PaperVisionImpl(final PaperButtonMirror paperButtonMirror) {
+    PaperVisionImpl(final PaperItemFactory paperButtonMirror) {
 
         Objects.requireNonNull(paperButtonMirror, "paperButtonMirror cannot be null");
 

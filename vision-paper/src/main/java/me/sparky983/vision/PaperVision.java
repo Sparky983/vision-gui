@@ -26,7 +26,7 @@ public interface PaperVision extends Vision {
         Objects.requireNonNull(plugin, "plugin cannot be null");
 
         return new PaperVisionImpl(
-                new CloningPaperButtonMirror(
+                new CloningPaperItemFactory(
                         new ModernPaperItemTypeConverter()
                 )
         );
