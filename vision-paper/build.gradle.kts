@@ -13,7 +13,7 @@ dependencies {
     compileOnly("org.jspecify:jspecify:0.2.0")
     // TODO: Update to 0.3.0 when more tools add support
 
-    api("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT") {
+    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT") {
         exclude("org.jetbrains:annotations")
     }
 
