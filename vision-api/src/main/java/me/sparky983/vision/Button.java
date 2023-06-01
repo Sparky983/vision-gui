@@ -104,9 +104,8 @@ public interface Button {
      *
      * @param amount the amount
      * @return this button instance (for chaining)
-     * @throws IllegalArgumentException if the amount is less than {@code 1} or
-     *                                  greater than
-     *                                  {@code 64}.
+     * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
+     * {@code 64}.
      * @since 0.1
      */
     Button amount(int amount);
