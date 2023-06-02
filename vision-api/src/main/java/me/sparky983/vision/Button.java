@@ -134,7 +134,7 @@ public interface Button {
     ItemType type();
 
     /**
-     * Subscribes the specified subscriber to changes in this button.
+     * Subscribes the specified subscriber to this button.
      *
      * @param subscriber the subscriber
      * @return a subscription that can be used to unsubscribe the subscriber
@@ -144,7 +144,7 @@ public interface Button {
     Subscription subscribe(Subscriber subscriber);
 
     /**
-     * Represents a subscriber to a button's changes.
+     * Represents a subscriber to a button's events.
      *
      * @see #subscribe(Subscriber)
      * @since 0.1
@@ -156,6 +156,7 @@ public interface Button {
          *
          * @param name the new name
          * @throws NullPointerException if the name is {@code null} (optional).
+         * @see #name(Component)
          * @since 0.1
          */
         void name(Component name);
@@ -164,8 +165,7 @@ public interface Button {
          * Called when the lore of the button changes.
          *
          * @param lore the new lore
-         * @throws NullPointerException if the lore is or contains {@code null}
-         *                              (optional).
+         * @throws NullPointerException if the lore is or contains {@code null} (optional).
          * @see #lore(List)
          * @see #lore(Component...)
          * @since 0.1
@@ -176,9 +176,8 @@ public interface Button {
          * Called when the amount of the button changes.
          *
          * @param amount the new amount
-         * @throws IllegalArgumentException if the amount is less than {@code 1} or
-         *                                  greater than
-         *                                  {@code 64} (optional).
+         * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
+         * {@code 64} (optional).
          * @see #amount(int)
          * @since 0.1
          */
@@ -201,6 +200,7 @@ public interface Button {
          * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
          *
          * @param thrown the thrown exception
+         * @throws NullPointerException if the thrown exception is {@code null} (optional).
          * @since 0.1
          */
         void exception(RuntimeException thrown);
