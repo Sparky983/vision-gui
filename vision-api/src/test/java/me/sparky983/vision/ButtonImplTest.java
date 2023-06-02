@@ -381,7 +381,7 @@ class ButtonImplTest {
         void testSubscribe() {
 
             final Button button = Button.button().type(ItemType.STONE);
-            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+            final Button.Subscriber subscriber = mock();
 
             button.subscribe(subscriber);
 
@@ -414,7 +414,7 @@ class ButtonImplTest {
         void testSubscriberThrowsException() {
 
             final Button button = Button.button().type(ItemType.STONE);
-            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+            final Button.Subscriber subscriber = mock();
             final RuntimeException e = new RuntimeException();
 
             button.subscribe(subscriber);
@@ -688,7 +688,7 @@ class ButtonImplTest {
         void testSubscribe() {
 
             final Button button = Button.of(ItemType.STONE);
-            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+            final Button.Subscriber subscriber = mock();
 
             button.subscribe(subscriber);
 
@@ -720,7 +720,7 @@ class ButtonImplTest {
         void testSubscriberThrowsException() {
 
             final Button button = Button.of(ItemType.STONE);
-            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+            final Button.Subscriber subscriber = mock();
             final RuntimeException e = new RuntimeException();
 
             button.subscribe(subscriber);
@@ -777,7 +777,7 @@ class ButtonImplTest {
         void testCancelSubscription() {
 
             final Button button = Button.of(ItemType.STONE);
-            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+            final Button.Subscriber subscriber = mock();
 
             final Button.Subscription subscription = button.subscribe(subscriber);
 
