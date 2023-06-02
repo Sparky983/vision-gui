@@ -5,7 +5,9 @@ import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -127,6 +129,101 @@ final class ButtonImpl implements Button {
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
         return subscriptionManager.subscribe(subscriber);
+    }
+
+    /**
+     * Manages subscriptions for a button and provides a simple API for notifying subscribers.
+     */
+    private static final class SubscriptionManager {
+
+        private final Map<Subscription, Subscriber> subscribers = new HashMap<>();
+
+        private Subscription subscribe(final Subscriber subscriber) {
+
+            Objects.requireNonNull(subscriber, "subscriber cannot be null");
+
+            final Subscription subscription = new Subscription() {
+                @Override
+                public void cancel() {
+                    subscribers.remove(this);
+                }
+
+                @Override
+                public boolean isCancelled() {
+                    return !subscribers.containsKey(this);
+                }
+            };
+            subscribers.put(subscription, subscriber);
+            return subscription;
+        }
+
+        private void name(final Component name) {
+
+            Objects.requireNonNull(name, "name cannot be null");
+
+            for (final Subscriber subscriber : subscribers.values()) {
+                try {
+                    subscriber.name(name);
+                } catch (final RuntimeException e) {
+                    exception(e);
+                }
+            }
+        }
+
+        private void lore(final List<Component> lore) {
+
+            Objects.requireNonNull(lore, "lore cannot be null");
+
+            for (int i = 0; i < lore.size(); i++) {
+                Objects.requireNonNull(lore.get(i), "lore[" + i + "] cannot be null");
+            }
+
+            for (final Subscriber subscriber : subscribers.values()) {
+                try {
+                    subscriber.lore(lore);
+                } catch (final RuntimeException e) {
+                    exception(e);
+                }
+            }
+        }
+
+        private void amount(final int amount) {
+
+            if (amount <= 0 || amount > 64) {
+                throw new IllegalArgumentException("amount must be between 1 and 64");
+            }
+
+            for (final Subscriber subscriber : subscribers.values()) {
+                try {
+                    subscriber.amount(amount);
+                } catch (final RuntimeException e) {
+                    exception(e);
+                }
+            }
+        }
+
+        private void type(final ItemType type) {
+
+            Objects.requireNonNull(type, "type cannot be null");
+
+            for (final Subscriber subscriber : subscribers.values()) {
+                try {
+                    subscriber.type(type);
+                } catch (final RuntimeException e) {
+                    exception(e);
+                }
+            }
+        }
+
+        private void exception(final RuntimeException thrown) {
+            for (final Subscriber subscriber : subscribers.values()) {
+                try {
+                    subscriber.exception(thrown);
+                } catch (final RuntimeException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
