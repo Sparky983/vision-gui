@@ -1,9 +1,6 @@
 package me.sparky983.vision;
 
-import net.kyori.adventure.text.Component;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -11,7 +8,7 @@ import java.util.function.Consumer;
 /**
  * Manages subscriptions for a button and provides a simple API for notifying subscribers.
  */
-final class SubscriptionManager<T extends Subscriber> {
+final class SubscriptionManager<T extends Subscribable.Subscriber> {
 
     private final Map<Subscription, T> subscribers = new HashMap<>();
 

@@ -110,10 +110,10 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     /**
      * Represents a subscriber to a GUI's events.
      *
-     * @see Gui#subscribe(me.sparky983.vision.Subscriber)
+     * @see Gui#subscribe(Subscribable.Subscriber)
      * @since 0.1
      */
-    interface Subscriber extends me.sparky983.vision.Subscriber {
+    interface Subscriber extends Subscribable.Subscriber {
 
         /**
          * Called when the specified slot changes.

@@ -4,7 +4,7 @@ package me.sparky983.vision;
 /**
  * Represents a subscription to a {@link Subscribable subscribable object}.
  *
- * @see Subscribable#subscribe(Subscriber)
+ * @see Subscribable#subscribe(Subscribable.Subscriber)
  * @since 0.1
  */
 public interface Subscription {

@@ -149,7 +149,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @see #subscribe(Subscriber)
      * @since 0.1
      */
-    interface Subscriber extends me.sparky983.vision.Subscriber {
+    interface Subscriber extends Subscribable.Subscriber {
 
         /**
          * Called when the name of the button changes.
