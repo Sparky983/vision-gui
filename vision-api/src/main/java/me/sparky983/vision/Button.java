@@ -193,6 +193,17 @@ public interface Button {
          * @since 0.1
          */
         void type(ItemType type);
+
+        /**
+         * Called when a {@link Subscriber} throws an exception.
+         * <p>
+         * If this method throws an exception, the exception may be
+         * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
+         *
+         * @param thrown the thrown exception
+         * @since 0.1
+         */
+        void exception(RuntimeException thrown);
     }
 
     /**

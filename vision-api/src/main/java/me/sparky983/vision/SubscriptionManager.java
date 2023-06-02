@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.util.Nag;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Objects;
  * Manages subscriptions for a button and provides a simple API for notifying subscribers.
  */
 @NullMarked
-final class SubscriptionManager implements Button.Subscriber {
+final class SubscriptionManager {
 
     private final Map<Button.Subscription, Button.Subscriber> subscribers = new HashMap<>();
 
@@ -37,18 +38,20 @@ final class SubscriptionManager implements Button.Subscriber {
         return subscription;
     }
 
-    @Override
-    public void name(final Component name) {
+    void name(final Component name) {
 
         Objects.requireNonNull(name, "name cannot be null");
 
         for (final Button.Subscriber subscriber : subscribers.values()) {
-            subscriber.name(name);
+            try {
+                subscriber.name(name);
+            } catch (final RuntimeException e) {
+                exception(e);
+            }
         }
     }
 
-    @Override
-    public void lore(final List<Component> lore) {
+    void lore(final List<Component> lore) {
 
         Objects.requireNonNull(lore, "lore cannot be null");
 
@@ -57,29 +60,49 @@ final class SubscriptionManager implements Button.Subscriber {
         }
 
         for (final Button.Subscriber subscriber : subscribers.values()) {
-            subscriber.lore(lore);
+            try {
+                subscriber.lore(lore);
+            } catch (final RuntimeException e) {
+                exception(e);
+            }
         }
     }
 
-    @Override
-    public void amount(final int amount) {
+    void amount(final int amount) {
 
         if (amount <= 0 || amount > 64) {
             throw new IllegalArgumentException("amount must be between 1 and 64");
         }
 
         for (final Button.Subscriber subscriber : subscribers.values()) {
-            subscriber.amount(amount);
+            try {
+                subscriber.amount(amount);
+            } catch (final RuntimeException e) {
+                exception(e);
+            }
         }
     }
 
-    @Override
-    public void type(final ItemType type) {
+    void type(final ItemType type) {
 
         Objects.requireNonNull(type, "type cannot be null");
 
         for (final Button.Subscriber subscriber : subscribers.values()) {
-            subscriber.type(type);
+            try {
+                subscriber.type(type);
+            } catch (final RuntimeException e) {
+                exception(e);
+            }
+        }
+    }
+
+    private void exception(final RuntimeException thrown) {
+        for (final Button.Subscriber subscriber : subscribers.values()) {
+            try {
+                subscriber.exception(thrown);
+            } catch (final RuntimeException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
