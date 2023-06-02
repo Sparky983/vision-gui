@@ -10,8 +10,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 class GuiImplTest {
 
@@ -133,6 +138,68 @@ class GuiImplTest {
 
             assertEquals(rows, gui.rows());
         }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testSubscribeWhenSubscriberIsNull() {
+
+            final Gui gui = Gui.gui().rows(1);
+
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> gui.subscribe(null));
+            assertEquals("subscriber cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testSubscribe() {
+
+            final Gui gui = Gui.gui().rows(1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+
+            gui.subscribe(subscriber);
+
+            gui.button(Slot.of(0, 0), button);
+            verify(subscriber).button(Slot.of(0, 0), button);
+            verifyNoMoreInteractions(subscriber);
+        }
+
+        @Test
+        void testSubscriberThrowsException() {
+
+            final Gui gui = Gui.gui().rows(1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+            final RuntimeException e = new RuntimeException();
+
+            gui.subscribe(subscriber);
+
+            doThrow(e).when(subscriber).button(Slot.of(0, 0), button);
+            gui.button(Slot.of(0, 0), button);
+
+            verify(subscriber).button(Slot.of(0, 0), button);
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(subscriber);
+        }
+
+        @Test
+        void testCancelSubscription() {
+
+            final Gui gui = Gui.gui().rows(1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+
+            final Gui.Subscription subscription = gui.subscribe(subscriber);
+
+            assertFalse(subscription.isCancelled());
+
+            subscription.cancel();
+
+            gui.button(Slot.of(0, 0), button);
+
+            assertTrue(subscription.isCancelled());
+            verifyNoMoreInteractions(subscriber);
+        }
     }
 
     @Nested
@@ -235,6 +302,68 @@ class GuiImplTest {
 
             assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
         }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testSubscribeWhenSubscriberIsNull() {
+
+            final Gui gui = Gui.gui(null, 1);
+
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> gui.subscribe(null));
+            assertEquals("subscriber cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testSubscribe() {
+
+            final Gui gui = Gui.gui(null, 1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+
+            gui.subscribe(subscriber);
+
+            gui.button(Slot.of(0, 0), button);
+            verify(subscriber).button(Slot.of(0, 0), button);
+            verifyNoMoreInteractions(subscriber);
+        }
+
+        @Test
+        void testSubscriberThrowsException() {
+
+            final Gui gui = Gui.gui(null, 1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+            final RuntimeException e = new RuntimeException();
+
+            gui.subscribe(subscriber);
+
+            doThrow(e).when(subscriber).button(Slot.of(0, 0), button);
+            gui.button(Slot.of(0, 0), button);
+
+            verify(subscriber).button(Slot.of(0, 0), button);
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(subscriber);
+        }
+
+        @Test
+        void testCancelSubscription() {
+
+            final Gui gui = Gui.gui(null, 1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+
+            final Gui.Subscription subscription = gui.subscribe(subscriber);
+
+            assertFalse(subscription.isCancelled());
+
+            subscription.cancel();
+
+            gui.button(Slot.of(0, 0), button);
+
+            assertTrue(subscription.isCancelled());
+            verifyNoMoreInteractions(subscriber);
+        }
     }
 
     @Nested
@@ -320,6 +449,68 @@ class GuiImplTest {
             assertEquals(gui, gui.button(Slot.of(0, 0), button));
 
             assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testSubscribeWhenSubscriberIsNull() {
+
+            final Gui gui = Gui.gui(1);
+
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> gui.subscribe(null));
+            assertEquals("subscriber cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testSubscribe() {
+
+            final Gui gui = Gui.gui(1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+
+            gui.subscribe(subscriber);
+
+            gui.button(Slot.of(0, 0), button);
+            verify(subscriber).button(Slot.of(0, 0), button);
+            verifyNoMoreInteractions(subscriber);
+        }
+
+        @Test
+        void testSubscriberThrowsException() {
+
+            final Gui gui = Gui.gui(1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+            final RuntimeException e = new RuntimeException();
+
+            gui.subscribe(subscriber);
+
+            doThrow(e).when(subscriber).button(Slot.of(0, 0), button);
+            gui.button(Slot.of(0, 0), button);
+
+            verify(subscriber).button(Slot.of(0, 0), button);
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(subscriber);
+        }
+
+        @Test
+        void testCancelSubscription() {
+
+            final Gui gui = Gui.gui(1);
+            final Gui.Subscriber subscriber = mock();
+            final Button button = Button.of(ItemType.STONE);
+
+            final Gui.Subscription subscription = gui.subscribe(subscriber);
+
+            assertFalse(subscription.isCancelled());
+
+            subscription.cancel();
+
+            gui.button(Slot.of(0, 0), button);
+
+            assertTrue(subscription.isCancelled());
+            verifyNoMoreInteractions(subscriber);
         }
     }
 }
