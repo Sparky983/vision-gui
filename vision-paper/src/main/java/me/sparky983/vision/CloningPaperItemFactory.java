@@ -46,8 +46,8 @@ final class CloningPaperItemFactory implements PaperItemFactory {
 
         return itemTypeConverter.fromItemType(button.type())
                 .map((material) -> {
-                    final ItemStack mirror = new ItemStack(material, button.amount());
-                    mirror.editMeta((itemMeta) -> {
+                    final ItemStack item = new ItemStack(material, button.amount());
+                    item.editMeta((itemMeta) -> {
                         itemMeta.displayName(Component.empty()
                                 .style(DEFAULT_STYLE)
                                 .append(button.name()));
@@ -58,7 +58,7 @@ final class CloningPaperItemFactory implements PaperItemFactory {
                                         .append(line))
                                 .toList());
                     });
-                    return mirror;
+                    return item;
                 })
                 .orElseThrow(() -> new IllegalArgumentException(
                         UNABLE_TO_MIRROR_MESSAGE.formatted(button.type())));

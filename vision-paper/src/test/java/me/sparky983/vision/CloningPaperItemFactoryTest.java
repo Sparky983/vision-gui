@@ -39,7 +39,7 @@ class CloningPaperItemFactoryTest {
 
     @SuppressWarnings("ConstantConditions")
     @Test
-    void testMirrorWhenButtonIsNull() {
+    void testCreateWhenButtonIsNull() {
 
         final Exception e =
                 assertThrows(NullPointerException.class, () -> buttonMirrorFactory.create(null));
@@ -47,7 +47,7 @@ class CloningPaperItemFactoryTest {
     }
 
     @Test
-    void testMirrorWhenItemTypeCannotBeConverted() {
+    void testCreateWhenItemTypeCannotBeConverted() {
 
         when(paperItemTypeConverter.fromItemType(ItemType.STONE))
                 .thenReturn(Optional.empty());
@@ -62,7 +62,7 @@ class CloningPaperItemFactoryTest {
 
     @Disabled("Depends on a Paper API implementation")
     @Test
-    void testMirror() {
+    void testCreate() {
 
         when(paperItemTypeConverter.fromItemType(ItemType.STONE))
                 .thenReturn(Optional.of(Material.STONE));
