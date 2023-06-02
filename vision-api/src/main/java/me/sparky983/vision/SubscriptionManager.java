@@ -1,29 +1,22 @@
 package me.sparky983.vision;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.util.Nag;
-import org.jspecify.nullness.NullMarked;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Manages subscriptions for a button and provides a simple API for notifying subscribers.
  */
-@NullMarked
-final class SubscriptionManager {
+final class SubscriptionManager<T extends Subscribable.Subscriber> {
 
-    private final Map<Button.Subscription, Button.Subscriber> subscribers = new HashMap<>();
+    private final Map<Subscription, T> subscribers = new HashMap<>();
 
-    public Button.Subscription subscribe(final Button.Subscriber subscriber) {
+    Subscription subscribe(final T subscriber) {
 
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
-        final Button.Subscription subscription = new Button.Subscription() {
+        final Subscription subscription = new Subscription() {
             @Override
             public void cancel() {
                 subscribers.remove(this);
@@ -38,58 +31,10 @@ final class SubscriptionManager {
         return subscription;
     }
 
-    void name(final Component name) {
-
-        Objects.requireNonNull(name, "name cannot be null");
-
-        for (final Button.Subscriber subscriber : subscribers.values()) {
+    void notify(Consumer<? super T> consumer) {
+        for (final T subscriber : subscribers.values()) {
             try {
-                subscriber.name(name);
-            } catch (final RuntimeException e) {
-                exception(e);
-            }
-        }
-    }
-
-    void lore(final List<Component> lore) {
-
-        Objects.requireNonNull(lore, "lore cannot be null");
-
-        for (int i = 0; i < lore.size(); i++) {
-            Objects.requireNonNull(lore.get(i), "lore[" + i + "] cannot be null");
-        }
-
-        for (final Button.Subscriber subscriber : subscribers.values()) {
-            try {
-                subscriber.lore(lore);
-            } catch (final RuntimeException e) {
-                exception(e);
-            }
-        }
-    }
-
-    void amount(final int amount) {
-
-        if (amount <= 0 || amount > 64) {
-            throw new IllegalArgumentException("amount must be between 1 and 64");
-        }
-
-        for (final Button.Subscriber subscriber : subscribers.values()) {
-            try {
-                subscriber.amount(amount);
-            } catch (final RuntimeException e) {
-                exception(e);
-            }
-        }
-    }
-
-    void type(final ItemType type) {
-
-        Objects.requireNonNull(type, "type cannot be null");
-
-        for (final Button.Subscriber subscriber : subscribers.values()) {
-            try {
-                subscriber.type(type);
+                consumer.accept(subscriber);
             } catch (final RuntimeException e) {
                 exception(e);
             }
@@ -97,7 +42,7 @@ final class SubscriptionManager {
     }
 
     private void exception(final RuntimeException thrown) {
-        for (final Button.Subscriber subscriber : subscribers.values()) {
+        for (final T subscriber : subscribers.values()) {
             try {
                 subscriber.exception(thrown);
             } catch (final RuntimeException e) {

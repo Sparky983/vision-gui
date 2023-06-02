@@ -14,7 +14,7 @@ import java.util.List;
  * @since 0.1
  */
 @NullMarked
-public interface Button {
+public interface Button extends Subscribable<Button.Subscriber> {
 
     /**
      * Creates a new button builder.
@@ -149,7 +149,7 @@ public interface Button {
      * @see #subscribe(Subscriber)
      * @since 0.1
      */
-    interface Subscriber {
+    interface Subscriber extends Subscribable.Subscriber {
 
         /**
          * Called when the name of the button changes.
@@ -192,42 +192,6 @@ public interface Button {
          * @since 0.1
          */
         void type(ItemType type);
-
-        /**
-         * Called when a {@link Subscriber} throws an exception.
-         * <p>
-         * If this method throws an exception, the exception may be
-         * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
-         *
-         * @param thrown the thrown exception
-         * @throws NullPointerException if the thrown exception is {@code null} (optional).
-         * @since 0.1
-         */
-        void exception(RuntimeException thrown);
-    }
-
-    /**
-     * Represents a subscription to a button.
-     *
-     * @see #subscribe(Subscriber)
-     * @since 0.1
-     */
-    interface Subscription {
-
-        /**
-         * Cancels this subscription.
-         *
-         * @since 0.1
-         */
-        void cancel();
-
-        /**
-         * Checks whether this subscription is cancelled.
-         *
-         * @return whether this subscription is cancelled
-         * @since 0.1
-         */
-        boolean isCancelled();
     }
 
     /**

@@ -12,7 +12,7 @@ import java.util.Optional;
  * @since 0.1
  */
 @NullMarked
-public interface Gui {
+public interface Gui extends Subscribable<Gui.Subscriber> {
 
     /**
      * Creates a new GUI builder.
@@ -108,22 +108,12 @@ public interface Gui {
     Optional<Button> button(Slot slot);
 
     /**
-     * Subscribes the specified subscriber to this GUI.
-     *
-     * @param subscriber the subscriber
-     * @return a subscription that can be used to unsubscribe the subscriber
-     * @throws NullPointerException if the subscriber is {@code null}.
-     * @since 0.1
-     */
-    Subscription subscribe(Subscriber subscriber);
-
-    /**
      * Represents a subscriber to a GUI's events.
      *
-     * @see Gui#subscribe(Subscriber)
+     * @see Gui#subscribe(Subscribable.Subscriber)
      * @since 0.1
      */
-    interface Subscriber {
+    interface Subscriber extends Subscribable.Subscriber {
 
         /**
          * Called when the specified slot changes.
@@ -134,42 +124,6 @@ public interface Gui {
          * @since 0.1
          */
         void button(Slot slot, @Nullable Button button);
-
-        /**
-         * Called when a {@link Button.Subscriber} throws an exception.
-         * <p>
-         * If this method throws an exception, the exception may be
-         * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
-         *
-         * @param thrown the thrown exception
-         * @throws NullPointerException if the thrown exception is {@code null} (optional).
-         * @since 0.1
-         */
-        void exception(RuntimeException thrown);
-    }
-
-    /**
-     * Represents a subscription to a GUI.
-     *
-     * @see Gui#subscribe(Subscriber)
-     * @since 0.1
-     */
-    interface Subscription {
-
-        /**
-         * Cancels this subscription.
-         *
-         * @since 0.1
-         */
-        void cancel();
-
-        /**
-         * Checks whether this subscription is cancelled.
-         *
-         * @return whether this subscription is cancelled
-         * @since 0.1
-         */
-        boolean isCancelled();
     }
 
     /**
