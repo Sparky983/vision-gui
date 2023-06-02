@@ -455,7 +455,7 @@ class GuiImplTest {
         @Test
         void testSubscribeWhenSubscriberIsNull() {
 
-            final Gui gui = Gui.gui(null, 1);
+            final Gui gui = Gui.gui(1);
 
             final Exception e = assertThrows(NullPointerException.class,
                     () -> gui.subscribe(null));
@@ -465,7 +465,7 @@ class GuiImplTest {
         @Test
         void testSubscribe() {
 
-            final Gui gui = Gui.gui(null, 1);
+            final Gui gui = Gui.gui(1);
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
 
@@ -479,7 +479,7 @@ class GuiImplTest {
         @Test
         void testSubscriberThrowsException() {
 
-            final Gui gui = Gui.gui(null, 1);
+            final Gui gui = Gui.gui(1);
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
             final RuntimeException e = new RuntimeException();
@@ -497,7 +497,7 @@ class GuiImplTest {
         @Test
         void testCancelSubscription() {
 
-            final Gui gui = Gui.gui(null, 1);
+            final Gui gui = Gui.gui(1);
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
 
