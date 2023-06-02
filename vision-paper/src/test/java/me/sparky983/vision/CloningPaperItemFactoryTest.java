@@ -11,24 +11,24 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static me.sparky983.vision.CloningPaperButtonMirror.DEFAULT_STYLE;
-import static me.sparky983.vision.CloningPaperButtonMirror.UNABLE_TO_MIRROR_MESSAGE;
+import static me.sparky983.vision.CloningPaperItemFactory.DEFAULT_STYLE;
+import static me.sparky983.vision.CloningPaperItemFactory.UNABLE_TO_MIRROR_MESSAGE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-class CloningPaperButtonMirrorTest {
+class CloningPaperItemFactoryTest {
 
     PaperItemTypeConverter paperItemTypeConverter;
-    PaperButtonMirror buttonMirrorFactory;
+    PaperItemFactory buttonMirrorFactory;
 
     @BeforeEach
     void setUp() {
 
         paperItemTypeConverter = mock();
-        buttonMirrorFactory = new CloningPaperButtonMirror(paperItemTypeConverter);
+        buttonMirrorFactory = new CloningPaperItemFactory(paperItemTypeConverter);
     }
 
     @AfterEach

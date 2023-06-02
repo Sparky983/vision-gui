@@ -15,7 +15,7 @@ import java.util.Set;
  * This means changes to the {@link Button} won't be reflected in the {@link ItemStack}.
  */
 @NullMarked
-final class CloningPaperButtonMirror implements PaperButtonMirror {
+final class CloningPaperItemFactory implements PaperItemFactory {
 
     static final String UNABLE_TO_MIRROR_MESSAGE = """
             Unable to converter item type "%s". Possible causes:
@@ -33,7 +33,7 @@ final class CloningPaperButtonMirror implements PaperButtonMirror {
 
     private final PaperItemTypeConverter itemTypeConverter;
 
-    CloningPaperButtonMirror(final PaperItemTypeConverter itemTypeConverter) {
+    CloningPaperItemFactory(final PaperItemTypeConverter itemTypeConverter) {
 
         Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
 
