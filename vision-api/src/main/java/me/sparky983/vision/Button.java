@@ -146,8 +146,8 @@ public interface Button {
      * </pre>
      * <pre>
      * Button button = Button.button()
-     *          .type(ItemType.STONE) // builds the button
-     *          .lore(Component.text("Line 1"), Component.text("Line 2"));
+     *         .type(ItemType.STONE) // builds the button
+     *         .lore(Component.text("Line 1"), Component.text("Line 2"));
      * </pre>
      *
      * @see #button()
