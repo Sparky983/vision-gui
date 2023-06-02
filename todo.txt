@@ -1,2 +1,0 @@
-- vision-paper tests assertThrows continuation indents don't match the ones in vision-api
-- make event code more reusable
