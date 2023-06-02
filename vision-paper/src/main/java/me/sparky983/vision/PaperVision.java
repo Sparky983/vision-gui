@@ -18,6 +18,7 @@ public interface PaperVision extends Vision {
      * Creates a new paper gui manager.
      *
      * @return the newly created paper gui manager
+     * @param plugin the plugin
      * @throws NullPointerException if the plugin is {@code null}.
      * @since 0.1
      */
