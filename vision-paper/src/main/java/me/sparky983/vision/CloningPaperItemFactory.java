@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Creates Paper {@link ItemStack ItemStacks} that mirror {@link Button Buttons} by cloning them.
@@ -28,7 +27,7 @@ final class CloningPaperItemFactory implements PaperItemFactory {
      */
     static final Style DEFAULT_STYLE = Style.style()
             .color(NamedTextColor.WHITE)
-            .decorations(Set.of(TextDecoration.values()), false)
+            .decorations(TextDecoration.NAMES.values(), false)
             .build();
 
     private final PaperItemTypeConverter itemTypeConverter;
