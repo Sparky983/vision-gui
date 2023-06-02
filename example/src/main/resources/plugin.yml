@@ -1,0 +1,8 @@
+main: me.sparky983.example.ExamplePlugin
+name: example-plugin
+version: 1.0
+api-version: 1.19
+commands:
+    example-gui:
+        description: Displays the example GUI to the player
+        usage: /<command>

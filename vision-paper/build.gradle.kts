@@ -31,6 +31,9 @@ java {
 }
 
 tasks {
+    compileJava {
+        options.compilerArgs.add("-parameters")
+    }
     test {
         useJUnitPlatform()
     }
