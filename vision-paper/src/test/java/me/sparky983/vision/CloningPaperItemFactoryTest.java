@@ -42,7 +42,7 @@ class CloningPaperItemFactoryTest {
     void testMirrorWhenButtonIsNull() {
 
         final Exception e =
-                assertThrows(NullPointerException.class, () -> buttonMirrorFactory.mirror(null));
+                assertThrows(NullPointerException.class, () -> buttonMirrorFactory.create(null));
         assertEquals("button cannot be null", e.getMessage());
     }
 
@@ -55,7 +55,7 @@ class CloningPaperItemFactoryTest {
         final Button button = Button.of(ItemType.STONE);
 
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                buttonMirrorFactory.mirror(button));
+                buttonMirrorFactory.create(button));
         assertEquals(UNABLE_TO_MIRROR_MESSAGE.formatted(ItemType.STONE), e.getMessage());
         verify(paperItemTypeConverter).fromItemType(ItemType.STONE);
     }
@@ -73,7 +73,7 @@ class CloningPaperItemFactoryTest {
                 .lore(Component.text("lore"))
                 .amount(64);
 
-        final ItemStack item = buttonMirrorFactory.mirror(button);
+        final ItemStack item = buttonMirrorFactory.create(button);
 
         final ItemStack expectedItem = new ItemStack(Material.STONE, 64);
         expectedItem.editMeta((meta) -> {

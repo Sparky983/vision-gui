@@ -41,7 +41,7 @@ final class CloningPaperItemFactory implements PaperItemFactory {
     }
 
     @Override
-    public ItemStack mirror(final Button button) {
+    public ItemStack create(final Button button) {
 
         Objects.requireNonNull(button, "button cannot be null");
 

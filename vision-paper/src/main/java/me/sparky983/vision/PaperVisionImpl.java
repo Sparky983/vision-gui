@@ -31,7 +31,7 @@ final class PaperVisionImpl implements PaperVision {
         IntStream.range(0, gui.rows())
                 .forEach((row) -> IntStream.range(0, 9).forEach((column) ->
                         gui.button(Slot.of(column, row)).ifPresent((button) ->
-                                inventory.setItem(column + (row * 9), paperButtonMirror.mirror(button)))));
+                                inventory.setItem(column + (row * 9), paperButtonMirror.create(button)))));
 
         player.openInventory(inventory);
     }
