@@ -134,6 +134,103 @@ public interface Button {
     ItemType type();
 
     /**
+     * Subscribes the specified subscriber to this button.
+     *
+     * @param subscriber the subscriber
+     * @return a subscription that can be used to unsubscribe the subscriber
+     * @throws NullPointerException if the subscriber is {@code null}.
+     * @since 0.1
+     */
+    Subscription subscribe(Subscriber subscriber);
+
+    /**
+     * Represents a subscriber to a button's events.
+     *
+     * @see #subscribe(Subscriber)
+     * @since 0.1
+     */
+    interface Subscriber {
+
+        /**
+         * Called when the name of the button changes.
+         *
+         * @param name the new name
+         * @throws NullPointerException if the name is {@code null} (optional).
+         * @see #name(Component)
+         * @since 0.1
+         */
+        void name(Component name);
+
+        /**
+         * Called when the lore of the button changes.
+         *
+         * @param lore the new lore
+         * @throws NullPointerException if the lore is or contains {@code null} (optional).
+         * @see #lore(List)
+         * @see #lore(Component...)
+         * @since 0.1
+         */
+        void lore(List<Component> lore);
+
+        /**
+         * Called when the amount of the button changes.
+         *
+         * @param amount the new amount
+         * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
+         * {@code 64} (optional).
+         * @see #amount(int)
+         * @since 0.1
+         */
+        void amount(int amount);
+
+        /**
+         * Called when the type of the button changes.
+         *
+         * @param type the new type
+         * @throws NullPointerException if the type is {@code null} (optional).
+         * @see #type(ItemType)
+         * @since 0.1
+         */
+        void type(ItemType type);
+
+        /**
+         * Called when a {@link Subscriber} throws an exception.
+         * <p>
+         * If this method throws an exception, the exception may be
+         * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
+         *
+         * @param thrown the thrown exception
+         * @throws NullPointerException if the thrown exception is {@code null} (optional).
+         * @since 0.1
+         */
+        void exception(RuntimeException thrown);
+    }
+
+    /**
+     * Represents a subscription to a button.
+     *
+     * @see #subscribe(Subscriber)
+     * @since 0.1
+     */
+    interface Subscription {
+
+        /**
+         * Cancels this subscription.
+         *
+         * @since 0.1
+         */
+        void cancel();
+
+        /**
+         * Checks whether this subscription is cancelled.
+         *
+         * @return whether this subscription is cancelled
+         * @since 0.1
+         */
+        boolean isCancelled();
+    }
+
+    /**
      * A typesafe button builder.
      * <p>
      * To build the button, use {@link #type(ItemType)}.

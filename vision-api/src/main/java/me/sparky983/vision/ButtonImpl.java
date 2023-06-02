@@ -14,13 +14,15 @@ import java.util.Objects;
 @NullMarked
 final class ButtonImpl implements Button {
 
+    private final SubscriptionManager subscriptionManager = new SubscriptionManager();
+
     private ItemType type;
-    private @Nullable Component name;
+    private Component name;
     private List<Component> lore;
     private int amount;
 
     private ButtonImpl(final ItemType type,
-                       final @Nullable Component name,
+                       final Component name,
                        final List<Component> lore,
                        final int amount) {
 
@@ -38,18 +40,21 @@ final class ButtonImpl implements Button {
     @Override
     public Button name(final @Nullable Component name) {
 
-        this.name = name;
+        final Component nameToUse;
+        if (name != null) {
+            nameToUse = name;
+        } else {
+            nameToUse = Component.translatable(type.translationKey());
+        }
+        this.name = nameToUse;
+        subscriptionManager.name(nameToUse);
         return this;
     }
 
     @Override
     public Component name() {
 
-        if (name != null) {
-            return name;
-        }
-
-        return Component.translatable(type.translationKey());
+        return name;
     }
 
     @Override
@@ -69,7 +74,10 @@ final class ButtonImpl implements Button {
             Objects.requireNonNull(lore.get(i), "lore[" + i + "] cannot be null");
         }
 
-        this.lore = List.copyOf(lore);
+        final List<Component> loreToUse = List.copyOf(lore);
+
+        this.lore = loreToUse;
+        subscriptionManager.lore(loreToUse);
         return this;
     }
 
@@ -87,6 +95,7 @@ final class ButtonImpl implements Button {
         }
 
         this.amount = amount;
+        subscriptionManager.amount(amount);
         return this;
     }
 
@@ -102,6 +111,7 @@ final class ButtonImpl implements Button {
         Objects.requireNonNull(type, "type cannot be null");
 
         this.type = type;
+        subscriptionManager.type(type);
         return this;
     }
 
@@ -109,6 +119,14 @@ final class ButtonImpl implements Button {
     public ItemType type() {
 
         return type;
+    }
+
+    @Override
+    public Subscription subscribe(final Subscriber subscriber) {
+
+        Objects.requireNonNull(subscriber, "subscriber cannot be null");
+
+        return subscriptionManager.subscribe(subscriber);
     }
 
     /**
@@ -170,10 +188,9 @@ final class ButtonImpl implements Button {
 
             return new ButtonImpl(
                     type,
-                    name,
+                    name == null ? Component.translatable(type.translationKey()) : name,
                     lore,
-                    amount
-            );
+                    amount);
         }
     }
 }

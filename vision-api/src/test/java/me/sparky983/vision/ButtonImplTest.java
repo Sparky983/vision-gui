@@ -10,9 +10,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 class ButtonImplTest {
 
@@ -357,6 +365,132 @@ class ButtonImplTest {
             assertEquals(button, button.type(ItemType.DIRT));
             assertEquals(button.type(), ItemType.DIRT);
         }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testSubscribeWhenSubscriberIsNull() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.subscribe(null));
+            assertEquals("subscriber cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testSubscribe() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+
+            button.subscribe(subscriber);
+
+            button.name(Component.text("name"));
+            verify(subscriber).name(Component.text("name"));
+
+            button.lore(
+                    List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            verify(subscriber)
+                    .lore(
+                            List.of(Component.text("line 1"),
+                                    Component.text("line 2")));
+
+            button.lore(Component.text("varargs line 1"),
+                    Component.text("varargs line 2"));
+            verify(subscriber)
+                    .lore(
+                            List.of(Component.text("varargs line 1"),
+                                    Component.text("varargs line 2")));
+
+            button.amount(5);
+            verify(subscriber).amount(5);
+
+            button.type(ItemType.DIAMOND);
+            verify(subscriber).type(ItemType.DIAMOND);
+        }
+
+        @Test
+        void testSubscriberThrowsException() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+            final RuntimeException e = new RuntimeException();
+
+            button.subscribe(subscriber);
+
+            doThrow(e).when(subscriber).name(Component.text("name"));
+            button.name(Component.text("name"));
+            verify(subscriber).name(Component.text("name"));
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber)
+                    .lore(List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            button.lore(
+                    List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            verify(subscriber)
+                    .lore(List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            verify(subscriber, times(2)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber)
+                    .lore(List.of(Component.text("varargs line 1"),
+                            Component.text("varargs line 2")));
+            button.lore(Component.text("varargs line 1"),
+                    Component.text("varargs line 2"));
+            verify(subscriber)
+                    .lore(List.of(Component.text("varargs line 1"),
+                            Component.text("varargs line 2")));
+            verify(subscriber, times(3)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber).amount(5);
+            button.amount(5);
+            verify(subscriber).amount(5);
+            verify(subscriber, times(4)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber).type(ItemType.DIAMOND);
+            button.type(ItemType.DIAMOND);
+            verify(subscriber).type(ItemType.DIAMOND);
+            verify(subscriber, times(5)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber).exception(e);
+            button.name(Component.text("name"));
+            verify(subscriber, times(2)).name(Component.text("name"));
+            verify(subscriber, times(6)).exception(e);
+            verifyNoMoreInteractions(subscriber); // exception should not be called again
+        }
+
+        @Test
+        void testCancelSubscription() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+            final Button.Subscriber subscriber = mock();
+
+            final Button.Subscription subscription = button.subscribe(subscriber);
+
+            assertFalse(subscription.isCancelled());
+
+            subscription.cancel();
+
+            button.name(Component.text("name"));
+            button.lore(
+                    List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            button.lore(Component.text("varargs line 1"),
+                    Component.text("varargs line 2"));
+            button.amount(5);
+            button.type(ItemType.DIAMOND);
+
+            assertTrue(subscription.isCancelled());
+            verifyNoInteractions(subscriber);
+        }
     }
 
     @Nested
@@ -537,6 +671,131 @@ class ButtonImplTest {
 
             assertEquals(button, button.type(ItemType.DIRT));
             assertEquals(button.type(), ItemType.DIRT);
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testSubscribeWhenSubscriberIsNull() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class,
+                    () -> button.subscribe(null));
+            assertEquals("subscriber cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testSubscribe() {
+
+            final Button button = Button.of(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+
+            button.subscribe(subscriber);
+
+            button.name(Component.text("name"));
+            verify(subscriber).name(Component.text("name"));
+
+            button.lore(
+                    List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            verify(subscriber)
+                    .lore(
+                            List.of(Component.text("line 1"),
+                                    Component.text("line 2")));
+
+            button.lore(Component.text("varargs line 1"),
+                    Component.text("varargs line 2"));
+            verify(subscriber)
+                    .lore(List.of(Component.text("varargs line 1"),
+                            Component.text("varargs line 2")));
+
+            button.amount(5);
+            verify(subscriber).amount(5);
+
+            button.type(ItemType.DIAMOND);
+            verify(subscriber).type(ItemType.DIAMOND);
+        }
+
+        @Test
+        void testSubscriberThrowsException() {
+
+            final Button button = Button.of(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+            final RuntimeException e = new RuntimeException();
+
+            button.subscribe(subscriber);
+
+            doThrow(e).when(subscriber).name(Component.text("name"));
+            button.name(Component.text("name"));
+            verify(subscriber).name(Component.text("name"));
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber)
+                    .lore(List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            button.lore(
+                    List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            verify(subscriber)
+                    .lore(List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            verify(subscriber, times(2)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber)
+                    .lore(List.of(Component.text("varargs line 1"),
+                            Component.text("varargs line 2")));
+            button.lore(Component.text("varargs line 1"),
+                    Component.text("varargs line 2"));
+            verify(subscriber)
+                    .lore(List.of(Component.text("varargs line 1"),
+                            Component.text("varargs line 2")));
+            verify(subscriber, times(3)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber).amount(5);
+            button.amount(5);
+            verify(subscriber).amount(5);
+            verify(subscriber, times(4)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber).type(ItemType.DIAMOND);
+            button.type(ItemType.DIAMOND);
+            verify(subscriber).type(ItemType.DIAMOND);
+            verify(subscriber, times(5)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
+            doThrow(e).when(subscriber).exception(e);
+            button.name(Component.text("name"));
+            verify(subscriber, times(2)).name(Component.text("name"));
+            verify(subscriber, times(6)).exception(e);
+            verifyNoMoreInteractions(subscriber); // exception should not be called again
+        }
+
+        @Test
+        void testCancelSubscription() {
+
+            final Button button = Button.of(ItemType.STONE);
+            final Button.Subscriber subscriber = mock(Button.Subscriber.class);
+
+            final Button.Subscription subscription = button.subscribe(subscriber);
+
+            assertFalse(subscription.isCancelled());
+
+            subscription.cancel();
+
+            button.name(Component.text("name"));
+            button.lore(
+                    List.of(Component.text("line 1"),
+                            Component.text("line 2")));
+            button.lore(Component.text("varargs line 1"),
+                    Component.text("varargs line 2"));
+            button.amount(5);
+            button.type(ItemType.DIAMOND);
+
+            assertTrue(subscription.isCancelled());
+            verifyNoInteractions(subscriber);
         }
     }
 }
