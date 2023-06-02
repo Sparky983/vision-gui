@@ -21,7 +21,7 @@ final class GuiImpl implements Gui {
      */
     static final Component DEFAULT_NAME = Component.translatable("container.chest");
 
-    private final SubscriptionManager subscriptionManager = new SubscriptionManager();
+    private final SubscriptionManager<Subscriber> subscriptionManager = new SubscriptionManager<>();
 
     private final Map<Slot, Button> slots = new HashMap<>();
     private final Component title;
@@ -59,7 +59,7 @@ final class GuiImpl implements Gui {
         }
 
         slots.put(slot, button);
-        subscriptionManager.button(slot, button);
+        subscriptionManager.notify((subscriber) -> subscriber.button(slot, button));
         return this;
     }
 
@@ -75,56 +75,6 @@ final class GuiImpl implements Gui {
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
         return subscriptionManager.subscribe(subscriber);
-    }
-
-    /**
-     * Manages subscriptions for a GUI and provides a simple API for notifying subscribers.
-     */
-    private static final class SubscriptionManager {
-
-        private final Map<Subscription, Subscriber> subscribers = new HashMap<>();
-
-        private Subscription subscribe(final Subscriber subscriber) {
-
-            Objects.requireNonNull(subscriber, "subscriber cannot be null");
-
-            final Subscription subscription = new Subscription() {
-                @Override
-                public void cancel() {
-                    subscribers.remove(this);
-                }
-
-                @Override
-                public boolean isCancelled() {
-                    return !subscribers.containsKey(this);
-                }
-            };
-            subscribers.put(subscription, subscriber);
-            return subscription;
-        }
-
-        private void button(final Slot slot, final @Nullable Button button) {
-
-            Objects.requireNonNull(slot, "slot cannot be null");
-
-            for (final Subscriber subscriber : subscribers.values()) {
-                try {
-                    subscriber.button(slot, button);
-                } catch (final RuntimeException e) {
-                    exception(e);
-                }
-            }
-        }
-
-        private void exception(final RuntimeException thrown) {
-            for (final Subscriber subscriber : subscribers.values()) {
-                try {
-                    subscriber.exception(thrown);
-                } catch (final RuntimeException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     /**
