@@ -1,5 +1,7 @@
 package me.sparky983.vision;
 
+import org.jspecify.nullness.NullMarked;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,6 +10,7 @@ import java.util.function.Consumer;
 /**
  * Manages subscriptions for a button and provides a simple API for notifying subscribers.
  */
+@NullMarked
 final class SubscriptionManager<T extends Subscribable.Subscriber> {
 
     private final Map<Subscription, T> subscribers = new HashMap<>();

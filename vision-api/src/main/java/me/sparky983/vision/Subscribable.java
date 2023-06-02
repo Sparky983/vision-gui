@@ -1,11 +1,14 @@
 package me.sparky983.vision;
 
+import org.jspecify.nullness.NullMarked;
+
 /**
  * Represents a subscribable object.
  *
  * @param <T> the type of subscriber
  * @since 0.1
  */
+@NullMarked
 public interface Subscribable<T extends Subscribable.Subscriber> {
 
     /**
