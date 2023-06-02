@@ -54,7 +54,7 @@ final class GuiImpl implements Gui {
 
         if (slot.row() >= rows) {
             throw new IllegalArgumentException(
-                    "slot (" + slot.column() + ", " + slot.row() + ") out of range for " +
+                    "slot (" + slot.row() + ", " + slot.column() + ") out of range for " +
                             rows + " rows");
         }
 

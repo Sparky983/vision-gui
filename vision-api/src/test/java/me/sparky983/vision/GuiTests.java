@@ -81,21 +81,21 @@ class GuiTests {
         }
 
         @CsvSource({
-                "0, 1, 1",
-                "8, 1, 1",
-                "0, 5, 5",
-                "8, 5, 5"
+                "1, 0, 1",
+                "1, 8, 1",
+                "5, 0, 5",
+                "5, 8, 5"
         })
         @ParameterizedTest
-        void testButtonWhenSlotIsOutOfRange(final int slotColumn,
-                                            final int slotRow,
+        void testButtonWhenSlotIsOutOfRange(final int slotRow,
+                                            final int slotColumn,
                                             final int guiRows) {
 
             final Gui gui = Gui.gui().rows(guiRows);
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                    gui.button(Slot.of(slotColumn, slotRow), Button.of(ItemType.STONE)));
-            assertEquals("slot (" + slotColumn + ", " + slotRow + ") out of range for " +
+                    gui.button(Slot.of(slotRow, slotColumn), Button.of(ItemType.STONE)));
+            assertEquals("slot (" + slotRow + ", " + slotColumn + ") out of range for " +
                     guiRows + " rows", e.getMessage());
         }
 
@@ -276,21 +276,21 @@ class GuiTests {
         }
 
         @CsvSource({
-                "0, 1, 1",
-                "8, 1, 1",
-                "0, 5, 5",
-                "8, 5, 5"
+                "1, 0, 1",
+                "1, 8, 1",
+                "5, 0, 5",
+                "5, 8, 5"
         })
         @ParameterizedTest
-        void testButtonWhenSlotIsOutOfRange(final int slotColumn,
-                                            final int slotRow,
+        void testButtonWhenSlotIsOutOfRange(final int slotRow,
+                                            final int slotColumn,
                                             final int guiRows) {
 
             final Gui gui = Gui.gui(null, guiRows);
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                    gui.button(Slot.of(slotColumn, slotRow), Button.of(ItemType.STONE)));
-            assertEquals("slot (" + slotColumn + ", " + slotRow + ") out of range for " +
+                    gui.button(Slot.of(slotRow, slotColumn), Button.of(ItemType.STONE)));
+            assertEquals("slot (" + slotRow + ", " + slotColumn + ") out of range for " +
                     guiRows + " rows", e.getMessage());
         }
 
@@ -424,21 +424,21 @@ class GuiTests {
         }
 
         @CsvSource({
-                "0, 1, 1",
-                "8, 1, 1",
-                "0, 5, 5",
-                "8, 5, 5"
+                "1, 0, 1",
+                "1, 8, 1",
+                "5, 0, 5",
+                "5, 8, 5"
         })
         @ParameterizedTest
-        void testButtonWhenSlotIsOutOfRange(final int slotColumn,
-                                            final int slotRow,
+        void testButtonWhenSlotIsOutOfRange(final int slotRow,
+                                            final int slotColumn,
                                             final int guiRows) {
 
             final Gui gui = Gui.gui(guiRows);
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                    gui.button(Slot.of(slotColumn, slotRow), Button.of(ItemType.STONE)));
-            assertEquals("slot (" + slotColumn + ", " + slotRow + ") out of range for " +
+                    gui.button(Slot.of(slotRow, slotColumn), Button.of(ItemType.STONE)));
+            assertEquals("slot (" + slotRow + ", " + slotColumn + ") out of range for " +
                     guiRows + " rows", e.getMessage());
         }
 

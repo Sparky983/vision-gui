@@ -36,7 +36,7 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
         final Gui gui = Gui.gui()
                 .title(Component.text("Test GUI"))
                 .rows(3)
-                .button(Slot.of(4, 1), Button.button()
+                .button(Slot.of(1, 4), Button.button()
                         .name(Component.text("DIAMOND")
                                 .color(NamedTextColor.AQUA)
                                 .decorate(TextDecoration.BOLD))
