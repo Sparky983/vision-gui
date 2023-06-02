@@ -20,6 +20,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 class GuiImplTest {
 
+    static final Component TITLE = Component.text("title");
+
     @Nested
     class Builder {
 
@@ -38,11 +40,11 @@ class GuiImplTest {
 
             final Gui.Builder builder = Gui.gui();
 
-            assertEquals(builder, builder.title(Component.text("awesome title")));
+            assertEquals(builder, builder.title(TITLE));
 
             final Gui gui = builder.rows(1);
 
-            assertEquals(Component.text("awesome title"), gui.title());
+            assertEquals(TITLE, gui.title());
         }
 
         @Test
@@ -216,9 +218,9 @@ class GuiImplTest {
         @Test
         void testGuiTitle() {
 
-            final Gui gui = Gui.gui(Component.text("awesome title"), 2);
+            final Gui gui = Gui.gui(TITLE, 1);
 
-            assertEquals(Component.text("awesome title"), gui.title());
+            assertEquals(TITLE, gui.title());
         }
 
         @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
