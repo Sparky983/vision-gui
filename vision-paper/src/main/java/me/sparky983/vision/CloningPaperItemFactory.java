@@ -18,7 +18,7 @@ final class CloningPaperItemFactory implements PaperItemFactory {
 
     static final String UNABLE_TO_MIRROR_MESSAGE = """
             Unable to converter item type "%s". Possible causes:
-            - Item is not available in this version of Minecraft.
+            - The item is not available in this version of Minecraft
             - Legacy materials are enabled
             """;
 
