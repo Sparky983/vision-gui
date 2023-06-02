@@ -7,7 +7,7 @@ import org.jspecify.nullness.NullMarked;
  * Creates {@link ItemStack ItemStacks} that mirror {@link Button Buttons}.
  */
 @NullMarked
-interface PaperButtonMirror {
+interface PaperItemFactory {
 
     /**
      * Creates a new {@link ItemStack} that mirrors the specified {@link Button}.
