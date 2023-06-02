@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ModernPaperItemTypeConverterTest {
+class ModernPaperItemTypeConverterTests {
 
     static List<Arguments> provideConversions() {
 

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-class ButtonImplTest {
+class ButtonTests {
 
     /**
      * A component to be used for testing as a button's name.

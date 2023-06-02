@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-class PaperVisionTest {
+class PaperVisionTests {
 
     Plugin plugin;
     PaperVision paperVision;

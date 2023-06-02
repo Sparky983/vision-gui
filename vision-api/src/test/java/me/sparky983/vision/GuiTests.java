@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-class GuiImplTest {
+class GuiTests {
 
     static final Component TITLE = Component.text("title");
 
