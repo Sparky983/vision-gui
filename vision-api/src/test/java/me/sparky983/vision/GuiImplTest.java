@@ -189,7 +189,7 @@ class GuiImplTest {
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
 
-            final Gui.Subscription subscription = gui.subscribe(subscriber);
+            final Subscription subscription = gui.subscribe(subscriber);
 
             assertFalse(subscription.isCancelled());
 
@@ -353,7 +353,7 @@ class GuiImplTest {
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
 
-            final Gui.Subscription subscription = gui.subscribe(subscriber);
+            final Subscription subscription = gui.subscribe(subscriber);
 
             assertFalse(subscription.isCancelled());
 
@@ -501,7 +501,7 @@ class GuiImplTest {
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
 
-            final Gui.Subscription subscription = gui.subscribe(subscriber);
+            final Subscription subscription = gui.subscribe(subscriber);
 
             assertFalse(subscription.isCancelled());
 

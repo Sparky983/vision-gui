@@ -471,7 +471,7 @@ class ButtonImplTest {
             final Button button = Button.button().type(ItemType.STONE);
             final Button.Subscriber subscriber = mock();
 
-            final Button.Subscription subscription = button.subscribe(subscriber);
+            final Subscription subscription = button.subscribe(subscriber);
 
             assertFalse(subscription.isCancelled());
 
@@ -752,7 +752,7 @@ class ButtonImplTest {
             final Button button = Button.of(ItemType.STONE);
             final Button.Subscriber subscriber = mock();
 
-            final Button.Subscription subscription = button.subscribe(subscriber);
+            final Subscription subscription = button.subscribe(subscriber);
 
             assertFalse(subscription.isCancelled());
 
