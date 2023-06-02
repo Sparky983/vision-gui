@@ -25,6 +25,7 @@ class ModernPaperItemTypeConverterTest {
         );
     }
 
+    @SuppressWarnings("deprecation")
     static List<Arguments> provideUnknownMaterials() {
 
         return List.of(
