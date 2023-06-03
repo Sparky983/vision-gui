@@ -26,13 +26,16 @@ public interface PaperVision extends Vision {
 
         Objects.requireNonNull(plugin, "plugin cannot be null");
 
-        final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
+        final PaperConverter converter = new PaperConverterImpl(new ModernPaperItemTypeConverter());
 
         return new PaperVisionImpl(
                 plugin,
                 plugin.getServer().getPluginManager(),
-                new CloningPaperItemFactory(itemTypeConverter),
-                new SubscribingPaperButtonMirror(itemTypeConverter)
+                new SubscribingPaperInventoryMirror(
+                        plugin.getServer(),
+                        converter,
+                        new SubscribingPaperButtonMirror(converter)
+                )
         );
     }
 
