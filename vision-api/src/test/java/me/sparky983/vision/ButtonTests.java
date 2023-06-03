@@ -484,6 +484,8 @@ class ButtonTests {
 
             button.click(CLICK);
             verify(subscriber).click(CLICK);
+
+            verifyNoMoreInteractions(subscriber);
         }
 
         @Test
@@ -828,6 +830,8 @@ class ButtonTests {
 
             button.click(CLICK);
             verify(subscriber).click(CLICK);
+
+            verifyNoMoreInteractions(subscriber);
         }
 
         @Test
