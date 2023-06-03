@@ -31,8 +31,11 @@ public interface PaperVision extends Vision {
         return new PaperVisionImpl(
                 plugin,
                 plugin.getServer().getPluginManager(),
-                converter,
-                new SubscribingPaperButtonMirror(converter)
+                new SubscribingPaperInventoryMirror(
+                        plugin.getServer(),
+                        converter,
+                        new SubscribingPaperButtonMirror(converter)
+                )
         );
     }
 
