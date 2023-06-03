@@ -32,7 +32,7 @@ public interface PaperVision extends Vision {
                 plugin,
                 plugin.getServer().getPluginManager(),
                 new CloningPaperItemFactory(itemTypeConverter),
-                new PaperButtonMirrorImpl(itemTypeConverter)
+                new SubscribingPaperButtonMirror(itemTypeConverter)
         );
     }
 

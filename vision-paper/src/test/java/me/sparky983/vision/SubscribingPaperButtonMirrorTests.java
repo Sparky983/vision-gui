@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-class ButtonMirrorImplTests {
+class SubscribingPaperButtonMirrorTests {
 
     // COPIED FROM ButtonTests.java
 
@@ -54,7 +54,7 @@ class ButtonMirrorImplTests {
     void setUp() {
 
         itemTypeConverter = mock();
-        paperButtonMirror = new PaperButtonMirrorImpl(itemTypeConverter);
+        paperButtonMirror = new SubscribingPaperButtonMirror(itemTypeConverter);
     }
 
     @AfterEach
@@ -68,7 +68,7 @@ class ButtonMirrorImplTests {
     void testCreateWhenItemTypeConverterIsNull() {
 
         final Exception e = assertThrows(NullPointerException.class, () ->
-                new PaperButtonMirrorImpl(null));
+                new SubscribingPaperButtonMirror(null));
 
         assertEquals("itemTypeConverter cannot be null", e.getMessage());
     }

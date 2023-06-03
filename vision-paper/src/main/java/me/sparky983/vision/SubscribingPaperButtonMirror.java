@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Objects;
 
 @NullMarked
-final class PaperButtonMirrorImpl implements PaperButtonMirror {
+final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
     private final PaperItemTypeConverter itemTypeConverter;
 
-    PaperButtonMirrorImpl(final PaperItemTypeConverter itemTypeConverter) {
+    SubscribingPaperButtonMirror(final PaperItemTypeConverter itemTypeConverter) {
 
         Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
 
