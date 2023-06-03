@@ -56,6 +56,6 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
 
         vision.open(player, gui);
 
-        return false;
+        return true;
     }
 }
