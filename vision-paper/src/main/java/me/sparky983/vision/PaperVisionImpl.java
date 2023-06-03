@@ -18,7 +18,7 @@ final class PaperVisionImpl implements PaperVision {
     private final Plugin plugin;
     private final PluginManager pluginManager;
     private final PaperItemFactory paperItemFactory;
-    final PaperButtonMirror paperButtonMirror;
+    private final PaperButtonMirror paperButtonMirror;
 
     PaperVisionImpl(final Plugin plugin,
                     final PluginManager pluginManager,
