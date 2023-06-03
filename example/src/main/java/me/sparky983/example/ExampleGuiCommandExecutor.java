@@ -12,14 +12,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitScheduler;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ExampleGuiCommandExecutor implements CommandExecutor {
 
     private final PaperVision vision;
+    private final Plugin plugin;
+    private final BukkitScheduler scheduler;
 
-    public ExampleGuiCommandExecutor(final PaperVision vision) {
+    public ExampleGuiCommandExecutor(final PaperVision vision, Plugin plugin, BukkitScheduler scheduler) {
 
         this.vision = vision;
+        this.plugin = plugin;
+        this.scheduler = scheduler;
     }
 
     @Override
@@ -33,17 +41,21 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
             return false;
         }
 
+        final AtomicInteger i = new AtomicInteger(0);
+
+        final Button counter = Button.button()
+                .type(ItemType.DIAMOND)
+                .onClick((click) -> click.clicker().sendMessage(click.button().name()));
+
+        scheduler.runTaskTimer(plugin, () -> {
+            i.getAndIncrement();
+            counter.name(Component.text("Counter: " + i.get()));
+        }, 0, 10);
+
         final Gui gui = Gui.gui()
                 .title(Component.text("Test GUI"))
                 .rows(3)
-                .button(Slot.of(1, 4), Button.button()
-                        .name(Component.text("DIAMOND")
-                                .color(NamedTextColor.AQUA)
-                                .decorate(TextDecoration.BOLD))
-                        .type(ItemType.DIAMOND)
-                        .onClick((click) -> {
-                            click.clicker().sendMessage(Component.text("diamond"));
-                        }));
+                .button(Slot.of(1, 4), counter);
 
         vision.open(player, gui);
 
