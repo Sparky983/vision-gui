@@ -23,6 +23,8 @@ public interface Subscribable<T extends Subscribable.Subscriber> {
 
     /**
      * Represents a subscriber to a {@link Subscribable subscribable object}.
+     *
+     * @since 0.1
      */
     interface Subscriber {
 
