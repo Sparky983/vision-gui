@@ -13,35 +13,23 @@ import java.util.Objects;
 @NullMarked
 final class InventoryListener implements Listener {
 
-    private final Inventory inventory;
-    private final Gui gui;
-
-    InventoryListener(final Inventory inventory, final Gui gui) {
-
-        Objects.requireNonNull(inventory, "inventory cannot be null");
-        Objects.requireNonNull(gui, "gui cannot be null");
-
-        this.inventory = inventory;
-        this.gui = gui;
-    }
-
     @EventHandler
     void onInventoryClick(final InventoryClickEvent event) {
 
         Objects.requireNonNull(event, "event cannot be null");
 
-        if (!event.getInventory().equals(inventory)) {
+        if (!(event.getInventory().getHolder() instanceof GuiInventoryHolder guiInventoryHolder)) {
             return;
         }
 
         event.setCancelled(true);
 
-        if (!Objects.equals(event.getClickedInventory(), inventory)) {
+        if (!Objects.equals(event.getInventory(), event.getClickedInventory())) {
             return;
         }
 
         final Slot slot = Slot.of(event.getSlot() / Gui.COLUMNS, event.getSlot() % Gui.COLUMNS);
-        gui.button(slot).ifPresent((button) -> {
+        guiInventoryHolder.gui().button(slot).ifPresent((button) -> {
             final Click.Type type = switch (event.getClick()) {
                 case LEFT -> Click.Type.LEFT;
                 case SHIFT_LEFT -> Click.Type.SHIFT_LEFT;

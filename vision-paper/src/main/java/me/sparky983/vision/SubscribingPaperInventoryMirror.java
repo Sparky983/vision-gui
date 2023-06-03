@@ -2,11 +2,13 @@ package me.sparky983.vision;
 
 import org.bukkit.Server;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 @NullMarked
 final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
@@ -40,7 +42,10 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
 
         Objects.requireNonNull(gui, "gui cannot be null");
 
-        final Inventory inventory = server.createInventory(null, gui.rows() * Gui.COLUMNS, gui.title());
+        final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) ->
+                server.createInventory(inventoryHolder, gui.rows() * Gui.COLUMNS, gui.title());
+
+        final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
 
         final Gui.Subscriber subscriber = new Gui.Subscriber() {
             @Override
