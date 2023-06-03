@@ -38,7 +38,7 @@ class ModernPaperItemTypeConverterTests {
 
     @SuppressWarnings("ConstantConditions")
     @Test
-    void testFromItemTypeWhenItemTypeIsNull() {
+    void testConvertWhenItemTypeIsNull() {
 
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
@@ -49,7 +49,7 @@ class ModernPaperItemTypeConverterTests {
     }
 
     @Test
-    void testFromItemTypeWhenItemTypeCannotBeFound() {
+    void testConvertWhenItemTypeCannotBeFound() {
 
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
@@ -61,7 +61,7 @@ class ModernPaperItemTypeConverterTests {
 
     @ParameterizedTest
     @MethodSource("provideConversions")
-    void testFromItemType(final ItemType itemType, final Material expectedMaterial) {
+    void testConvert(final ItemType itemType, final Material expectedMaterial) {
 
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
