@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -25,17 +26,21 @@ final class ButtonImpl implements Button {
     private ButtonImpl(final ItemType type,
                        final Component name,
                        final List<Component> lore,
-                       final int amount) {
+                       final int amount,
+                       final List<Consumer<Click>> clickHandlers) {
 
         assert type != null;
         assert lore != null;
         assert lore.stream().noneMatch(Objects::isNull);
         assert amount > 0 && amount <= 64;
+        assert clickHandlers != null;
+        assert clickHandlers.stream().noneMatch(Objects::isNull);
 
         this.type = type;
         this.name = name;
         this.lore = lore;
         this.amount = amount;
+        clickHandlers.forEach(this::onClick);
     }
 
     @Override
@@ -186,6 +191,7 @@ final class ButtonImpl implements Button {
      */
     static final class BuilderImpl implements Builder {
 
+        private final List<Consumer<Click>> clickHandlers = new ArrayList<>(0);
         private @Nullable Component name;
         private List<Component> lore = List.of();
         private int amount = 1;
@@ -232,6 +238,15 @@ final class ButtonImpl implements Button {
         }
 
         @Override
+        public Builder onClick(final Consumer<Click> handler) {
+
+            Objects.requireNonNull(handler, "handler cannot be null");
+
+            clickHandlers.add(handler);
+            return this;
+        }
+
+        @Override
         public Button type(final ItemType type) {
 
             Objects.requireNonNull(type, "type cannot be null");
@@ -240,7 +255,8 @@ final class ButtonImpl implements Button {
                     type,
                     name == null ? Component.translatable(type.translationKey()) : name,
                     lore,
-                    amount);
+                    amount,
+                    clickHandlers);
         }
     }
 }

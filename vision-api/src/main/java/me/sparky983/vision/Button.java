@@ -295,6 +295,16 @@ public interface Button extends Subscribable<Button.Subscriber> {
         Builder amount(int amount);
 
         /**
+         * Adds a click handler to the button.
+         *
+         * @param handler the click handler
+         * @return a subscription that can be used to unsubscribe the handler
+         * @throws NullPointerException if the handler is {@code null}.
+         * @since 0.1
+         */
+        Builder onClick(Consumer<Click> handler);
+
+        /**
          * Specifies the type of the button and returns the built button.
          *
          * @param type the item type

@@ -407,6 +407,53 @@ class ButtonTests {
 
         @SuppressWarnings("DataFlowIssue")
         @Test
+        void testBuilderOnClickWhenHandlerIsNull() {
+
+            final Button.Builder builder = Button.button();
+
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    builder.onClick(null));
+            assertEquals("handler cannot be null", e.getMessage());
+        }
+
+
+        @Test
+        void testBuilderOnClick() {
+
+            final Button.Builder builder = Button.button();
+            final Consumer<Click> clickHandler = mock();
+
+            assertEquals(builder, builder.onClick(clickHandler));
+
+            final Button button = builder.type(ItemType.STONE);
+            button.click(CLICK);
+
+            verify(clickHandler).accept(CLICK);
+            verifyNoMoreInteractions(clickHandler);
+        }
+
+        @Test
+        void testBuilderOnClickWhenThrowsException() {
+
+            final Button.Builder builder = Button.button();
+            final Button.Subscriber subscriber = mock();
+            final RuntimeException e = new RuntimeException();
+            final Consumer<Click> clickHandler = mock();
+            doThrow(e).when(clickHandler).accept(CLICK);
+            builder.onClick(clickHandler);
+
+            final Button button = builder.type(ItemType.STONE);
+            button.subscribe(subscriber);
+            button.click(CLICK);
+
+            verify(clickHandler).accept(CLICK);
+            verify(subscriber).click(CLICK);
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(clickHandler, subscriber);
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
         void testOnClickWhenHandlerIsNull() {
 
             final Button button = Button.button().type(ItemType.STONE);
