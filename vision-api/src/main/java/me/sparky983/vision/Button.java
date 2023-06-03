@@ -5,6 +5,7 @@ import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Represents a button.
@@ -134,6 +135,27 @@ public interface Button extends Subscribable<Button.Subscriber> {
     ItemType type();
 
     /**
+     * Clicks this button.
+     * <p>
+     * This method is called by the {@link Vision} when this button is clicked.
+     *
+     * @param click an object describing the click
+     * @throws NullPointerException if the click is {@code null}.
+     * @since 0.1
+     */
+    void click(Click click);
+
+    /**
+     * Subscribes the specified click handler to this button.
+     *
+     * @param handler the click handler
+     * @return a subscription that can be used to unsubscribe the handler
+     * @throws NullPointerException if the handler is {@code null}.
+     * @since 0.1
+     */
+    Button onClick(Consumer<Click> handler);
+
+    /**
      * Subscribes the specified subscriber to this button.
      *
      * @param subscriber the subscriber
@@ -192,6 +214,16 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @since 0.1
          */
         void type(ItemType type);
+
+        /**
+         * Called when the button is clicked.
+         *
+         * @param click an object describing the click
+         * @throws NullPointerException if the click is {@code null} (optional).
+         * @see #click(Click)
+         * @since 0.1
+         */
+        void click(Click click);
     }
 
     /**

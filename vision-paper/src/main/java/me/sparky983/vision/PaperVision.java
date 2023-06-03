@@ -27,6 +27,8 @@ public interface PaperVision extends Vision {
         Objects.requireNonNull(plugin, "plugin cannot be null");
 
         return new PaperVisionImpl(
+                plugin,
+                plugin.getServer().getPluginManager(),
                 new CloningPaperItemFactory(
                         new ModernPaperItemTypeConverter()
                 )

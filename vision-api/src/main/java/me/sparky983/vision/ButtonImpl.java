@@ -1,12 +1,14 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * The default implementation of {@link Button}.
@@ -119,6 +121,55 @@ final class ButtonImpl implements Button {
     public ItemType type() {
 
         return type;
+    }
+
+    @Override
+    public void click(final Click click) {
+
+        Objects.requireNonNull(click, "click cannot be null");
+
+        subscriptionManager.notify((subscriber) -> subscriber.click(click));
+    }
+
+    @Override
+    public Button onClick(final Consumer<Click> handler) {
+
+        Objects.requireNonNull(handler, "handler cannot be null");
+
+        subscribe(new Subscriber() {
+            @Override
+            public void exception(final RuntimeException thrown) {
+
+            }
+
+            @Override
+            public void name(final Component name) {
+
+            }
+
+            @Override
+            public void lore(final List<Component> lore) {
+
+            }
+
+            @Override
+            public void amount(final int amount) {
+
+            }
+
+            @Override
+            public void type(final ItemType type) {
+
+            }
+
+            @Override
+            public void click(final Click click) {
+
+                handler.accept(click);
+            }
+        });
+
+        return this;
     }
 
     @Override
