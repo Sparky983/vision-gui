@@ -10,13 +10,13 @@ import java.util.Objects;
 @NullMarked
 final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
-    private final PaperItemTypeConverter itemTypeConverter;
+    private final PaperConverter paperConverter;
 
-    SubscribingPaperButtonMirror(final PaperItemTypeConverter itemTypeConverter) {
+    SubscribingPaperButtonMirror(final PaperConverter paperConverter) {
 
-        Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
+        Objects.requireNonNull(paperConverter, "paperConverter cannot be null");
 
-        this.itemTypeConverter = itemTypeConverter;
+        this.paperConverter = paperConverter;
     }
 
     @Override
@@ -29,9 +29,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             @Override
             public void name(final Component name) {
 
-                item.editMeta((meta) -> meta.displayName(Component.empty()
-                        .style(PaperItemFactory.DEFAULT_STYLE)
-                        .append(name)));
+                item.editMeta((meta) -> paperConverter.convert(name));
             }
 
             @Override
@@ -39,9 +37,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
                 item.editMeta((meta) -> meta.lore(lore
                         .stream()
-                        .<Component>map((line) -> Component.empty()
-                                .style(PaperItemFactory.DEFAULT_STYLE)
-                                .append(line))
+                        .map(paperConverter::convert)
                         .toList()));
             }
 
@@ -54,8 +50,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             @Override
             public void type(final ItemType type) {
 
-                itemTypeConverter.convert(type)
-                        .ifPresent(item::setType);
+                paperConverter.convert(type).ifPresent(item::setType);
             }
 
             @Override

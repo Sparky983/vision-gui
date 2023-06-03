@@ -15,24 +15,30 @@ import java.util.stream.IntStream;
 @NullMarked
 final class PaperVisionImpl implements PaperVision {
 
+    private static final String UNABLE_TO_MIRROR_MESSAGE = """
+            Unable to converter item type "%s". Possible causes:
+            - The item is not available in this version of Minecraft
+            - Legacy materials are enabled
+            """;
+
     private final Plugin plugin;
     private final PluginManager pluginManager;
-    private final PaperItemFactory paperItemFactory;
+    private final PaperConverter paperConverter;
     private final PaperButtonMirror paperButtonMirror;
 
     PaperVisionImpl(final Plugin plugin,
                     final PluginManager pluginManager,
-                    final PaperItemFactory paperItemFactory,
+                    final PaperConverter paperConverter,
                     final PaperButtonMirror paperButtonMirror) {
 
         Objects.requireNonNull(plugin, "plugin cannot be null");
         Objects.requireNonNull(pluginManager, "pluginManager cannot be null");
-        Objects.requireNonNull(paperItemFactory, "paperItemFactory cannot be null");
+        Objects.requireNonNull(paperConverter, "paperConverter cannot be null");
         Objects.requireNonNull(paperButtonMirror, "paperButtonMirror cannot be null");
 
         this.plugin = plugin;
         this.pluginManager = pluginManager;
-        this.paperItemFactory = paperItemFactory;
+        this.paperConverter = paperConverter;
         this.paperButtonMirror = paperButtonMirror;
     }
 
@@ -53,7 +59,8 @@ final class PaperVisionImpl implements PaperVision {
                 .flatMap(Function.identity())
                 .forEach((slot) -> gui.button(slot)
                         .ifPresent((button) -> {
-                            final ItemStack item = paperItemFactory.create(button);
+                            final ItemStack item = paperConverter.convert(button).orElseThrow(() ->
+                                    new IllegalStateException(UNABLE_TO_MIRROR_MESSAGE.formatted(button.type())));
                             final int rawSlot = slot.column() + (slot.row() * Gui.COLUMNS);
                             inventory.setItem(rawSlot, item);
 
