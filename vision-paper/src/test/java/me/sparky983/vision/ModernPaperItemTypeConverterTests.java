@@ -26,16 +26,6 @@ class ModernPaperItemTypeConverterTests {
         );
     }
 
-    @SuppressWarnings("deprecation")
-    static List<Arguments> provideUnknownMaterials() {
-
-        return List.of(
-                Arguments.of(Material.AIR),
-                Arguments.of(Material.LEGACY_DIAMOND),
-                Arguments.of(Material.LEGACY_WOOL)
-        );
-    }
-
     @SuppressWarnings("ConstantConditions")
     @Test
     void testConvertWhenItemTypeIsNull() {
