@@ -1,5 +1,6 @@
 package me.sparky983.vision;
 
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -48,6 +50,15 @@ class ButtonTests {
      * A list of components to be used for testing button's lore with a list.
      */
     static final List<Component> LORE_LIST = List.of(LORE_LINE_1, LORE_LINE_2);
+
+    /**
+     * A click to be used for testing.
+     */
+    static final Click CLICK = Click.of(
+            Audience.empty(),
+            Button.of(ItemType.STONE),
+            Slot.of(0, 0),
+            Click.Type.LEFT);
 
     @Nested
     class ButtonBuilder {
@@ -386,6 +397,59 @@ class ButtonTests {
 
         @SuppressWarnings("DataFlowIssue")
         @Test
+        void testClickWhenClickIsNull() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
+            assertEquals("click cannot be null", e.getMessage());
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testOnClickWhenHandlerIsNull() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    button.onClick(null));
+            assertEquals("handler cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testOnClick() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+            final Consumer<Click> clickHandler = mock();
+
+            assertEquals(button, button.onClick(clickHandler));
+
+            button.click(CLICK);
+
+            verify(clickHandler).accept(CLICK);
+            verifyNoMoreInteractions(clickHandler);
+        }
+
+        @Test
+        void testOnClickWhenThrowsException() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+            final Button.Subscriber subscriber = mock();
+            final Consumer<Click> clickHandler = mock();
+            final RuntimeException e = new RuntimeException();
+            button.onClick(clickHandler);
+            button.subscribe(subscriber);
+
+            doThrow(e).when(clickHandler).accept(CLICK);
+            button.click(CLICK);
+            verify(clickHandler).accept(CLICK);
+            verify(subscriber).click(CLICK);
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(clickHandler, subscriber);
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
         void testSubscribeWhenSubscriberIsNull() {
 
             final Button button = Button.button().type(ItemType.STONE);
@@ -417,6 +481,9 @@ class ButtonTests {
 
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
+
+            button.click(CLICK);
+            verify(subscriber).click(CLICK);
         }
 
         @Test
@@ -458,10 +525,16 @@ class ButtonTests {
             verify(subscriber, times(5)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
+            doThrow(e).when(subscriber).click(CLICK);
+            button.click(CLICK);
+            verify(subscriber).click(CLICK);
+            verify(subscriber, times(6)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
             doThrow(e).when(subscriber).exception(e);
             button.name(NAME);
             verify(subscriber, times(2)).name(NAME);
-            verify(subscriber, times(6)).exception(e);
+            verify(subscriber, times(7)).exception(e);
             verifyNoMoreInteractions(subscriber); // exception should not be called again
         }
 
@@ -482,6 +555,7 @@ class ButtonTests {
             button.lore(LORE_ARRAY);
             button.amount(5);
             button.type(ItemType.STONE);
+            button.click(CLICK);
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);
@@ -667,6 +741,59 @@ class ButtonTests {
 
         @SuppressWarnings("DataFlowIssue")
         @Test
+        void testClickWhenClickIsNull() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
+            assertEquals("click cannot be null", e.getMessage());
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testOnClickWhenHandlerIsNull() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    button.onClick(null));
+            assertEquals("handler cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testOnClick() {
+
+            final Button button = Button.of(ItemType.STONE);
+            final Consumer<Click> clickHandler = mock();
+
+            assertEquals(button, button.onClick(clickHandler));
+
+            button.click(CLICK);
+
+            verify(clickHandler).accept(CLICK);
+            verifyNoMoreInteractions(clickHandler);
+        }
+
+        @Test
+        void testOnClickWhenThrowsException() {
+
+            final Button button = Button.of(ItemType.STONE);
+            final Button.Subscriber subscriber = mock();
+            final Consumer<Click> clickHandler = mock();
+            final RuntimeException e = new RuntimeException();
+            button.onClick(clickHandler);
+            button.subscribe(subscriber);
+
+            doThrow(e).when(clickHandler).accept(CLICK);
+            button.click(CLICK);
+            verify(clickHandler).accept(CLICK);
+            verify(subscriber).click(CLICK);
+            verify(subscriber).exception(e);
+            verifyNoMoreInteractions(clickHandler, subscriber);
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
         void testSubscribeWhenSubscriberIsNull() {
 
             final Button button = Button.of(ItemType.STONE);
@@ -698,6 +825,9 @@ class ButtonTests {
 
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
+
+            button.click(CLICK);
+            verify(subscriber).click(CLICK);
         }
 
         @Test
@@ -739,10 +869,16 @@ class ButtonTests {
             verify(subscriber, times(5)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
+            doThrow(e).when(subscriber).click(CLICK);
+            button.click(CLICK);
+            verify(subscriber).click(CLICK);
+            verify(subscriber, times(6)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
             doThrow(e).when(subscriber).exception(e);
             button.name(Component.text("name"));
             verify(subscriber, times(2)).name(Component.text("name"));
-            verify(subscriber, times(6)).exception(e);
+            verify(subscriber, times(7)).exception(e);
             verifyNoMoreInteractions(subscriber); // exception should not be called again
         }
 
@@ -763,6 +899,7 @@ class ButtonTests {
             button.lore(LORE_ARRAY);
             button.amount(5);
             button.type(ItemType.STONE);
+            button.click(CLICK);
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);

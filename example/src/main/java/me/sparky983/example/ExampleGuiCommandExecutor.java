@@ -40,7 +40,10 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
                         .name(Component.text("DIAMOND")
                                 .color(NamedTextColor.AQUA)
                                 .decorate(TextDecoration.BOLD))
-                        .type(ItemType.DIAMOND));
+                        .type(ItemType.DIAMOND)
+                        .onClick((click) -> {
+                            click.clicker().sendMessage(Component.text("diamond"));
+                        }));
 
         vision.open(player, gui);
 
