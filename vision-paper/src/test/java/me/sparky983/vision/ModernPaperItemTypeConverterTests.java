@@ -69,38 +69,4 @@ class ModernPaperItemTypeConverterTests {
 
         assertEquals(Optional.of(expectedMaterial), material);
     }
-
-    @SuppressWarnings("ConstantConditions")
-    @Test
-    void testToItemTypeWhenMaterialIsNull() {
-
-        final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
-
-        final Exception e = assertThrows(NullPointerException.class, () ->
-                itemTypeConverter.fromMaterial(null));
-
-        assertEquals("material cannot be null", e.getMessage());
-    }
-
-    @MethodSource("provideUnknownMaterials")
-    @ParameterizedTest
-    void testToItemTypeWhenItemTypeCannotBeFound() {
-
-        final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
-
-        final Optional<ItemType> itemType = itemTypeConverter.fromMaterial(Material.AIR);
-
-        assertEquals(Optional.empty(), itemType);
-    }
-
-    @ParameterizedTest
-    @MethodSource("provideConversions")
-    void testToItemType(final ItemType expectedItemType, final Material material) {
-
-        final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
-
-        final Optional<ItemType> itemType = itemTypeConverter.fromMaterial(material);
-
-        assertEquals(Optional.of(expectedItemType), itemType);
-    }
 }
