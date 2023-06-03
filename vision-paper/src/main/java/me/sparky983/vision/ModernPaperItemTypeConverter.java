@@ -21,12 +21,4 @@ final class ModernPaperItemTypeConverter implements PaperItemTypeConverter {
 
         return Optional.ofNullable(Material.matchMaterial(itemType.key().asString()));
     }
-
-    @Override
-    public Optional<ItemType> fromMaterial(final Material material) {
-
-        Objects.requireNonNull(material, "material cannot be null");
-
-        return ItemType.findByKey(material.key());
-    }
 }
