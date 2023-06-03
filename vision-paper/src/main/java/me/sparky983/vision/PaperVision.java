@@ -7,7 +7,7 @@ import org.jspecify.nullness.NullMarked;
 import java.util.Objects;
 
 /**
- * The paper GUI manager.
+ * The Paper {@link Gui} manager.
  *
  * @since 0.1
  */
@@ -15,9 +15,9 @@ import java.util.Objects;
 public interface PaperVision extends Vision {
 
     /**
-     * Creates a new paper GUI manager.
+     * Creates a new Paper {@link Gui} manager.
      *
-     * @return the newly created paper GUI manager
+     * @return the newly created Paper {@link Gui} manager
      * @param plugin the plugin
      * @throws NullPointerException if the plugin is {@code null}.
      * @since 0.1
@@ -40,10 +40,10 @@ public interface PaperVision extends Vision {
     }
 
     /**
-     * Opens the specified GUI for the specified player.
+     * Opens the specified {@link Gui} for the specified player.
      *
      * @param player the player
-     * @param gui the GUI
+     * @param gui the {@link Gui}
      * @throws NullPointerException if the player or the GUI is {@code null}.
      * @since 0.1
      */

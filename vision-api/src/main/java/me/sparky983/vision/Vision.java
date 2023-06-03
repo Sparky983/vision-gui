@@ -1,7 +1,7 @@
 package me.sparky983.vision;
 
 /**
- * Marker interface for vision implementations.
+ * Marker interface for Vision implementations.
  *
  * @since 0.1
  */

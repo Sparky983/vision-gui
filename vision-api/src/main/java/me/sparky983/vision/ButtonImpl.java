@@ -12,6 +12,9 @@ import java.util.function.Consumer;
 
 /**
  * The default implementation of {@link Button}.
+ *
+ * @see Button#of(ItemType)
+ * @see Button#button()
  */
 @NullMarked
 final class ButtonImpl implements Button {

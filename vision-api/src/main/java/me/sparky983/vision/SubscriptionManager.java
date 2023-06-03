@@ -7,11 +7,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import me.sparky983.vision.Subscribable.Subscriber;
+
 /**
- * Manages subscriptions for a button and provides a simple API for notifying subscribers.
+ * Manages subscriptions for a button and provides a simple API for notifying
+ * {@link Subscriber Subscribers}.
  */
 @NullMarked
-final class SubscriptionManager<T extends Subscribable.Subscriber> {
+final class SubscriptionManager<T extends Subscriber> {
 
     private final Map<Subscription, T> subscribers = new HashMap<>();
 

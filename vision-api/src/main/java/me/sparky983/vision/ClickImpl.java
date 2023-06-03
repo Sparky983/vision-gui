@@ -15,7 +15,7 @@ record ClickImpl(@Override Audience clicker,
                  @Override Type type) implements Click {
 
     /**
-     * Creates a new click.
+     * Creates a new {@code ClickImpl}.
      *
      * @param clicker the audience who clicked the {@link Button}
      * @param button the {@link Button} that was clicked

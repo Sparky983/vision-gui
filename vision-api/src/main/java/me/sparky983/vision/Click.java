@@ -13,15 +13,13 @@ import org.jspecify.nullness.NullMarked;
 public interface Click {
 
     /**
-     * Creates a new click with the specified clicker, button, slot and type.
-     * <p>
-     * By default, the click is not cancelled.
+     * Creates a new {@code Click} with the specified clicker, button, slot and type.
      *
      * @param clicker the audience who clicked the {@link Button}
      * @param button the {@link Button} that was clicked
      * @param slot the {@link Slot} that was clicked
      * @param type the type of this click
-     * @return the newly created click.
+     * @return the new {@code Click}.
      * @throws NullPointerException if the clicker, button, slot or type is {@code null}.
      * @since 0.1
      */
@@ -32,9 +30,9 @@ public interface Click {
     }
 
     /**
-     * Gets the audience who clicked the {@link Button}.
+     * Gets the {@code Audience} who clicked the {@link Button}.
      *
-     * @return the audience who clicked the {@link Button}
+     * @return the {@code Audience} who clicked the {@link Button}
      * @since 0.1
      */
     Audience clicker();
@@ -56,9 +54,9 @@ public interface Click {
     Slot slot();
 
     /**
-     * Gets the type of this click.
+     * Gets the {@code Type} of this click.
      *
-     * @return the type of this click
+     * @return the {@code Type} of this click
      * @since 0.1
      */
     Type type();

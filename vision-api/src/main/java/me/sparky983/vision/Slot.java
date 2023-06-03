@@ -11,10 +11,10 @@ import org.jspecify.nullness.NullMarked;
 public record Slot(int row, int column) {
 
     /**
-     * Creates a new slot.
+     * Creates a new {@code Slot}.
      *
-     * @param row the row of the slot
-     * @param column the column of the slot
+     * @param row the row of the {@code Slot}
+     * @param column the column of the {@code Slot}
      * @throws IllegalArgumentException if either the row is less than 0 or greater than 5 or
      * column is less than 0 or greater than 8
      * @see #of(int, int)
@@ -34,11 +34,11 @@ public record Slot(int row, int column) {
     }
 
     /**
-     * Creates a new slot.
+     * Creates a new {@code Slot}.
      *
-     * @param row the row of the slot
-     * @param column the column of the slot
-     * @return the newly created slot
+     * @param row the row of the {@code Slot}
+     * @param column the column of the {@code Slot}
+     * @return the newly created {@code Slot}
      * @throws IllegalArgumentException if either the row is less than 0 or greater than 5 or
      * column is less than 0 or greater than 8
      * @see #Slot(int, int)

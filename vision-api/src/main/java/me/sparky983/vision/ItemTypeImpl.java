@@ -31,8 +31,8 @@ record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
      * Creates a new {@link ItemType} for the given {@link Key}.
      *
      * @param key the key
-     * @param isBlock whether the item type is a block
-     * @return the new item type
+     * @param isBlock whether the {@link ItemType} is a block
+     * @return the new {@link ItemType}
      * @throws NullPointerException if the key is {@code null}.
      */
     static ItemType of(final Key key, final boolean isBlock) {

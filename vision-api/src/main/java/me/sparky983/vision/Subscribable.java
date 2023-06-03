@@ -6,13 +6,15 @@ import org.jspecify.nullness.NullMarked;
  * Represents a subscribable object.
  *
  * @param <T> the type of subscriber
+ * @see Button
+ * @see Gui
  * @since 0.1
  */
 @NullMarked
 public interface Subscribable<T extends Subscribable.Subscriber> {
 
     /**
-     * Subscribes the specified subscriber to this button.
+     * Subscribes the specified subscriber to this {@code Subscribable} object.
      *
      * @param subscriber the subscriber
      * @return a subscription that can be used to unsubscribe the subscriber
@@ -22,8 +24,10 @@ public interface Subscribable<T extends Subscribable.Subscriber> {
     Subscription subscribe(T subscriber);
 
     /**
-     * Represents a subscriber to a {@link Subscribable subscribable object}.
+     * Represents a subscriber to a {@link Subscribable} object.
      *
+     * @see Button.Subscriber
+     * @see Gui.Subscriber
      * @since 0.1
      */
     interface Subscriber {
