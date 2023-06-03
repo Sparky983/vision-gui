@@ -105,7 +105,7 @@ class ClickTests {
         @ParameterizedTest
         void testIsLeftWhenTypeIsNotLeft(final Click.Type type) {
 
-            assertFalse(Click.Type.LEFT.isLeft());
+            assertFalse(type.isLeft());
         }
 
         @ValueSource(strings = {"RIGHT", "SHIFT_RIGHT"})
@@ -127,7 +127,7 @@ class ClickTests {
         @ParameterizedTest
         void testIsRightWhenTypeIsNotRight(final Click.Type type) {
 
-            assertFalse(Click.Type.RIGHT.isRight());
+            assertFalse(type.isRight());
         }
 
         @ValueSource(strings = {"SHIFT_LEFT", "SHIFT_RIGHT"})
