@@ -23,7 +23,7 @@ interface PaperItemFactory {
      * @param button the button to be mirrored
      * @return the mirroring item stack
      * @throws IllegalArgumentException if the item type cannot be converted.
-     * @throws NullPointerException if the item stack is null.
+     * @throws NullPointerException if the item stack is {@code null}.
      */
     ItemStack create(Button button);
 }
