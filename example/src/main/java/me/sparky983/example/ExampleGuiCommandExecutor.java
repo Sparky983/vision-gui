@@ -39,16 +39,15 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
             return false;
         }
 
-        final AtomicInteger i = new AtomicInteger(0);
+        final AtomicInteger count = new AtomicInteger(0);
 
         final Button counter = Button.button()
                 .type(ItemType.DIAMOND)
                 .onClick((click) -> click.clicker().sendMessage(click.button().name()));
 
         scheduler.runTaskTimer(plugin, () -> {
-            i.getAndIncrement();
-            counter.name(Component.text("Counter: " + i.get()));
-        }, 0, 10);
+            counter.name(Component.text("Counter: " + count.incrementAndGet()));
+        }, 20, 10);
 
         final Gui gui = Gui.gui()
                 .title(Component.text("Test GUI"))
