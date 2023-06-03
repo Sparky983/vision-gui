@@ -149,7 +149,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * Subscribes the specified click handler to this button.
      *
      * @param handler the click handler
-     * @return a subscription that can be used to unsubscribe the handler
+     * @return the button instance (for chaining)
      * @throws NullPointerException if the handler is {@code null}.
      * @since 0.1
      */
