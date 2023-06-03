@@ -22,20 +22,20 @@ import static org.mockito.Mockito.when;
 
 class CloningPaperItemFactoryTests {
 
-    PaperItemTypeConverter paperItemTypeConverter;
-    PaperItemFactory buttonMirrorFactory;
+    PaperItemTypeConverter itemTypeConverter;
+    PaperItemFactory paperItemFactory;
 
     @BeforeEach
     void setUp() {
 
-        paperItemTypeConverter = mock();
-        buttonMirrorFactory = new CloningPaperItemFactory(paperItemTypeConverter);
+        itemTypeConverter = mock();
+        paperItemFactory = new CloningPaperItemFactory(itemTypeConverter);
     }
 
     @AfterEach
     void tearDown() {
 
-        verifyNoMoreInteractions(paperItemTypeConverter);
+        verifyNoMoreInteractions(itemTypeConverter);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -43,29 +43,29 @@ class CloningPaperItemFactoryTests {
     void testCreateWhenButtonIsNull() {
 
         final Exception e =
-                assertThrows(NullPointerException.class, () -> buttonMirrorFactory.create(null));
+                assertThrows(NullPointerException.class, () -> paperItemFactory.create(null));
         assertEquals("button cannot be null", e.getMessage());
     }
 
     @Test
     void testCreateWhenItemTypeCannotBeConverted() {
 
-        when(paperItemTypeConverter.fromItemType(ItemType.STONE))
+        when(itemTypeConverter.fromItemType(ItemType.STONE))
                 .thenReturn(Optional.empty());
 
         final Button button = Button.of(ItemType.STONE);
 
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                buttonMirrorFactory.create(button));
+                paperItemFactory.create(button));
         assertEquals(UNABLE_TO_MIRROR_MESSAGE.formatted(ItemType.STONE), e.getMessage());
-        verify(paperItemTypeConverter).fromItemType(ItemType.STONE);
+        verify(itemTypeConverter).fromItemType(ItemType.STONE);
     }
 
     @Disabled("Depends on a Paper API implementation")
     @Test
     void testCreate() {
 
-        when(paperItemTypeConverter.fromItemType(ItemType.STONE))
+        when(itemTypeConverter.fromItemType(ItemType.STONE))
                 .thenReturn(Optional.of(Material.STONE));
 
         final Button button = Button.button()
@@ -74,7 +74,7 @@ class CloningPaperItemFactoryTests {
                 .lore(Component.text("lore"))
                 .amount(64);
 
-        final ItemStack item = buttonMirrorFactory.create(button);
+        final ItemStack item = paperItemFactory.create(button);
 
         final ItemStack expectedItem = new ItemStack(Material.STONE, 64);
         expectedItem.editMeta((meta) -> {
@@ -87,6 +87,6 @@ class CloningPaperItemFactoryTests {
                             .append(Component.text("lore"))));
         });
         assertEquals(expectedItem, item);
-        verify(paperItemTypeConverter).fromItemType(ItemType.STONE);
+        verify(itemTypeConverter).fromItemType(ItemType.STONE);
     }
 }
