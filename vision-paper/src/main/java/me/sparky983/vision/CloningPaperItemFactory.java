@@ -1,9 +1,6 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.Style;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 
@@ -16,19 +13,14 @@ import java.util.Objects;
 @NullMarked
 final class CloningPaperItemFactory implements PaperItemFactory {
 
+    /**
+     * Visible for testing.
+     */
     static final String UNABLE_TO_MIRROR_MESSAGE = """
             Unable to converter item type "%s". Possible causes:
             - The item is not available in this version of Minecraft
             - Legacy materials are enabled
             """;
-
-    /**
-     * Visible for testing.
-     */
-    static final Style DEFAULT_STYLE = Style.style()
-            .color(NamedTextColor.WHITE)
-            .decorations(TextDecoration.NAMES.values(), false)
-            .build();
 
     private final PaperItemTypeConverter itemTypeConverter;
 
