@@ -20,6 +20,9 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 class GuiTests {
 
+    /**
+     * A component to be used for testing as a gui's name.
+     */
     static final Component TITLE = Component.text("title");
 
     @Nested
