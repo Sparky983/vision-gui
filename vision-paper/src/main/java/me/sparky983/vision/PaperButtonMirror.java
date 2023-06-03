@@ -11,6 +11,8 @@ interface PaperButtonMirror {
 
     /**
      * Mirrors all the changes to the specified {@link Button} to the specified {@link ItemStack}.
+     * <p>
+     * The button is a parameter because we need to mirror buttons that weren't created by us.
      *
      * @param button the button to be mirrored
      * @param item the item stack to be mirrored to
