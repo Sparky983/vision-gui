@@ -58,15 +58,15 @@ record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
     }
 
     @Override
-    public String toString() {
-
-        return key.asString();
-    }
-
-    @Override
     public String translationKey() {
 
         final String category = isBlock ? "block." : "item.";
         return category + key.namespace() + "." + key.value().replace('/', '.');
+    }
+
+    @Override
+    public String toString() {
+
+        return key.asString();
     }
 }
