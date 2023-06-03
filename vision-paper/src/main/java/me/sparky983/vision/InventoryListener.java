@@ -36,6 +36,10 @@ final class InventoryListener implements Listener {
 
         event.setCancelled(true);
 
+        if (!Objects.equals(event.getClickedInventory(), inventory)) {
+            return;
+        }
+
         final Slot slot = Slot.of(event.getSlot() / 9, event.getSlot() % 9);
         gui.button(slot).ifPresent((button) -> {
             final Click.Type type = switch (event.getClick()) {
