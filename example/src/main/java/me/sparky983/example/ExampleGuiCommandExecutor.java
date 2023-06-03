@@ -6,8 +6,6 @@ import me.sparky983.vision.ItemType;
 import me.sparky983.vision.PaperVision;
 import me.sparky983.vision.Slot;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
