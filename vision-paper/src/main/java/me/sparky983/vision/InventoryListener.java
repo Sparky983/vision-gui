@@ -40,7 +40,7 @@ final class InventoryListener implements Listener {
             return;
         }
 
-        final Slot slot = Slot.of(event.getSlot() / 9, event.getSlot() % 9);
+        final Slot slot = Slot.of(event.getSlot() / Gui.COLUMNS, event.getSlot() % Gui.COLUMNS);
         gui.button(slot).ifPresent((button) -> {
             final Click.Type type = switch (event.getClick()) {
                 case LEFT -> Click.Type.LEFT;

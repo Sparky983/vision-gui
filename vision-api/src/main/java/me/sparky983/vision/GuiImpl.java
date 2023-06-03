@@ -29,7 +29,7 @@ final class GuiImpl implements Gui {
 
     private GuiImpl(final @Nullable Component title, final int rows) {
 
-        assert rows >= 1 && rows <= 6;
+        assert rows >= 1 && rows <= MAX_ROWS;
 
         this.title = Objects.requireNonNullElse(title, DEFAULT_NAME);
         this.rows = rows;
@@ -98,7 +98,7 @@ final class GuiImpl implements Gui {
         @Override
         public Gui rows(final int rows) {
 
-            if (rows < 1 || rows > 6) {
+            if (rows <= 0 || rows > MAX_ROWS) {
                 throw new IllegalArgumentException("rows must be between 1 and 6");
             }
 

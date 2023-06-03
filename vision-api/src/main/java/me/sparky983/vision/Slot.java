@@ -22,12 +22,12 @@ public record Slot(int row, int column) {
      */
     public Slot {
 
-        if (row < 0 || row > 5) {
+        if (row < 0 || row >= Gui.MAX_ROWS) {
 
             throw new IllegalArgumentException("row must be between 0 and 5");
         }
 
-        if (column < 0 || column > 8) {
+        if (column < 0 || column >= Gui.COLUMNS) {
 
             throw new IllegalArgumentException("column must be between 0 and 8");
         }

@@ -15,6 +15,16 @@ import java.util.Optional;
 public interface Gui extends Subscribable<Gui.Subscriber> {
 
     /**
+     * The maximum number of rows in a GUI.
+     */
+    int MAX_ROWS = 6;
+
+    /**
+     * The number of columns in a GUI.
+     */
+    int COLUMNS = 9;
+
+    /**
      * Creates a new GUI builder.
      *
      * @return the newly created GUI builder

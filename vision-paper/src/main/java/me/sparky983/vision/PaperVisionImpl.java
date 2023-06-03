@@ -42,15 +42,19 @@ final class PaperVisionImpl implements PaperVision {
         Objects.requireNonNull(player, "player cannot be null");
         Objects.requireNonNull(gui, "gui cannot be null");
 
-        final Inventory inventory = Bukkit.createInventory(null, gui.rows() * 9, gui.title());
+        final Inventory inventory = Bukkit.createInventory(
+                null,
+                gui.rows() * Gui.COLUMNS,
+                gui.title());
 
         IntStream.range(0, gui.rows())
-                .mapToObj((row) -> IntStream.range(0, 9).mapToObj((column) -> Slot.of(row, column)))
+                .mapToObj((row) -> IntStream.range(0, Gui.COLUMNS)
+                        .mapToObj((column) -> Slot.of(row, column)))
                 .flatMap(Function.identity())
                 .forEach((slot) -> gui.button(slot)
                         .ifPresent((button) -> {
                             final ItemStack item = paperItemFactory.create(button);
-                            final int rawSlot = slot.column() + (slot.row() * 9);
+                            final int rawSlot = slot.column() + (slot.row() * Gui.COLUMNS);
                             inventory.setItem(rawSlot, item);
 
                             final ItemStack craftItem = inventory.getItem(rawSlot);
