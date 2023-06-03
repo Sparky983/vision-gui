@@ -15,7 +15,7 @@ final class ModernPaperItemTypeConverter implements PaperItemTypeConverter {
     // TODO(Sparky983): Legacy implementation
 
     @Override
-    public Optional<Material> fromItemType(final ItemType itemType) {
+    public Optional<Material> convert(final ItemType itemType) {
 
         Objects.requireNonNull(itemType, "itemType cannot be null");
 

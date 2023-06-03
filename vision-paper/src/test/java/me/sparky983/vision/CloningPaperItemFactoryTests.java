@@ -50,7 +50,7 @@ class CloningPaperItemFactoryTests {
     @Test
     void testCreateWhenItemTypeCannotBeConverted() {
 
-        when(itemTypeConverter.fromItemType(ItemType.STONE))
+        when(itemTypeConverter.convert(ItemType.STONE))
                 .thenReturn(Optional.empty());
 
         final Button button = Button.of(ItemType.STONE);
@@ -58,14 +58,14 @@ class CloningPaperItemFactoryTests {
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
                 paperItemFactory.create(button));
         assertEquals(UNABLE_TO_MIRROR_MESSAGE.formatted(ItemType.STONE), e.getMessage());
-        verify(itemTypeConverter).fromItemType(ItemType.STONE);
+        verify(itemTypeConverter).convert(ItemType.STONE);
     }
 
     @Disabled("Depends on a Paper API implementation")
     @Test
     void testCreate() {
 
-        when(itemTypeConverter.fromItemType(ItemType.STONE))
+        when(itemTypeConverter.convert(ItemType.STONE))
                 .thenReturn(Optional.of(Material.STONE));
 
         final Button button = Button.button()
@@ -87,6 +87,6 @@ class CloningPaperItemFactoryTests {
                             .append(Component.text("lore"))));
         });
         assertEquals(expectedItem, item);
-        verify(itemTypeConverter).fromItemType(ItemType.STONE);
+        verify(itemTypeConverter).convert(ItemType.STONE);
     }
 }

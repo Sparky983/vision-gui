@@ -54,7 +54,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             @Override
             public void type(final ItemType type) {
 
-                itemTypeConverter.fromItemType(type)
+                itemTypeConverter.convert(type)
                         .ifPresent(item::setType);
             }
 

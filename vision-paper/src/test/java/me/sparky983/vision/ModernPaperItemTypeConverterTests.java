@@ -43,7 +43,7 @@ class ModernPaperItemTypeConverterTests {
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
         final Exception e = assertThrows(NullPointerException.class, () ->
-                itemTypeConverter.fromItemType(null));
+                itemTypeConverter.convert(null));
 
         assertEquals("itemType cannot be null", e.getMessage());
     }
@@ -53,7 +53,7 @@ class ModernPaperItemTypeConverterTests {
 
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
-        final Optional<Material> material = itemTypeConverter.fromItemType(
+        final Optional<Material> material = itemTypeConverter.convert(
                 ItemTypeImpl.of(Key.key("vision", "not_found"), true));
 
         assertEquals(Optional.empty(), material);
@@ -65,7 +65,7 @@ class ModernPaperItemTypeConverterTests {
 
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
-        final Optional<Material> material = itemTypeConverter.fromItemType(itemType);
+        final Optional<Material> material = itemTypeConverter.convert(itemType);
 
         assertEquals(Optional.of(expectedMaterial), material);
     }

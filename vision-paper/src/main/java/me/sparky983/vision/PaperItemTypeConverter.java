@@ -18,5 +18,5 @@ interface PaperItemTypeConverter {
      * @return the material or {@link Optional#empty()} if the material could not be found
      * @throws NullPointerException if the item type is {@code null}.
      */
-    Optional<Material> fromItemType(ItemType itemType);
+    Optional<Material> convert(ItemType itemType);
 }

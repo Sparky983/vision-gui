@@ -96,7 +96,7 @@ class SubscribingPaperButtonMirrorTests {
     @Test
     void testMirrorWhenItemTypeCannotBeConverted() {
 
-        when(itemTypeConverter.fromItemType(ItemType.STONE))
+        when(itemTypeConverter.convert(ItemType.STONE))
                 .thenReturn(Optional.empty());
 
         final Button button = Button.of(ItemType.GRASS);
@@ -107,14 +107,14 @@ class SubscribingPaperButtonMirrorTests {
         button.type(ItemType.STONE);
         assertEquals(Material.GRASS, item.getType());
 
-        verify(itemTypeConverter).fromItemType(ItemType.STONE);
+        verify(itemTypeConverter).convert(ItemType.STONE);
     }
 
     @Disabled("Depends on a Paper API implementation")
     @Test
     void testMirror() {
 
-        when(itemTypeConverter.fromItemType(ItemType.GRASS))
+        when(itemTypeConverter.convert(ItemType.GRASS))
                 .thenReturn(Optional.of(Material.GRASS));
 
         final Button button = Button.of(ItemType.STONE);
@@ -153,6 +153,6 @@ class SubscribingPaperButtonMirrorTests {
         button.type(ItemType.GRASS);
         assertEquals(Material.GRASS, item.getType());
 
-        verify(itemTypeConverter).fromItemType(ItemType.GRASS);
+        verify(itemTypeConverter).convert(ItemType.GRASS);
     }
 }

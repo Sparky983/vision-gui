@@ -36,7 +36,7 @@ final class CloningPaperItemFactory implements PaperItemFactory {
 
         Objects.requireNonNull(button, "button cannot be null");
 
-        return itemTypeConverter.fromItemType(button.type())
+        return itemTypeConverter.convert(button.type())
                 .map((material) -> {
                     final ItemStack item = new ItemStack(material, button.amount());
                     item.editMeta((itemMeta) -> {
