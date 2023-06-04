@@ -22,8 +22,9 @@ public interface Click {
      * @return the new {@code Click}.
      * @throws NullPointerException if the clicker, button, slot or type is {@code null}.
      * @since 0.1
+     * @vision.experimental because this become internal in the future.
      */
-    @ApiStatus.Experimental // Not sure how I feel about having a static factory method for clicks.
+    @ApiStatus.Experimental
     static Click of(final Audience clicker, final Button button, final Slot slot, final Type type) {
 
         return new ClickImpl(clicker, button, slot, type);

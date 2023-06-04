@@ -37,6 +37,7 @@ tasks {
     javadoc {
         options {
             (this as StandardJavadocDocletOptions).run {
+                tags("vision.experimental:a:Experimental:")
                 tags("vision.implNote:a:Implementation Note:")
                 tags("vision.apiNote:a:API Note:")
                 tags("vision.examples:a:Examples:")
