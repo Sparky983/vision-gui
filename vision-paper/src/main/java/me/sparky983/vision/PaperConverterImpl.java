@@ -6,6 +6,7 @@ import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Objects;
@@ -16,9 +17,8 @@ final class PaperConverterImpl implements PaperConverter {
 
     /**
      * The style Vision uses for all items.
-     * <p>
-     * Visible for testing.
      */
+    @VisibleForTesting
     static final Style VISION_STYLE = Style.style()
             .color(NamedTextColor.WHITE)
             .decorations(TextDecoration.NAMES.values(), false)

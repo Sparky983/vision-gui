@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
@@ -15,9 +16,7 @@ import java.util.Optional;
 @NullMarked
 final class GuiImpl implements Gui {
 
-    /**
-     * Visible for testing
-     */
+    @VisibleForTesting
     static final Component DEFAULT_NAME = Component.translatable("container.chest");
 
     private final SubscriptionManager<Subscriber> subscriptionManager = new SubscriptionManager<>();
