@@ -6,6 +6,9 @@ import org.jspecify.nullness.NullMarked;
  * Represents a slot inside a {@link Gui}.
  *
  * @since 0.1
+ * @vision.apiNote The slot factory is ordered by row and then column similar to how matrices are
+ * indexed as opposed to how the Cartesian Coordinates are referenced (x, y) as it was not a good
+ * suit for {@link Gui} {@code Slot}s.
  */
 @NullMarked
 public record Slot(int row, int column) {

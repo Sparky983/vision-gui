@@ -13,6 +13,9 @@ import java.util.function.Consumer;
  * @see #button()
  * @see #of(ItemType)
  * @since 0.1
+ * @vision.apiNote Unlike Bukkit, {@code Button}s aren't cloned when they're added to a {@link Gui}
+ * meaning you can always mutate the {@code Button} and have the mutation be reflected in the
+ * {@link Gui}.
  */
 @NullMarked
 public interface Button extends Subscribable<Button.Subscriber> {
@@ -24,6 +27,13 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @see Builder
      * @see #of(ItemType)
      * @since 0.1
+     * @vision.apiNote The builder is type-safe, so it cannot be built until the
+     * {@link Button.Builder#type(ItemType)} has been specified.
+     * @vision.examples <pre>
+     *Button button = Button.button()
+     *        .name(Component.text("My Button"))
+     *        .lore(Component.text("My lore line 1"), Component.text("My lore line 2"))
+     *        .type(ItemTypes.DIAMOND);</pre>
      */
     static Builder button() {
 
@@ -38,6 +48,10 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @throws NullPointerException if the type is {@code null}.
      * @see #button()
      * @since 0.1
+     * @vision.examples <pre>
+     *Button button = Button.of(ItemTypes.DIAMOND)
+     *        .name(Component.text("My Button"))
+     *        .lore(Component.text("My lore line 1"), Component.text("My lore line 2"));</pre>
      */
     static Button of(final ItemType type) {
 
@@ -50,6 +64,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @param name the name or {@code null} to remove the name
      * @return this {@code Button} instance (for chaining)
      * @since 0.1
+     * @vision.implNote The Paper Vision implementation removes the default Minecraft display name
+     * style (italics).
      */
     Button name(@Nullable Component name);
 
@@ -74,6 +90,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @return this {@code Button} instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
      * @since 0.1
+     * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+     * (purple, italics).
      */
     Button lore(Component... lore);
 
@@ -86,6 +104,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @return this {@code Button} instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
      * @since 0.1
+     * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+     * (purple, italics).
      */
     Button lore(List<Component> lore);
 
@@ -153,17 +173,44 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @return the {@code Button} instance (for chaining)
      * @throws NullPointerException if the {@link Click} handler is {@code null}.
      * @since 0.1
+     * @vision.apiNote This method may be called multiple times to add multiple handlers.
+     * @vision.examples <pre>
+     *{@code Button button = Button.button()
+     *        .name(Component.text("Click me!"))
+     *        .type(ItemType.DIAMOND);
+     *        .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))}</pre>
      */
     Button onClick(Consumer<Click> handler);
 
     /**
-     * Subscribes the specified subscriber to this {@code Button}.
+     * Subscribes the specified {@link Subscriber} to this {@code Button}.
      *
      * @param subscriber the subscriber
-     * @return a {@code Subscription} that can be used to unsubscribe the subscriber
+     * @return a {@link Subscription} that can be used to unsubscribe the subscriber
      * @throws NullPointerException if the subscriber is {@code null}.
      * @since 0.1
+     * @vision.examples <pre>
+     *{@code Button button = ...;
+     *button.subscribe(new Button.Subscriber() {
+     *    public void name(Component name) {
+     *        System.out.println("Name updated");
+     *    }
+     *    public void lore(List<Component> lore) {
+     *        System.out.println("Lore updated");
+     *    }
+     *    public void amount(int amount) {
+     *        System.out.println("Amount updated");
+     *    }
+     *    public void type(ItemType type) {
+     *        System.out.println("Type updated");
+     *    }
+     *    public void click(Click click) {
+     *    }
+     *    public void exception(RuntimeException thrown) {
+     *    }
+     *})}</pre>
      */
+    @Override
     Subscription subscribe(Subscriber subscriber);
 
     /**
@@ -229,24 +276,20 @@ public interface Button extends Subscribable<Button.Subscriber> {
 
     /**
      * A {@link Button} builder.
-     * <p>
-     * To build the button, use {@link #type(ItemType)}.
-     * <p>
-     * Examples:
-     * <pre>
-     * Button button = Button.button()
-     *         .name(Component.text("Stone"))
-     *         .type(ItemType.STONE); // builds the button
-     * </pre>
-     * <pre>
-     * Button button = Button.button()
-     *         .type(ItemType.STONE) // builds the button
-     *         .lore(Component.text("Line 1"), Component.text("Line 2"));
-     * </pre>
      *
      * @see #button()
      * @see #type(ItemType)
      * @since 0.1
+     * @vision.apiNote This builder is type-safe, so it cannot be built until the
+     * {@link Builder#type(ItemType)} has been specified.
+     * @vision.examples <pre>
+     *Button button = Button.button()
+     *        .name(Component.text("Stone"))
+     *        .type(ItemType.STONE); // builds the button</pre>
+     * <pre>
+     *Button button = Button.button()
+     *        .type(ItemType.STONE) // builds the button
+     *        .lore(Component.text("Line 1"), Component.text("Line 2"));</pre>
      */
     interface Builder {
 
@@ -257,6 +300,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @return this {@code Builder} instance (for chaining)
          * @throws NullPointerException if the name is {@code null}.
          * @since 0.1
+         * @vision.implNote The Paper Vision implementation removes the default Minecraft display
+         * name style (italics).
          */
         Builder name(Component name);
 
@@ -269,6 +314,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @return this {@code Builder} instance (for chaining)
          * @throws NullPointerException if the lore is or contains {@code null}.
          * @since 0.1
+         * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+         * (purple, italics).
          */
         Builder lore(Component... lore);
 
@@ -281,6 +328,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @return this {@code Builder} instance (for chaining)
          * @throws NullPointerException if the lore is or contains {@code null}.
          * @since 0.1
+         * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+         * (purple, italics).
          */
         Builder lore(List<Component> lore);
 
@@ -302,6 +351,12 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @return the {@code Builder} instance (for chaining)
          * @throws NullPointerException if the {@link Click} handler is {@code null}.
          * @since 0.1
+         * @vision.apiNote This method may be called multiple times to add multiple handlers.
+         * @vision.examples <pre>
+         *{@code Button button = Button.button()
+         *       .name(Component.text("Click me!"))
+         *       .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))
+         *       .type(ItemType.DIAMOND);}</pre>
          */
         Builder onClick(Consumer<Click> handler);
 

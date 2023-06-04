@@ -32,6 +32,12 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      * @see #gui(Component, int)
      * @see #gui(int)
      * @since 0.1
+     * @vision.apiNote This builder is type-safe, so it cannot be built until the
+     * {@link Builder#rows(int)} have been specified.
+     * @vision.examples <pre>
+     *Gui gui = Gui.gui()
+     *        .title(Component.text("My GUI"))
+     *        .rows(3);</pre>
      */
     static Builder gui() {
 
@@ -48,6 +54,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      * @see #gui()
      * @see #gui(int)
      * @since 0.1
+     * @vision.examples <pre>
+     *Gui gui = Gui.gui(Component.text("My GUI"), 3);</pre>
      */
     static Gui gui(final @Nullable Component title, int rows) {
 
@@ -69,6 +77,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      * @see #gui()
      * @see #gui(Component, int)
      * @since 0.1
+     * @vision.examples <pre>
+     *Gui gui = Gui.gui(3);</pre>
      */
     static Gui gui(final int rows) {
 
@@ -119,9 +129,29 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     Optional<Button> button(Slot slot);
 
     /**
+     * Subscribes the specified {@link Subscriber} to this {@code Gui}.
+     *
+     * @param subscriber the subscriber to subscribe
+     * @return a {@link Subscription} that can be used to unsubscribe the subscriber
+     * @throws NullPointerException if the subscriber is {@code null}.
+     * @since 0.1
+     * @vision.examples <pre>
+     * {@code Gui gui = ....;
+     *gui.subscribe(new Gui.Subscriber() {
+     *    public void button(Slot slot, Button button) {
+     *        System.out.println("Slot changed");
+     *    }
+     *    public void exception(RuntimeException thrown) {
+     *    }
+     *}}</pre>
+     */
+    @Override
+    Subscription subscribe(Subscriber subscriber);
+
+    /**
      * Represents a subscriber to a {@link Gui}.
      *
-     * @see Gui#subscribe(Subscribable.Subscriber)
+     * @see Gui#subscribe(Subscriber)
      * @since 0.1
      */
     interface Subscriber extends Subscribable.Subscriber {
@@ -138,23 +168,22 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     }
 
     /**
-     * A typesafe {@link Gui} builder.
-     * <p>
-     * To build the {@link Gui}, use {@link #rows(int)}.
-     * <p>
-     * Examples:
-     * <pre>
-     * Gui gui = Gui.gui()
-     *         .title(Component.text("My GUI"))
-     *         .button(Slot.of(0, 0), Button.of(ItemType.STONE))
-     *         .rows(5);
-     * </pre>
-     * <pre>
-     * Gui gui = Gui.gui()
-     *          .title(Component.text("My GUI"))
-     *          .rows(5)
-     *          .button(Slot.of(0, 0), Button.of(ItemType.STONE));
-     * </pre>
+     * A {@link Gui} builder.
+     *
+     * @see #gui()
+     * @see #rows(int)
+     * @since 0.1
+     * @vision.apiNote This builder is type-safe, so it cannot be built until the
+     * {@link Builder#rows(int)} have been specified.
+     * @vision.examples <pre>
+     *Gui gui = Gui.gui()
+     *        .title(Component.text("My Gui"))
+     *        .rows(3)
+     *        .button(Slot.of(0, 0), Button.of(ItemType.STONE);
+     *</pre>
+     *<pre>
+     *Gui gui = Gui.gui().rows(3);
+     *</pre>
      */
     interface Builder {
 
@@ -165,6 +194,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
          * @return this builder instance (for chaining)
          * @throws NullPointerException if the title is {@code null}.
          * @since 0.1
+         * @vision.apiNote The title can't change, so you must specify it before specifying the
+         * {@link #rows(int)}.
          */
         Builder title(Component title);
 

@@ -21,6 +21,7 @@ public interface PaperVision extends Vision {
      * @param plugin the plugin
      * @throws NullPointerException if the plugin is {@code null}.
      * @since 0.1
+     * @vision.apiNote This method is pure since {@code Listener} registration is done lazily.
      */
     static PaperVision create(final Plugin plugin) {
 
