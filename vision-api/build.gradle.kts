@@ -29,6 +29,9 @@ java {
 }
 
 tasks {
+    compileJava {
+        options.compilerArgs.add("-parameters")
+    }
     javadoc {
         options {
             (this as StandardJavadocDocletOptions).run {
