@@ -1,6 +1,5 @@
 package me.sparky983.vision;
 
-
 /**
  * Represents a subscription to a {@link Subscribable} object.
  *

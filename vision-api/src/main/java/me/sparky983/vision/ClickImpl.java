@@ -30,5 +30,4 @@ record ClickImpl(@Override Audience clicker,
         Objects.requireNonNull(slot, "slot cannot be null");
         Objects.requireNonNull(type, "type cannot be null");
     }
-
 }

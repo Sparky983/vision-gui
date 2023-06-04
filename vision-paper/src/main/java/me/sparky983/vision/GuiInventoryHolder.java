@@ -2,11 +2,9 @@ package me.sparky983.vision;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.nullness.NullMarked;
 
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Function;
 
