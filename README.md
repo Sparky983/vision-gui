@@ -23,7 +23,7 @@ If you're using Maven, you can add the following to your pom.xml:
     <dependency>
         <groupId>me.sparky983.vision</groupId>
         <artifactId>vision-api</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.1</version>
     </dependency>
 </dependencies>
 
@@ -45,7 +45,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.sparky983.vision:vision-api:0.1-SNAPSHOT'
+    implementation 'me.sparky983.vision:vision-api:0.1'
 }
 ```
 
@@ -59,7 +59,7 @@ repositories {
 }
 
 dependencies {
-    implementation("me.sparky983.vision:vision-api:0.1-SNAPSHOT")
+    implementation("me.sparky983.vision:vision-api:0.1")
 }
 ```
 
