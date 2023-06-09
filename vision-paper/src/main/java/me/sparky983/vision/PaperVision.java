@@ -27,15 +27,7 @@ public interface PaperVision extends Vision {
 
         Objects.requireNonNull(plugin, "plugin cannot be null");
 
-        final PaperItemTypeConverterImpl.Mode mode;
-        if (plugin.getServer().getUnsafe()
-                .isSupportedApiVersion(plugin.getDescription().getAPIVersion())) {
-            mode = PaperItemTypeConverterImpl.Mode.MODERN;
-        } else {
-            mode = PaperItemTypeConverterImpl.Mode.LEGACY;
-        }
-        final PaperConverter converter =
-                new PaperConverterImpl(new PaperItemTypeConverterImpl(mode));
+        final PaperConverter converter = new PaperConverterImpl(new ModernPaperItemTypeConverter());
 
         return new PaperVisionImpl(
                 plugin,
