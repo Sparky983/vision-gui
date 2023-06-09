@@ -1,32 +1,24 @@
 package me.sparky983.vision;
 
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Answers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class PaperVisionTests {
 
     Plugin plugin;
-    Server server;
-    PluginManager pluginManager;
     PaperVision paperVision;
 
     @BeforeEach
     void setUp() {
 
-        plugin = mock();
-        server = mock();
-        pluginManager = mock();
-        when(server.getPluginManager()).thenReturn(pluginManager);
-        when(plugin.getServer()).thenReturn(server);
+        plugin = mock(Answers.RETURNS_MOCKS);
         paperVision = PaperVision.create(plugin);
     }
 
