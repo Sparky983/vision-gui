@@ -12,8 +12,6 @@ import java.util.Optional;
 @NullMarked
 final class ModernPaperItemTypeConverter implements PaperItemTypeConverter {
 
-    // TODO(Sparky983): Legacy implementation
-
     @Override
     public Optional<Material> convert(final ItemType itemType) {
 
