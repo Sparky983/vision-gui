@@ -27,7 +27,6 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
                                     final PaperConverter paperConverter,
                                     final PaperButtonMirror buttonMirror) {
 
-
         Objects.requireNonNull(server, "server cannot be null");
         Objects.requireNonNull(paperConverter, "paperConverter cannot be null");
         Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
