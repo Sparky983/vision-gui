@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 
@@ -29,7 +30,9 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             @Override
             public void name(final Component name) {
 
-                item.editMeta((meta) -> paperConverter.convert(name));
+                item.editMeta((meta) ->
+                        meta.displayName(paperConverter.convert(name))
+                );
             }
 
             @Override
