@@ -13,3 +13,16 @@ dependencies {
         exclude("org.jetbrains:annotations")
     }
 }
+
+tasks {
+    javadoc {
+        options {
+            (this as StandardJavadocDocletOptions).run {
+                links("https://jd.papermc.io/paper/1.19")
+                sequenceOf("api", "key").forEach {
+                    links("https://jd.advntr.dev/$it/4.11.0")
+                }
+            }
+        }
+    }
+}

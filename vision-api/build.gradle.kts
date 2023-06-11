@@ -7,3 +7,15 @@ dependencies {
         exclude("org.jetbrains", "annotations")
     }
 }
+
+tasks {
+    javadoc {
+        options {
+            (this as StandardJavadocDocletOptions).run {
+                sequenceOf("api", "key").forEach {
+                    links("https://jd.advntr.dev/$it/4.11.0")
+                }
+            }
+        }
+    }
+}
