@@ -71,7 +71,6 @@ private class GuiDslImpl : GuiDsl {
         return buttons[slot]
     }
 
-    @PublishedApi
     internal fun build(): Gui {
         val gui = Gui.gui(title, rows)
 
