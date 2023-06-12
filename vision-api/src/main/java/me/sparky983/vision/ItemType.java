@@ -65,7 +65,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
     /**
      * The minecraft:acacia_hanging_sign item type.
      *
-     * @since 0.2
+     * @since 0.1
      */
     ItemType ACACIA_HANGING_SIGN = block(Key.key("acacia_hanging_sign"));
 
