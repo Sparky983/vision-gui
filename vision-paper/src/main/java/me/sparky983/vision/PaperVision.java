@@ -12,7 +12,7 @@ import java.util.Objects;
  * @since 0.1
  */
 @NullMarked
-public interface PaperVision extends Vision {
+public interface PaperVision {
 
     /**
      * Creates a new Paper {@link Gui} manager.

@@ -158,7 +158,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     /**
      * Clicks this {@code Button}.
      * <p>
-     * This method is called by the {@link Vision} when this button is clicked.
+     * This method is called by Vision when this button is clicked.
      *
      * @param click an object describing the click
      * @throws NullPointerException if the click is {@code null}.
