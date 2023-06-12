@@ -22,6 +22,6 @@ java {
 
 tasks {
     runServer {
-        minecraftVersion("1.19.4")
+        minecraftVersion("1.20")
     }
 }
