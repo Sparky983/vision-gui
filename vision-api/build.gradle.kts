@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api("net.kyori:adventure-api:4.13.1") {
+    api("net.kyori:adventure-api:4.14.0") {
         exclude("org.jetbrains", "annotations")
     }
 }
