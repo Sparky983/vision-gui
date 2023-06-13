@@ -12,6 +12,10 @@ dependencies {
     compileOnlyApi("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT") {
         exclude("org.jetbrains:annotations")
     }
+
+    testImplementation("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT") {
+        exclude("org.jetbrains:annotations")
+    }
 }
 
 tasks {
