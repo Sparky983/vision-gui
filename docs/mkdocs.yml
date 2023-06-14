@@ -1,0 +1,29 @@
+site_name: Vision
+site_description: A minimal GUI API for Paper
+site_url: https://sparky983.me/vision-gui
+
+repo_name: sparky983/vision-gui
+repo_url: https://github.com/sparky983/vision-gui
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: cyan
+    accent: cyan
+  features:
+    - content.code.copy
+    - content.tabs.link
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+  - Vision: index.md
