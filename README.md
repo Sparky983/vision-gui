@@ -2,26 +2,16 @@
 
 Vision GUI is a minimal GUI API for Paper.
 
-## Quick Lins
+## Quick Links
 
-- [API Javadoc](https://repo.sparky983.me/javadoc/snapshots/me/sparky983/vision/vision-api/0.2-SNAPSHOT)
-- [Paper Javadoc](https://repo.sparky983.me/javadoc/snapshots/me/sparky983/vision/vision-paper/0.2-SNAPSHOT)
+- [📔 Documentation](https://vision.sparky983.me/)
 
-## Table of Contents
+## Installation
 
-1. [Quick Start](#quick-start)
-    1. [Installation](#installation)
-    2. [Hello World GUI](#hello-world-gui)
+Add the following to your build configuration:
 
-## Quick Start
-
-### Installation
-
-To install Vision GUI, you need to add it as a dependency in your project.
-
-#### Maven
-
-If you're using Maven, you can add the following to your pom.xml:
+<details>
+<summary>pom.xml</summary>
 
 ```xml
 <dependencies>
@@ -39,10 +29,11 @@ If you're using Maven, you can add the following to your pom.xml:
     </repository>
 </repositories>
 ```
+</details>
 
-#### Gradle (Groovy DSL)
+<details>
 
-If you're using Gradle with the Groovy DSL, you can add the following to your build.gradle:
+<summary>build.gradle</summary>
 
 ```groovy
 repositories {
@@ -53,10 +44,11 @@ dependencies {
     implementation 'me.sparky983.vision:vision-paper:0.1'
 }
 ```
+</details>
 
-#### Gradle (Kotlin DSL)
+<details>
 
-If you're using Gradle with the Kotlin DSL, you can add the following to your build.gradle.kts:
+<summary>build.gradle.kts</summary>
 
 ```kotlin
 repositories {
@@ -67,35 +59,4 @@ dependencies {
     implementation("me.sparky983.vision:vision-paper:0.1")
 }
 ```
-
-### Hello World GUI
-
-
-First create an instance of the Vision API.
-
-```java
-PaperVision vision = PaperVision.create(plugin);
-```
-
-Then create the GUI:
-
-```java
-Gui gui = Gui.gui()
-        .title(Component.text("Hello World"))
-        .rows(3)
-        .button(Slot.of(1, 4), Button.button()
-                .name(Component.text("Hello World"))
-                .type(ItemType.STONE)
-                .onClick((click) -> {
-                    click.clicker().sendMessage(Component.text("Hello World"));
-                }));
-```
-
-This code creates a GUI with a button that when the button clicked sends a "Hello World" message
-to the player.
-
-And finally open the GUI:
-
-```java
-vision.open(player, gui);
-```
+</summary>
