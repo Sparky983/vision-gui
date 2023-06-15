@@ -59,4 +59,4 @@ dependencies {
     implementation("me.sparky983.vision:vision-paper:0.1")
 }
 ```
-</summary>
+</details>
