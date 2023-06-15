@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  * @see #button()
  * @see #of(ItemType)
  * @since 0.1
- * @vision.apiNote Unlike Bukkit, {@code Button}s aren't cloned when they're added to a {@link Gui}
+ * @vision.apiNote Unlike Bukkit, {@code Button}s aren't cloned when they're added to a {@link Gui},
  * meaning you can always mutate the {@code Button} and have the mutation be reflected in the
  * {@link Gui}.
  */
