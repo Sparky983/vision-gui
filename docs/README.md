@@ -6,8 +6,8 @@ Vision GUI is a minimal GUI API for Paper.
 
 ## Quick Links
 
-* [API Javadoc](https://repo.sparky983.me/javadoc/releases/me/sparky983/vision-api/0.2)
-* [Paper Javadoc](https://repo.sparky983.me/javadoc/releases/me/sparky983/vision-paper/0.2)
+* [API Javadoc](https://javadoc.jitpack.io/com/github/Sparky983/vision-gui/vision-api/bbff22b7fd/javadoc)
+* [Paper Javadoc](https://javadoc.jitpack.io/com/github/Sparky983/vision-gui/vision-paper/bbff22b7fd/javadoc)
 * [Sparky983/vision-gui](https://github.com/sparky983/vision-gui)
 
 ## Installation
