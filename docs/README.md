@@ -16,7 +16,7 @@ Add the following to your build configuration:
 
 {% tabs %}
 {% tab title="pom.xml" %}
-```markup
+```xml
 <dependencies>
     <dependency>
         <groupId>me.sparky983.vision</groupId>
@@ -28,7 +28,7 @@ Add the following to your build configuration:
 <repositories>
     <repository>
         <id>sparky983</id>
-        <url>https://repo.sparky983.me</url>
+        <url>https://repo.sparky983.me/releases</url>
     </repository>
 </repositories>
 ```
@@ -37,7 +37,7 @@ Add the following to your build configuration:
 {% tab title="build.gradle" %}
 ```groovy
 repositories {
-    maven { url 'https://repo.sparky983.me' }
+    maven { url 'https://repo.sparky983.me/releases' }
 }
 
 dependencies {
@@ -49,7 +49,7 @@ dependencies {
 {% tab title="build.gradle.kts" %}
 ```kotlin
 repositories {
-    maven("https://repo.sparky983.me")
+    maven("https://repo.sparky983.me/releases")
 }
 
 dependencies {
