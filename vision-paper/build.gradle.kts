@@ -23,6 +23,7 @@ tasks {
         options {
             (this as StandardJavadocDocletOptions).run {
                 links("https://jd.papermc.io/paper/1.19")
+                links("https://javadoc.jitpack.io/com/github/Sparky983/vision-gui/vision-api/bbff22b7fd/javadoc")
                 sequenceOf("api", "key").forEach {
                     links("https://jd.advntr.dev/$it/4.11.0")
                 }
