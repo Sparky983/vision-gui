@@ -99,7 +99,6 @@ public fun gui(init: GuiDsl.() -> Unit): Gui {
  */
 @GuiDslMarker
 public interface ButtonDsl {
-
     /**
      * The type of the [Button]
      *
@@ -169,8 +168,8 @@ private class ButtonDslImpl : ButtonDsl {
     }
 
     internal fun build(): Button {
-        val type = type ?:
-            throw IllegalStateException("type property must be specified and non-null")
+        val type =
+            type ?: throw IllegalStateException("type property must be specified and non-null")
 
         val button = Button.of(type)
             .name(name)
