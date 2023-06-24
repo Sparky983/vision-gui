@@ -24,65 +24,105 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      */
     int COLUMNS = 9;
 
+    static Chest.Builder chest() {
+
+        return null;
+    }
+
+    interface Chest extends Gui {
+
+        int rows();
+
+        interface Builder extends Gui.Builder {
+
+            Builder rows(int rows);
+
+            @Override
+            Builder title(Component title);
+
+            @Override
+            Builder button(Slot slot, @Nullable Button button);
+
+            @Override
+            Chest build();
+        }
+    }
+
+    static Hopper.Builder hopper() {
+
+        return null;
+    }
+
+    interface Hopper extends Gui {
+
+        interface Builder extends Gui.Builder {
+
+            @Override
+            Builder title(Component title);
+
+            @Override
+            Builder button(Slot slot, @Nullable Button button);
+
+            @Override
+            Hopper build();
+        }
+    }
+
+    static Dropper.Builder dropper() {
+
+        return null;
+    }
+
+    interface Dropper extends Gui {
+
+        interface Builder extends Gui.Builder {
+
+            @Override
+            Builder title(Component title);
+
+            @Override
+            Builder button(Slot slot, @Nullable Button button);
+
+            @Override
+            Dropper build();
+        }
+    }
+
     /**
-     * Creates a new {@link Gui.Builder}.
+     * A {@link Gui} builder.
      *
-     * @return the new {@link Gui.Builder}
-     * @see Builder
-     * @see #gui(Component, int)
-     * @see #gui(int)
+     * @see #gui()
+     * @see #rows(int)
      * @since 0.1
      * @vision.apiNote This builder is type-safe, so it cannot be built until the
      * {@link Builder#rows(int)} have been specified.
      * @vision.examples <pre>
      *Gui gui = Gui.gui()
-     *        .title(Component.text("My GUI"))
-     *        .rows(3);</pre>
+     *        .title(Component.text("My Gui"))
+     *        .rows(3)
+     *        .button(Slot.of(0, 0), Button.of(ItemType.STONE);
+     *</pre>
+     *<pre>
+     *Gui gui = Gui.gui().rows(3);
+     *</pre>
      */
-    static Builder gui() {
+    interface Builder {
 
-        return new GuiImpl.BuilderImpl();
-    }
+        /**
+         * Specifies the title of the {@link Gui}.
+         *
+         * @param title the title
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the title is {@code null}.
+         * @since 0.1
+         * @vision.apiNote The title can't change, so you must specify it before specifying the
+         * {@link #rows(int)}.
+         */
+        Builder title(Component title);
 
-    /**
-     * Creates a new {@code Gui} with the specified title and amount of rows.
-     *
-     * @param title the title or {@code null} to make the {@code Gui} untitled
-     * @param rows the amount of rows
-     * @return the new {@code Gui}
-     * @throws IllegalArgumentException if the amount of rows is less than 1 or greater than 6.
-     * @see #gui()
-     * @see #gui(int)
-     * @since 0.1
-     * @vision.examples <pre>
-     *Gui gui = Gui.gui(Component.text("My GUI"), 3);</pre>
-     */
-    static Gui gui(final @Nullable Component title, int rows) {
+        Builder button(Slot slot, @Nullable Button button);
 
-        final Gui.Builder builder = gui();
-
-        if (title != null) {
-            builder.title(title);
-        }
-
-        return builder.rows(rows);
-    }
-
-    /**
-     * Creates a new untitled {@code Gui} with the specified amount of rows.
-     *
-     * @param rows the amount of rows
-     * @return the new {@code Gui}
-     * @throws IllegalArgumentException if the amount of rows is less than 1 or greater than 6.
-     * @see #gui()
-     * @see #gui(Component, int)
-     * @since 0.1
-     * @vision.examples <pre>
-     *Gui gui = Gui.gui(3);</pre>
-     */
-    static Gui gui(final int rows) {
-
-        return gui(null, rows);
+        Gui build();
     }
 
     /**
@@ -165,48 +205,5 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
          * @since 0.1
          */
         void button(Slot slot, @Nullable Button button);
-    }
-
-    /**
-     * A {@link Gui} builder.
-     *
-     * @see #gui()
-     * @see #rows(int)
-     * @since 0.1
-     * @vision.apiNote This builder is type-safe, so it cannot be built until the
-     * {@link Builder#rows(int)} have been specified.
-     * @vision.examples <pre>
-     *Gui gui = Gui.gui()
-     *        .title(Component.text("My Gui"))
-     *        .rows(3)
-     *        .button(Slot.of(0, 0), Button.of(ItemType.STONE);
-     *</pre>
-     *<pre>
-     *Gui gui = Gui.gui().rows(3);
-     *</pre>
-     */
-    interface Builder {
-
-        /**
-         * Specifies the title of the {@link Gui}.
-         *
-         * @param title the title
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the title is {@code null}.
-         * @since 0.1
-         * @vision.apiNote The title can't change, so you must specify it before specifying the
-         * {@link #rows(int)}.
-         */
-        Builder title(Component title);
-
-        /**
-         * Specifies the amount of rows of the {@link Gui} and returns the built {@link Gui}.
-         *
-         * @param rows the amount of rows
-         * @return the built {@link Gui}
-         * @throws IllegalArgumentException if the amount of rows is less than 1 or greater than 6.
-         * @since 0.1
-         */
-        Gui rows(int rows);
     }
 }

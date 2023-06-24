@@ -94,13 +94,15 @@ final class GuiImpl implements Gui {
         }
 
         @Override
-        public Gui rows(final int rows) {
+        public Builder button(final Slot slot, final @Nullable Button button) {
 
-            if (rows <= 0 || rows > MAX_ROWS) {
-                throw new IllegalArgumentException("rows must be between 1 and 6");
-            }
+            return null;
+        }
 
-            return new GuiImpl(title, rows);
+        @Override
+        public Gui build() {
+
+            return null;
         }
     }
 }
