@@ -79,7 +79,12 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
             /**
              * Specifies the title of the {@link Chest}.
              *
+             * @param title the title
+             * @return this builder instance (for chaining)
+             * @throws NullPointerException if the title is {@code null}.
              * @since 1.0
+             * @vision.apiNote After the {@link Chest} is built, the title cannot be changed, so it
+             * must be specified before the {@link Chest} is built
              */
             @Override
             Builder title(Component title);
@@ -87,6 +92,10 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
             /**
              * Sets the {@link Button} at the specified {@link Slot} of the {@link Chest}.
              *
+             * @param slot the slot
+             * @param button the button
+             * @return this builder instance (for chaining)
+             * @throws NullPointerException if the slot or button is {@code null}.
              * @since 1.0
              */
             @Override
@@ -96,6 +105,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
              * Builds the {@link Chest}.
              *
              * @return the built {@link Chest}
+             * @throws IllegalStateException if any of the buttons are out of bounds.
              * @since 1.0
              */
             @Override
@@ -152,7 +162,12 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
             /**
              * Specifies the title of the {@link Hopper}.
              *
+             * @param title the title
+             * @return this builder instance (for chaining)
+             * @throws NullPointerException if the title is {@code null}.
              * @since 1.0
+             * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
+             * must be specified before the {@link Gui} is built
              */
             @Override
             Builder title(Component title);
@@ -160,6 +175,10 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
             /**
              * Sets the {@link Button} at the specified {@link Slot} of the {@link Hopper}.
              *
+             * @param slot the slot
+             * @param button the button
+             * @return this builder instance (for chaining)
+             * @throws NullPointerException if the slot or button is {@code null}.
              * @since 1.0
              */
             @Override
@@ -169,6 +188,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
              * Builds the {@link Hopper}.
              *
              * @return the built {@link Hopper}
+             * @throws IllegalStateException if any of the buttons are out of bounds.
              * @since 1.0
              */
             @Override
@@ -225,7 +245,12 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
             /**
              * Specifies the title of the {@link Dropper}.
              *
+             * @param title the title
+             * @return this builder instance (for chaining)
+             * @throws NullPointerException if the title is {@code null}.
              * @since 1.0
+             * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
+             * must be specified before the {@link Gui} is built
              */
             @Override
             Builder title(Component title);
@@ -242,6 +267,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
              * Builds the {@link Dropper}.
              *
              * @return the built {@link Dropper}
+             * @throws IllegalStateException if any of the buttons are out of bounds.
              * @since 1.0
              */
             @Override
@@ -290,7 +316,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
          * @return this builder instance (for chaining)
          * @throws NullPointerException if the title is {@code null}.
          * @since 0.1
-         * After the {@link Gui} is built, the title cannot be changed, so it
+         * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
          * must be specified before the {@link Gui} is built
          */
         Builder title(Component title);
