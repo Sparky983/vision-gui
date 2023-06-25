@@ -59,14 +59,6 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     interface Chest extends Gui {
 
         /**
-         * Gets the number of rows in this {@code Chest}.
-         *
-         * @return the number of rows
-         * @since 1.0
-         */
-        int rows();
-
-        /**
          * A {@link Chest} builder.
          *
          * @see #chest()
@@ -338,12 +330,20 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     Component title();
 
     /**
-     * Gets the amount of rows this {@code Gui} has.
+     * Gets the number of rows in this {@code Gui}.
      *
-     * @return the amount of rows this {@code Gui} has
+     * @return the number of rows
      * @since 0.1
      */
     int rows();
+
+    /**
+     * Gets the number of columns in this {@code Gui}.
+     *
+     * @return the number of columns
+     * @since 1.0
+     */
+    int columns();
 
     /**
      * Sets the {@link Button} at the specified {@link Slot}.
