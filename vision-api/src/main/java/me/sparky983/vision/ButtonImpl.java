@@ -49,14 +49,12 @@ final class ButtonImpl implements Button {
     @Override
     public Button name(final @Nullable Component name) {
 
-        final Component nameToUse;
         if (name != null) {
-            nameToUse = name;
+            this.name = name;
         } else {
-            nameToUse = Component.translatable(type.translationKey());
+            this.name = Component.translatable(type.translationKey());
         }
-        this.name = nameToUse;
-        subscriptionManager.notify((subscriber) -> subscriber.name(nameToUse));
+        subscriptionManager.notify((subscriber) -> subscriber.name(this.name));
         return this;
     }
 
@@ -83,10 +81,8 @@ final class ButtonImpl implements Button {
             Objects.requireNonNull(lore.get(i), "lore[" + i + "] cannot be null");
         }
 
-        final List<Component> loreToUse = List.copyOf(lore);
-
-        this.lore = loreToUse;
-        subscriptionManager.notify((subscriber) -> subscriber.lore(loreToUse));
+        this.lore = List.copyOf(lore);
+        subscriptionManager.notify((subscriber) -> subscriber.lore(this.lore));
         return this;
     }
 
