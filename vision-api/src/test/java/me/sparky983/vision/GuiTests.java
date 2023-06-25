@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -27,6 +28,20 @@ class GuiTests {
 
     @Nested
     class Chest {
+
+        @ValueSource(ints = {1, 2, 3, 4, 5})
+        @ParameterizedTest
+        void testType(final int rows) {
+
+            final Gui gui = Gui.chest()
+                    .rows(rows)
+                    .build();
+
+            final GuiType type = gui.type();
+
+            assertEquals(rows, type.rows());
+            assertEquals(Gui.Chest.COLUMNS, type.columns());
+        }
 
         @SuppressWarnings("ConstantConditions")
         @Test
@@ -56,12 +71,119 @@ class GuiTests {
 
             final Gui gui = Gui.chest().build();
 
-            assertEquals(GuiImpl.DEFAULT_NAME, gui.title());
+            assertEquals(GuiImpl.ChestImpl.BuilderImpl.DEFAULT_TITLE, gui.title());
+        }
+
+        @Test
+        void testColumns() {
+
+            final Gui gui = Gui.chest().build();
+
+            assertEquals(GuiType.Chest.COLUMNS, gui.columns());
+        }
+
+        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
+        @ParameterizedTest
+        void testBuilderRowsWhenRowsIsLessThan1(final int rows) {
+
+            final Gui.Chest.Builder builder = Gui.chest();
+
+            final Exception e =
+                    assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
+            assertEquals("rows must be between 1 and 6 (got " + rows + ")", e.getMessage());
+        }
+
+        @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
+        @ParameterizedTest
+        void testBuilderRowsWhenRowsIsGreaterThan6(final int rows) {
+
+            final Gui.Chest.Builder builder = Gui.chest();
+
+            final Exception e = assertThrows(IllegalArgumentException.class, () ->
+                    builder.rows(rows));
+            assertEquals("rows must be between 1 and 6 (got " + rows + ")", e.getMessage());
+        }
+
+        @ValueSource(ints = {1, 2, 4, 5, 6})
+        @ParameterizedTest
+        void testBuilderRows(final int rows) {
+
+            final Gui.Chest.Builder builder = Gui.chest();
+
+            assertEquals(builder, builder.rows(rows));
+
+            final Gui gui = builder.build();
+
+            assertEquals(rows, gui.rows());
+        }
+
+        @Test
+        void testUnspecifiedRows() {
+
+            final Gui gui = Gui.chest().build();
+
+            assertEquals(GuiImpl.ChestImpl.BuilderImpl.DEFAULT_ROWS, gui.rows());
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testBuilderButtonWhenSlotIsNull() {
+
+            final Gui.Builder builder = Gui.chest();
+
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    builder.button(null, Button.of(ItemType.STONE)));
+            assertEquals("slot cannot be null", e.getMessage());
+        }
+
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testBuilderButtonWhenButtonIsNull() {
+
+            final Gui.Builder builder = Gui.chest();
+
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    builder.button(Slot.of(0, 0), null));
+            assertEquals("button cannot be null", e.getMessage());
+        }
+
+        @CsvSource({
+                "1, 0, 1",
+                "1, 8, 1",
+                "5, 0, 5",
+                "5, 8, 5"
+        })
+        @ParameterizedTest
+        void testBuilderButtonWhenSlotIsOutOfBounds(final int slowRow,
+                                                    final int slotColumn,
+                                                    final int guiRows) {
+
+            final Slot slot = Slot.of(slowRow, slotColumn);
+            final Gui.Builder builder = Gui.chest()
+                    .rows(guiRows)
+                    .button(slot, Button.of(ItemType.STONE));
+
+            final Exception e = assertThrows(IllegalStateException.class, builder::build);
+            assertEquals(GuiImpl.ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
+                    e.getMessage());
+        }
+
+        @Test
+        void testBuilderButton() {
+
+            final Gui.Builder builder = Gui.chest();
+            final Button button = Button.of(ItemType.STONE);
+
+            assertEquals(builder, builder.button(Slot.of(0, 4), button));
+
+            final Gui gui = builder.build();
+
+            assertEquals(Optional.of(button), gui.button(Slot.of(0, 4)));
         }
 
         @SuppressWarnings("ConstantConditions")
         @Test
-        void testButtonWhenSlotIsNull() {
+        void testSetButtonWhenSlotIsNull() {
 
             final Gui gui = Gui.chest().build();
 
@@ -71,7 +193,7 @@ class GuiTests {
         }
 
         @Test
-        void testButtonWhenButtonIsNull() {
+        void testSetButtonWhenButtonIsNull() {
 
             final Gui gui = Gui.chest().build();
 
@@ -91,20 +213,23 @@ class GuiTests {
                 "5, 8, 5"
         })
         @ParameterizedTest
-        void testButtonWhenSlotIsOutOfRange(final int slotRow,
-                                            final int slotColumn,
-                                            final int guiRows) {
+        void testSetButtonWhenSlotIsOutOfBounds(final int slotRow,
+                                                final int slotColumn,
+                                                final int guiRows) {
 
-            final Gui gui = Gui.chest().build();
+            final Gui gui = Gui.chest()
+                    .rows(guiRows)
+                    .build();
+            final Slot slot = Slot.of(slotRow, slotColumn);
+            final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                    gui.button(Slot.of(slotRow, slotColumn), Button.of(ItemType.STONE)));
-            assertEquals("slot (" + slotRow + ", " + slotColumn + ") out of range for " +
-                    guiRows + " rows", e.getMessage());
+                    gui.button(slot, button));
+            assertEquals(GuiImpl.ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows), e.getMessage());
         }
 
         @Test
-        void testButton() {
+        void testSetButton() {
 
             final Gui gui = Gui.chest().build();
             final Button button = Button.of(ItemType.STONE);
@@ -114,35 +239,36 @@ class GuiTests {
             assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
         }
 
-        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
-        @ParameterizedTest
-        void testBuilderRowsWhenRowsIsLessThan1(final int rows) {
-
-            final Gui.Chest.Builder builder = Gui.chest();
-
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
-            assertEquals("rows must be between 1 and 6", e.getMessage());
-        }
-
-        @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
-        @ParameterizedTest
-        void testBuilderRowsWhenRowsIsGreaterThan6(final int rows) {
-
-            final Gui.Chest.Builder builder = Gui.chest();
-
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
-            assertEquals("rows must be between 1 and 6", e.getMessage());
-        }
-
-        @ValueSource(ints = {1, 2, 4, 5, 6})
-        @ParameterizedTest
-        void testBuilderRows(final int rows) {
+        @SuppressWarnings("DataFlowIssue")
+        @Test
+        void testGetButtonWhenSlotIsNull() {
 
             final Gui gui = Gui.chest().build();
 
-            assertEquals(rows, gui.rows());
+            final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
+            assertEquals("slot cannot be null", e.getMessage());
+        }
+
+        @CsvSource({
+                "1, 0, 1",
+                "1, 8, 1",
+                "5, 0, 5",
+                "5, 8, 5"
+        })
+        @ParameterizedTest
+        void testGetButtonWhenSlotIsOutOfBounds(final int slotRow,
+                                                final int slotColumn,
+                                                final int guiRows) {
+
+            final Gui gui = Gui.chest()
+                    .rows(guiRows)
+                    .build();
+            final Slot slot = Slot.of(slotRow, slotColumn);
+
+            final Exception e = assertThrows(IllegalArgumentException.class, () ->
+                    gui.button(slot));
+            assertEquals(GuiImpl.ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
+                    e.getMessage());
         }
 
         @SuppressWarnings("DataFlowIssue")

@@ -40,7 +40,7 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      */
     static Chest.Builder chest() {
 
-        return null;
+        return new GuiImpl.ChestImpl.BuilderImpl();
     }
 
     /**
