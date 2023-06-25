@@ -24,65 +24,234 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      */
     int COLUMNS = 9;
 
+    /**
+     * Creates a new {@link Chest.Builder} with 1 row.
+     *
+     * @return the new {@link Chest.Builder}
+     * @see Chest.Builder
+     * @since 1.0
+     * @vision.examples <pre>
+     *Gui gui = Gui.gui()
+     *        .title(Component.text("My GUI"))
+     *        .rows(3)
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();</pre>
+     */
     static Chest.Builder chest() {
 
         return null;
     }
 
+    /**
+     * Represents the {@link Chest} variant of a {@link Gui}.
+     *
+     * @see #chest()
+     * @since 1.0
+     * @vision.examples <pre>
+     *Gui gui = Gui.chest()
+     *        .title(Component.text("My GUI"))
+     *        .rows(3)
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();</pre>
+     */
     interface Chest extends Gui {
 
+        /**
+         * Gets the number of rows in this {@code Chest}.
+         *
+         * @return the number of rows
+         * @since 1.0
+         */
         int rows();
 
+        /**
+         * A {@link Chest} builder.
+         *
+         * @see #chest()
+         * @since 1.0
+         * @vision.examples <pre>
+         *Gui gui = Gui.chest()
+         *        .title(Component.text("My GUI"))
+         *        .rows(3)
+         *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+         *        .build();</pre>
+         */
         interface Builder extends Gui.Builder {
 
+            /**
+             * Specifies the number of rows in the {@link Chest}.
+             *
+             * @param rows the number of rows
+             * @return this builder instance (for chaining)
+             * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
+             * 6.
+             * @since 1.0
+             * @vision.apiNote This method must be called before {@link #build()}.
+             */
             Builder rows(int rows);
 
+            /**
+             * Specifies the title of the {@link Chest}.
+             *
+             * @since 1.0
+             */
             @Override
             Builder title(Component title);
 
+            /**
+             * Sets the {@link Button} at the specified {@link Slot} of the {@link Chest}.
+             *
+             * @since 1.0
+             */
             @Override
-            Builder button(Slot slot, @Nullable Button button);
+            Builder button(Slot slot, Button button);
 
+            /**
+             * Builds the {@link Chest}.
+             *
+             * @return the built {@link Chest}
+             * @since 1.0
+             */
             @Override
             Chest build();
         }
     }
 
+    /**
+     * Creates a new {@link Hopper.Builder}.
+     *
+     * @return the new {@link Hopper.Builder}
+     * @see Hopper.Builder
+     * @since 1.0
+     * @vision.examples <pre>
+     *Gui gui = Gui.hopper()
+     *        .title(Component.text("My GUI"))
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();</pre>
+     */
     static Hopper.Builder hopper() {
 
         return null;
     }
 
+    /**
+     * Represents the {@link Hopper} variant of a {@link Gui}.
+     *
+     * @see #hopper()
+     * @since 1.0
+     * @vision.examples <pre>
+     *Gui gui = Gui.hopper()
+     *        .title(Component.text("My GUI"))
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();</pre>
+     */
     interface Hopper extends Gui {
 
+        /**
+         * A {@link Hopper} builder.
+         *
+         * @see #hopper()
+         * @since 1.0
+         * @vision.examples <pre>
+         *Gui gui = Gui.hopper()
+         *        .title(Component.text("My GUI"))
+         *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+         *        .build();</pre>
+         */
         interface Builder extends Gui.Builder {
 
+            /**
+             * Specifies the title of the {@link Hopper}.
+             *
+             * @since 1.0
+             */
             @Override
             Builder title(Component title);
 
+            /**
+             * Sets the {@link Button} at the specified {@link Slot} of the {@link Hopper}.
+             *
+             * @since 1.0
+             */
             @Override
             Builder button(Slot slot, @Nullable Button button);
 
+            /**
+             * Builds the {@link Hopper}.
+             *
+             * @return the built {@link Hopper}
+             * @since 1.0
+             */
             @Override
             Hopper build();
         }
     }
 
+    /**
+     * Creates a new {@link Dropper.Builder}.
+     *
+     * @return the new {@link Dropper.Builder}
+     * @see Dropper.Builder
+     * @since 1.0
+     * @vision.examples <pre>
+     *Gui gui = Gui.dropper()
+     *        .title(Component.text("My GUI"))
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();</pre>
+     */
     static Dropper.Builder dropper() {
 
         return null;
     }
 
+    /**
+     * Represents the {@link Dropper} variant of a {@link Gui}.
+     *
+     * @see #dropper()
+     * @since 1.0
+     * @vision.examples <pre>
+     *Gui gui = Gui.dropper()
+     *        .title(Component.text("My GUI"))
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();</pre>
+     */
     interface Dropper extends Gui {
 
+        /**
+         * A {@link Dropper} builder.
+         *
+         * @see #dropper()
+         * @since 1.0
+         * @vision.examples <pre>
+         *Gui gui = Gui.dropper()
+         *        .title(Component.text("My GUI"))
+         *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+         *        .build();</pre>
+         */
         interface Builder extends Gui.Builder {
 
+            /**
+             * Specifies the title of the {@link Dropper}.
+             *
+             * @since 1.0
+             */
             @Override
             Builder title(Component title);
 
+            /**
+             * Sets the {@link Button} at the specified {@link Slot} of the {@link Dropper}.
+             *
+             * @since 1.0
+             */
             @Override
             Builder button(Slot slot, @Nullable Button button);
 
+            /**
+             * Builds the {@link Dropper}.
+             *
+             * @return the built {@link Dropper}
+             * @since 1.0
+             */
             @Override
             Dropper build();
         }
@@ -91,11 +260,7 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     /**
      * A {@link Gui} builder.
      *
-     * @see #gui()
-     * @see #rows(int)
      * @since 0.1
-     * @vision.apiNote This builder is type-safe, so it cannot be built until the
-     * {@link Builder#rows(int)} have been specified.
      * @vision.examples <pre>
      *Gui gui = Gui.gui()
      *        .title(Component.text("My Gui"))
@@ -109,19 +274,35 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     interface Builder {
 
         /**
-         * Specifies the title of the {@link Gui}.
+         * Specifies the title of the {@link Chest}.
          *
          * @param title the title
          * @return this builder instance (for chaining)
          * @throws NullPointerException if the title is {@code null}.
          * @since 0.1
-         * @vision.apiNote The title can't change, so you must specify it before specifying the
-         * {@link #rows(int)}.
+         * After the {@link Gui} is built, the title cannot be changed, so it
+         * must be specified before the {@link Gui} is built
          */
         Builder title(Component title);
 
-        Builder button(Slot slot, @Nullable Button button);
+        /**
+         * Sets the {@link Button} at the specified {@link Slot} in the {@link Gui}.
+         *
+         * @param slot the slot
+         * @param button the button
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the slot or button is {@code null}.
+         * @since 1.0
+         */
+        Builder button(Slot slot, Button button);
 
+        /**
+         * Builds the {@link Gui}.
+         *
+         * @return the built {@link Gui}
+         * @throws IllegalStateException if any of the buttons are out of bounds
+         * @since 1.0
+         */
         Gui build();
     }
 
