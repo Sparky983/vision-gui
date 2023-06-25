@@ -35,7 +35,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *        .title(Component.text("My GUI"))
      *        .rows(3)
      *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();</pre>
+     *        .build();
+     *</pre>
      */
     static Chest.Builder chest() {
 
@@ -52,7 +53,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *        .title(Component.text("My GUI"))
      *        .rows(3)
      *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();</pre>
+     *        .build();
+     *</pre>
      */
     interface Chest extends Gui {
 
@@ -74,7 +76,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
          *        .title(Component.text("My GUI"))
          *        .rows(3)
          *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-         *        .build();</pre>
+         *        .build();
+         *</pre>
          */
         interface Builder extends Gui.Builder {
 
@@ -127,7 +130,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *Gui gui = Gui.hopper()
      *        .title(Component.text("My GUI"))
      *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();</pre>
+     *        .build();
+     *</pre>
      */
     static Hopper.Builder hopper() {
 
@@ -143,7 +147,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *Gui gui = Gui.hopper()
      *        .title(Component.text("My GUI"))
      *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();</pre>
+     *        .build();
+     *</pre>
      */
     interface Hopper extends Gui {
 
@@ -156,7 +161,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
          *Gui gui = Gui.hopper()
          *        .title(Component.text("My GUI"))
          *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-         *        .build();</pre>
+         *        .build();
+         *</pre>
          */
         interface Builder extends Gui.Builder {
 
@@ -197,7 +203,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *Gui gui = Gui.dropper()
      *        .title(Component.text("My GUI"))
      *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();</pre>
+     *        .build();
+     *</pre>
      */
     static Dropper.Builder dropper() {
 
@@ -213,7 +220,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *Gui gui = Gui.dropper()
      *        .title(Component.text("My GUI"))
      *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();</pre>
+     *        .build();
+     *</pre>
      */
     interface Dropper extends Gui {
 
@@ -226,7 +234,8 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
          *Gui gui = Gui.dropper()
          *        .title(Component.text("My GUI"))
          *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-         *        .build();</pre>
+         *        .build();
+         *</pre>
          */
         interface Builder extends Gui.Builder {
 
@@ -262,19 +271,29 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *
      * @since 0.1
      * @vision.examples <pre>
-     *Gui gui = Gui.gui()
+     *Gui gui = Gui.chest()
      *        .title(Component.text("My Gui"))
      *        .rows(3)
-     *        .button(Slot.of(0, 0), Button.of(ItemType.STONE);
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();
      *</pre>
      *<pre>
-     *Gui gui = Gui.gui().rows(3);
+     *Gui gui = Gui.hopper()
+     *        .title(Component.text("My Gui"))
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();
+     *</pre>
+     *<pre>
+     *Gui gui = Gui.dropper()
+     *        .title(Component.text("My Gui"))
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();
      *</pre>
      */
     interface Builder {
 
         /**
-         * Specifies the title of the {@link Chest}.
+         * Specifies the title of the {@link Gui}.
          *
          * @param title the title
          * @return this builder instance (for chaining)
@@ -300,7 +319,7 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
          * Builds the {@link Gui}.
          *
          * @return the built {@link Gui}
-         * @throws IllegalStateException if any of the buttons are out of bounds
+         * @throws IllegalStateException if any of the buttons are out of bounds.
          * @since 1.0
          */
         Gui build();
