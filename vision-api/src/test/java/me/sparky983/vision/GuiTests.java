@@ -26,26 +26,27 @@ class GuiTests {
     static final Component TITLE = Component.text("title");
 
     @Nested
-    class Builder {
+    class Chest {
 
         @SuppressWarnings("ConstantConditions")
         @Test
         void testBuilderTitleWhenTitleIsNull() {
 
-            final Gui.Builder builder = Gui.gui();
+            final Gui.Builder builder = Gui.chest();
 
-            final Exception e = assertThrows(NullPointerException.class, () -> builder.title(null));
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    builder.title(null));
             assertEquals("title cannot be null", e.getMessage());
         }
 
         @Test
         void testBuilderTitle() {
 
-            final Gui.Builder builder = Gui.gui();
+            final Gui.Builder builder = Gui.chest();
 
             assertEquals(builder, builder.title(TITLE));
 
-            final Gui gui = builder.rows(1);
+            final Gui gui = builder.build();
 
             assertEquals(TITLE, gui.title());
         }
@@ -53,7 +54,7 @@ class GuiTests {
         @Test
         void testUnspecifiedTitle() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
 
             assertEquals(GuiImpl.DEFAULT_NAME, gui.title());
         }
@@ -62,7 +63,7 @@ class GuiTests {
         @Test
         void testButtonWhenSlotIsNull() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
 
             final Exception e = assertThrows(NullPointerException.class, () ->
                     gui.button(null, Button.of(ItemType.STONE)));
@@ -72,7 +73,7 @@ class GuiTests {
         @Test
         void testButtonWhenButtonIsNull() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
 
             gui.button(Slot.of(0, 0), Button.of(ItemType.STONE));
 
@@ -94,7 +95,7 @@ class GuiTests {
                                             final int slotColumn,
                                             final int guiRows) {
 
-            final Gui gui = Gui.gui().rows(guiRows);
+            final Gui gui = Gui.chest().build();
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
                     gui.button(Slot.of(slotRow, slotColumn), Button.of(ItemType.STONE)));
@@ -105,7 +106,7 @@ class GuiTests {
         @Test
         void testButton() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(gui, gui.button(Slot.of(0, 0), button));
@@ -117,7 +118,7 @@ class GuiTests {
         @ParameterizedTest
         void testBuilderRowsWhenRowsIsLessThan1(final int rows) {
 
-            final Gui.Builder builder = Gui.gui();
+            final Gui.Chest.Builder builder = Gui.chest();
 
             final Exception e =
                     assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
@@ -128,7 +129,7 @@ class GuiTests {
         @ParameterizedTest
         void testBuilderRowsWhenRowsIsGreaterThan6(final int rows) {
 
-            final Gui.Builder builder = Gui.gui();
+            final Gui.Chest.Builder builder = Gui.chest();
 
             final Exception e =
                     assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
@@ -139,7 +140,7 @@ class GuiTests {
         @ParameterizedTest
         void testBuilderRows(final int rows) {
 
-            final Gui gui = Gui.gui().rows(rows);
+            final Gui gui = Gui.chest().build();
 
             assertEquals(rows, gui.rows());
         }
@@ -148,7 +149,7 @@ class GuiTests {
         @Test
         void testSubscribeWhenSubscriberIsNull() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
 
             final Exception e = assertThrows(NullPointerException.class,
                     () -> gui.subscribe(null));
@@ -158,7 +159,7 @@ class GuiTests {
         @Test
         void testSubscribe() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
 
@@ -172,7 +173,7 @@ class GuiTests {
         @Test
         void testSubscriberThrowsException() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
             final RuntimeException e = new RuntimeException();
@@ -190,7 +191,7 @@ class GuiTests {
         @Test
         void testCancelSubscription() {
 
-            final Gui gui = Gui.gui().rows(1);
+            final Gui gui = Gui.chest().build();
             final Gui.Subscriber subscriber = mock();
             final Button button = Button.of(ItemType.STONE);
 
