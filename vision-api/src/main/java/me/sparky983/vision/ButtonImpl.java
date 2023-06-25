@@ -34,10 +34,10 @@ final class ButtonImpl implements Button {
 
         assert type != null;
         assert lore != null;
-        assert lore.stream().noneMatch(Objects::isNull);
+        assert lore.stream().allMatch(Objects::nonNull);
         assert amount > 0 && amount <= 64;
         assert clickHandlers != null;
-        assert clickHandlers.stream().noneMatch(Objects::isNull);
+        assert clickHandlers.stream().allMatch(Objects::nonNull);
 
         this.type = type;
         this.name = name;
