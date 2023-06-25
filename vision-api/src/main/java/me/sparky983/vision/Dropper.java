@@ -13,7 +13,7 @@ import org.jspecify.nullness.Nullable;
  * @vision.examples <pre>
  *Gui gui = Gui.dropper()
  *        .title(Component.text("My GUI"))
- *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+ *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
  *        .build();
  *</pre>
  */
@@ -28,7 +28,7 @@ non-sealed public interface Dropper extends Gui {
      * @vision.examples <pre>
      *Gui gui = Gui.dropper()
      *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
      *        .build();
      *</pre>
      */
