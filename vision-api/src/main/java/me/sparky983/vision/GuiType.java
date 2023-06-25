@@ -1,5 +1,7 @@
 package me.sparky983.vision;
 
+import org.jetbrains.annotations.ApiStatus;
+
 /**
  * Represents a type of {@link Gui}.
  * <p>
@@ -72,6 +74,18 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
      * @since 1.0
      */
     int rows();
+
+    /**
+     * Checks whether the specified slot would fit in a {@link Gui} of this type.
+     *
+     * @param slot the slot
+     * @return whether the slot would fit in a {@link Gui} of this type
+     * @throws NullPointerException if the slot is {@code null}.
+     * @since 1.0
+     * @vision.experimental because this may be renamed or removed.
+     */
+    @ApiStatus.Experimental
+    boolean allowsSlot(Slot slot);
 
     /**
      * The {@link Gui.Chest} type.

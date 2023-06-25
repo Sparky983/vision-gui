@@ -29,9 +29,15 @@ class GuiTests {
     @Nested
     class Chest {
 
-        @ValueSource(ints = {1, 2, 3, 4, 5})
+        @CsvSource({
+                "1, 0, 1",
+                "2, 1, 2",
+                "3, 1, 5",
+                "4, 3, 4",
+                "5, 0, 5"
+        })
         @ParameterizedTest
-        void testType(final int rows) {
+        void testType(final int rows, final int allowedRow, final int disallowedRow) {
 
             final Gui gui = Gui.chest()
                     .rows(rows)
@@ -41,6 +47,8 @@ class GuiTests {
 
             assertEquals(rows, type.rows());
             assertEquals(Gui.Chest.COLUMNS, type.columns());
+            assertTrue(type.allowsSlot(Slot.of(allowedRow, 0)));
+            assertFalse(type.allowsSlot(Slot.of(disallowedRow, 0)));
         }
 
         @SuppressWarnings("ConstantConditions")

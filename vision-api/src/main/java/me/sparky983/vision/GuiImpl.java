@@ -32,23 +32,19 @@ final class GuiImpl {
         private final SubscriptionManager<Subscriber> subscribers = new SubscriptionManager<>();
 
         private final GuiType type;
-        private final int rows;
         private final Component title;
         private final Map<Slot, Button> buttons;
 
-        private ChestImpl(final int rows,
+        private ChestImpl(final GuiType type,
                           final Component title,
                           final Map<Slot, Button> buttons) {
 
-            assert rows >= MIN_ROWS;
-            assert rows <= Gui.MAX_ROWS;
             assert title != null;
             assert buttons != null;
             assert buttons.keySet().stream()
-                    .noneMatch((slot) -> slot.row() >= rows);
+                    .allMatch(type::allowsSlot);
 
-            this.type = GuiTypeImpl.chest(rows);
-            this.rows = rows;
+            this.type = type;
             this.title = title;
             this.buttons = buttons;
         }
@@ -60,9 +56,15 @@ final class GuiImpl {
         }
 
         @Override
+        public int columns() {
+
+            return type().columns();
+        }
+
+        @Override
         public int rows() {
 
-            return rows;
+            return type().rows();
         }
 
         @Override
@@ -72,18 +74,12 @@ final class GuiImpl {
         }
 
         @Override
-        public int columns() {
-
-            return GuiType.Chest.COLUMNS;
-        }
-
-        @Override
         public Gui button(final Slot slot, final @Nullable Button button) {
 
             Objects.requireNonNull(slot, "slot cannot be null");
 
-            if (slot.row() >= rows) {
-                throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows));
+            if (!type().allowsSlot(slot)) {
+                throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows()));
             }
 
             if (button == null) {
@@ -100,8 +96,8 @@ final class GuiImpl {
 
             Objects.requireNonNull(slot, "slot cannot be null");
 
-            if (slot.row() >= rows) {
-                throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows));
+            if (!type.allowsSlot(slot)) {
+                throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows()));
             }
 
             return Optional.ofNullable(buttons.get(slot));
@@ -168,13 +164,15 @@ final class GuiImpl {
             @Override
             public Chest build() {
 
+                final GuiType type = GuiTypeImpl.chest(rows);
+
                 for (final Slot slot : buttons.keySet()) {
-                    if (slot.row() >= rows) {
+                    if (!type.allowsSlot(slot)) {
                         throw new IllegalStateException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows));
                     }
                 }
 
-                return new ChestImpl(rows, title, buttons);
+                return new ChestImpl(type, title, buttons);
             }
         }
     }

@@ -26,5 +26,11 @@ final class GuiTypeImpl {
 
             return COLUMNS;
         }
+
+        @Override
+        public boolean allowsSlot(final Slot slot) {
+
+            return slot.row() < rows;
+        }
     }
 }
