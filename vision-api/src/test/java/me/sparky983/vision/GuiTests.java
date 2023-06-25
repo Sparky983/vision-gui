@@ -25,6 +25,11 @@ class GuiTests {
      */
     static final Component TITLE = Component.text("title");
 
+    /**
+     * A slot to be used for testing.
+     */
+    static final Slot SLOT = Slot.of(0, 0);
+
     @Nested
     class Chest {
 
@@ -57,8 +62,7 @@ class GuiTests {
 
             final Gui.Builder builder = Gui.chest();
 
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.title(null));
+            final Exception e = assertThrows(NullPointerException.class, () -> builder.title(null));
             assertEquals("title cannot be null", e.getMessage());
         }
 
@@ -151,7 +155,7 @@ class GuiTests {
             final Gui.Builder builder = Gui.chest();
 
             final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.button(Slot.of(0, 0), null));
+                    builder.button(SLOT, null));
             assertEquals("button cannot be null", e.getMessage());
         }
 
@@ -182,11 +186,11 @@ class GuiTests {
             final Gui.Builder builder = Gui.chest();
             final Button button = Button.of(ItemType.STONE);
 
-            assertEquals(builder, builder.button(Slot.of(0, 4), button));
+            assertEquals(builder, builder.button(SLOT, button));
 
             final Gui gui = builder.build();
 
-            assertEquals(Optional.of(button), gui.button(Slot.of(0, 4)));
+            assertEquals(Optional.of(button), gui.button(SLOT));
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -205,13 +209,13 @@ class GuiTests {
 
             final Gui gui = Gui.chest().build();
 
-            gui.button(Slot.of(0, 0), Button.of(ItemType.STONE));
+            gui.button(SLOT, Button.of(ItemType.STONE));
 
-            assertTrue(gui.button(Slot.of(0, 0)).isPresent());
+            assertTrue(gui.button(SLOT).isPresent());
 
-            gui.button(Slot.of(0, 0), null);
+            gui.button(SLOT, null);
 
-            assertEquals(Optional.empty(), gui.button(Slot.of(0, 0)));
+            assertEquals(Optional.empty(), gui.button(SLOT));
         }
 
         @CsvSource({
@@ -242,9 +246,9 @@ class GuiTests {
             final Gui gui = Gui.chest().build();
             final Button button = Button.of(ItemType.STONE);
 
-            assertEquals(gui, gui.button(Slot.of(0, 0), button));
+            assertEquals(gui, gui.button(SLOT, button));
 
-            assertEquals(Optional.of(button), gui.button(Slot.of(0, 0)));
+            assertEquals(Optional.of(button), gui.button(SLOT));
         }
 
         @SuppressWarnings("DataFlowIssue")
@@ -299,8 +303,8 @@ class GuiTests {
 
             gui.subscribe(subscriber);
 
-            gui.button(Slot.of(0, 0), button);
-            verify(subscriber).button(Slot.of(0, 0), button);
+            gui.button(SLOT, button);
+            verify(subscriber).button(SLOT, button);
             verifyNoMoreInteractions(subscriber);
         }
 
@@ -314,10 +318,10 @@ class GuiTests {
 
             gui.subscribe(subscriber);
 
-            doThrow(e).when(subscriber).button(Slot.of(0, 0), button);
-            gui.button(Slot.of(0, 0), button);
+            doThrow(e).when(subscriber).button(SLOT, button);
+            gui.button(SLOT, button);
 
-            verify(subscriber).button(Slot.of(0, 0), button);
+            verify(subscriber).button(SLOT, button);
             verify(subscriber).exception(e);
             verifyNoMoreInteractions(subscriber);
         }
@@ -335,7 +339,7 @@ class GuiTests {
 
             subscription.cancel();
 
-            gui.button(Slot.of(0, 0), button);
+            gui.button(SLOT, button);
 
             assertTrue(subscription.isCancelled());
             verifyNoMoreInteractions(subscriber);
