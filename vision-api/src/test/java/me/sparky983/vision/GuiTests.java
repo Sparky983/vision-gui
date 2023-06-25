@@ -97,7 +97,7 @@ class GuiTests {
 
             final Exception e =
                     assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
-            assertEquals("rows must be between 1 and 6 (got " + rows + ")", e.getMessage());
+            assertEquals(GuiTypeImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
         }
 
         @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
@@ -108,7 +108,7 @@ class GuiTests {
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
                     builder.rows(rows));
-            assertEquals("rows must be between 1 and 6 (got " + rows + ")", e.getMessage());
+            assertEquals(GuiTypeImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
         }
 
         @ValueSource(ints = {1, 2, 4, 5, 6})
