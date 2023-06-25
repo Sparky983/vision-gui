@@ -12,7 +12,8 @@ import java.util.Optional;
  * @since 0.1
  */
 @NullMarked
-public interface Gui extends Subscribable<Gui.Subscriber> {
+public sealed interface Gui extends Subscribable<Gui.Subscriber>
+        permits Gui.Chest, Gui.Hopper, Gui.Dropper {
 
     /**
      * The number of columns in a GUI.
@@ -56,7 +57,7 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *        .build();
      *</pre>
      */
-    interface Chest extends Gui {
+    non-sealed interface Chest extends Gui {
 
         /**
          * A {@link Chest} builder.
@@ -142,7 +143,7 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *        .build();
      *</pre>
      */
-    interface Hopper extends Gui {
+    non-sealed interface Hopper extends Gui {
 
         /**
          * A {@link Hopper} builder.
@@ -215,7 +216,7 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
      *        .build();
      *</pre>
      */
-    interface Dropper extends Gui {
+    non-sealed interface Dropper extends Gui {
 
         /**
          * A {@link Dropper} builder.
