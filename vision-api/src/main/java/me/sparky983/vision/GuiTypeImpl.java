@@ -5,11 +5,11 @@ import org.jetbrains.annotations.VisibleForTesting;
 final class GuiTypeImpl {
 
     @VisibleForTesting
-    static final String INCORRECT_ROWS = "rows must be between " +
-            GuiType.Chest.MIN_ROWS +
-            " and " +
-            GuiType.Chest.MAX_ROWS +
-            " (got %s)";
+    static final String INCORRECT_ROWS = "rows must be between "
+            + GuiType.Chest.MIN_ROWS
+            + " and "
+            + GuiType.Chest.MAX_ROWS
+            + " (got %s)";
 
     private GuiTypeImpl() {
 
