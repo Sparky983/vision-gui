@@ -15,14 +15,14 @@ import java.util.Optional;
 public interface Gui extends Subscribable<Gui.Subscriber> {
 
     /**
-     * The maximum number of rows in a GUI.
-     */
-    int MAX_ROWS = 6;
-
-    /**
      * The number of columns in a GUI.
      */
     int COLUMNS = 9;
+
+    /**
+     * The maximum number of rows in a GUI.
+     */
+    int MAX_ROWS = 6;
 
     /**
      * Creates a new {@link Chest.Builder} with 1 row.
@@ -330,20 +330,20 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     Component title();
 
     /**
-     * Gets the number of rows in this {@code Gui}.
-     *
-     * @return the number of rows
-     * @since 0.1
-     */
-    int rows();
-
-    /**
      * Gets the number of columns in this {@code Gui}.
      *
      * @return the number of columns
      * @since 1.0
      */
     int columns();
+
+    /**
+     * Gets the number of rows in this {@code Gui}.
+     *
+     * @return the number of rows
+     * @since 0.1
+     */
+    int rows();
 
     /**
      * Sets the {@link Button} at the specified {@link Slot}.
