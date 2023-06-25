@@ -48,6 +48,7 @@ class GuiTests {
             assertEquals(Gui.Chest.COLUMNS, type.columns());
             assertTrue(type.allowsSlot(Slot.of(allowedRow, 0)));
             assertFalse(type.allowsSlot(Slot.of(disallowedRow, 0)));
+            assertEquals(GuiTypeImpl.ChestImpl.NAME, type.name());
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -78,7 +79,7 @@ class GuiTests {
 
             final Gui gui = Gui.chest().build();
 
-            assertEquals(GuiImpl.ChestImpl.BuilderImpl.DEFAULT_TITLE, gui.title());
+            assertEquals(gui.type().name(), gui.title());
         }
 
         @Test
@@ -97,7 +98,7 @@ class GuiTests {
 
             final Exception e =
                     assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
-            assertEquals(GuiTypeImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
+            assertEquals(GuiTypeImpl.ChestImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
         }
 
         @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
@@ -108,7 +109,7 @@ class GuiTests {
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
                     builder.rows(rows));
-            assertEquals(GuiTypeImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
+            assertEquals(GuiTypeImpl.ChestImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
         }
 
         @ValueSource(ints = {1, 2, 4, 5, 6})

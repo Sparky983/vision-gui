@@ -5,13 +5,6 @@ import org.jetbrains.annotations.VisibleForTesting;
 
 final class GuiTypeImpl {
 
-    @VisibleForTesting
-    static final String INCORRECT_ROWS = "rows must be between "
-            + GuiType.Chest.MIN_ROWS
-            + " and "
-            + GuiType.Chest.MAX_ROWS
-            + " (got %s)";
-
     private GuiTypeImpl() {
 
     }
@@ -28,7 +21,15 @@ final class GuiTypeImpl {
         return new ChestImpl(rows);
     }
 
-    private record ChestImpl(@Override int rows) implements GuiType.Chest {
+    @VisibleForTesting
+    record ChestImpl(@Override int rows) implements GuiType.Chest {
+
+        @VisibleForTesting
+        static final String INCORRECT_ROWS = "rows must be between "
+                + GuiType.Chest.MIN_ROWS
+                + " and "
+                + GuiType.Chest.MAX_ROWS
+                + " (got %s)";
 
         @VisibleForTesting
         static final Component NAME = Component.translatable("container.chest");
