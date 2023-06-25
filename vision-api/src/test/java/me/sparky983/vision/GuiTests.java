@@ -45,7 +45,7 @@ class GuiTests {
             final GuiType type = gui.type();
 
             assertEquals(rows, type.rows());
-            assertEquals(Gui.Chest.COLUMNS, type.columns());
+            assertEquals(GuiType.Chest.COLUMNS, type.columns());
             assertTrue(type.allowsSlot(Slot.of(allowedRow, 0)));
             assertFalse(type.allowsSlot(Slot.of(disallowedRow, 0)));
             assertEquals(GuiTypeImpl.ChestImpl.NAME, type.name());

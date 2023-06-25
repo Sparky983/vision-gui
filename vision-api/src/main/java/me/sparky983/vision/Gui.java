@@ -16,16 +16,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
         permits Gui.Chest, Gui.Hopper, Gui.Dropper {
 
     /**
-     * The number of columns in a GUI.
-     */
-    int COLUMNS = 9;
-
-    /**
-     * The maximum number of rows in a GUI.
-     */
-    int MAX_ROWS = 6;
-
-    /**
      * Creates a new {@link Chest.Builder} with 1 row.
      *
      * @return the new {@link Chest.Builder}
