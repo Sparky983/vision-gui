@@ -49,10 +49,11 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
             counter.name(Component.text("Counter: " + count.incrementAndGet()));
         }, 20, 10);
 
-        final Gui gui = Gui.gui()
+        final Gui gui = Gui.chest()
                 .title(Component.text("Test GUI"))
                 .rows(3)
-                .button(Slot.of(1, 4), counter);
+                .button(Slot.of(1, 4), counter)
+                .build();
 
         vision.open(player, gui);
 
