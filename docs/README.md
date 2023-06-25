@@ -1,3 +1,17 @@
+---
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
 # Getting Started
 
 ## Vision GUI
@@ -12,7 +26,7 @@ Vision GUI is a minimal GUI API for Paper.
 
 ## Installation
 
-Add the following to your build configuration:  &#x20;
+Add the following to your build configuration:
 
 {% tabs %}
 {% tab title="pom.xml" %}

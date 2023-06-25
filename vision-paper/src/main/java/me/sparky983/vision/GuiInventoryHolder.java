@@ -2,7 +2,6 @@ package me.sparky983.vision;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Objects;
@@ -25,7 +24,7 @@ final class GuiInventoryHolder implements InventoryHolder {
     }
 
     @Override
-    public @NotNull Inventory getInventory() {
+    public Inventory getInventory() {
 
         return inventory;
     }
