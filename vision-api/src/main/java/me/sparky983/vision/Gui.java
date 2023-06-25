@@ -259,6 +259,14 @@ public interface Gui extends Subscribable<Gui.Subscriber> {
     }
 
     /**
+     * Gets the type of this {@code Gui}.
+     *
+     * @return the type of this {@code Gui}
+     * @since 1.0
+     */
+    GuiType type();
+
+    /**
      * A {@link Gui} builder.
      *
      * @since 0.1
