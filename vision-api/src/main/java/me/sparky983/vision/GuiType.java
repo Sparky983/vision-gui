@@ -1,5 +1,6 @@
 package me.sparky983.vision;
 
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
@@ -86,6 +87,16 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
      */
     @ApiStatus.Experimental
     boolean allowsSlot(Slot slot);
+
+    /**
+     * Gets the name of this type.
+     *
+     * @return the name of this type
+     * @since 1.0
+     * @vision.experimental because this may be renamed.
+     */
+    @ApiStatus.Experimental
+    Component name();
 
     /**
      * The {@link Gui.Chest} type.

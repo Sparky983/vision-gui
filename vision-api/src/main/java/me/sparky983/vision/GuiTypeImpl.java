@@ -1,15 +1,9 @@
 package me.sparky983.vision;
 
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.VisibleForTesting;
 
 final class GuiTypeImpl {
-
-    @VisibleForTesting
-    static final String INCORRECT_ROWS = "rows must be between "
-            + GuiType.Chest.MIN_ROWS
-            + " and "
-            + GuiType.Chest.MAX_ROWS
-            + " (got %s)";
 
     private GuiTypeImpl() {
 
@@ -29,6 +23,16 @@ final class GuiTypeImpl {
 
     private record ChestImpl(@Override int rows) implements GuiType.Chest {
 
+        @VisibleForTesting
+        static final String INCORRECT_ROWS = "rows must be between "
+                + GuiType.Chest.MIN_ROWS
+                + " and "
+                + GuiType.Chest.MAX_ROWS
+                + " (got %s)";
+
+        @VisibleForTesting
+        static final Component NAME = Component.translatable("container.chest");
+
         ChestImpl {
 
             if (rows < MIN_ROWS || rows > MAX_ROWS) {
@@ -46,6 +50,12 @@ final class GuiTypeImpl {
         public boolean allowsSlot(final Slot slot) {
 
             return slot.row() < rows;
+        }
+
+        @Override
+        public Component name() {
+
+            return NAME;
         }
     }
 }

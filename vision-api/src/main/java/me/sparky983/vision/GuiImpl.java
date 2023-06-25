@@ -119,7 +119,7 @@ final class GuiImpl {
             static final Component DEFAULT_TITLE = Component.translatable("container.chest");
 
             private GuiType type = DEFAULT_ROWS;
-            private Component title = DEFAULT_TITLE;
+            private Component title = type.name();
 
             private final Map<Slot, Button> buttons = new HashMap<>();
 
