@@ -107,6 +107,15 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
     non-sealed interface Chest extends GuiType {
 
         /**
+         * The name of this type.
+         *
+         * @since 1.0
+         * @vision.experimental because this may be renamed or removed.
+         */
+        @ApiStatus.Experimental
+        Component NAME = Component.translatable("container.chest");
+
+        /**
          * The number of columns {@link Gui.Chest Gui.Chests} have.
          *
          * @see Gui#columns()
@@ -144,6 +153,15 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
     non-sealed interface Hopper extends GuiType {
 
         /**
+         * The name of this type.
+         *
+         * @since 1.0
+         * @vision.experimental because this may be renamed or removed.
+         */
+        @ApiStatus.Experimental
+        Component NAME = Component.translatable("container.hopper");
+
+        /**
          * The number of columns {@link Gui.Hopper Gui.Hoppers} have.
          *
          * @see Gui#columns()
@@ -167,6 +185,15 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
      * @since 1.0
      */
     non-sealed interface Dropper extends GuiType {
+
+        /**
+         * The name of this type.
+         *
+         * @since 1.0
+         * @vision.experimental because this may be renamed or removed.
+         */
+        @ApiStatus.Experimental
+        Component NAME = Component.translatable("container.dropper");
 
         /**
          * The number of columns {@link Gui.Dropper Gui.Droppers} have.

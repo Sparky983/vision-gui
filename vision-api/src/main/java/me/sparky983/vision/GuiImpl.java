@@ -115,11 +115,8 @@ final class GuiImpl {
             @VisibleForTesting
             static final GuiType DEFAULT_ROWS = GuiTypeImpl.chest(1);
 
-            @VisibleForTesting
-            static final Component DEFAULT_TITLE = Component.translatable("container.chest");
-
             private GuiType type = DEFAULT_ROWS;
-            private Component title = type.name();
+            private Component title = GuiType.Chest.NAME;
 
             private final Map<Slot, Button> buttons = new HashMap<>();
 

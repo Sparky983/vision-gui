@@ -48,7 +48,7 @@ class GuiTests {
             assertEquals(GuiType.Chest.COLUMNS, type.columns());
             assertTrue(type.allowsSlot(Slot.of(allowedRow, 0)));
             assertFalse(type.allowsSlot(Slot.of(disallowedRow, 0)));
-            assertEquals(GuiTypeImpl.ChestImpl.NAME, type.name());
+            assertEquals(GuiType.Chest.NAME, type.name());
         }
 
         @SuppressWarnings("ConstantConditions")

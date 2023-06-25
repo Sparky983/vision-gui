@@ -31,9 +31,6 @@ final class GuiTypeImpl {
                 + GuiType.Chest.MAX_ROWS
                 + " (got %s)";
 
-        @VisibleForTesting
-        static final Component NAME = Component.translatable("container.chest");
-
         ChestImpl {
 
             if (rows < MIN_ROWS || rows > MAX_ROWS) {
