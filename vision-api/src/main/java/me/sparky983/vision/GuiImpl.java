@@ -38,6 +38,8 @@ final class GuiImpl {
 
             assert title != null;
             assert buttons != null;
+            assert buttons.keySet().stream().allMatch(Objects::nonNull);
+            assert buttons.values().stream().allMatch(Objects::nonNull);
             assert buttons.keySet().stream()
                     .allMatch(type::allowsSlot);
 
