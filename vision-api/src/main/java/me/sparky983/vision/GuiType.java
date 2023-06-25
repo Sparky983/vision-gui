@@ -102,6 +102,24 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
          * @since 1.0
          */
         int COLUMNS = 9;
+
+        /**
+         * The minimum number of rows that a {@link Gui.Chest} can have.
+         *
+         * @see Gui#rows()
+         * @since 1.0
+         * @vision.experimental because this may be deleted, renamed or moved.
+         */
+        int MIN_ROWS = 1;
+
+        /**
+         * The maximum number of rows that a {@link Gui.Chest} can have.
+         *
+         * @see Gui#rows()
+         * @since 1.0
+         * @vision.experimental because this may be renamed or moved.
+         */
+        int MAX_ROWS = 6;
     }
 
     /**

@@ -24,9 +24,6 @@ final class GuiImpl {
     static final class ChestImpl implements Gui.Chest {
 
         @VisibleForTesting
-        static final int MIN_ROWS = 1;
-
-        @VisibleForTesting
         static final String SLOT_OUT_OF_BOUNDS = "Button at %s is out of bounds for %s rows";
 
         private final SubscriptionManager<Subscriber> subscribers = new SubscriptionManager<>();
@@ -114,19 +111,12 @@ final class GuiImpl {
         final static class BuilderImpl implements Builder {
 
             @VisibleForTesting
-            static final int DEFAULT_ROWS = MIN_ROWS;
-
-            @VisibleForTesting
-            static final String INCORRECT_ROWS = "rows must be between " +
-                    MIN_ROWS +
-                    " and " +
-                    Gui.MAX_ROWS +
-                    " (got %s)";
+            static final GuiType DEFAULT_ROWS = GuiTypeImpl.chest(1);
 
             @VisibleForTesting
             static final Component DEFAULT_TITLE = Component.translatable("container.chest");
 
-            private int rows = DEFAULT_ROWS;
+            private GuiType type = DEFAULT_ROWS;
             private Component title = DEFAULT_TITLE;
 
             private final Map<Slot, Button> buttons = new HashMap<>();
@@ -134,11 +124,7 @@ final class GuiImpl {
             @Override
             public Builder rows(final int rows) {
 
-                if (rows < MIN_ROWS || rows > Gui.MAX_ROWS) {
-                    throw new IllegalArgumentException(INCORRECT_ROWS.formatted(rows));
-                }
-
-                this.rows = rows;
+                this.type = GuiTypeImpl.chest(rows);
                 return this;
             }
 
@@ -164,11 +150,10 @@ final class GuiImpl {
             @Override
             public Chest build() {
 
-                final GuiType type = GuiTypeImpl.chest(rows);
-
                 for (final Slot slot : buttons.keySet()) {
                     if (!type.allowsSlot(slot)) {
-                        throw new IllegalStateException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows));
+                        throw new IllegalStateException(
+                                SLOT_OUT_OF_BOUNDS.formatted(slot, type.rows()));
                     }
                 }
 
