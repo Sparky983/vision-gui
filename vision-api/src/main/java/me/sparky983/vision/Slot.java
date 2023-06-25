@@ -14,6 +14,16 @@ import org.jspecify.nullness.NullMarked;
 public record Slot(int row, int column) {
 
     /**
+     * The highest row index allowed.
+     */
+    private static final int MAX_ROWS = GuiType.Chest.MAX_ROWS - 1;
+
+    /**
+     * The highest column index allowed.
+     */
+    private static final int MAX_COLUMNS = GuiType.Chest.COLUMNS - 1;
+
+    /**
      * Creates a new {@code Slot}.
      *
      * @param row the row of the {@code Slot}
@@ -25,14 +35,14 @@ public record Slot(int row, int column) {
      */
     public Slot {
 
-        if (row < 0 || row >= Gui.MAX_ROWS) {
+        if (row < 0 || row >= MAX_ROWS) {
 
-            throw new IllegalArgumentException("row must be between 0 and 5");
+            throw new IllegalArgumentException("row must be between 0 and " + MAX_ROWS);
         }
 
-        if (column < 0 || column >= Gui.COLUMNS) {
+        if (column < 0 || column >= MAX_COLUMNS) {
 
-            throw new IllegalArgumentException("column must be between 0 and 8");
+            throw new IllegalArgumentException("column must be between 0 and " + MAX_COLUMNS);
         }
     }
 
