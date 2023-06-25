@@ -121,6 +121,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
          * @since 1.0
          * @vision.experimental because this may be deleted, renamed or moved.
          */
+        @ApiStatus.Experimental
         int MIN_ROWS = 1;
 
         /**
@@ -130,6 +131,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
          * @since 1.0
          * @vision.experimental because this may be renamed or moved.
          */
+        @ApiStatus.Experimental
         int MAX_ROWS = 6;
     }
 
