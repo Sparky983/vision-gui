@@ -12,8 +12,7 @@ import java.util.Optional;
  * @since 0.1
  */
 @NullMarked
-public sealed interface Gui extends Subscribable<Gui.Subscriber>
-        permits Gui.Chest, Gui.Hopper, Gui.Dropper {
+public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, Hopper, Dropper {
 
     /**
      * Creates a new {@link Chest.Builder} with 1 row.
@@ -31,86 +30,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
      */
     static Chest.Builder chest() {
 
-        return new GuiImpl.ChestImpl.BuilderImpl();
-    }
-
-    /**
-     * Represents the {@link Chest} variant of a {@link Gui}.
-     *
-     * @see #chest()
-     * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.chest()
-     *        .title(Component.text("My GUI"))
-     *        .rows(3)
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    non-sealed interface Chest extends Gui {
-
-        /**
-         * A {@link Chest} builder.
-         *
-         * @see #chest()
-         * @since 1.0
-         * @vision.examples <pre>
-         *Gui gui = Gui.chest()
-         *        .title(Component.text("My GUI"))
-         *        .rows(3)
-         *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-         *        .build();
-         *</pre>
-         */
-        interface Builder extends Gui.Builder {
-
-            /**
-             * Specifies the number of rows in the {@link Chest}.
-             *
-             * @param rows the number of rows
-             * @return this builder instance (for chaining)
-             * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
-             * 6.
-             * @since 1.0
-             * @vision.apiNote This method must be called before {@link #build()}.
-             */
-            Builder rows(int rows);
-
-            /**
-             * Specifies the title of the {@link Chest}.
-             *
-             * @param title the title
-             * @return this builder instance (for chaining)
-             * @throws NullPointerException if the title is {@code null}.
-             * @since 1.0
-             * @vision.apiNote After the {@link Chest} is built, the title cannot be changed, so it
-             * must be specified before the {@link Chest} is built
-             */
-            @Override
-            Builder title(Component title);
-
-            /**
-             * Sets the {@link Button} at the specified {@link Slot} of the {@link Chest}.
-             *
-             * @param slot the slot
-             * @param button the button
-             * @return this builder instance (for chaining)
-             * @throws NullPointerException if the slot or button is {@code null}.
-             * @since 1.0
-             */
-            @Override
-            Builder button(Slot slot, Button button);
-
-            /**
-             * Builds the {@link Chest}.
-             *
-             * @return the built {@link Chest}
-             * @throws IllegalStateException if any of the buttons are out of bounds.
-             * @since 1.0
-             */
-            @Override
-            Chest build();
-        }
+        return new ChestImpl.BuilderImpl();
     }
 
     /**
@@ -132,71 +52,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
     }
 
     /**
-     * Represents the {@link Hopper} variant of a {@link Gui}.
-     *
-     * @see #hopper()
-     * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.hopper()
-     *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    non-sealed interface Hopper extends Gui {
-
-        /**
-         * A {@link Hopper} builder.
-         *
-         * @see #hopper()
-         * @since 1.0
-         * @vision.examples <pre>
-         *Gui gui = Gui.hopper()
-         *        .title(Component.text("My GUI"))
-         *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-         *        .build();
-         *</pre>
-         */
-        interface Builder extends Gui.Builder {
-
-            /**
-             * Specifies the title of the {@link Hopper}.
-             *
-             * @param title the title
-             * @return this builder instance (for chaining)
-             * @throws NullPointerException if the title is {@code null}.
-             * @since 1.0
-             * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
-             * must be specified before the {@link Gui} is built
-             */
-            @Override
-            Builder title(Component title);
-
-            /**
-             * Sets the {@link Button} at the specified {@link Slot} of the {@link Hopper}.
-             *
-             * @param slot the slot
-             * @param button the button
-             * @return this builder instance (for chaining)
-             * @throws NullPointerException if the slot or button is {@code null}.
-             * @since 1.0
-             */
-            @Override
-            Builder button(Slot slot, @Nullable Button button);
-
-            /**
-             * Builds the {@link Hopper}.
-             *
-             * @return the built {@link Hopper}
-             * @throws IllegalStateException if any of the buttons are out of bounds.
-             * @since 1.0
-             */
-            @Override
-            Hopper build();
-        }
-    }
-
-    /**
      * Creates a new {@link Dropper.Builder}.
      *
      * @return the new {@link Dropper.Builder}
@@ -212,67 +67,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber>
     static Dropper.Builder dropper() {
 
         return null;
-    }
-
-    /**
-     * Represents the {@link Dropper} variant of a {@link Gui}.
-     *
-     * @see #dropper()
-     * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.dropper()
-     *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    non-sealed interface Dropper extends Gui {
-
-        /**
-         * A {@link Dropper} builder.
-         *
-         * @see #dropper()
-         * @since 1.0
-         * @vision.examples <pre>
-         *Gui gui = Gui.dropper()
-         *        .title(Component.text("My GUI"))
-         *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-         *        .build();
-         *</pre>
-         */
-        interface Builder extends Gui.Builder {
-
-            /**
-             * Specifies the title of the {@link Dropper}.
-             *
-             * @param title the title
-             * @return this builder instance (for chaining)
-             * @throws NullPointerException if the title is {@code null}.
-             * @since 1.0
-             * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
-             * must be specified before the {@link Gui} is built
-             */
-            @Override
-            Builder title(Component title);
-
-            /**
-             * Sets the {@link Button} at the specified {@link Slot} of the {@link Dropper}.
-             *
-             * @since 1.0
-             */
-            @Override
-            Builder button(Slot slot, @Nullable Button button);
-
-            /**
-             * Builds the {@link Dropper}.
-             *
-             * @return the built {@link Dropper}
-             * @throws IllegalStateException if any of the buttons are out of bounds.
-             * @since 1.0
-             */
-            @Override
-            Dropper build();
-        }
     }
 
     /**

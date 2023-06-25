@@ -9,9 +9,9 @@ import org.jetbrains.annotations.ApiStatus;
  * Contains information about the size and shape of a {@link Gui}.
  *
  * @see Gui
- * @see Gui.Chest
- * @see Gui.Hopper
- * @see Gui.Dropper
+ * @see me.sparky983.vision.Chest
+ * @see me.sparky983.vision.Hopper
+ * @see me.sparky983.vision.Dropper
  * @since 1.0
  */
 public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.Dropper {
@@ -99,9 +99,9 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
     Component name();
 
     /**
-     * The {@link Gui.Chest} type.
+     * The {@link me.sparky983.vision.Chest} type.
      *
-     * @see Gui.Chest
+     * @see me.sparky983.vision.Chest
      * @since 1.0
      */
     non-sealed interface Chest extends GuiType {
@@ -116,7 +116,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
         Component NAME = Component.translatable("container.chest");
 
         /**
-         * The number of columns {@link Gui.Chest Gui.Chests} have.
+         * The number of columns {@link me.sparky983.vision.Chest Gui.Chests} have.
          *
          * @see Gui#columns()
          * @since 1.0
@@ -124,7 +124,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
         int COLUMNS = 9;
 
         /**
-         * The minimum number of rows that a {@link Gui.Chest} can have.
+         * The minimum number of rows that a {@link me.sparky983.vision.Chest} can have.
          *
          * @see Gui#rows()
          * @since 1.0
@@ -134,7 +134,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
         int MIN_ROWS = 1;
 
         /**
-         * The maximum number of rows that a {@link Gui.Chest} can have.
+         * The maximum number of rows that a {@link me.sparky983.vision.Chest} can have.
          *
          * @see Gui#rows()
          * @since 1.0
@@ -145,9 +145,9 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
     }
 
     /**
-     * The {@link Gui.Hopper} type.
+     * The {@link me.sparky983.vision.Hopper} type.
      *
-     * @see Gui.Hopper
+     * @see me.sparky983.vision.Hopper
      * @since 1.0
      */
     non-sealed interface Hopper extends GuiType {
@@ -162,7 +162,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
         Component NAME = Component.translatable("container.hopper");
 
         /**
-         * The number of columns {@link Gui.Hopper Gui.Hoppers} have.
+         * The number of columns {@link me.sparky983.vision.Hopper Gui.Hoppers} have.
          *
          * @see Gui#columns()
          * @since 1.0
@@ -170,7 +170,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
         int COLUMNS = 5;
 
         /**
-         * The number of rows {@link Gui.Hopper Gui.Hoppers} have.
+         * The number of rows {@link me.sparky983.vision.Hopper Gui.Hoppers} have.
          *
          * @see Gui#rows()
          * @since 1.0
@@ -179,9 +179,9 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
     }
 
     /**
-     * The {@link Gui.Dropper} type.
+     * The {@link me.sparky983.vision.Dropper} type.
      *
-     * @see Gui.Dropper
+     * @see me.sparky983.vision.Dropper
      * @since 1.0
      */
     non-sealed interface Dropper extends GuiType {
@@ -196,7 +196,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
         Component NAME = Component.translatable("container.dropper");
 
         /**
-         * The number of columns {@link Gui.Dropper Gui.Droppers} have.
+         * The number of columns {@link me.sparky983.vision.Dropper Gui.Droppers} have.
          *
          * @see Gui#columns()
          * @since 1.0
@@ -204,7 +204,7 @@ public sealed interface GuiType permits GuiType.Chest, GuiType.Hopper, GuiType.D
         int COLUMNS = 3;
 
         /**
-         * The number of rows {@link Gui.Dropper Gui.Droppers} have.
+         * The number of rows {@link me.sparky983.vision.Dropper Gui.Droppers} have.
          *
          * @see Gui#rows()
          * @since 1.0

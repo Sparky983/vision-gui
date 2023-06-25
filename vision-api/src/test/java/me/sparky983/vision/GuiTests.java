@@ -98,7 +98,7 @@ class GuiTests {
         @ParameterizedTest
         void testBuilderRowsWhenRowsIsLessThan1(final int rows) {
 
-            final Gui.Chest.Builder builder = Gui.chest();
+            final me.sparky983.vision.Chest.Builder builder = Gui.chest();
 
             final Exception e =
                     assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
@@ -109,7 +109,7 @@ class GuiTests {
         @ParameterizedTest
         void testBuilderRowsWhenRowsIsGreaterThan6(final int rows) {
 
-            final Gui.Chest.Builder builder = Gui.chest();
+            final me.sparky983.vision.Chest.Builder builder = Gui.chest();
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
                     builder.rows(rows));
@@ -120,7 +120,7 @@ class GuiTests {
         @ParameterizedTest
         void testBuilderRows(final int rows) {
 
-            final Gui.Chest.Builder builder = Gui.chest();
+            final me.sparky983.vision.Chest.Builder builder = Gui.chest();
 
             assertEquals(builder, builder.rows(rows));
 
@@ -134,7 +134,7 @@ class GuiTests {
 
             final Gui gui = Gui.chest().build();
 
-            assertEquals(GuiImpl.ChestImpl.BuilderImpl.DEFAULT_ROWS, gui.type());
+            assertEquals(ChestImpl.BuilderImpl.DEFAULT_ROWS, gui.type());
         }
 
         @SuppressWarnings("DataFlowIssue")
@@ -176,7 +176,7 @@ class GuiTests {
                     .button(slot, Button.of(ItemType.STONE));
 
             final Exception e = assertThrows(IllegalStateException.class, builder::build);
-            assertEquals(GuiImpl.ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
+            assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
                     e.getMessage());
         }
 
@@ -237,7 +237,7 @@ class GuiTests {
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
                     gui.button(slot, button));
-            assertEquals(GuiImpl.ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows), e.getMessage());
+            assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows), e.getMessage());
         }
 
         @Test
@@ -279,7 +279,7 @@ class GuiTests {
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
                     gui.button(slot));
-            assertEquals(GuiImpl.ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
+            assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
                     e.getMessage());
         }
 
