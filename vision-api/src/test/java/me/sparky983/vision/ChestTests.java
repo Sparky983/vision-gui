@@ -71,8 +71,7 @@ class ChestTests {
 
         final Chest.Builder builder = Gui.chest();
 
-        final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                builder.rows(rows));
+        final Exception e = assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
         assertEquals(ChestImpl.ROWS_OUT_OF_BOUNDS.formatted(rows), e.getMessage());
     }
 
@@ -236,8 +235,7 @@ class ChestTests {
                 .build();
         final Slot slot = Slot.of(slotRow, slotColumn);
 
-        final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                gui.button(slot));
+        final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
         assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
                 e.getMessage());
     }
@@ -248,8 +246,7 @@ class ChestTests {
 
         final Gui gui = Gui.chest().build();
 
-        final Exception e = assertThrows(NullPointerException.class,
-                () -> gui.subscribe(null));
+        final Exception e = assertThrows(NullPointerException.class, () -> gui.subscribe(null));
         assertEquals("subscriber cannot be null", e.getMessage());
     }
 
