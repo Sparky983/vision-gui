@@ -136,8 +136,7 @@ class ChestTests {
                 .button(slot, Button.of(ItemType.STONE));
 
         final Exception e = assertThrows(IllegalStateException.class, builder::build);
-        assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
-                e.getMessage());
+        assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows), e.getMessage());
     }
 
     @Test
