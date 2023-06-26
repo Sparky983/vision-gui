@@ -33,29 +33,6 @@ class GuiTests {
     @Nested
     class Chest {
 
-        @CsvSource({
-                "1, 0, 1",
-                "2, 1, 2",
-                "3, 1, 5",
-                "4, 3, 4",
-                "5, 0, 5"
-        })
-        @ParameterizedTest
-        void testType(final int rows, final int allowedRow, final int disallowedRow) {
-
-            final Gui gui = Gui.chest()
-                    .rows(rows)
-                    .build();
-
-            final GuiType type = gui.type();
-
-            assertEquals(rows, type.rows());
-            assertEquals(GuiType.Chest.COLUMNS, type.columns());
-            assertTrue(type.allowsSlot(Slot.of(allowedRow, 0)));
-            assertFalse(type.allowsSlot(Slot.of(disallowedRow, 0)));
-            assertEquals(GuiType.Chest.NAME, type.name());
-        }
-
         @SuppressWarnings("ConstantConditions")
         @Test
         void testBuilderTitleWhenTitleIsNull() {
@@ -83,7 +60,7 @@ class GuiTests {
 
             final Gui gui = Gui.chest().build();
 
-            assertEquals(gui.type().name(), gui.title());
+            assertEquals(ChestImpl.DEFAULT_TITLE, gui.title());
         }
 
         @Test
@@ -91,29 +68,18 @@ class GuiTests {
 
             final Gui gui = Gui.chest().build();
 
-            assertEquals(GuiType.Chest.COLUMNS, gui.columns());
+            assertEquals(me.sparky983.vision.Chest.COLUMNS, gui.columns());
         }
 
-        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
+        @ValueSource(ints = {Integer.MIN_VALUE, 0, -1, 7, 8, Integer.MAX_VALUE})
         @ParameterizedTest
-        void testBuilderRowsWhenRowsIsLessThan1(final int rows) {
-
-            final me.sparky983.vision.Chest.Builder builder = Gui.chest();
-
-            final Exception e =
-                    assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
-            assertEquals(GuiTypeImpl.ChestImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
-        }
-
-        @ValueSource(ints = {7, 8, Integer.MAX_VALUE})
-        @ParameterizedTest
-        void testBuilderRowsWhenRowsIsGreaterThan6(final int rows) {
+        void testBuilderRowsWhenRowsIsOutOfBounds(final int rows) {
 
             final me.sparky983.vision.Chest.Builder builder = Gui.chest();
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
                     builder.rows(rows));
-            assertEquals(GuiTypeImpl.ChestImpl.INCORRECT_ROWS.formatted(rows), e.getMessage());
+            assertEquals(ChestImpl.ROWS_OUT_OF_BOUNDS.formatted(rows), e.getMessage());
         }
 
         @ValueSource(ints = {1, 2, 4, 5, 6})
@@ -134,7 +100,7 @@ class GuiTests {
 
             final Gui gui = Gui.chest().build();
 
-            assertEquals(ChestImpl.BuilderImpl.DEFAULT_ROWS, gui.type());
+            assertEquals(ChestImpl.DEFAULT_ROWS, gui.rows());
         }
 
         @SuppressWarnings("DataFlowIssue")

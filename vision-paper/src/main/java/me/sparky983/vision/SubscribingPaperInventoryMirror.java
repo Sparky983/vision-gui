@@ -42,7 +42,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
         Objects.requireNonNull(gui, "gui cannot be null");
 
         final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) ->
-                server.createInventory(inventoryHolder, gui.rows() * GuiType.Chest.COLUMNS, gui.title());
+                server.createInventory(inventoryHolder, gui.rows() * Chest.COLUMNS, gui.title());
 
         final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
 
@@ -59,7 +59,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
                 }
                 final ItemStack item = paperConverter.convert(button).orElseThrow(() ->
                         new IllegalStateException(UNABLE_TO_MIRROR_MESSAGE.formatted(button.type())));
-                final int rawSlot = slot.column() + (slot.row() * GuiType.Chest.COLUMNS);
+                final int rawSlot = slot.column() + (slot.row() * Chest.COLUMNS);
                 inventory.setItem(rawSlot, item);
 
                 final ItemStack craftItem = inventory.getItem(rawSlot);
@@ -70,7 +70,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
         };
 
         for (int row = 0; row < gui.rows(); row++) {
-            for (int column = 0; column < GuiType.Chest.COLUMNS; column++) {
+            for (int column = 0; column < Chest.COLUMNS; column++) {
                 final Slot slot = Slot.of(row, column);
                 gui.button(slot).ifPresent((button) -> {
                     // Essentially replaying the button sets

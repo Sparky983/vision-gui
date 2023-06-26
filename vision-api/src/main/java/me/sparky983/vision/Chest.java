@@ -1,10 +1,11 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 
 /**
- * Represents the {@link Chest} variant of a {@link Gui}.
+ * Represents the {@code Chest} variant of a {@link Gui}.
  *
  * @see #chest()
  * @since 1.0
@@ -18,6 +19,36 @@ import org.jspecify.nullness.NullMarked;
  */
 @NullMarked
 non-sealed public interface Chest extends Gui {
+
+    /**
+     * The number of columns a chests have.
+     *
+     * @see Gui#columns()
+     * @since 1.0
+     * @vision.experimental because this may be deleted, renamed or moved.
+     */
+    @ApiStatus.Experimental
+    int COLUMNS = 9;
+
+    /**
+     * The minimum number of rows that a chest can have.
+     *
+     * @see Gui#rows()
+     * @since 1.0
+     * @vision.experimental because this may be deleted, renamed or moved.
+     */
+    @ApiStatus.Experimental
+    int MIN_ROWS = 1;
+
+    /**
+     * The maximum number of rows that a chest can have.
+     *
+     * @see Gui#rows()
+     * @since 1.0
+     * @vision.experimental because this may be deleted, renamed or moved.
+     */
+    @ApiStatus.Experimental
+    int MAX_ROWS = 6;
 
     /**
      * A {@link Chest} builder.

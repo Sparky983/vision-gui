@@ -2,6 +2,7 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
@@ -15,15 +16,28 @@ import java.util.Optional;
 final class ChestImpl implements Chest {
 
     @VisibleForTesting
+    static final Component DEFAULT_TITLE = Component.translatable("container.chest");
+
+    @VisibleForTesting
+    static final int DEFAULT_ROWS = 1;
+
+    @VisibleForTesting
     static final String SLOT_OUT_OF_BOUNDS = "Button at %s is out of bounds for %s rows";
+
+    @VisibleForTesting
+    static final String ROWS_OUT_OF_BOUNDS = "Rows must be between "
+            + MIN_ROWS
+            + " and "
+            + MAX_ROWS
+            + ", but was %s";
 
     private final SubscriptionManager<Subscriber> subscribers = new SubscriptionManager<>();
 
-    private final GuiType type;
+    private final int rows;
     private final Component title;
     private final Map<Slot, Button> buttons;
 
-    private ChestImpl(final GuiType type,
+    private ChestImpl(final int rows,
                       final Component title,
                       final Map<Slot, Button> buttons) {
 
@@ -31,30 +45,23 @@ final class ChestImpl implements Chest {
         assert buttons != null;
         assert buttons.keySet().stream().allMatch(Objects::nonNull);
         assert buttons.values().stream().allMatch(Objects::nonNull);
-        assert buttons.keySet().stream()
-                .allMatch(type::allowsSlot);
+        assert buttons.keySet().stream().allMatch((slot) -> slot.row() <= rows);
 
-        this.type = type;
+        this.rows = rows;
         this.title = title;
         this.buttons = buttons;
     }
 
     @Override
-    public GuiType type() {
-
-        return type;
-    }
-
-    @Override
     public int columns() {
 
-        return type().columns();
+        return COLUMNS;
     }
 
     @Override
     public int rows() {
 
-        return type().rows();
+        return rows;
     }
 
     @Override
@@ -68,7 +75,7 @@ final class ChestImpl implements Chest {
 
         Objects.requireNonNull(slot, "slot cannot be null");
 
-        if (!type().allowsSlot(slot)) {
+        if (slot.row() >= rows()) {
             throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows()));
         }
 
@@ -86,7 +93,7 @@ final class ChestImpl implements Chest {
 
         Objects.requireNonNull(slot, "slot cannot be null");
 
-        if (!type.allowsSlot(slot)) {
+        if (slot.row() >= rows()) {
             throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows()));
         }
 
@@ -103,18 +110,19 @@ final class ChestImpl implements Chest {
 
     final static class BuilderImpl implements Builder {
 
-        @VisibleForTesting
-        static final GuiType DEFAULT_ROWS = GuiTypeImpl.chest(1);
-
-        private GuiType type = DEFAULT_ROWS;
-        private Component title = GuiType.Chest.NAME;
+        private int rows = DEFAULT_ROWS;
+        private Component title = DEFAULT_TITLE;
 
         private final Map<Slot, Button> buttons = new HashMap<>();
 
         @Override
         public Builder rows(final int rows) {
 
-            this.type = GuiTypeImpl.chest(rows);
+            if (rows < MIN_ROWS || rows > MAX_ROWS) {
+                throw new IllegalArgumentException();
+            }
+
+            this.rows = rows;
             return this;
         }
 
@@ -141,13 +149,12 @@ final class ChestImpl implements Chest {
         public Chest build() {
 
             for (final Slot slot : buttons.keySet()) {
-                if (!type.allowsSlot(slot)) {
-                    throw new IllegalStateException(
-                            SLOT_OUT_OF_BOUNDS.formatted(slot, type.rows()));
+                if (slot.row() >= rows) {
+                    throw new IllegalStateException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows));
                 }
             }
 
-            return new ChestImpl(type, title, buttons);
+            return new ChestImpl(rows, title, buttons);
         }
     }
 }
