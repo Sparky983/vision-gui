@@ -49,7 +49,7 @@ final class ChestImpl implements Chest {
 
         this.rows = rows;
         this.title = title;
-        this.buttons = buttons;
+        this.buttons = new HashMap<>(buttons);
     }
 
     @Override
