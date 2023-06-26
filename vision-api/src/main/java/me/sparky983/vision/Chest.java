@@ -21,7 +21,7 @@ import org.jspecify.nullness.NullMarked;
 non-sealed public interface Chest extends Gui {
 
     /**
-     * The number of columns a chests have.
+     * The number of columns chests have.
      *
      * @see Gui#columns()
      * @since 1.0
