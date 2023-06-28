@@ -66,7 +66,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      */
     static Dropper.Builder dropper() {
 
-        return null;
+        return new DropperImpl.BuilderImpl();
     }
 
     /**
