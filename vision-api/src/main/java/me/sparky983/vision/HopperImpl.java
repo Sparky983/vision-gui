@@ -20,8 +20,8 @@ final class HopperImpl implements Hopper {
 
     private final SubscriptionManager<Subscriber> subscribers = new SubscriptionManager<>();
 
-    private final Map<Slot, Button> buttons;
     private final Component title;
+    private final Map<Slot, Button> buttons;
 
     HopperImpl(final Component title, final Map<Slot, Button> buttons) {
 
@@ -52,7 +52,6 @@ final class HopperImpl implements Hopper {
 
     @Override
     public Gui button(final Slot slot, final @Nullable Button button) {
-
 
         Objects.requireNonNull(slot, "slot cannot be null");
 
@@ -89,9 +88,9 @@ final class HopperImpl implements Hopper {
 
     static final class BuilderImpl implements Builder {
 
-        private final Map<Slot, Button> buttons = new HashMap<>();
-
         private Component title = DEFAULT_TITLE;
+
+        private final Map<Slot, Button> buttons = new HashMap<>();
 
         @Override
         public Builder title(final Component title) {

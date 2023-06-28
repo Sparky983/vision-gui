@@ -28,12 +28,12 @@ final class ChestImpl implements Chest {
 
     private final SubscriptionManager<Subscriber> subscribers = new SubscriptionManager<>();
 
-    private final Map<Slot, Button> buttons;
-    private final int rows;
     private final Component title;
+    private final int rows;
+    private final Map<Slot, Button> buttons;
 
-    private ChestImpl(final int rows,
-                      final Component title,
+    private ChestImpl(final Component title,
+                      final int rows,
                       final Map<Slot, Button> buttons) {
 
         assert title != null;
@@ -105,10 +105,10 @@ final class ChestImpl implements Chest {
 
     final static class BuilderImpl implements Builder {
 
-        private final Map<Slot, Button> buttons = new HashMap<>();
-
-        private int rows = DEFAULT_ROWS;
         private Component title = DEFAULT_TITLE;
+        private int rows = DEFAULT_ROWS;
+
+        private final Map<Slot, Button> buttons = new HashMap<>();
 
         @Override
         public Builder rows(final int rows) {
@@ -149,7 +149,7 @@ final class ChestImpl implements Chest {
                 }
             }
 
-            return new ChestImpl(rows, title, buttons);
+            return new ChestImpl(title, rows, buttons);
         }
     }
 }
