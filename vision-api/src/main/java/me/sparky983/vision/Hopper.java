@@ -2,6 +2,7 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
@@ -19,6 +20,26 @@ import org.jspecify.nullness.Nullable;
  */
 @NullMarked
 non-sealed public interface Hopper extends Gui {
+
+    /**
+     * The number of columns hoppers have.
+     *
+     * @see Gui#columns()
+     * @since 1.0
+     * @vision.experimental because this may be deleted, renamed or moved.
+     */
+    @ApiStatus.Experimental
+    int COLUMNS = 5;
+
+    /**
+     * The number of columns hoppers have.
+     *
+     * @see Gui#columns()
+     * @since 1.0
+     * @vision.experimental because this may be deleted, renamed or moved.
+     */
+    @ApiStatus.Experimental
+    int ROWS = 1;
 
     /**
      * A {@link Hopper} builder.

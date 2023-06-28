@@ -48,7 +48,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      */
     static Hopper.Builder hopper() {
 
-        return null;
+        return new HopperImpl.BuilderImpl();
     }
 
     /**
