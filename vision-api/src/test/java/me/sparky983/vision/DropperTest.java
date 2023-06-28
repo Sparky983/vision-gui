@@ -92,10 +92,10 @@ class DropperTest {
     }
 
     @CsvSource({
-            "2, 3",
-            "3, 3",
-            "3, 2",
-            "3, 3"
+            "0, 5",
+            "1, 0",
+            "1, 2",
+            "1, 4"
     })
     @ParameterizedTest
     void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
@@ -147,10 +147,10 @@ class DropperTest {
     }
 
     @CsvSource({
-            "2, 3",
-            "3, 3",
-            "3, 2",
-            "3, 3"
+            "0, 5",
+            "1, 0",
+            "1, 2",
+            "1, 4"
     })
     @ParameterizedTest
     void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
@@ -186,10 +186,10 @@ class DropperTest {
     }
 
     @CsvSource({
-            "2, 3",
-            "3, 3",
-            "3, 2",
-            "3, 3"
+            "0, 5",
+            "1, 0",
+            "1, 2",
+            "1, 4"
     })
     @ParameterizedTest
     void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
