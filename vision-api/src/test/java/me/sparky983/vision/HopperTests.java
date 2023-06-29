@@ -77,9 +77,10 @@ class HopperTests {
     void testBuilderButtonWhenSlotIsNull() {
 
         final Gui.Builder builder = Gui.hopper();
+        final Button button = Button.of(ItemType.STONE);
 
         final Exception e = assertThrows(NullPointerException.class, () ->
-                builder.button(null, Button.of(ItemType.STONE)));
+                builder.button(null, button));
         assertEquals("slot cannot be null", e.getMessage());
     }
 
@@ -129,9 +130,10 @@ class HopperTests {
     void testSetButtonWhenSlotIsNull() {
 
         final Gui gui = Gui.hopper().build();
+        final Button button = Button.of(ItemType.STONE);
 
         final Exception e = assertThrows(NullPointerException.class, () ->
-                gui.button(null, Button.of(ItemType.STONE)));
+                gui.button(null, button));
         assertEquals("slot cannot be null", e.getMessage());
     }
 
