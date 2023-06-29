@@ -16,12 +16,12 @@ public record Slot(int row, int column) {
     /**
      * The highest row index allowed.
      */
-    static final int MAX_ROW = Chest.MAX_ROWS - 1;
+    private static final int MAX_ROW = Chest.MAX_ROWS - 1;
 
     /**
      * The highest column index allowed.
      */
-    static final int MAX_COLUMN = Chest.COLUMNS - 1;
+    private static final int MAX_COLUMN = Chest.COLUMNS - 1;
 
     /**
      * Creates a new {@code Slot}.
