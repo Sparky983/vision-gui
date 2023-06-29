@@ -57,10 +57,6 @@ final class ChestImpl implements Chest {
 
         Objects.requireNonNull(slot, "slot cannot be null");
 
-        if (slot.row() >= rows()) {
-            throw new IllegalArgumentException(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows(), columns()));
-        }
-
         return container.button(slot);
     }
 
@@ -80,10 +76,6 @@ final class ChestImpl implements Chest {
         @Override
         public Builder rows(final int rows) {
 
-            if (rows < MIN_ROWS || rows > MAX_ROWS) {
-                throw new IllegalArgumentException("rows must be between 1 and " + MAX_ROWS);
-            }
-
             container.rows(rows);
             return this;
         }
@@ -91,17 +83,12 @@ final class ChestImpl implements Chest {
         @Override
         public Builder title(final Component title) {
 
-            Objects.requireNonNull(title, "title cannot be null");
-
             container.title(title);
             return this;
         }
 
         @Override
         public Builder button(final Slot slot, final Button button) {
-
-            Objects.requireNonNull(slot, "slot cannot be null");
-            Objects.requireNonNull(button, "button cannot be null");
 
             container.button(slot, button);
             return this;

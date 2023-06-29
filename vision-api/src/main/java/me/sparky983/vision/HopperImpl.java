@@ -46,12 +46,6 @@ final class HopperImpl implements Hopper {
     @Override
     public Gui button(final Slot slot, final @Nullable Button button) {
 
-        Objects.requireNonNull(slot, "slot cannot be null");
-
-        if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-            throw new IllegalArgumentException(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows(), columns()));
-        }
-
         container.button(slot, button);
         return this;
     }
@@ -59,19 +53,12 @@ final class HopperImpl implements Hopper {
     @Override
     public Optional<Button> button(final Slot slot) {
 
-        Objects.requireNonNull(slot, "slot cannot be null");
-
-        if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-            throw new IllegalArgumentException(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows(), columns()));
-        }
-
         return container.button(slot);
     }
 
     @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
-        Objects.requireNonNull(subscriber, "subscriber cannot be null");
         return container.subscribe(subscriber);
     }
 
@@ -82,17 +69,12 @@ final class HopperImpl implements Hopper {
         @Override
         public Builder title(final Component title) {
 
-            Objects.requireNonNull(title, "title cannot be null");
-
             container.title(title);
             return this;
         }
 
         @Override
         public Builder button(final Slot slot, final Button button) {
-
-            Objects.requireNonNull(slot, "slot cannot be null");
-            Objects.requireNonNull(button, "button cannot be null");
 
             container.button(slot, button);
             return this;
