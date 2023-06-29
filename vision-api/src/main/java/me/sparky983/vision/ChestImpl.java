@@ -5,8 +5,6 @@ import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -17,52 +15,32 @@ final class ChestImpl implements Chest {
     static final Component DEFAULT_TITLE = Component.translatable("container.chest");
     @VisibleForTesting
     static final int DEFAULT_ROWS = 1;
-    @VisibleForTesting
-    static final String SLOT_OUT_OF_BOUNDS = "Button at %s is out of bounds for %s rows";
-    @VisibleForTesting
-    static final String ROWS_OUT_OF_BOUNDS = "Rows must be between "
-            + MIN_ROWS
-            + " and "
-            + MAX_ROWS
-            + ", but was %s";
 
-    private final SubscriptionManager<Subscriber> subscribers = new SubscriptionManager<>();
+    private final Container container;
 
-    private final Component title;
-    private final int rows;
-    private final Map<Slot, Button> buttons;
+    private ChestImpl(final Container container) {
 
-    private ChestImpl(final Component title,
-                      final int rows,
-                      final Map<Slot, Button> buttons) {
+        assert container != null;
 
-        assert title != null;
-        assert buttons != null;
-        assert buttons.keySet().stream().allMatch(Objects::nonNull);
-        assert buttons.values().stream().allMatch(Objects::nonNull);
-        assert buttons.keySet().stream().allMatch((slot) -> slot.row() <= rows);
-
-        this.rows = rows;
-        this.title = title;
-        this.buttons = new HashMap<>(buttons);
+        this.container = container;
     }
 
     @Override
     public int columns() {
 
-        return COLUMNS;
+        return container.columns();
     }
 
     @Override
     public int rows() {
 
-        return rows;
+        return container.rows();
     }
 
     @Override
     public Component title() {
 
-        return title;
+        return container.title();
     }
 
     @Override
@@ -70,16 +48,7 @@ final class ChestImpl implements Chest {
 
         Objects.requireNonNull(slot, "slot cannot be null");
 
-        if (slot.row() >= rows()) {
-            throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows()));
-        }
-
-        if (button == null) {
-            buttons.remove(slot);
-        } else {
-            buttons.put(slot, button);
-        }
-        subscribers.notify((subscriber) -> subscriber.button(slot, button));
+        container.button(slot, button);
         return this;
     }
 
@@ -89,10 +58,10 @@ final class ChestImpl implements Chest {
         Objects.requireNonNull(slot, "slot cannot be null");
 
         if (slot.row() >= rows()) {
-            throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows()));
+            throw new IllegalArgumentException(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows(), columns()));
         }
 
-        return Optional.ofNullable(buttons.get(slot));
+        return container.button(slot);
     }
 
     @Override
@@ -100,24 +69,22 @@ final class ChestImpl implements Chest {
 
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
-        return subscribers.subscribe(subscriber);
+        return container.subscribe(subscriber);
     }
 
     final static class BuilderImpl implements Builder {
 
-        private Component title = DEFAULT_TITLE;
-        private int rows = DEFAULT_ROWS;
-
-        private final Map<Slot, Button> buttons = new HashMap<>();
+        private final Container.Builder container =
+                Container.builder(DEFAULT_TITLE, DEFAULT_ROWS, COLUMNS);
 
         @Override
         public Builder rows(final int rows) {
 
             if (rows < MIN_ROWS || rows > MAX_ROWS) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("rows must be between 1 and " + MAX_ROWS);
             }
 
-            this.rows = rows;
+            container.rows(rows);
             return this;
         }
 
@@ -126,7 +93,7 @@ final class ChestImpl implements Chest {
 
             Objects.requireNonNull(title, "title cannot be null");
 
-            this.title = title;
+            container.title(title);
             return this;
         }
 
@@ -136,20 +103,14 @@ final class ChestImpl implements Chest {
             Objects.requireNonNull(slot, "slot cannot be null");
             Objects.requireNonNull(button, "button cannot be null");
 
-            this.buttons.put(slot, button);
+            container.button(slot, button);
             return this;
         }
 
         @Override
         public Chest build() {
 
-            for (final Slot slot : buttons.keySet()) {
-                if (slot.row() >= rows) {
-                    throw new IllegalStateException(SLOT_OUT_OF_BOUNDS.formatted(slot, rows));
-                }
-            }
-
-            return new ChestImpl(title, rows, buttons);
+            return new ChestImpl(container.build());
         }
     }
 }

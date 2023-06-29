@@ -9,6 +9,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import static me.sparky983.vision.Hopper.COLUMNS;
+import static me.sparky983.vision.Hopper.ROWS;
+
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,7 +61,7 @@ class HopperTests {
 
         final Gui gui = Gui.hopper().build();
 
-        assertEquals(Hopper.COLUMNS, gui.columns());
+        assertEquals(COLUMNS, gui.columns());
     }
 
     @Test
@@ -66,7 +69,7 @@ class HopperTests {
 
         final Gui gui = Gui.hopper().build();
 
-        assertEquals(Hopper.ROWS, gui.rows());
+        assertEquals(ROWS, gui.rows());
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -105,7 +108,7 @@ class HopperTests {
                 .button(slot, Button.of(ItemType.STONE));
 
         final Exception e = assertThrows(IllegalStateException.class, builder::build);
-        assertEquals(HopperImpl.SLOT_OUT_OF_BOUNDS.formatted(slot), e.getMessage());
+        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS), e.getMessage());
     }
 
     @Test
@@ -161,7 +164,7 @@ class HopperTests {
 
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
                 gui.button(slot, button));
-        assertEquals(HopperImpl.SLOT_OUT_OF_BOUNDS.formatted(slot), e.getMessage());
+        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS), e.getMessage());
     }
 
     @Test
@@ -198,7 +201,7 @@ class HopperTests {
         final Gui gui = Gui.hopper().build();
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
-        assertEquals(HopperImpl.SLOT_OUT_OF_BOUNDS.formatted(slot), e.getMessage());
+        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS), e.getMessage());
     }
 
     @SuppressWarnings("DataFlowIssue")

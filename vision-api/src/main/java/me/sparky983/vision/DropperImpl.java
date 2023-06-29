@@ -1,5 +1,7 @@
 package me.sparky983.vision;
 
+import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
+
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
@@ -15,39 +17,32 @@ final class DropperImpl implements Dropper {
 
     @VisibleForTesting
     static final Component DEFAULT_TITLE = Component.translatable("container.dropper");
-    @VisibleForTesting
-    static final String SLOT_OUT_OF_BOUNDS = "Button at %s is out of bounds for dropper";
 
-    private final SubscriptionManager<Gui.Subscriber> subscribers = new SubscriptionManager<>();
+    private final Container container;
 
-    private final Map<Slot, Button> buttons;
-    private final Component title;
+    DropperImpl(final Container container) {
 
-    DropperImpl(final Component title, final Map<Slot, Button> buttons) {
+        assert container != null;
 
-        assert title != null;
-        assert buttons != null;
-
-        this.title = title;
-        this.buttons = new HashMap<>(buttons);
+        this.container = container;
     }
 
     @Override
     public Component title() {
 
-        return title;
+        return container.title();
     }
 
     @Override
     public int columns() {
 
-        return COLUMNS;
+        return container.columns();
     }
 
     @Override
     public int rows() {
 
-        return ROWS;
+        return container.rows();
     }
 
     @Override
@@ -55,16 +50,7 @@ final class DropperImpl implements Dropper {
 
         Objects.requireNonNull(slot, "slot cannot be null");
 
-        if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-            throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot));
-        }
-
-        if (button == null) {
-            buttons.remove(slot);
-        } else {
-            buttons.put(slot, button);
-        }
-        subscribers.notify((subscriber) -> subscriber.button(slot, button));
+        container.button(slot, button);
         return this;
     }
 
@@ -74,30 +60,30 @@ final class DropperImpl implements Dropper {
         Objects.requireNonNull(slot, "slot cannot be null");
 
         if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-            throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot));
+            throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows(), columns()));
         }
 
-        return Optional.ofNullable(buttons.get(slot));
+        return container.button(slot);
     }
 
     @Override
     public Subscription subscribe(final Gui.Subscriber subscriber) {
 
-        return subscribers.subscribe(subscriber);
+        Objects.requireNonNull(subscriber, "subscriber cannot be null");
+
+        return container.subscribe(subscriber);
     }
 
     static final class BuilderImpl implements Builder {
 
-        private final Map<Slot, Button> buttons = new HashMap<>();
-
-        private Component title = DEFAULT_TITLE;
+        private final Container.Builder container = Container.builder(DEFAULT_TITLE, ROWS, COLUMNS);
 
         @Override
         public Builder title(final Component title) {
 
             Objects.requireNonNull(title, "title cannot be null");
 
-            this.title = title;
+            container.title(title);
             return this;
         }
 
@@ -107,20 +93,14 @@ final class DropperImpl implements Dropper {
             Objects.requireNonNull(slot, "slot cannot be null");
             Objects.requireNonNull(button, "button cannot be null");
 
-            this.buttons.put(slot, button);
+            container.button(slot, button);
             return this;
         }
 
         @Override
         public Dropper build() {
 
-            for (final Slot slot : buttons.keySet()) {
-                if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-                    throw new IllegalStateException(SLOT_OUT_OF_BOUNDS.formatted(slot));
-                }
-            }
-
-            return new DropperImpl(title, buttons);
+            return new DropperImpl(container.build());
         }
     }
 }

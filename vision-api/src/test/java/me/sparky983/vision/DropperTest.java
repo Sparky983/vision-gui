@@ -9,6 +9,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import static me.sparky983.vision.Dropper.COLUMNS;
+import static me.sparky983.vision.Dropper.ROWS;
+
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,7 +61,7 @@ class DropperTest {
 
         final Gui gui = Gui.dropper().build();
 
-        assertEquals(Dropper.COLUMNS, gui.columns());
+        assertEquals(COLUMNS, gui.columns());
     }
 
     @Test
@@ -66,7 +69,7 @@ class DropperTest {
 
         final Gui gui = Gui.dropper().build();
 
-        assertEquals(Dropper.ROWS, gui.rows());
+        assertEquals(ROWS, gui.rows());
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -92,10 +95,10 @@ class DropperTest {
     }
 
     @CsvSource({
-            "0, 5",
-            "1, 0",
-            "1, 2",
-            "1, 4"
+            "2, 3",
+            "3, 3",
+            "3, 2",
+            "3, 3"
     })
     @ParameterizedTest
     void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
@@ -105,7 +108,7 @@ class DropperTest {
                 .button(slot, Button.of(ItemType.STONE));
 
         final Exception e = assertThrows(IllegalStateException.class, builder::build);
-        assertEquals(DropperImpl.SLOT_OUT_OF_BOUNDS.formatted(slot), e.getMessage());
+        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS), e.getMessage());
     }
 
     @Test
@@ -147,10 +150,10 @@ class DropperTest {
     }
 
     @CsvSource({
-            "0, 5",
-            "1, 0",
-            "1, 2",
-            "1, 4"
+            "2, 3",
+            "3, 3",
+            "3, 2",
+            "3, 3"
     })
     @ParameterizedTest
     void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
@@ -161,7 +164,7 @@ class DropperTest {
 
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
                 gui.button(slot, button));
-        assertEquals(DropperImpl.SLOT_OUT_OF_BOUNDS.formatted(slot), e.getMessage());
+        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS).formatted(slot), e.getMessage());
     }
 
     @Test
@@ -186,10 +189,10 @@ class DropperTest {
     }
 
     @CsvSource({
-            "0, 5",
-            "1, 0",
-            "1, 2",
-            "1, 4"
+            "2, 3",
+            "3, 3",
+            "3, 2",
+            "3, 3"
     })
     @ParameterizedTest
     void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
@@ -198,7 +201,7 @@ class DropperTest {
         final Gui gui = Gui.dropper().build();
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
-        assertEquals(DropperImpl.SLOT_OUT_OF_BOUNDS.formatted(slot), e.getMessage());
+        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS).formatted(slot), e.getMessage());
     }
 
     @SuppressWarnings("DataFlowIssue")

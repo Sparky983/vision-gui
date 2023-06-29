@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import net.kyori.adventure.text.Component;
-
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -72,7 +71,7 @@ class ChestTests {
         final Chest.Builder builder = Gui.chest();
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
-        assertEquals(ChestImpl.ROWS_OUT_OF_BOUNDS.formatted(rows), e.getMessage());
+        assertEquals("rows must be between 1 and " + Chest.MAX_ROWS, e.getMessage());
     }
 
     @ValueSource(ints = {1, 2, 4, 5, 6})
@@ -125,17 +124,20 @@ class ChestTests {
             "5, 8, 5"
     })
     @ParameterizedTest
-    void testBuilderButtonWhenSlotIsOutOfBounds(final int slowRow,
+    void testBuilderButtonWhenSlotIsOutOfBounds(final int slotRow,
                                                 final int slotColumn,
                                                 final int guiRows) {
 
-        final Slot slot = Slot.of(slowRow, slotColumn);
+        final Slot slot = Slot.of(slotRow, slotColumn);
         final Gui.Builder builder = Gui.chest()
                 .rows(guiRows)
                 .button(slot, Button.of(ItemType.STONE));
 
         final Exception e = assertThrows(IllegalStateException.class, builder::build);
-        assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows), e.getMessage());
+        assertEquals(
+                Container.SLOT_OUT_OF_BOUNDS
+                        .formatted(slotRow, slotColumn, guiRows, Chest.COLUMNS),
+                e.getMessage());
     }
 
     @Test
@@ -195,7 +197,10 @@ class ChestTests {
 
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
                 gui.button(slot, button));
-        assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows), e.getMessage());
+        assertEquals(
+                Container.SLOT_OUT_OF_BOUNDS
+                        .formatted(slotRow, slotColumn, guiRows, Chest.COLUMNS),
+                e.getMessage());
     }
 
     @Test
@@ -236,7 +241,9 @@ class ChestTests {
         final Slot slot = Slot.of(slotRow, slotColumn);
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
-        assertEquals(ChestImpl.SLOT_OUT_OF_BOUNDS.formatted(slot, guiRows),
+        assertEquals(
+                Container.SLOT_OUT_OF_BOUNDS
+                        .formatted(slotRow, slotColumn, guiRows, Chest.COLUMNS),
                 e.getMessage());
     }
 

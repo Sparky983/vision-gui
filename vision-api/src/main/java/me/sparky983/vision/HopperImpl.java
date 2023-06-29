@@ -15,39 +15,32 @@ final class HopperImpl implements Hopper {
 
     @VisibleForTesting
     static final Component DEFAULT_TITLE = Component.translatable("container.hopper");
-    @VisibleForTesting
-    static final String SLOT_OUT_OF_BOUNDS = "Button at %s is out of bounds for hopper";
 
-    private final SubscriptionManager<Subscriber> subscribers = new SubscriptionManager<>();
+    private final Container container;
 
-    private final Component title;
-    private final Map<Slot, Button> buttons;
+    HopperImpl(final Container container) {
 
-    HopperImpl(final Component title, final Map<Slot, Button> buttons) {
+        assert container != null;
 
-        assert title != null;
-        assert buttons != null;
-
-        this.title = title;
-        this.buttons = new HashMap<>(buttons);
+        this.container = container;
     }
 
     @Override
     public Component title() {
 
-        return title;
+        return container.title();
     }
 
     @Override
     public int columns() {
 
-        return COLUMNS;
+        return container.columns();
     }
 
     @Override
     public int rows() {
 
-        return ROWS;
+        return container.rows();
     }
 
     @Override
@@ -56,15 +49,10 @@ final class HopperImpl implements Hopper {
         Objects.requireNonNull(slot, "slot cannot be null");
 
         if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-            throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot));
+            throw new IllegalArgumentException(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows(), columns()));
         }
 
-        if (button == null) {
-            buttons.remove(slot);
-        } else {
-            buttons.put(slot, button);
-        }
-        subscribers.notify((subscriber) -> subscriber.button(slot, button));
+        container.button(slot, button);
         return this;
     }
 
@@ -74,30 +62,29 @@ final class HopperImpl implements Hopper {
         Objects.requireNonNull(slot, "slot cannot be null");
 
         if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-            throw new IllegalArgumentException(SLOT_OUT_OF_BOUNDS.formatted(slot));
+            throw new IllegalArgumentException(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows(), columns()));
         }
 
-        return Optional.ofNullable(buttons.get(slot));
+        return container.button(slot);
     }
 
     @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
-        return subscribers.subscribe(subscriber);
+        Objects.requireNonNull(subscriber, "subscriber cannot be null");
+        return container.subscribe(subscriber);
     }
 
     static final class BuilderImpl implements Builder {
 
-        private Component title = DEFAULT_TITLE;
-
-        private final Map<Slot, Button> buttons = new HashMap<>();
+        private final Container.Builder container = Container.builder(DEFAULT_TITLE, ROWS, COLUMNS);
 
         @Override
         public Builder title(final Component title) {
 
             Objects.requireNonNull(title, "title cannot be null");
 
-            this.title = title;
+            container.title(title);
             return this;
         }
 
@@ -107,20 +94,14 @@ final class HopperImpl implements Hopper {
             Objects.requireNonNull(slot, "slot cannot be null");
             Objects.requireNonNull(button, "button cannot be null");
 
-            this.buttons.put(slot, button);
+            container.button(slot, button);
             return this;
         }
 
         @Override
         public Hopper build() {
 
-            for (final Slot slot : buttons.keySet()) {
-                if (slot.row() >= ROWS || slot.column() >= COLUMNS) {
-                    throw new IllegalStateException(SLOT_OUT_OF_BOUNDS.formatted(slot));
-                }
-            }
-
-            return new HopperImpl(title, buttons);
+            return new HopperImpl(container.build());
         }
     }
 }
