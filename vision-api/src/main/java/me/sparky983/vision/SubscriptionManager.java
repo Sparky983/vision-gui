@@ -13,11 +13,12 @@ import java.util.function.Consumer;
  * {@link Subscriber Subscribers}.
  */
 @NullMarked
-final class SubscriptionManager<T extends Subscriber> {
+final class SubscriptionManager<T extends Subscriber> implements Subscribable<T> {
 
     private final Map<Subscription, T> subscribers = new HashMap<>();
 
-    Subscription subscribe(final T subscriber) {
+    @Override
+    public Subscription subscribe(final T subscriber) {
 
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
@@ -36,7 +37,7 @@ final class SubscriptionManager<T extends Subscriber> {
         return subscription;
     }
 
-    void notify(Consumer<? super T> consumer) {
+    void notify(final Consumer<? super T> consumer) {
         for (final T subscriber : subscribers.values()) {
             try {
                 consumer.accept(subscriber);
