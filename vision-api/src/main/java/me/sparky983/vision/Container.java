@@ -81,7 +81,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
         Objects.requireNonNull(slot, "slot cannot be null");
 
-        if (slot.column() >= columns || slot.row() >= rows) {
+        if (slot.row() >= rows || slot.column() >= columns) {
             throw new IllegalArgumentException(
                     SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows, columns));
         }

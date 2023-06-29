@@ -29,7 +29,7 @@ non-sealed public interface Hopper extends Gui {
      * @vision.experimental because this may be deleted, renamed or moved.
      */
     @ApiStatus.Experimental
-    int COLUMNS = 5;
+    int ROWS = 1;
 
     /**
      * The number of columns hoppers have.
@@ -39,7 +39,7 @@ non-sealed public interface Hopper extends Gui {
      * @vision.experimental because this may be deleted, renamed or moved.
      */
     @ApiStatus.Experimental
-    int ROWS = 1;
+    int COLUMNS = 5;
 
     /**
      * A {@link Hopper} builder.

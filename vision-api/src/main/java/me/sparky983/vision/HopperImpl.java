@@ -32,15 +32,15 @@ final class HopperImpl implements Hopper {
     }
 
     @Override
-    public int columns() {
-
-        return container.columns();
-    }
-
-    @Override
     public int rows() {
 
         return container.rows();
+    }
+
+    @Override
+    public int columns() {
+
+        return container.columns();
     }
 
     @Override

@@ -21,16 +21,6 @@ import org.jspecify.nullness.NullMarked;
 non-sealed public interface Chest extends Gui {
 
     /**
-     * The number of columns chests have.
-     *
-     * @see Gui#columns()
-     * @since 1.0
-     * @vision.experimental because this may be deleted, renamed or moved.
-     */
-    @ApiStatus.Experimental
-    int COLUMNS = 9;
-
-    /**
      * The minimum number of rows that a chest can have.
      *
      * @see Gui#rows()
@@ -51,6 +41,16 @@ non-sealed public interface Chest extends Gui {
     int MAX_ROWS = 6;
 
     /**
+     * The number of columns chests have.
+     *
+     * @see Gui#columns()
+     * @since 1.0
+     * @vision.experimental because this may be deleted, renamed or moved.
+     */
+    @ApiStatus.Experimental
+    int COLUMNS = 9;
+
+    /**
      * A {@link Chest} builder.
      *
      * @see #chest()
@@ -66,18 +66,6 @@ non-sealed public interface Chest extends Gui {
     interface Builder extends Gui.Builder {
 
         /**
-         * Specifies the number of rows in the {@link Chest}.
-         *
-         * @param rows the number of rows
-         * @return this builder instance (for chaining)
-         * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
-         * 6.
-         * @since 1.0
-         * @vision.apiNote This method must be called before {@link #build()}.
-         */
-        Builder rows(int rows);
-
-        /**
          * Specifies the title of the {@link Chest}.
          *
          * @param title the title
@@ -89,6 +77,18 @@ non-sealed public interface Chest extends Gui {
          */
         @Override
         Builder title(Component title);
+
+        /**
+         * Specifies the number of rows in the {@link Chest}.
+         *
+         * @param rows the number of rows
+         * @return this builder instance (for chaining)
+         * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
+         * 6.
+         * @since 1.0
+         * @vision.apiNote This method must be called before {@link #build()}.
+         */
+        Builder rows(int rows);
 
         /**
          * Sets the {@link Button} at the specified {@link Slot} of the {@link Chest}.

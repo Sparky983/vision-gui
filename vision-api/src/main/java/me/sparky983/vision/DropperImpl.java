@@ -34,15 +34,15 @@ final class DropperImpl implements Dropper {
     }
 
     @Override
-    public int columns() {
-
-        return container.columns();
-    }
-
-    @Override
     public int rows() {
 
         return container.rows();
+    }
+
+    @Override
+    public int columns() {
+
+        return container.columns();
     }
 
     @Override

@@ -141,20 +141,20 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Component title();
 
     /**
-     * Gets the number of columns in this {@code Gui}.
-     *
-     * @return the number of columns
-     * @since 1.0
-     */
-    int columns();
-
-    /**
      * Gets the number of rows in this {@code Gui}.
      *
      * @return the number of rows
      * @since 0.1
      */
     int rows();
+
+    /**
+     * Gets the number of columns in this {@code Gui}.
+     *
+     * @return the number of columns
+     * @since 1.0
+     */
+    int columns();
 
     /**
      * Sets the {@link Button} at the specified {@link Slot}.

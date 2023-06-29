@@ -26,6 +26,12 @@ final class ChestImpl implements Chest {
     }
 
     @Override
+    public Component title() {
+
+        return container.title();
+    }
+
+    @Override
     public int columns() {
 
         return container.columns();
@@ -35,12 +41,6 @@ final class ChestImpl implements Chest {
     public int rows() {
 
         return container.rows();
-    }
-
-    @Override
-    public Component title() {
-
-        return container.title();
     }
 
     @Override
