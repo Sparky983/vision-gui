@@ -46,8 +46,6 @@ final class ChestImpl implements Chest {
     @Override
     public Gui button(final Slot slot, final @Nullable Button button) {
 
-        Objects.requireNonNull(slot, "slot cannot be null");
-
         container.button(slot, button);
         return this;
     }
@@ -55,15 +53,11 @@ final class ChestImpl implements Chest {
     @Override
     public Optional<Button> button(final Slot slot) {
 
-        Objects.requireNonNull(slot, "slot cannot be null");
-
         return container.button(slot);
     }
 
     @Override
     public Subscription subscribe(final Subscriber subscriber) {
-
-        Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
         return container.subscribe(subscriber);
     }
