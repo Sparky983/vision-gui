@@ -9,8 +9,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
 import static me.sparky983.vision.Dropper.COLUMNS;
 import static me.sparky983.vision.Dropper.ROWS;
+import static me.sparky983.vision.DropperImpl.DEFAULT_TITLE;
 
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Test;
@@ -53,7 +55,7 @@ class DropperTest {
 
         final Gui gui = Gui.dropper().build();
 
-        assertEquals(DropperImpl.DEFAULT_TITLE, gui.title());
+        assertEquals(DEFAULT_TITLE, gui.title());
     }
 
     @Test
@@ -109,7 +111,9 @@ class DropperTest {
                 .button(slot, Button.of(ItemType.STONE));
 
         final Exception e = assertThrows(IllegalStateException.class, builder::build);
-        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS), e.getMessage());
+        assertEquals(
+                SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS),
+                e.getMessage());
     }
 
     @Test
@@ -166,7 +170,9 @@ class DropperTest {
 
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
                 gui.button(slot, button));
-        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS).formatted(slot), e.getMessage());
+        assertEquals(
+                SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS),
+                e.getMessage());
     }
 
     @Test
@@ -203,7 +209,9 @@ class DropperTest {
         final Gui gui = Gui.dropper().build();
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
-        assertEquals(Container.SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS).formatted(slot), e.getMessage());
+        assertEquals(
+                SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS),
+                e.getMessage());
     }
 
     @SuppressWarnings("DataFlowIssue")
