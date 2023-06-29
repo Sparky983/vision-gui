@@ -42,7 +42,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @vision.examples <pre>
      *Gui gui = Gui.hopper()
      *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
      *        .build();
      *</pre>
      */
@@ -60,7 +60,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @vision.examples <pre>
      *Gui gui = Gui.dropper()
      *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
      *        .build();
      *</pre>
      */
@@ -83,13 +83,13 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *<pre>
      *Gui gui = Gui.hopper()
      *        .title(Component.text("My Gui"))
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
      *        .build();
      *</pre>
      *<pre>
      *Gui gui = Gui.dropper()
      *        .title(Component.text("My Gui"))
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
      *        .build();
      *</pre>
      */
