@@ -22,8 +22,11 @@ final class Container implements Subscribable<Gui.Subscriber> {
     static final String SLOT_OUT_OF_BOUNDS =
             "Button at (%s, %s) is out of bounds for %s rows and %s columns";
 
-    static final int MAX_ROWS = Chest.MAX_ROWS;
-    static final int MAX_COLUMNS = Chest.COLUMNS;
+    private static final int MIN_ROWS = Chest.MIN_ROWS;
+    private static final int MAX_ROWS = Chest.MAX_ROWS;
+
+    private static final int MIN_COLUMNS = 1;
+    private static final int MAX_COLUMNS = Chest.COLUMNS;
 
     private final SubscriptionManager<Gui.Subscriber> subscribers = new SubscriptionManager<>();
 
@@ -140,7 +143,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
         Builder rows(final int rows) {
 
-            if (rows < 1 || rows > MAX_ROWS) {
+            if (rows < MIN_ROWS || rows > MAX_ROWS) {
                 throw new IllegalArgumentException("rows must be between 1 and " + MAX_ROWS);
             }
 
@@ -150,7 +153,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
         Builder columns(final int columns) {
 
-            if (columns < 1 || columns > MAX_COLUMNS) {
+            if (columns < MIN_COLUMNS || columns > MAX_COLUMNS) {
                 throw new IllegalArgumentException("columns must be between 1 and " + MAX_COLUMNS);
             }
 
@@ -171,7 +174,8 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
             for (final Slot slot : buttons.keySet()) {
                 if (slot.row() >= rows || slot.column() >= columns) {
-                    throw new IllegalStateException(SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows, columns));
+                    throw new IllegalStateException(
+                            SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows, columns));
                 }
             }
 
