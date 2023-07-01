@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * The default implementation of {@link Hopper}.
+ *
+ * @see Gui#hopper()
+ */
 @NullMarked
 final class HopperImpl implements Hopper {
 
@@ -62,6 +67,11 @@ final class HopperImpl implements Hopper {
         return container.subscribe(subscriber);
     }
 
+    /**
+     * The default implementation of {@link Hopper.Builder}.
+     *
+     * @see Gui#hopper()
+     */
     static final class BuilderImpl implements Builder {
 
         private final Container.Builder container = Container.builder(DEFAULT_TITLE, ROWS, COLUMNS);

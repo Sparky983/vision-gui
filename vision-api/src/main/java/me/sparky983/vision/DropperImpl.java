@@ -12,6 +12,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * The default implementation of {@link Dropper}.
+ *
+ * @see Gui#dropper()
+ */
 @NullMarked
 final class DropperImpl implements Dropper {
 
@@ -64,6 +69,11 @@ final class DropperImpl implements Dropper {
         return container.subscribe(subscriber);
     }
 
+    /**
+     * The default implementation of {@link Dropper.Builder}.
+     *
+     * @see Gui#dropper()
+     */
     static final class BuilderImpl implements Builder {
 
         private final Container.Builder container = Container.builder(DEFAULT_TITLE, ROWS, COLUMNS);

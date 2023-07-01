@@ -8,6 +8,11 @@ import org.jspecify.nullness.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * The default implementation of {@link Chest}.
+ *
+ * @see Gui#chest()
+ */
 @NullMarked
 final class ChestImpl implements Chest {
 
@@ -62,6 +67,11 @@ final class ChestImpl implements Chest {
         return container.subscribe(subscriber);
     }
 
+    /**
+     * The default implementation of {@link Chest.Builder}.
+     *
+     * @see Gui#chest()
+     */
     final static class BuilderImpl implements Builder {
 
         private final Container.Builder container =

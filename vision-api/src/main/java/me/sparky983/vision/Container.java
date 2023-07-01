@@ -14,6 +14,8 @@ import java.util.Optional;
  * A representation of a {@link Gui}'s contents.
  * <p>
  * Used by all default implementations of each {@link Gui} variant.
+ *
+ * @see Container#builder(Component, int, int)
  */
 @NullMarked
 final class Container implements Subscribable<Gui.Subscriber> {
