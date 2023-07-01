@@ -16,6 +16,7 @@ import static me.sparky983.vision.ChestImpl.DEFAULT_TITLE;
 import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
 
 import net.kyori.adventure.text.Component;
+
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -8,7 +8,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-
 import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
 import static me.sparky983.vision.Dropper.COLUMNS;
 import static me.sparky983.vision.Dropper.ROWS;
