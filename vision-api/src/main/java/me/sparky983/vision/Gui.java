@@ -34,24 +34,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     }
 
     /**
-     * Creates a new {@link Hopper.Builder}.
-     *
-     * @return the new {@link Hopper.Builder}
-     * @see Hopper.Builder
-     * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.hopper()
-     *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    static Hopper.Builder hopper() {
-
-        return new HopperImpl.BuilderImpl();
-    }
-
-    /**
      * Creates a new {@link Dropper.Builder}.
      *
      * @return the new {@link Dropper.Builder}
@@ -70,6 +52,24 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     }
 
     /**
+     * Creates a new {@link Hopper.Builder}.
+     *
+     * @return the new {@link Hopper.Builder}
+     * @see Hopper.Builder
+     * @since 1.0
+     * @vision.examples <pre>
+     *Gui gui = Gui.hopper()
+     *        .title(Component.text("My GUI"))
+     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+     *        .build();
+     *</pre>
+     */
+    static Hopper.Builder hopper() {
+
+        return new HopperImpl.BuilderImpl();
+    }
+
+    /**
      * A {@link Gui} builder.
      *
      * @since 0.1
@@ -81,15 +81,15 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *        .build();
      *</pre>
      *<pre>
-     *Gui gui = Gui.hopper()
-     *        .title(Component.text("My Gui"))
-     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     *<pre>
      *Gui gui = Gui.dropper()
      *        .title(Component.text("My Gui"))
      *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+     *        .build();
+     *</pre>
+     *<pre>
+     *Gui gui = Gui.hopper()
+     *        .title(Component.text("My Gui"))
+     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
      *        .build();
      *</pre>
      */
