@@ -1,7 +1,6 @@
 package me.sparky983.vision
 
 import net.kyori.adventure.text.Component
-import java.lang.IllegalStateException
 
 /**
  * The DSL marker for the [Gui] DSL.
@@ -12,83 +11,161 @@ private annotation class GuiDslMarker
 /**
  * The [Gui] DSL receiver.
  *
- * @see gui
- * @since 0.2
+ * @see chest
+ * @see hopper
+ * @see dropper
+ * @since 1.0
  */
 @GuiDslMarker
-public interface GuiDsl {
+public sealed interface GuiDsl {
     /**
      * The title of the [Gui].
      *
-     * @since 0.2
+     * If unspecified, the value is `null`.
+     *
+     * @see Gui.title
+     * @since 1.0
      */
     public var title: Component?
 
     /**
-     * The amount of rows in the [Gui].
+     * Adds a button to the [Gui].
      *
-     * @since 0.2
-     */
-    public var rows: Int
-
-    /**
-     * Sets the value of the [slot] the the [Button] in the [Gui].
-     *
-     * @param slot the slot
-     * @param button the [Button]
+     * @param slot the slot of the button
+     * @param button the button
      * @see Gui.button
-     * @since 0.2
+     * @since 1.0
      */
-    public fun button(slot: Slot, button: Button?)
-
-    /**
-     * Gets the [Button] in the [Gui] at the [slot].
-     *
-     * @param slot the slot
-     * @return the [Button] or `null` if there is no [Button] at the [slot]
-     * @see Gui.button
-     * @since 0.2
-     */
-    public fun button(slot: Slot): Button?
+    public fun button(slot: Slot, button: Button)
 }
 
 /**
- * The implementation of the [GuiDsl] used by [gui].
+ * The [Chest] DSL receiver.
  *
- * @see gui
+ * @see chest
+ * @since 1.0
  */
-private class GuiDslImpl : GuiDsl {
+public interface ChestDsl : GuiDsl {
+    /**
+     * The number of rows in the [Chest].
+     *
+     * If unspecified, the value is `1`.
+     *
+     * @see Chest.rows
+     * @since 1.0
+     */
+    public var rows: Int
+}
+
+/**
+ * The [Hopper] DSL receiver.
+ *
+ * @see hopper
+ * @since 1.0
+ */
+public interface HopperDsl : GuiDsl
+
+/**
+ * The [Dropper] DSL receiver.
+ *
+ * @see dropper
+ * @since 1.0
+ */
+public interface DropperDsl : GuiDsl
+
+/**
+ * The implementation of the [ChestDsl] used by [chest].
+ *
+ * @see chest
+ */
+private class ChestDslImpl : ChestDsl {
     public override var title: Component? = null
     public override var rows: Int = 1
+    private val buttons: MutableMap<Slot, Button> = hashMapOf()
 
-    private val buttons: MutableMap<Slot, Button?> = hashMapOf()
-
-    public override fun button(slot: Slot, button: Button?) {
+    public override fun button(slot: Slot, button: Button) {
         buttons[slot] = button
     }
 
-    public override fun button(slot: Slot): Button? {
-        return buttons[slot]
-    }
-
-    internal fun build(): Gui {
-        val gui = Gui.gui(title, rows)
-
-        buttons.forEach(gui::button)
-
-        return gui
-    }
+    internal fun build(): Chest =
+        Gui.chest()
+            .apply { title?.let(this::title) }
+            .rows(rows)
+            .apply { buttons.forEach(this::button) }
+            .build()
 }
 
 /**
- * Creates a new [Gui] using the [GuiDsl].
+ * The implementation of the [HopperDsl] used by [hopper].
+ *
+ * @see hopper
+ */
+private class HopperDslImpl : HopperDsl {
+    public override var title: Component? = null
+    private val buttons: MutableMap<Slot, Button> = hashMapOf()
+
+    public override fun button(slot: Slot, button: Button) {
+        buttons[slot] = button
+    }
+
+    internal fun build(): Hopper =
+        Gui.hopper()
+            .apply { title?.let(this::title) }
+            .apply { buttons.forEach(this::button) }
+            .build()
+}
+
+/**
+ * The implementation of the [DropperDsl] used by [dropper].
+ *
+ * @see dropper
+ */
+private class DropperDslImpl : DropperDsl {
+    public override var title: Component? = null
+    private val buttons: MutableMap<Slot, Button> = hashMapOf()
+
+    public override fun button(slot: Slot, button: Button) {
+        buttons[slot] = button
+    }
+
+    internal fun build(): Dropper =
+        Gui.dropper()
+            .apply { title?.let(this::title) }
+            .apply { buttons.forEach(this::button) }
+            .build()
+}
+
+/**
+ * Builds a [Chest] using the [ChestDsl].
  *
  * @param init the initializer block
- * @return the created [Gui]
- * @since 0.2
+ * @return the created [Chest]
+ * @since 1.0
  */
-public fun gui(init: GuiDsl.() -> Unit): Gui {
-    return GuiDslImpl().apply(init).build()
+public fun chest(init: ChestDsl.() -> Unit): Chest {
+    return ChestDslImpl().apply(init).build()
+}
+
+/**
+ * Builds a [Hopper] using the [HopperDsl].
+ *
+ * @param init the initializer block
+ * @return the created [Hopper]
+ * @since 1.0
+ */
+public fun hopper(init: HopperDsl.() -> Unit): Hopper {
+    return HopperDslImpl().apply(init).build()
+}
+
+/**
+ * Builds a [Dropper] using the [DropperDsl].
+ *
+ * @param init the initializer block
+ * @return the created [Dropper]
+ * @since 1.0
+ */
+public fun dropper(init: DropperDsl.() -> Unit): Dropper {
+    return DropperDslImpl().apply(init).build()
 }
 
 /**
@@ -183,7 +260,7 @@ private class ButtonDslImpl : ButtonDsl {
 }
 
 /**
- * Creates a new [Button] using the [ButtonDsl].
+ * Builds a [Button] by applying the [init] block to a new [ButtonDsl].
  *
  * @param init the initializer block
  * @return the created [Button]
@@ -198,7 +275,32 @@ public fun button(init: ButtonDsl.() -> Unit): Button {
  *
  * @param slot the slot of the [Button]
  * @param init the initializer block
- * @since 0.2
+ * @throws IllegalStateException if the [type] was not set in the initializer block.
+ * @since 1.0
+ */
+public fun Gui.button(slot: Slot, init: ButtonDsl.() -> Unit) {
+    button(slot, button(init))
+}
+
+/**
+ * Adds a [Button] to the [Gui.Builder] using the [ButtonDsl].
+ *
+ * @param slot the slot of the [Button]
+ * @param init the initializer block
+ * @throws IllegalStateException if the [type] was not set in the initializer block.
+ * @since 1.0
+ */
+public fun Gui.Builder.button(slot: Slot, init: ButtonDsl.() -> Unit) {
+    button(slot, button(init))
+}
+
+/**
+ * Adds a [Button] to the [GuiDsl] using the [ButtonDsl].
+ *
+ * @param slot the slot of the [Button]
+ * @param init the initializer block
+ * @throws IllegalStateException if the [type] was not set in the initializer block.
+ * @since 1.0
  */
 public fun GuiDsl.button(slot: Slot, init: ButtonDsl.() -> Unit) {
     button(slot, button(init))
