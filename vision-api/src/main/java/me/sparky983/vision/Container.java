@@ -37,7 +37,10 @@ final class Container implements Subscribable<Gui.Subscriber> {
     private final int columns;
     private final Map<Slot, Button> buttons;
 
-    private Container(final Component title, final int rows, final int columns, final Map<Slot, Button> buttons) {
+    private Container(final Component title,
+                      final int rows,
+                      final int columns,
+                      final Map<Slot, Button> buttons) {
 
         assert title != null;
         assert rows >= 1 && rows <= MAX_ROWS;
@@ -126,10 +129,10 @@ final class Container implements Subscribable<Gui.Subscriber> {
      */
     static final class Builder {
 
+        private final Map<Slot, Button> buttons = new HashMap<>();
         private Component title;
         private int rows;
         private int columns;
-        private final Map<Slot, Button> buttons = new HashMap<>();
 
         private Builder(final Component title, final int rows, final int columns) {
 

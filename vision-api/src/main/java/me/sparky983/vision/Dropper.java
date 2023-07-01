@@ -1,10 +1,8 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
-
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
-import org.jspecify.nullness.Nullable;
 
 /**
  * Represents the {@link Dropper} variant of a {@link Gui}.

@@ -70,65 +70,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     }
 
     /**
-     * A {@link Gui} builder.
-     *
-     * @since 0.1
-     * @vision.examples <pre>
-     *Gui gui = Gui.chest()
-     *        .title(Component.text("My Gui"))
-     *        .rows(3)
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     *<pre>
-     *Gui gui = Gui.dropper()
-     *        .title(Component.text("My Gui"))
-     *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     *<pre>
-     *Gui gui = Gui.hopper()
-     *        .title(Component.text("My Gui"))
-     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    interface Builder {
-
-        /**
-         * Specifies the title of the {@link Gui}.
-         *
-         * @param title the title
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the title is {@code null}.
-         * @since 0.1
-         * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
-         * must be specified before the {@link Gui} is built
-         */
-        Builder title(Component title);
-
-        /**
-         * Sets the {@link Button} at the specified {@link Slot} in the {@link Gui}.
-         *
-         * @param slot the slot
-         * @param button the button
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the slot or button is {@code null}.
-         * @since 1.0
-         */
-        Builder button(Slot slot, Button button);
-
-        /**
-         * Builds the {@link Gui}.
-         *
-         * @return the built {@link Gui}
-         * @throws IllegalStateException if any of the buttons are out of bounds.
-         * @since 1.0
-         */
-        Gui build();
-    }
-
-    /**
      * Gets the title of this {@code Gui}.
      * <p>
      * If this {@code Gui} is untitled, the returned component will match Minecraft's default
@@ -216,5 +157,64 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @since 0.1
          */
         void button(Slot slot, @Nullable Button button);
+    }
+
+    /**
+     * A {@link Gui} builder.
+     *
+     * @since 0.1
+     * @vision.examples <pre>
+     *Gui gui = Gui.chest()
+     *        .title(Component.text("My Gui"))
+     *        .rows(3)
+     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+     *        .build();
+     *</pre>
+     *<pre>
+     *Gui gui = Gui.dropper()
+     *        .title(Component.text("My Gui"))
+     *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+     *        .build();
+     *</pre>
+     *<pre>
+     *Gui gui = Gui.hopper()
+     *        .title(Component.text("My Gui"))
+     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+     *        .build();
+     *</pre>
+     */
+    interface Builder {
+
+        /**
+         * Specifies the title of the {@link Gui}.
+         *
+         * @param title the title
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the title is {@code null}.
+         * @since 0.1
+         * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
+         * must be specified before the {@link Gui} is built
+         */
+        Builder title(Component title);
+
+        /**
+         * Sets the {@link Button} at the specified {@link Slot} in the {@link Gui}.
+         *
+         * @param slot the slot
+         * @param button the button
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the slot or button is {@code null}.
+         * @since 1.0
+         */
+        Builder button(Slot slot, Button button);
+
+        /**
+         * Builds the {@link Gui}.
+         *
+         * @return the built {@link Gui}
+         * @throws IllegalStateException if any of the buttons are out of bounds.
+         * @since 1.0
+         */
+        Gui build();
     }
 }

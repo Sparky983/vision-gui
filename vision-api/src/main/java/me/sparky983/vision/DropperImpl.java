@@ -1,15 +1,11 @@
 package me.sparky983.vision;
 
-import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
-
 import net.kyori.adventure.text.Component;
+
 import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
