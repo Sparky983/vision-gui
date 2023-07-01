@@ -24,18 +24,32 @@ final class Container implements Subscribable<Gui.Subscriber> {
     static final String SLOT_OUT_OF_BOUNDS =
             "Button at (%s, %s) is out of bounds for %s rows and %s columns";
 
+    /**
+     * The minimum number of rows a {@link Container} can have.
+     */
     private static final int MIN_ROWS = Chest.MIN_ROWS;
+
+    /**
+     * The maximum number of rows a {@link Container} can have.
+     */
     private static final int MAX_ROWS = Chest.MAX_ROWS;
 
+    /**
+     * The minimum number of columns a {@link Container} can have.
+     */
     private static final int MIN_COLUMNS = 1;
+
+    /**
+     * The maximum number of columns a {@link Container} can have.
+     */
     private static final int MAX_COLUMNS = Chest.COLUMNS;
 
     private final SubscriptionManager<Gui.Subscriber> subscribers = new SubscriptionManager<>();
 
+    private final Map<Slot, Button> buttons;
     private final Component title;
     private final int rows;
     private final int columns;
-    private final Map<Slot, Button> buttons;
 
     private Container(final Component title,
                       final int rows,
