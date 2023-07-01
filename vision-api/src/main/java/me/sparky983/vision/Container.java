@@ -119,6 +119,9 @@ final class Container implements Subscribable<Gui.Subscriber> {
         return subscribers.subscribe(subscriber);
     }
 
+    /**
+     * A {@link Container} builder.
+     */
     static final class Builder {
 
         private Component title;
