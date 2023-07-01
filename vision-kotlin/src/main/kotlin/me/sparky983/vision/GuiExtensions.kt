@@ -15,7 +15,7 @@ public val Gui.title: Component
     get() = title()
 
 /**
- * The amount of rows in this [Gui].
+ * The number of rows in this [Gui].
  *
  * @see Gui.rows
  * @since 0.2
@@ -24,7 +24,7 @@ public val Gui.rows: Int
     get() = rows()
 
 /**
- * The amount of columns in this [Gui].
+ * The number of columns in this [Gui].
  *
  * @see Gui.columns
  * @since 1.0
