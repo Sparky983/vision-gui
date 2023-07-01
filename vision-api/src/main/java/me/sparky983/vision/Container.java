@@ -11,7 +11,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Represents a container.
+ * A representation of a {@link Gui}'s contents.
+ * <p>
+ * Used by all default implementations of each {@link Gui} variant.
  */
 @NullMarked
 final class Container implements Subscribable<Gui.Subscriber> {
