@@ -22,3 +22,12 @@ public val Gui.title: Component
  */
 public val Gui.rows: Int
     get() = rows()
+
+/**
+ * The amount of columns in this [Gui].
+ *
+ * @see Gui.columns
+ * @since 1.0
+ */
+public val Gui.columns: Int
+    get() = columns()
