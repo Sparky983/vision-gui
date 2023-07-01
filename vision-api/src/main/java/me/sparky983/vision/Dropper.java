@@ -58,9 +58,9 @@ non-sealed public interface Dropper extends Gui {
         /**
          * Specifies the title of the {@link Dropper}.
          *
-         * @param title the title
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the title is {@code null}.
+         * @param title {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
          * must be specified before the {@link Gui} is built
@@ -71,6 +71,10 @@ non-sealed public interface Dropper extends Gui {
         /**
          * Sets the {@link Button} at the specified {@link Slot} of the {@link Dropper}.
          *
+         * @param slot {@inheritDoc}
+         * @param button {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          */
         @Override
@@ -80,7 +84,7 @@ non-sealed public interface Dropper extends Gui {
          * Builds the {@link Dropper}.
          *
          * @return the built {@link Dropper}
-         * @throws IllegalStateException if any of the buttons are out of bounds.
+         * @throws IllegalStateException {@inheritDoc}
          * @since 1.0
          */
         @Override

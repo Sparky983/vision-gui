@@ -68,9 +68,9 @@ non-sealed public interface Chest extends Gui {
         /**
          * Specifies the title of the {@link Chest}.
          *
-         * @param title the title
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the title is {@code null}.
+         * @param title {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.apiNote After the {@link Chest} is built, the title cannot be changed, so it
          * must be specified before the {@link Chest} is built
@@ -93,10 +93,10 @@ non-sealed public interface Chest extends Gui {
         /**
          * Sets the {@link Button} at the specified {@link Slot} of the {@link Chest}.
          *
-         * @param slot the slot
-         * @param button the button
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the slot or button is {@code null}.
+         * @param slot {@inheritDoc}
+         * @param button {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          */
         @Override
@@ -106,7 +106,7 @@ non-sealed public interface Chest extends Gui {
          * Builds the {@link Chest}.
          *
          * @return the built {@link Chest}
-         * @throws IllegalStateException if any of the buttons are out of bounds.
+         * @throws IllegalStateException {@inheritDoc}
          * @since 1.0
          */
         @Override

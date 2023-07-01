@@ -58,9 +58,9 @@ non-sealed public interface Hopper extends Gui {
         /**
          * Specifies the title of the {@link Hopper}.
          *
-         * @param title the title
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the title is {@code null}.
+         * @param title {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
          * must be specified before the {@link Gui} is built
@@ -71,10 +71,10 @@ non-sealed public interface Hopper extends Gui {
         /**
          * Sets the {@link Button} at the specified {@link Slot} of the {@link Hopper}.
          *
-         * @param slot the slot
-         * @param button the button
-         * @return this builder instance (for chaining)
-         * @throws NullPointerException if the slot or button is {@code null}.
+         * @param slot {@inheritDoc}
+         * @param button {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          */
         @Override
@@ -84,7 +84,7 @@ non-sealed public interface Hopper extends Gui {
          * Builds the {@link Hopper}.
          *
          * @return the built {@link Hopper}
-         * @throws IllegalStateException if any of the buttons are out of bounds.
+         * @throws IllegalStateException {@inheritDoc}
          * @since 1.0
          */
         @Override
