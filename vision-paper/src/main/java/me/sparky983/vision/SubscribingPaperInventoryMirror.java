@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import org.bukkit.Server;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -41,8 +42,17 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
 
         Objects.requireNonNull(gui, "gui cannot be null");
 
-        final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) ->
-                server.createInventory(inventoryHolder, gui.rows() * Chest.COLUMNS, gui.title());
+        final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) -> {
+            if (gui instanceof Chest) {
+                return server.createInventory(inventoryHolder, gui.rows() * gui.columns(), gui.title());
+            } else if (gui instanceof Hopper) {
+                return server.createInventory(inventoryHolder, InventoryType.HOPPER, gui.title());
+            } else if (gui instanceof Dropper) {
+                return server.createInventory(inventoryHolder, InventoryType.DROPPER, gui.title());
+            } else {
+                throw new AssertionError("Unknown gui type: " + gui.getClass().getName());
+            }
+        };
 
         final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
 
@@ -59,7 +69,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
                 }
                 final ItemStack item = paperConverter.convert(button).orElseThrow(() ->
                         new IllegalStateException(UNABLE_TO_MIRROR_MESSAGE.formatted(button.type())));
-                final int rawSlot = slot.column() + (slot.row() * Chest.COLUMNS);
+                final int rawSlot = slot.column() + (slot.row() * gui.columns());
                 inventory.setItem(rawSlot, item);
 
                 final ItemStack craftItem = inventory.getItem(rawSlot);
@@ -70,7 +80,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
         };
 
         for (int row = 0; row < gui.rows(); row++) {
-            for (int column = 0; column < Chest.COLUMNS; column++) {
+            for (int column = 0; column < gui.columns(); column++) {
                 final Slot slot = Slot.of(row, column);
                 gui.button(slot).ifPresent((button) -> {
                     // Essentially replaying the button sets
