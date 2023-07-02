@@ -66,7 +66,7 @@ non-sealed public interface Chest extends Gui {
     interface Builder extends Gui.Builder {
 
         /**
-         * Specifies the title of the {@link Chest}.
+         * Sets the title of the {@link Chest}.
          *
          * @param title {@inheritDoc}
          * @return {@inheritDoc}
@@ -79,7 +79,7 @@ non-sealed public interface Chest extends Gui {
         Builder title(Component title);
 
         /**
-         * Specifies the number of rows in the {@link Chest}.
+         * Sets the number of rows in the {@link Chest}.
          *
          * @param rows the number of rows
          * @return this builder instance (for chaining)

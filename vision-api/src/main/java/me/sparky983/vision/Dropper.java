@@ -54,7 +54,7 @@ non-sealed public interface Dropper extends Gui {
     interface Builder extends Gui.Builder {
 
         /**
-         * Specifies the title of the {@link Dropper}.
+         * Sets the title of the {@link Dropper}.
          *
          * @param title {@inheritDoc}
          * @return {@inheritDoc}

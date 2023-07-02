@@ -70,7 +70,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button name(@Nullable Component name);
 
     /**
-     * Gets the name of this {@code Button}.
+     * Returns the name of this {@code Button}.
      * <p>
      * If this {@code Button} is untitled, the returned {@code Component} will match Minecraft's
      * default item name which is usually a translatable component of the form
@@ -110,7 +110,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button lore(List<Component> lore);
 
     /**
-     * Gets the lore of this {@code Button}.
+     * Returns the lore of this {@code Button}.
      *
      * @return an unmodifiable {@link List} containing the lore of this button or an empty
      * {@link List} if no lore is set
@@ -130,7 +130,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button amount(int amount);
 
     /**
-     * Gets the amount items in this {@code Button}.
+     * Returns the amount items in this {@code Button}.
      *
      * @return the amount of items in this {@code Button}
      * @since 0.1
@@ -148,7 +148,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button type(ItemType type);
 
     /**
-     * Gets the type of this {@code Button}.
+     * Returns the type of this {@code Button}.
      *
      * @return the type of this {@code Button}
      * @since 0.1
@@ -294,7 +294,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     interface Builder {
 
         /**
-         * Specifies the name of the {@link Button}.
+         * Sets the name of the {@link Button}.
          *
          * @param name the name
          * @return this {@code Builder} instance (for chaining)
@@ -306,7 +306,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
         Builder name(Component name);
 
         /**
-         * Specifies the lore of the {@link Button}.
+         * Sets the lore of the {@link Button}.
          * <p>
          * Changes to the input array will not be reflected in the lore of the button.
          *
@@ -320,7 +320,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
         Builder lore(Component... lore);
 
         /**
-         * Specifies the lore of the {@link Button}.
+         * Sets the lore of the {@link Button}.
          * <p>
          * Changes to the input {@link List} will not be reflected in the lore of the button.
          *
@@ -334,7 +334,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
         Builder lore(List<Component> lore);
 
         /**
-         * Specifies the amount of items in the {@link Button}.
+         * Sets the amount of items in the {@link Button}.
          *
          * @param amount the amount
          * @return this {@code Builder} instance (for chaining)
@@ -361,7 +361,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
         Builder onClick(Consumer<Click> handler);
 
         /**
-         * Specifies the type of the {@link Button} and returns the built {@link Button}.
+         * Sets the type of the {@link Button} and returns the built {@link Button}.
          *
          * @param type the item type
          * @return the new {@link Button}

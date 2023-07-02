@@ -54,7 +54,7 @@ non-sealed public interface Hopper extends Gui {
     interface Builder extends Gui.Builder {
 
         /**
-         * Specifies the title of the {@link Hopper}.
+         * Sets the title of the {@link Hopper}.
          *
          * @param title {@inheritDoc}
          * @return {@inheritDoc}

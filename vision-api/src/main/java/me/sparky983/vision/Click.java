@@ -31,7 +31,7 @@ public interface Click {
     }
 
     /**
-     * Gets the {@code Audience} who clicked the {@link Button}.
+     * Returns the {@code Audience} who clicked the {@link Button}.
      *
      * @return the {@code Audience} who clicked the {@link Button}
      * @since 0.1
@@ -39,7 +39,7 @@ public interface Click {
     Audience clicker();
 
     /**
-     * Gets the {@link Button} that was clicked.
+     * Returns the {@link Button} that was clicked.
      *
      * @return the {@link Button} that was clicked
      * @since 0.1
@@ -47,7 +47,7 @@ public interface Click {
     Button button();
 
     /**
-     * Gets the {@link Slot} that was clicked.
+     * Returns the {@link Slot} that was clicked.
      *
      * @return the {@link Slot} that was clicked
      * @since 0.1
@@ -55,7 +55,7 @@ public interface Click {
     Slot slot();
 
     /**
-     * Gets the {@code Type} of this click.
+     * Returns the {@code Type} of this click.
      *
      * @return the {@code Type} of this click
      * @since 0.1

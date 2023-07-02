@@ -70,7 +70,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     }
 
     /**
-     * Gets the title of this {@code Gui}.
+     * Returns the title of this {@code Gui}.
      * <p>
      * If this {@code Gui} is untitled, the returned component will match Minecraft's default
      * container title which is usually a translatable {@code Component} of the form
@@ -82,7 +82,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Component title();
 
     /**
-     * Gets the number of rows in this {@code Gui}.
+     * Returns the number of rows in this {@code Gui}.
      *
      * @return the number of rows
      * @since 0.1
@@ -90,7 +90,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     int rows();
 
     /**
-     * Gets the number of columns in this {@code Gui}.
+     * Returns the number of columns in this {@code Gui}.
      *
      * @return the number of columns
      * @since 1.0
@@ -110,7 +110,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Gui button(Slot slot, @Nullable Button button);
 
     /**
-     * Gets the {@link Button} at the specified {@link Slot}.
+     * Returns the {@link Button} at the specified {@link Slot}.
      *
      * @param slot the slot
      * @return the button at the specified slot or {@link Optional#empty()} if there is no button.
@@ -121,7 +121,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Optional<Button> button(Slot slot);
 
     /**
-     * Gets the type of this {@code Gui}.
+     * Returns the type of this {@code Gui}.
      *
      * @return the type of this {@code Gui}
      * @since 1.0
@@ -194,7 +194,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     interface Builder {
 
         /**
-         * Specifies the title of the {@link Gui}.
+         * Sets the title of the {@link Gui}.
          *
          * @param title the title
          * @return this builder instance (for chaining)
