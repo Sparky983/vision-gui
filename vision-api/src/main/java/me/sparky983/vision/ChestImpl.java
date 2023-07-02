@@ -5,7 +5,6 @@ import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**

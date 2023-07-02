@@ -1,7 +1,6 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 

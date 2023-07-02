@@ -230,7 +230,9 @@ private class ButtonDslImpl : ButtonDsl {
     private var _lore: List<Component> = listOf()
     public override var lore: List<Component>
         get() = _lore
-        set(lore) { _lore = lore.toList() }
+        set(lore) {
+            _lore = lore.toList()
+        }
     public override var amount: Int = 1
 
     private val clickHandlers: MutableList<(Click) -> Unit> = mutableListOf()

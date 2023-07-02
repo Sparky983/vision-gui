@@ -1,5 +1,16 @@
 package me.sparky983.vision;
 
+import net.kyori.adventure.text.Component;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.Optional;
+
+import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
+import static me.sparky983.vision.Hopper.COLUMNS;
+import static me.sparky983.vision.Hopper.ROWS;
+import static me.sparky983.vision.HopperImpl.DEFAULT_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,17 +19,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
-import static me.sparky983.vision.Hopper.COLUMNS;
-import static me.sparky983.vision.Hopper.ROWS;
-import static me.sparky983.vision.HopperImpl.DEFAULT_TITLE;
-
-import net.kyori.adventure.text.Component;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.Optional;
 
 class HopperTests {
 

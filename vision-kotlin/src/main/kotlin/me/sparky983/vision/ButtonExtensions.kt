@@ -10,7 +10,9 @@ import net.kyori.adventure.text.Component
  */
 public var Button.type: ItemType
     get() = type()
-    set(type) { type(type) }
+    set(type) {
+        type(type)
+    }
 
 /**
  * The name of this [Button].
@@ -23,7 +25,9 @@ public var Button.type: ItemType
  */
 public var Button.name: Component
     get() = name()
-    set(name) { name(name) }
+    set(name) {
+        name(name)
+    }
 
 /**
  * The lore of this [Button].
@@ -37,7 +41,9 @@ public var Button.name: Component
  */
 public var Button.lore: List<Component>
     get() = lore()
-    set(lore) { lore(lore) }
+    set(lore) {
+        lore(lore)
+    }
 
 /**
  * The amount items in this [Button].
@@ -47,4 +53,6 @@ public var Button.lore: List<Component>
  */
 public var Button.amount: Int
     get() = amount()
-    set(amount) { amount(amount) }
+    set(amount) {
+        amount(amount)
+    }

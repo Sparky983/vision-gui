@@ -12,11 +12,10 @@ import java.util.Objects;
 @NullMarked
 final class PaperVisionImpl implements PaperVision {
 
-    private @Nullable InventoryListener inventoryListener;
-
     private final Plugin plugin;
     private final PluginManager pluginManager;
     private final PaperInventoryMirror inventoryMirror;
+    private @Nullable InventoryListener inventoryListener;
 
     PaperVisionImpl(final Plugin plugin,
                     final PluginManager pluginManager,

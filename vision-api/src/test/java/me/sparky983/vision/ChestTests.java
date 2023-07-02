@@ -1,5 +1,19 @@
 package me.sparky983.vision;
 
+import net.kyori.adventure.text.Component;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Optional;
+
+import static me.sparky983.vision.Chest.COLUMNS;
+import static me.sparky983.vision.Chest.MAX_ROWS;
+import static me.sparky983.vision.ChestImpl.DEFAULT_ROWS;
+import static me.sparky983.vision.ChestImpl.DEFAULT_TITLE;
+import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,22 +22,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-
-import static me.sparky983.vision.Chest.COLUMNS;
-import static me.sparky983.vision.Chest.MAX_ROWS;
-import static me.sparky983.vision.ChestImpl.DEFAULT_ROWS;
-import static me.sparky983.vision.ChestImpl.DEFAULT_TITLE;
-import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
-
-import net.kyori.adventure.text.Component;
-
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.Optional;
 
 @Nested
 class ChestTests {

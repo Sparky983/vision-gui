@@ -24,11 +24,13 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
         final Subscription subscription = new Subscription() {
             @Override
             public void cancel() {
+
                 subscribers.remove(this);
             }
 
             @Override
             public boolean isCancelled() {
+
                 return !subscribers.containsKey(this);
             }
         };
@@ -37,6 +39,7 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
     }
 
     void notify(final Consumer<? super T> consumer) {
+
         for (final T subscriber : subscribers.values()) {
             try {
                 consumer.accept(subscriber);
@@ -47,6 +50,7 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
     }
 
     private void exception(final RuntimeException thrown) {
+
         for (final T subscriber : subscribers.values()) {
             try {
                 subscriber.exception(thrown);

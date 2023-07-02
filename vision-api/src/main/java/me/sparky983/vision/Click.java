@@ -140,7 +140,7 @@ public interface Click {
          */
         public boolean isLeft() {
 
-            return switch(this) {
+            return switch (this) {
                 case LEFT, SHIFT_LEFT -> true;
                 default -> false;
             };
