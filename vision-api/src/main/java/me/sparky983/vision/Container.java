@@ -107,7 +107,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
         if (slot.row() >= rows || slot.column() >= columns) {
             throw new IllegalArgumentException(
-                    SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows, columns));
+                    String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
         }
 
         if (button == null) {
@@ -124,7 +124,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
         if (slot.column() >= columns || slot.row() >= rows) {
             throw new IllegalArgumentException(
-                    SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows, columns));
+                    String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
         }
 
         return Optional.ofNullable(buttons.get(slot));
@@ -197,7 +197,8 @@ final class Container implements Subscribable<Gui.Subscriber> {
             for (final Slot slot : buttons.keySet()) {
                 if (slot.row() >= rows || slot.column() >= columns) {
                     throw new IllegalStateException(
-                            SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), rows, columns));
+                            String.format(
+                                    SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
                 }
             }
 

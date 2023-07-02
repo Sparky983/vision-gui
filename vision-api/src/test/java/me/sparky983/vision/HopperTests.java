@@ -111,7 +111,7 @@ class HopperTests {
 
         final Exception e = assertThrows(IllegalStateException.class, builder::build);
         assertEquals(
-                SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS),
+                String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
                 e.getMessage());
     }
 
@@ -170,7 +170,7 @@ class HopperTests {
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
                 gui.button(slot, button));
         assertEquals(
-                SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS),
+                String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
                 e.getMessage());
     }
 
@@ -209,7 +209,7 @@ class HopperTests {
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
         assertEquals(
-                SLOT_OUT_OF_BOUNDS.formatted(slot.row(), slot.column(), ROWS, COLUMNS),
+                String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
                 e.getMessage());
     }
 

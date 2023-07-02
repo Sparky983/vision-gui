@@ -143,7 +143,7 @@ class ChestTests {
 
         final Exception e = assertThrows(IllegalStateException.class, builder::build);
         assertEquals(
-                SLOT_OUT_OF_BOUNDS.formatted(slotRow, slotColumn, guiRows, COLUMNS),
+                String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS),
                 e.getMessage());
     }
 
@@ -206,7 +206,7 @@ class ChestTests {
         final Exception e = assertThrows(IllegalArgumentException.class, () ->
                 gui.button(slot, button));
         assertEquals(
-                SLOT_OUT_OF_BOUNDS.formatted(slotRow, slotColumn, guiRows, COLUMNS),
+                String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS),
                 e.getMessage());
     }
 
@@ -249,7 +249,7 @@ class ChestTests {
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
         assertEquals(
-                SLOT_OUT_OF_BOUNDS.formatted(slotRow, slotColumn, guiRows, COLUMNS),
+                String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS),
                 e.getMessage());
     }
 
