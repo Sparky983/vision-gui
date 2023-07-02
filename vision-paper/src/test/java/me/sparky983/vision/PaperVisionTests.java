@@ -36,7 +36,7 @@ class PaperVisionTests {
     void testOpenWhenPlayerIsNull() {
 
         final Exception e =
-                assertThrows(NullPointerException.class, () -> paperVision.open(null, Gui.gui(1)));
+                assertThrows(NullPointerException.class, () -> paperVision.open(null, Gui.chest().build()));
         assertEquals("player cannot be null", e.getMessage());
     }
 

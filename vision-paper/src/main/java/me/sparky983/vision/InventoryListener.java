@@ -15,7 +15,7 @@ final class InventoryListener implements Listener {
 
         Objects.requireNonNull(event, "event cannot be null");
 
-        if (!(event.getInventory().getHolder() instanceof GuiInventoryHolder guiInventoryHolder)) {
+        if (!(event.getInventory().getHolder() instanceof final GuiInventoryHolder guiInventoryHolder)) {
             return;
         }
 
@@ -25,8 +25,10 @@ final class InventoryListener implements Listener {
             return;
         }
 
-        final Slot slot = Slot.of(event.getSlot() / Gui.COLUMNS, event.getSlot() % Gui.COLUMNS);
-        guiInventoryHolder.gui().button(slot).ifPresent((button) -> {
+        final Gui gui = guiInventoryHolder.gui();
+        final Slot slot = Slot.of(event.getSlot() / gui.columns(), event.getSlot() % gui.columns());
+
+        gui.button(slot).ifPresent((button) -> {
             final Click.Type type = switch (event.getClick()) {
                 case LEFT -> Click.Type.LEFT;
                 case SHIFT_LEFT -> Click.Type.SHIFT_LEFT;

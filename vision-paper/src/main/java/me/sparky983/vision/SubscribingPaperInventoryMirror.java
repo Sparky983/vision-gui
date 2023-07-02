@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import org.bukkit.Server;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -42,7 +43,14 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
         Objects.requireNonNull(gui, "gui cannot be null");
 
         final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) ->
-                server.createInventory(inventoryHolder, gui.rows() * Gui.COLUMNS, gui.title());
+                switch (gui.type()) {
+                    case CHEST ->
+                            server.createInventory(inventoryHolder, gui.rows() * gui.columns(), gui.title());
+                    case HOPPER ->
+                            server.createInventory(inventoryHolder, InventoryType.HOPPER, gui.title());
+                    case DROPPER ->
+                            server.createInventory(inventoryHolder, InventoryType.DROPPER, gui.title());
+                };
 
         final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
 
@@ -54,12 +62,13 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
 
             @Override
             public void button(final Slot slot, final @Nullable Button button) {
+
                 if (button == null) {
                     return;
                 }
                 final ItemStack item = paperConverter.convert(button).orElseThrow(() ->
                         new IllegalStateException(UNABLE_TO_MIRROR_MESSAGE.formatted(button.type())));
-                final int rawSlot = slot.column() + (slot.row() * Gui.COLUMNS);
+                final int rawSlot = slot.column() + (slot.row() * gui.columns());
                 inventory.setItem(rawSlot, item);
 
                 final ItemStack craftItem = inventory.getItem(rawSlot);
@@ -70,7 +79,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
         };
 
         for (int row = 0; row < gui.rows(); row++) {
-            for (int column = 0; column < Gui.COLUMNS; column++) {
+            for (int column = 0; column < gui.columns(); column++) {
                 final Slot slot = Slot.of(row, column);
                 gui.button(slot).ifPresent((button) -> {
                     // Essentially replaying the button sets
