@@ -6,9 +6,9 @@ import org.jetbrains.annotations.ApiStatus;
  * Represents the a {@link Gui} variant.
  *
  * @since 1.0
+ * @vision.experimental because this will be removed after Java 21 is released.
  * @vision.apiNote This is intended to be used so {@code switch} statements can be used to determine
  * the type of {@link Gui} without having to use {@code instanceof}.
- * @vision.experimental because this will be removed after Java 21 is released.
  */
 @ApiStatus.Experimental
 public enum GuiType {
