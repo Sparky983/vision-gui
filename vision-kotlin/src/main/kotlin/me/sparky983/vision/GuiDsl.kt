@@ -142,9 +142,7 @@ private class DropperDslImpl : DropperDsl {
  * @return the created [Chest]
  * @since 1.0
  */
-public fun chest(init: ChestDsl.() -> Unit): Chest {
-    return ChestDslImpl().apply(init).build()
-}
+public fun chest(init: ChestDsl.() -> Unit): Chest = ChestDslImpl().apply(init).build()
 
 /**
  * Builds a [Hopper] using the [HopperDsl].
@@ -153,9 +151,7 @@ public fun chest(init: ChestDsl.() -> Unit): Chest {
  * @return the created [Hopper]
  * @since 1.0
  */
-public fun hopper(init: HopperDsl.() -> Unit): Hopper {
-    return HopperDslImpl().apply(init).build()
-}
+public fun hopper(init: HopperDsl.() -> Unit): Hopper = HopperDslImpl().apply(init).build()
 
 /**
  * Builds a [Dropper] using the [DropperDsl].
@@ -164,9 +160,7 @@ public fun hopper(init: HopperDsl.() -> Unit): Hopper {
  * @return the created [Dropper]
  * @since 1.0
  */
-public fun dropper(init: DropperDsl.() -> Unit): Dropper {
-    return DropperDslImpl().apply(init).build()
-}
+public fun dropper(init: DropperDsl.() -> Unit): Dropper = DropperDslImpl().apply(init).build()
 
 /**
  * The [Button] DSL receiver.
@@ -267,42 +261,40 @@ private class ButtonDslImpl : ButtonDsl {
  * @return the created [Button]
  * @since 0.2
  */
-public fun button(init: ButtonDsl.() -> Unit): Button {
-    return ButtonDslImpl().apply(init).build()
-}
+public fun button(init: ButtonDsl.() -> Unit): Button = ButtonDslImpl().apply(init).build()
 
 /**
  * Adds a [Button] to the [Gui] using the [ButtonDsl].
  *
  * @param slot the slot of the [Button]
  * @param init the initializer block
+ * @return the created [Button]
  * @throws IllegalStateException if the [type] was not set in the initializer block.
  * @since 1.0
  */
-public fun Gui.button(slot: Slot, init: ButtonDsl.() -> Unit) {
-    button(slot, button(init))
-}
+public fun Gui.button(slot: Slot, init: ButtonDsl.() -> Unit): Button =
+    button(init).also { button(slot, it) }
 
 /**
  * Adds a [Button] to the [Gui.Builder] using the [ButtonDsl].
  *
  * @param slot the slot of the [Button]
  * @param init the initializer block
+ * @return the created [Button]
  * @throws IllegalStateException if the [type] was not set in the initializer block.
  * @since 1.0
  */
-public fun Gui.Builder.button(slot: Slot, init: ButtonDsl.() -> Unit) {
-    button(slot, button(init))
-}
+public fun Gui.Builder.button(slot: Slot, init: ButtonDsl.() -> Unit): Button =
+    button(init).also { button(slot, it) }
 
 /**
  * Adds a [Button] to the [GuiDsl] using the [ButtonDsl].
  *
  * @param slot the slot of the [Button]
  * @param init the initializer block
+ * @return the created [Button]
  * @throws IllegalStateException if the [type] was not set in the initializer block.
  * @since 1.0
  */
-public fun GuiDsl.button(slot: Slot, init: ButtonDsl.() -> Unit) {
-    button(slot, button(init))
-}
+public fun GuiDsl.button(slot: Slot, init: ButtonDsl.() -> Unit): Button =
+    button(init).also { button(slot, it) }
