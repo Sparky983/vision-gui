@@ -73,7 +73,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * Returns the title of this {@code Gui}.
      * <p>
      * If this {@code Gui} is untitled, the returned component will match Minecraft's default
-     * container title which is usually a translatable {@code Component} of the form
+     * container title which is usually a translatable {@link Component} of the form
      * {@literal "container.<container>"}.
      *
      * @return the title of this {@code Gui}

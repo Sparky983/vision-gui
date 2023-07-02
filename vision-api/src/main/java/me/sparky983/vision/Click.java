@@ -31,9 +31,9 @@ public interface Click {
     }
 
     /**
-     * Returns the {@code Audience} who clicked the {@link Button}.
+     * Returns the {@link Audience} who clicked the {@link Button}.
      *
-     * @return the {@code Audience} who clicked the {@link Button}
+     * @return the {@link Audience} who clicked the {@link Button}
      * @since 0.1
      */
     Audience clicker();

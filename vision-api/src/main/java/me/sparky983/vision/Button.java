@@ -72,7 +72,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     /**
      * Returns the name of this {@code Button}.
      * <p>
-     * If this {@code Button} is untitled, the returned {@code Component} will match Minecraft's
+     * If this {@code Button} is untitled, the returned {@link Component} will match Minecraft's
      * default item name which is usually a translatable component of the form
      * {@literal "item.minecraft.<item_id>"} or {@literal "block.minecraft.<item_id>"}.
      *
