@@ -9,11 +9,11 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * Manages subscriptions for a button and provides a simple API for notifying
- * {@link Subscriber Subscribers}.
+ * A representation of a {@link Subscribable}'s
+ * {@link Subscribable.Subscriber Subscribable.Subscribers}.
  */
 @NullMarked
-final class SubscriptionManager<T extends Subscriber> implements Subscribable<T> {
+final class Subscribers<T extends Subscriber> implements Subscribable<T> {
 
     private final Map<Subscription, T> subscribers = new HashMap<>();
 

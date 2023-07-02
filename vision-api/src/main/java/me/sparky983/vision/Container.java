@@ -44,7 +44,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
      */
     private static final int MAX_COLUMNS = Chest.COLUMNS;
 
-    private final SubscriptionManager<Gui.Subscriber> subscribers = new SubscriptionManager<>();
+    private final Subscribers<Gui.Subscriber> subscribers = new Subscribers<>();
 
     private final Map<Slot, Button> buttons;
     private final Component title;

@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 @NullMarked
 final class ButtonImpl implements Button {
 
-    private final SubscriptionManager<Subscriber> subscriptionManager = new SubscriptionManager<>();
+    private final Subscribers<Subscriber> subscribers = new Subscribers<>();
 
     private ItemType type;
     private Component name;
@@ -54,7 +54,7 @@ final class ButtonImpl implements Button {
         } else {
             this.name = Component.translatable(type.translationKey());
         }
-        subscriptionManager.notify((subscriber) -> subscriber.name(this.name));
+        subscribers.notify((subscriber) -> subscriber.name(this.name));
         return this;
     }
 
@@ -82,7 +82,7 @@ final class ButtonImpl implements Button {
         }
 
         this.lore = List.copyOf(lore);
-        subscriptionManager.notify((subscriber) -> subscriber.lore(this.lore));
+        subscribers.notify((subscriber) -> subscriber.lore(this.lore));
         return this;
     }
 
@@ -100,7 +100,7 @@ final class ButtonImpl implements Button {
         }
 
         this.amount = amount;
-        subscriptionManager.notify((subscriber) -> subscriber.amount(amount));
+        subscribers.notify((subscriber) -> subscriber.amount(amount));
         return this;
     }
 
@@ -116,7 +116,7 @@ final class ButtonImpl implements Button {
         Objects.requireNonNull(type, "type cannot be null");
 
         this.type = type;
-        subscriptionManager.notify((subscriber) -> subscriber.type(type));
+        subscribers.notify((subscriber) -> subscriber.type(type));
         return this;
     }
 
@@ -131,7 +131,7 @@ final class ButtonImpl implements Button {
 
         Objects.requireNonNull(click, "click cannot be null");
 
-        subscriptionManager.notify((subscriber) -> subscriber.click(click));
+        subscribers.notify((subscriber) -> subscriber.click(click));
     }
 
     @Override
@@ -180,7 +180,7 @@ final class ButtonImpl implements Button {
 
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
-        return subscriptionManager.subscribe(subscriber);
+        return subscribers.subscribe(subscriber);
     }
 
     /**
