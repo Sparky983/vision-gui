@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
@@ -10,7 +11,6 @@ import java.util.function.Consumer;
 /**
  * Represents a button.
  *
- * @see #button()
  * @see #of(ItemType)
  * @since 0.1
  * @vision.apiNote Unlike Bukkit, {@code Button}s aren't cloned when they're added to a {@link Gui},
@@ -21,32 +21,11 @@ import java.util.function.Consumer;
 public interface Button extends Subscribable<Button.Subscriber> {
 
     /**
-     * Creates a new {@link Button.Builder}.
-     *
-     * @return the new {@link Button.Builder}
-     * @see Builder
-     * @see #of(ItemType)
-     * @since 0.1
-     * @vision.apiNote The builder is type-safe, so it cannot be built until the
-     * {@link Button.Builder#type(ItemType)} has been specified.
-     * @vision.examples <pre>
-     *Button button = Button.button()
-     *        .name(Component.text("My Button"))
-     *        .lore(Component.text("My lore line 1"), Component.text("My lore line 2"))
-     *        .type(ItemTypes.DIAMOND);</pre>
-     */
-    static Builder button() {
-
-        return new ButtonImpl.BuilderImpl();
-    }
-
-    /**
      * Creates a new {@code Button} of the specified type.
      *
      * @param type the type of the {@code Button}
      * @return the created {@code Button}
      * @throws NullPointerException if the type is {@code null}.
-     * @see #button()
      * @since 0.1
      * @vision.examples <pre>
      *Button button = Button.of(ItemTypes.DIAMOND)
@@ -55,7 +34,28 @@ public interface Button extends Subscribable<Button.Subscriber> {
      */
     static Button of(final ItemType type) {
 
-        return button().type(type);
+        return new ButtonImpl(type);
+    }
+
+    /**
+     * Creates a new {@link Button.Factory}.
+     *
+     * @return the new {@link Button.Factory}
+     * @see Factory
+     * @see #of(ItemType)
+     * @since 1.0
+     * @vision.experimental because this may be deleted or repurposed. Use {@link #of(ItemType)}
+     * when possible.
+     * @vision.examples <pre>
+     *Button button = Button.button()
+     *        .type(ItemTypes.DIAMOND)
+     *        .name(Component.text("My Button"))
+     *        .lore(Component.text("My lore line 1"), Component.text("My lore line 2"));</pre>
+     */
+    @ApiStatus.Experimental
+    static Factory button() {
+
+        return ButtonImpl.FACTORY;
     }
 
     /**
@@ -275,98 +275,35 @@ public interface Button extends Subscribable<Button.Subscriber> {
     }
 
     /**
-     * A {@link Button} builder.
+     * A {@link Button} factory.
      *
      * @see #button()
      * @see #type(ItemType)
-     * @since 0.1
-     * @vision.apiNote This builder is type-safe, so it cannot be built until the
-     * {@link Builder#type(ItemType)} has been specified.
+     * @since 1.0
+     * @vision.experimental because this may be deleted or repurposed.
+     * @vision.apiNote This class is designed to improve readability by requiring the type parameter
+     * to be named in source code.
      * @vision.examples <pre>
+     *{@literal // With factory}
      *Button button = Button.button()
-     *        .name(Component.text("Stone"))
-     *        .type(ItemType.STONE); // builds the button</pre>
-     * <pre>
-     *Button button = Button.button()
-     *        .type(ItemType.STONE) // builds the button
-     *        .lore(Component.text("Line 1"), Component.text("Line 2"));</pre>
+     *        .type(ItemType.STONE)
+     *        .name(Component.text("Stone"));
+     *
+     *{@literal // Without factory}
+     *Button button = Button.of(ItemType.STONE)
+     *        .name(Component.text("Stone"));</pre>
      */
-    interface Builder {
+    @FunctionalInterface
+    @ApiStatus.Experimental
+    interface Factory {
 
         /**
-         * Sets the name of the {@link Button}.
-         *
-         * @param name the name
-         * @return this {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the name is {@code null}.
-         * @since 0.1
-         * @vision.implNote The Paper Vision implementation removes the default Minecraft display
-         * name style (italics).
-         */
-        Builder name(Component name);
-
-        /**
-         * Sets the lore of the {@link Button}.
-         * <p>
-         * Changes to the input array will not be reflected in the lore of the button.
-         *
-         * @param lore the lore
-         * @return this {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the lore is or contains {@code null}.
-         * @since 0.1
-         * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
-         * (purple, italics).
-         */
-        Builder lore(Component... lore);
-
-        /**
-         * Sets the lore of the {@link Button}.
-         * <p>
-         * Changes to the input {@link List} will not be reflected in the lore of the button.
-         *
-         * @param lore the lore
-         * @return this {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the lore is or contains {@code null}.
-         * @since 0.1
-         * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
-         * (purple, italics).
-         */
-        Builder lore(List<Component> lore);
-
-        /**
-         * Sets the amount of items in the {@link Button}.
-         *
-         * @param amount the amount
-         * @return this {@code Builder} instance (for chaining)
-         * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
-         * {@code 64}.
-         * @since 0.1
-         */
-        Builder amount(int amount);
-
-        /**
-         * Adds a {@link Click} handler to the button {@link Button}.
-         *
-         * @param handler the {@link Click} handler
-         * @return the {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the {@link Click} handler is {@code null}.
-         * @since 0.1
-         * @vision.apiNote This method may be called multiple times to add multiple handlers.
-         * @vision.examples <pre>
-         *{@code Button button = Button.button()
-         *       .name(Component.text("Click me!"))
-         *       .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))
-         *       .type(ItemType.DIAMOND);}</pre>
-         */
-        Builder onClick(Consumer<Click> handler);
-
-        /**
-         * Sets the type of the {@link Button} and returns the built {@link Button}.
+         * Creates a new {@code Button} of the specified type.
          *
          * @param type the item type
          * @return the new {@link Button}
          * @throws NullPointerException if the item type is {@code null}.
-         * @since 0.1
+         * @since 1.0
          */
         Button type(ItemType type);
     }

@@ -4,7 +4,6 @@ import net.kyori.adventure.text.Component;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -19,31 +18,21 @@ import java.util.function.Consumer;
 @NullMarked
 final class ButtonImpl implements Button {
 
+    static final Button.Factory FACTORY = ButtonImpl::new;
+
     private final Subscribers<Subscriber> subscribers = new Subscribers<>();
 
     private ItemType type;
     private Component name;
-    private List<Component> lore;
-    private int amount;
+    private List<Component> lore = List.of();
+    private int amount = 1;
 
-    private ButtonImpl(final ItemType type,
-                       final Component name,
-                       final List<Component> lore,
-                       final int amount,
-                       final List<Consumer<Click>> clickHandlers) {
+    ButtonImpl(final ItemType type) {
 
-        assert type != null;
-        assert lore != null;
-        assert lore.stream().allMatch(Objects::nonNull);
-        assert amount > 0 && amount <= 64;
-        assert clickHandlers != null;
-        assert clickHandlers.stream().allMatch(Objects::nonNull);
+        Objects.requireNonNull(type, "type cannot be null");
 
         this.type = type;
-        this.name = name;
-        this.lore = lore;
-        this.amount = amount;
-        clickHandlers.forEach(this::onClick);
+        this.name = Component.translatable(type.translationKey());
     }
 
     @Override
@@ -179,81 +168,5 @@ final class ButtonImpl implements Button {
     public Subscription subscribe(final Subscriber subscriber) {
 
         return subscribers.subscribe(subscriber);
-    }
-
-    /**
-     * The default implementation of {@link Button.Builder}.
-     *
-     * @see Button#button()
-     */
-    static final class BuilderImpl implements Builder {
-
-        private final List<Consumer<Click>> clickHandlers = new ArrayList<>(0);
-        private @Nullable Component name;
-        private List<Component> lore = List.of();
-        private int amount = 1;
-
-        @Override
-        public Builder name(final Component name) {
-
-            Objects.requireNonNull(name, "name cannot be null");
-
-            this.name = name;
-            return this;
-        }
-
-        @Override
-        public Builder lore(final Component... lore) {
-
-            Objects.requireNonNull(lore, "lore cannot be null");
-
-            return lore(Arrays.asList(lore));
-        }
-
-        @Override
-        public Builder lore(final List<Component> lore) {
-
-            Objects.requireNonNull(lore, "lore cannot be null");
-
-            for (int i = 0; i < lore.size(); i++) {
-                Objects.requireNonNull(lore.get(i), "lore[" + i + "] cannot be null");
-            }
-
-            this.lore = List.copyOf(lore);
-            return this;
-        }
-
-        @Override
-        public Builder amount(final int amount) {
-
-            if (amount <= 0 || amount > 64) {
-                throw new IllegalArgumentException("amount must be between 1 and 64");
-            }
-
-            this.amount = amount;
-            return this;
-        }
-
-        @Override
-        public Builder onClick(final Consumer<Click> handler) {
-
-            Objects.requireNonNull(handler, "handler cannot be null");
-
-            clickHandlers.add(handler);
-            return this;
-        }
-
-        @Override
-        public Button type(final ItemType type) {
-
-            Objects.requireNonNull(type, "type cannot be null");
-
-            return new ButtonImpl(
-                    type,
-                    name == null ? Component.translatable(type.translationKey()) : name,
-                    lore,
-                    amount,
-                    clickHandlers);
-        }
     }
 }

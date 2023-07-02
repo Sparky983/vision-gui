@@ -61,35 +61,10 @@ class ButtonTests {
             Click.Type.LEFT);
 
     @Nested
-    class ButtonBuilder {
-
-        @SuppressWarnings("ConstantConditions")
-        @Test
-        void testBuilderNameWhenNameIsNull() {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () -> builder.name(null));
-            assertEquals("name cannot be null", e.getMessage());
-
-            final Button button = builder.type(ItemType.STONE);
-            assertNotNull(button.name());
-        }
+    class ButtonFactory {
 
         @Test
-        void testBuilderName() {
-
-            final Button.Builder builder = Button.button();
-
-            assertEquals(builder, builder.name(NAME));
-
-            final Button button = builder.type(ItemType.STONE);
-
-            assertEquals(NAME, button.name());
-        }
-
-        @Test
-        void testUnspecifiedName() {
+        void testDefaultName() {
 
             final Button button = Button.button().type(ItemType.STONE);
 
@@ -114,47 +89,6 @@ class ButtonTests {
             assertEquals(button, button.name(NAME));
 
             assertEquals(NAME, button.name());
-        }
-
-        @SuppressWarnings("ConstantConditions")
-        @Test
-        void testBuilderVarargsLoreWhenLoreIsNull() {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore((Component[]) null));
-
-            assertEquals("lore cannot be null", e.getMessage());
-
-            final Button button = builder.type(ItemType.STONE);
-            assertNotNull(button.lore());
-        }
-
-        @SuppressWarnings("ConstantConditions")
-        @Test
-        void testBuilderVarargsLoreWhenLoreContainsNull() {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore(new Component[]{LORE_LINE_1, null}));
-            assertEquals("lore[1] cannot be null", e.getMessage());
-
-            final Button button = builder.type(ItemType.STONE);
-            assertNotEquals(Arrays.asList(LORE_LINE_1, null), button.lore());
-        }
-
-        @Test
-        void testBuilderVarargsLore() {
-
-            final Button.Builder builder = Button.button();
-
-            assertEquals(builder, builder.lore(LORE_ARRAY));
-
-            final Button button = builder.type(ItemType.STONE);
-
-            assertEquals(LORE_LIST, button.lore());
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -193,47 +127,6 @@ class ButtonTests {
 
         @SuppressWarnings("ConstantConditions")
         @Test
-        void testBuilderListLoreWhenLoreIsNull() {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore((List<Component>) null));
-
-            assertEquals("lore cannot be null", e.getMessage());
-
-            final Button button = builder.type(ItemType.STONE);
-            assertNotNull(button.lore());
-        }
-
-        @Test
-        void testBuilderListLoreWhenLoreContainsNull() {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.lore(Arrays.asList(LORE_LINE_1, null)));
-
-            assertEquals("lore[1] cannot be null", e.getMessage());
-
-            final Button button = builder.type(ItemType.STONE);
-            assertNotEquals(Arrays.asList(LORE_LINE_1, null), button.lore());
-        }
-
-        @Test
-        void testBuilderListLore() {
-
-            final Button.Builder builder = Button.button();
-
-            assertEquals(builder, builder.lore(LORE_LIST));
-
-            final Button button = builder.type(ItemType.STONE);
-
-            assertEquals(LORE_LIST, button.lore());
-        }
-
-        @SuppressWarnings("ConstantConditions")
-        @Test
         void testListLoreWhenLoreIsNull() {
 
             final Button button = Button.button().type(ItemType.STONE);
@@ -265,55 +158,15 @@ class ButtonTests {
         }
 
         @Test
-        void testUnspecifiedLore() {
+        void testDefaultLore() {
 
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(List.of(), button.lore());
         }
 
-        @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
-        @ParameterizedTest
-        void testBuilderAmountWhenAmountIsLessThan1(final int amount) {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                    builder.amount(amount));
-            assertEquals("amount must be between 1 and 64", e.getMessage());
-
-            final Button button = builder.type(ItemType.STONE);
-            assertNotEquals(amount, button.amount());
-        }
-
-        @ValueSource(ints = {65, 66, Integer.MAX_VALUE})
-        @ParameterizedTest
-        void testBuilderAmountWhenAmountIsGreaterThanOrEqualTo64(final int amount) {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(IllegalArgumentException.class, () ->
-                    builder.amount(amount));
-            assertEquals("amount must be between 1 and 64", e.getMessage());
-
-            final Button button = builder.type(ItemType.STONE);
-            assertNotEquals(amount, button.amount());
-        }
-
         @Test
-        void testBuilderAmount() {
-
-            final Button.Builder builder = Button.button();
-
-            assertEquals(builder, builder.amount(5));
-
-            final Button button = builder.type(ItemType.STONE);
-
-            assertEquals(5, button.amount());
-        }
-
-        @Test
-        void testUnspecifiedAmount() {
+        void testDefaultAmount() {
 
             final Button button = Button.button().type(ItemType.STONE);
 
@@ -358,16 +211,16 @@ class ButtonTests {
 
         @SuppressWarnings("ConstantConditions")
         @Test
-        void testBuilderTypeWhenTypeIsNull() {
+        void testFactoryTypeWhenTypeIsNull() {
 
-            final Button.Builder builder = Button.button();
+            final Button.Factory builder = Button.button();
 
             final Exception e = assertThrows(NullPointerException.class, () -> builder.type(null));
             assertEquals("type cannot be null", e.getMessage());
         }
 
         @Test
-        void testBuilderType() {
+        void testFactoryType() {
 
             final Button button = Button.button().type(ItemType.STONE);
 
@@ -403,53 +256,6 @@ class ButtonTests {
 
             final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
             assertEquals("click cannot be null", e.getMessage());
-        }
-
-        @SuppressWarnings("DataFlowIssue")
-        @Test
-        void testBuilderOnClickWhenHandlerIsNull() {
-
-            final Button.Builder builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () ->
-                    builder.onClick(null));
-            assertEquals("handler cannot be null", e.getMessage());
-        }
-
-
-        @Test
-        void testBuilderOnClick() {
-
-            final Button.Builder builder = Button.button();
-            final Consumer<Click> clickHandler = mock();
-
-            assertEquals(builder, builder.onClick(clickHandler));
-
-            final Button button = builder.type(ItemType.STONE);
-            button.click(CLICK);
-
-            verify(clickHandler).accept(CLICK);
-            verifyNoMoreInteractions(clickHandler);
-        }
-
-        @Test
-        void testBuilderOnClickWhenThrowsException() {
-
-            final Button.Builder builder = Button.button();
-            final Button.Subscriber subscriber = mock();
-            final RuntimeException e = new RuntimeException();
-            final Consumer<Click> clickHandler = mock();
-            doThrow(e).when(clickHandler).accept(CLICK);
-            builder.onClick(clickHandler);
-
-            final Button button = builder.type(ItemType.STONE);
-            button.subscribe(subscriber);
-            button.click(CLICK);
-
-            verify(clickHandler).accept(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(clickHandler, subscriber);
         }
 
         @SuppressWarnings("DataFlowIssue")
