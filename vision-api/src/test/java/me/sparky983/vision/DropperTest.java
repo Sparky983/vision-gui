@@ -213,6 +213,14 @@ class DropperTest {
                 e.getMessage());
     }
 
+    @Test
+    void testType() {
+
+        final Gui gui = Gui.chest().build();
+
+        assertEquals(GuiType.DROPPER, gui.type());
+    }
+
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testSubscribeWhenSubscriberIsNull() {

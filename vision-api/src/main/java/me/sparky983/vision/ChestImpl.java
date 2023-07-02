@@ -62,6 +62,12 @@ final class ChestImpl implements Chest {
     }
 
     @Override
+    public GuiType type() {
+
+        return GuiType.CHEST;
+    }
+
+    @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
         return container.subscribe(subscriber);

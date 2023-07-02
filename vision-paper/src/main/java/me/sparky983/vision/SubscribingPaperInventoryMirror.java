@@ -42,17 +42,15 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
 
         Objects.requireNonNull(gui, "gui cannot be null");
 
-        final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) -> {
-            if (gui instanceof Chest) {
-                return server.createInventory(inventoryHolder, gui.rows() * gui.columns(), gui.title());
-            } else if (gui instanceof Hopper) {
-                return server.createInventory(inventoryHolder, InventoryType.HOPPER, gui.title());
-            } else if (gui instanceof Dropper) {
-                return server.createInventory(inventoryHolder, InventoryType.DROPPER, gui.title());
-            } else {
-                throw new AssertionError("Unknown gui type: " + gui.getClass().getName());
-            }
-        };
+        final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) ->
+                switch (gui.type()) {
+                    case CHEST ->
+                            server.createInventory(inventoryHolder, gui.rows() * gui.columns(), gui.title());
+                    case HOPPER ->
+                            server.createInventory(inventoryHolder, InventoryType.HOPPER, gui.title());
+                    case DROPPER ->
+                            server.createInventory(inventoryHolder, InventoryType.DROPPER, gui.title());
+                };
 
         final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
 
@@ -64,6 +62,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
 
             @Override
             public void button(final Slot slot, final @Nullable Button button) {
+
                 if (button == null) {
                     return;
                 }

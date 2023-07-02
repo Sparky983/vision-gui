@@ -59,6 +59,12 @@ final class HopperImpl implements Hopper {
     }
 
     @Override
+    public GuiType type() {
+
+        return GuiType.HOPPER;
+    }
+
+    @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
         return container.subscribe(subscriber);

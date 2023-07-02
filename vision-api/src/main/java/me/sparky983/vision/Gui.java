@@ -121,6 +121,14 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Optional<Button> button(Slot slot);
 
     /**
+     * Gets the type of this {@code Gui}.
+     *
+     * @return the type of this {@code Gui}
+     * @since 1.0
+     */
+    GuiType type();
+
+    /**
      * Subscribes the specified {@link Subscriber} to this {@code Gui}.
      *
      * @param subscriber the subscriber to subscribe

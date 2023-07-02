@@ -253,6 +253,14 @@ class ChestTests {
                 e.getMessage());
     }
 
+    @Test
+    void testType() {
+
+        final Gui gui = Gui.chest().build();
+
+        assertEquals(GuiType.CHEST, gui.type());
+    }
+
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testSubscribeWhenSubscriberIsNull() {
