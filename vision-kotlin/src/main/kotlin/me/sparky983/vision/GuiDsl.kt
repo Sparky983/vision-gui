@@ -187,9 +187,7 @@ public interface ButtonDsl {
     /**
      * The name of the [Button].
      *
-     * If the [Button] is untitled, the name will match Minecraft's default item name which is
-     * usually a translatable component of the form "item.minecraft.<item_id>" or
-     * "block.minecraft.<item_id>".
+     * If unspecified, the value is `null`.
      *
      * @see Button.name
      * @since 0.2
