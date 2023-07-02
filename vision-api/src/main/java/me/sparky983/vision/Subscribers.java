@@ -1,6 +1,5 @@
 package me.sparky983.vision;
 
-import me.sparky983.vision.Subscribable.Subscriber;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.function.Consumer;
  * {@link Subscribable.Subscriber Subscribable.Subscribers}.
  */
 @NullMarked
-final class Subscribers<T extends Subscriber> implements Subscribable<T> {
+final class Subscribers<T extends Subscribable.Subscriber> implements Subscribable<T> {
 
     private final Map<Subscription, T> subscribers = new HashMap<>();
 
