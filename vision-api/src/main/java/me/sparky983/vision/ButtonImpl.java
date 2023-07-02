@@ -178,8 +178,6 @@ final class ButtonImpl implements Button {
     @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
-        Objects.requireNonNull(subscriber, "subscriber cannot be null");
-
         return subscribers.subscribe(subscriber);
     }
 
