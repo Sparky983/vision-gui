@@ -32,7 +32,7 @@ final class ButtonImpl implements Button {
         Objects.requireNonNull(type, "type cannot be null");
 
         this.type = type;
-        this.name = Component.translatable(type.translationKey());
+        this.name = Component.translatable(type);
     }
 
     @Override
@@ -41,7 +41,7 @@ final class ButtonImpl implements Button {
         if (name != null) {
             this.name = name;
         } else {
-            this.name = Component.translatable(type.translationKey());
+            this.name = Component.translatable(type);
         }
         subscribers.notify((subscriber) -> subscriber.name(this.name));
         return this;

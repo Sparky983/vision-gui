@@ -68,7 +68,7 @@ class ButtonTests {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            assertEquals(Component.translatable(ItemType.STONE.translationKey()), button.name());
+            assertEquals(Component.translatable(ItemType.STONE), button.name());
         }
 
         @Test
@@ -78,7 +78,7 @@ class ButtonTests {
 
             button.name(null);
 
-            assertEquals(Component.translatable(ItemType.STONE.translationKey()), button.name());
+            assertEquals(Component.translatable(ItemType.STONE), button.name());
         }
 
         @Test
@@ -433,7 +433,7 @@ class ButtonTests {
 
             final Button button = Button.of(ItemType.STONE);
 
-            assertEquals(Component.translatable(ItemType.STONE.translationKey()), button.name());
+            assertEquals(Component.translatable(ItemType.STONE), button.name());
         }
 
         @Test
@@ -443,7 +443,7 @@ class ButtonTests {
 
             button.name(null);
 
-            assertEquals(Component.translatable(ItemType.STONE.translationKey()), button.name());
+            assertEquals(Component.translatable(ItemType.STONE), button.name());
         }
 
         @Test
