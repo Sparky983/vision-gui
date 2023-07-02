@@ -216,7 +216,7 @@ class DropperTest {
     @Test
     void testType() {
 
-        final Gui gui = Gui.chest().build();
+        final Gui gui = Gui.dropper().build();
 
         assertEquals(GuiType.DROPPER, gui.type());
     }

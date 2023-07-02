@@ -226,7 +226,7 @@ class HopperTests {
     @Test
     void testType() {
 
-        final Gui gui = Gui.chest().build();
+        final Gui gui = Gui.hopper().build();
 
         assertEquals(GuiType.HOPPER, gui.type());
     }
