@@ -13,7 +13,7 @@ tasks {
         options {
             (this as StandardJavadocDocletOptions).run {
                 sequenceOf("api", "key").forEach {
-                    links("https://jd.advntr.dev/$it/4.11.0")
+                    links("https://jd.advntr.dev/$it/4.14.0")
                 }
             }
         }
