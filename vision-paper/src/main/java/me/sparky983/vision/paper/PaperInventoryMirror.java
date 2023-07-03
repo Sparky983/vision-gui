@@ -1,7 +1,9 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.inventory.Inventory;
 import org.jspecify.nullness.NullMarked;
+
+import me.sparky983.vision.Gui;
 
 /**
  * Mirrors {@link Gui} to {@link Inventory Inventories}.

@@ -1,4 +1,4 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.Server;
 import org.bukkit.event.inventory.InventoryType;
@@ -10,6 +10,10 @@ import org.jspecify.nullness.Nullable;
 
 import java.util.Objects;
 import java.util.function.Function;
+
+import me.sparky983.vision.Button;
+import me.sparky983.vision.Gui;
+import me.sparky983.vision.Slot;
 
 @NullMarked
 final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {

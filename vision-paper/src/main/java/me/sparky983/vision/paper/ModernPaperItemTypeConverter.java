@@ -1,10 +1,12 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.Material;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Objects;
 import java.util.Optional;
+
+import me.sparky983.vision.ItemType;
 
 /**
  * The {@link PaperItemTypeConverter} implementation for non-legacy Paper API versions.

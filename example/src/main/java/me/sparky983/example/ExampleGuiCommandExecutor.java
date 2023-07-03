@@ -3,7 +3,7 @@ package me.sparky983.example;
 import me.sparky983.vision.Button;
 import me.sparky983.vision.Gui;
 import me.sparky983.vision.ItemType;
-import me.sparky983.vision.PaperVision;
+import me.sparky983.vision.paper.PaperVision;
 import me.sparky983.vision.Slot;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;

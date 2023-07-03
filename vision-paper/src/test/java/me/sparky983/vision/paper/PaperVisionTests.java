@@ -1,4 +1,4 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -9,6 +9,9 @@ import org.mockito.Answers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+
+import me.sparky983.vision.Gui;
+import me.sparky983.vision.paper.PaperVision;
 
 class PaperVisionTests {
 

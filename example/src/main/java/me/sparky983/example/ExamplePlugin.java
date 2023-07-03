@@ -1,6 +1,6 @@
 package me.sparky983.example;
 
-import me.sparky983.vision.PaperVision;
+import me.sparky983.vision.paper.PaperVision;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;

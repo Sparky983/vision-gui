@@ -1,10 +1,12 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Optional;
+
+import me.sparky983.vision.Button;
 
 /**
  * Converts Vision types to Paper types.

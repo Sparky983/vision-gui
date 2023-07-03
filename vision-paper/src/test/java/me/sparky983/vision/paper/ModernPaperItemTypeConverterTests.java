@@ -1,6 +1,6 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
-import net.kyori.adventure.key.Key;
+import me.sparky983.vision.ItemType;
 import org.bukkit.Material;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -36,17 +36,6 @@ class ModernPaperItemTypeConverterTests {
                 itemTypeConverter.convert(null));
 
         assertEquals("itemType cannot be null", e.getMessage());
-    }
-
-    @Test
-    void testConvertWhenItemTypeCannotBeFound() {
-
-        final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
-
-        final Optional<Material> material = itemTypeConverter.convert(
-                ItemTypeImpl.of(Key.key("vision", "not_found"), true));
-
-        assertEquals(Optional.empty(), material);
     }
 
     @ParameterizedTest

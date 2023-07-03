@@ -1,4 +1,4 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -11,6 +11,9 @@ import org.jspecify.nullness.NullMarked;
 
 import java.util.Objects;
 import java.util.Optional;
+
+import me.sparky983.vision.Button;
+import me.sparky983.vision.ItemType;
 
 @NullMarked
 final class PaperConverterImpl implements PaperConverter {

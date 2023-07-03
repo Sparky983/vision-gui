@@ -1,9 +1,11 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.Material;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Optional;
+
+import me.sparky983.vision.ItemType;
 
 /**
  * Converts {@link ItemType} to {@link Material} and vice versa.
