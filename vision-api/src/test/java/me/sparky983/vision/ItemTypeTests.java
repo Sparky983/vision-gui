@@ -72,4 +72,11 @@ class ItemTypeTests {
 
         assertEquals(Optional.of(itemType), ItemType.findByKey(key));
     }
+
+    @MethodSource("provideItemTypesAndKey")
+    @ParameterizedTest
+    void testToString(final ItemType itemType, final Key key) {
+
+        assertEquals(key.asString(), itemType.toString());
+    }
 }
