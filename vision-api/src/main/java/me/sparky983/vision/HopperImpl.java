@@ -70,6 +70,12 @@ final class HopperImpl implements Hopper {
         return container.subscribe(subscriber);
     }
 
+    @Override
+    public String toString() {
+
+        return String.format("HopperImpl[title=%s]", title());
+    }
+
     /**
      * The default implementation of {@link Hopper.Builder}.
      *

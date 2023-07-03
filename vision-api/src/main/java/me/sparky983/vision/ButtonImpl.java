@@ -169,4 +169,15 @@ final class ButtonImpl implements Button {
 
         return subscribers.subscribe(subscriber);
     }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+                "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s]",
+                type,
+                name,
+                lore,
+                amount);
+    }
 }

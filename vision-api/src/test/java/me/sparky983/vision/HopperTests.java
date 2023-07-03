@@ -281,4 +281,15 @@ class HopperTests {
         assertTrue(subscription.isCancelled());
         verifyNoMoreInteractions(subscriber);
     }
+
+    @Test
+    void testToString() {
+
+        final Gui gui = Gui.hopper()
+                .title(Component.text("title"))
+                .build();
+
+        assertEquals(
+                String.format("HopperImpl[title=%s]", Component.text("title")), gui.toString());
+    }
 }

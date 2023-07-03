@@ -70,6 +70,12 @@ final class DropperImpl implements Dropper {
         return container.subscribe(subscriber);
     }
 
+    @Override
+    public String toString() {
+
+        return String.format("DropperImpl[title=%s]", title());
+    }
+
     /**
      * The default implementation of {@link Dropper.Builder}.
      *
