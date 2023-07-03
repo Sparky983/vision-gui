@@ -213,6 +213,33 @@ class DropperTest {
                 e.getMessage());
     }
 
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderFillWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.dropper();
+
+        assertThrows(NullPointerException.class, () -> builder.fill(null));
+    }
+
+    @Test
+    void testBuilderFill() {
+
+        final Gui.Builder builder = Gui.dropper()
+                .button(Slot.of(1, 1), Button.of(ItemType.STONE));
+        final Button button = Button.of(ItemType.STONE);
+
+        assertEquals(builder, builder.fill(button));
+
+        final Gui gui = builder.build();
+
+        for (int row = 0; row < gui.rows(); row++) {
+            for (int column = 0; column < gui.columns(); column++) {
+                assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+            }
+        }
+    }
+
     @Test
     void testType() {
 

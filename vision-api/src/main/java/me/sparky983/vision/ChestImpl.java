@@ -110,6 +110,13 @@ final class ChestImpl implements Chest {
         }
 
         @Override
+        public Builder fill(final Button button) {
+
+            container.fill(button);
+            return this;
+        }
+
+        @Override
         public Chest build() {
 
             return new ChestImpl(container.build());

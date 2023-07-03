@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
@@ -215,6 +216,23 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @since 1.0
          */
         Builder button(Slot slot, Button button);
+
+        /**
+         * Sets all current slots to the specified {@link Button} in the {@link Gui}.
+         * <p>
+         * This method will replace any preexisting {@link Button Buttons}.
+         *
+         * @param button the button
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the button is {@code null}.
+         * @since 1.0
+         * @vision.experimental because this may be changed, deleted or renamed.
+         */
+        @ApiStatus.Experimental
+        Builder fill(Button button);
+        // TODO: Figure out if we should keep preexisting buttons
+        //  It would be more useful to keep preexisting buttons, but that isn't clearly communicated
+        //  by the method name.
 
         /**
          * Builds the {@link Gui}.

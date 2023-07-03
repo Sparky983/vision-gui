@@ -79,6 +79,19 @@ non-sealed public interface Hopper extends Gui {
         Builder button(Slot slot, Button button);
 
         /**
+         * Sets all current slots to the specified {@link Button} in the {@link Hopper}.
+         * <p>
+         * This method will replace any preexisting {@link Button Buttons}.
+         *
+         * @param button {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
+         * @since 1.0
+         */
+        @Override
+        Builder fill(Button button);
+
+        /**
          * Builds the {@link Hopper}.
          *
          * @return the built {@link Hopper}

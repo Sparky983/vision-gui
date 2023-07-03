@@ -192,6 +192,18 @@ final class Container implements Subscribable<Gui.Subscriber> {
             return this;
         }
 
+        Builder fill(final Button button) {
+
+            Objects.requireNonNull(button, "button cannot be null");
+
+            for (int row = 0; row < rows; row++) {
+                for (int column = 0; column < columns; column++) {
+                    button(Slot.of(row, column), button);
+                }
+            }
+            return this;
+        }
+
         Container build() {
 
             for (final Slot slot : buttons.keySet()) {
