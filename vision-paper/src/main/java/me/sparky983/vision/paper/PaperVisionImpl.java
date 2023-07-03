@@ -1,4 +1,4 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -8,6 +8,8 @@ import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
 import java.util.Objects;
+
+import me.sparky983.vision.Gui;
 
 @NullMarked
 final class PaperVisionImpl implements PaperVision {

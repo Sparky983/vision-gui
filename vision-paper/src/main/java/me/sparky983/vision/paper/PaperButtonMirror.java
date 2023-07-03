@@ -1,7 +1,8 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
+import me.sparky983.vision.Button;
 
 /**
  * Mirrors {@link Button Buttons} to {@link ItemStack ItemStacks}.

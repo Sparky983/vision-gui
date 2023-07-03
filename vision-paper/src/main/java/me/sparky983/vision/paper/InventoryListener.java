@@ -1,4 +1,4 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -6,6 +6,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Objects;
+
+import me.sparky983.vision.Click;
+import me.sparky983.vision.Gui;
+import me.sparky983.vision.Slot;
 
 @NullMarked
 final class InventoryListener implements Listener {

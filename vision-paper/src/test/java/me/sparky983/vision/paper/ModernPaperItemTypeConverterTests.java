@@ -1,4 +1,4 @@
-package me.sparky983.vision;
+package me.sparky983.vision.paper;
 
 import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
@@ -12,6 +12,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import me.sparky983.vision.ItemType;
+import me.sparky983.vision.ItemTypeImpl;
+import me.sparky983.vision.paper.ModernPaperItemTypeConverter;
+import me.sparky983.vision.paper.PaperItemTypeConverter;
 
 class ModernPaperItemTypeConverterTests {
 
