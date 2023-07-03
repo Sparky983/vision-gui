@@ -72,6 +72,12 @@ final class ChestImpl implements Chest {
         return container.subscribe(subscriber);
     }
 
+    @Override
+    public String toString() {
+
+        return String.format("ChestImpl[title=%s, rows=%s]", title(), rows());
+    }
+
     /**
      * The default implementation of {@link Chest.Builder}.
      *

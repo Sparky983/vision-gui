@@ -281,4 +281,15 @@ class DropperTest {
         assertTrue(subscription.isCancelled());
         verifyNoMoreInteractions(subscriber);
     }
+
+    @Test
+    void testToString() {
+
+        final Gui gui = Gui.dropper()
+                .title(Component.text("title"))
+                .build();
+
+        assertEquals(
+                String.format("DropperImpl[title=%s]", Component.text("title")), gui.toString());
+    }
 }

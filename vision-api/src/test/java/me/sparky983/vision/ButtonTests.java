@@ -415,6 +415,24 @@ class ButtonTests {
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);
         }
+
+        @Test
+        void testToString() {
+
+            final Button button = Button.button()
+                    .type(ItemType.STONE)
+                    .name(NAME)
+                    .lore(LORE_LIST)
+                    .amount(2);
+
+            assertEquals(
+                    String.format(
+                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s]",
+                            ItemType.STONE,
+                            NAME,
+                            LORE_LIST,
+                            2), button.toString());
+        }
     }
 
     @Nested
@@ -760,6 +778,23 @@ class ButtonTests {
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);
+        }
+
+        @Test
+        void testToString() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(NAME)
+                    .lore(LORE_LIST)
+                    .amount(2);
+
+            assertEquals(
+                    String.format(
+                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s]",
+                            ItemType.STONE,
+                            NAME,
+                            LORE_LIST,
+                            2), button.toString());
         }
     }
 }

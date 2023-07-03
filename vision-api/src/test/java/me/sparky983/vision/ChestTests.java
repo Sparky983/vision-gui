@@ -319,4 +319,17 @@ class ChestTests {
         assertTrue(subscription.isCancelled());
         verifyNoMoreInteractions(subscriber);
     }
+
+    @Test
+    void testToString() {
+
+        final Gui gui = Gui.chest()
+                .title(Component.text("title"))
+                .rows(3)
+                .build();
+
+        assertEquals(
+                String.format("ChestImpl[title=%s, rows=3]", Component.text("title")),
+                gui.toString());
+    }
 }
