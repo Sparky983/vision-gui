@@ -37,11 +37,15 @@ public interface Subscribable<T extends Subscribable.Subscriber> {
          * <p>
          * If this method throws an exception, the exception may be
          * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param thrown the thrown exception
          * @throws NullPointerException if the thrown exception is {@code null} (optional).
          * @since 0.1
          */
-        void exception(RuntimeException thrown);
+        default void exception(final RuntimeException thrown) {
+
+        }
     }
 }

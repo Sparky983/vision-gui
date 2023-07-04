@@ -223,16 +223,22 @@ public interface Button extends Subscribable<Button.Subscriber> {
 
         /**
          * Called when the name of a {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param name the new name
          * @throws NullPointerException if the name is {@code null} (optional).
          * @see #name(Component)
          * @since 0.1
          */
-        void name(Component name);
+        default void name(final Component name) {
+
+        }
 
         /**
          * Called when the lore of a {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param lore the new lore
          * @throws NullPointerException if the lore is or contains {@code null} (optional).
@@ -240,10 +246,14 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see #lore(Component...)
          * @since 0.1
          */
-        void lore(List<Component> lore);
+        default void lore(final List<Component> lore) {
+
+        }
 
         /**
          * Called when the amount of the {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param amount the new amount
          * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
@@ -251,27 +261,37 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see #amount(int)
          * @since 0.1
          */
-        void amount(int amount);
+        default void amount(final int amount) {
+
+        }
 
         /**
          * Called when the type of the {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param type the new type
          * @throws NullPointerException if the type is {@code null} (optional).
          * @see #type(ItemType)
          * @since 0.1
          */
-        void type(ItemType type);
+        default void type(final ItemType type) {
+
+        }
 
         /**
          * Called when the {@link Button} is clicked.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param click an object describing the click
          * @throws NullPointerException if the click is {@code null} (optional).
          * @see #click(Click)
          * @since 0.1
          */
-        void click(Click click);
+        default void click(Click click) {
+
+        }
     }
 
     /**

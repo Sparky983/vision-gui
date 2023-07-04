@@ -18,7 +18,7 @@ import org.jspecify.nullness.NullMarked;
  *</pre>
  */
 @NullMarked
-non-sealed public interface Chest extends Gui {
+public non-sealed interface Chest extends Gui {
 
     /**
      * The minimum number of rows that a chest can have.

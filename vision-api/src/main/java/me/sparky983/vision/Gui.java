@@ -159,13 +159,17 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
 
         /**
          * Called when the specified {@link Slot} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param slot the slot
          * @param button the new button or {@code null} if there is no new {@link Button}
          * @throws NullPointerException if the slot is {@code null} (optional).
          * @since 0.1
          */
-        void button(Slot slot, @Nullable Button button);
+        default void button(final Slot slot, final @Nullable Button button) {
+
+        }
     }
 
     /**
