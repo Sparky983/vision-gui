@@ -218,9 +218,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
         Builder button(Slot slot, Button button);
 
         /**
-         * Sets all current slots to the specified {@link Button} in the {@link Gui}.
-         * <p>
-         * This method will replace any preexisting {@link Button Buttons}.
+         * Sets all the empty slots to the specified {@link Button} in the {@link Gui}.
          *
          * @param button the button
          * @return this builder instance (for chaining)
@@ -230,9 +228,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          */
         @ApiStatus.Experimental
         Builder fill(Button button);
-        // TODO: Figure out if we should keep preexisting buttons
-        //  It would be more useful to keep preexisting buttons, but that isn't clearly communicated
-        //  by the method name.
 
         /**
          * Builds the {@link Gui}.

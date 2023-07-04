@@ -235,17 +235,22 @@ class HopperTests {
     @Test
     void testBuilderFill() {
 
-        final Gui.Builder builder = Gui.hopper()
-                .button(Slot.of(0, 2), Button.of(ItemType.STONE));
         final Button button = Button.of(ItemType.STONE);
+        final Button filler = Button.of(ItemType.STONE);
+        final Gui.Builder builder = Gui.hopper()
+                .button(Slot.of(0, 2), button);
 
-        assertEquals(builder, builder.fill(button));
+        assertEquals(builder, builder.fill(filler));
 
         final Gui gui = builder.build();
 
         for (int row = 0; row < gui.rows(); row++) {
             for (int column = 0; column < gui.columns(); column++) {
-                assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+                if (row == 0 && column == 2) {
+                    assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+                } else {
+                    assertEquals(Optional.of(filler), gui.button(Slot.of(row, column)));
+                }
             }
         }
     }

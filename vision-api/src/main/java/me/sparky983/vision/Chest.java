@@ -103,12 +103,10 @@ non-sealed public interface Chest extends Gui {
         Builder button(Slot slot, Button button);
 
         /**
-         * Sets all current slots to the specified {@link Button} in the {@link Chest}.
+         * Sets all the empty slots to the specified {@link Button} in the {@link Chest}.
          * <p>
-         * This method will replace any preexisting {@link Button Buttons}.
-         * <p>
-         * If more slots are added after this method is called via {@link #rows(int)}, they will not
-         * be filled.
+         * If the amount of rows change via subsequent calls to {@link #rows(int)}, they will be
+         * prefilled with the specified {@link Button}.
          *
          * @param button {@inheritDoc}
          * @return {@inheritDoc}
@@ -117,7 +115,6 @@ non-sealed public interface Chest extends Gui {
          */
         @Override
         Builder fill(Button button);
-        // TODO: Figure out if we should do anything different if the amount of slots change
 
         /**
          * Builds the {@link Chest}.

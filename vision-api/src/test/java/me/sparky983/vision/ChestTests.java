@@ -263,18 +263,24 @@ class ChestTests {
     @Test
     void testBuilderFill() {
 
-        final Gui.Builder builder = Gui.chest()
-                .rows(3)
-                .button(Slot.of(1, 4), Button.of(ItemType.STONE));
         final Button button = Button.of(ItemType.STONE);
+        final Button filler = Button.of(ItemType.STONE);
+        final Chest.Builder builder = Gui.chest()
+                .button(Slot.of(1, 4), button);
 
-        assertEquals(builder, builder.fill(button));
+        assertEquals(builder, builder.fill(filler));
+
+        builder.rows(3);
 
         final Gui gui = builder.build();
 
         for (int row = 0; row < gui.rows(); row++) {
             for (int column = 0; column < gui.columns(); column++) {
-                assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+                if (row == 1 && column == 4) {
+                    assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+                } else {
+                    assertEquals(Optional.of(filler), gui.button(Slot.of(row, column)));
+                }
             }
         }
     }

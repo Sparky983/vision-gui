@@ -79,9 +79,7 @@ non-sealed public interface Dropper extends Gui {
         Builder button(Slot slot, Button button);
 
         /**
-         * Sets all current slots to the specified {@link Button} in the {@link Dropper}.
-         * <p>
-         * This method will replace any preexisting {@link Button Buttons}.
+         * Sets all the empty slots to the specified {@link Button} in the {@link Dropper}.
          *
          * @param button {@inheritDoc}
          * @return {@inheritDoc}

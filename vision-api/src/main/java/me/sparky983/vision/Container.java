@@ -144,6 +144,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
     static final class Builder {
 
         private final Map<Slot, Button> buttons = new HashMap<>();
+        private @Nullable Button filler = null;
         private Component title;
         private int rows;
         private int columns;
@@ -196,11 +197,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
             Objects.requireNonNull(button, "button cannot be null");
 
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
-                    button(Slot.of(row, column), button);
-                }
-            }
+            this.filler = button;
             return this;
         }
 
@@ -211,6 +208,14 @@ final class Container implements Subscribable<Gui.Subscriber> {
                     throw new IllegalStateException(
                             String.format(
                                     SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
+                }
+            }
+
+            if (filler != null) {
+                for (int row = 0; row < rows; row++) {
+                    for (int column = 0; column < columns; column++) {
+                        buttons.putIfAbsent(Slot.of(row, column), filler);
+                    }
                 }
             }
 
