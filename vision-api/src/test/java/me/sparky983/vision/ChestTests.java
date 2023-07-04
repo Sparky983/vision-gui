@@ -251,6 +251,40 @@ class ChestTests {
                 e.getMessage());
     }
 
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderFillWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.chest();
+
+        assertThrows(NullPointerException.class, () -> builder.fill(null));
+    }
+
+    @Test
+    void testBuilderFill() {
+
+        final Button button = Button.of(ItemType.STONE);
+        final Button filler = Button.of(ItemType.STONE);
+        final Chest.Builder builder = Gui.chest()
+                .button(Slot.of(1, 4), button);
+
+        assertEquals(builder, builder.fill(filler));
+
+        builder.rows(3);
+
+        final Gui gui = builder.build();
+
+        for (int row = 0; row < gui.rows(); row++) {
+            for (int column = 0; column < gui.columns(); column++) {
+                if (row == 1 && column == 4) {
+                    assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+                } else {
+                    assertEquals(Optional.of(filler), gui.button(Slot.of(row, column)));
+                }
+            }
+        }
+    }
+
     @Test
     void testType() {
 

@@ -103,6 +103,20 @@ public non-sealed interface Chest extends Gui {
         Builder button(Slot slot, Button button);
 
         /**
+         * Sets all the empty slots to the specified {@link Button} in the {@link Chest}.
+         * <p>
+         * If the amount of rows change via subsequent calls to {@link #rows(int)}, they will be
+         * prefilled with the specified {@link Button}.
+         *
+         * @param button {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
+         * @since 1.0
+         */
+        @Override
+        Builder fill(Button button);
+
+        /**
          * Builds the {@link Chest}.
          *
          * @return the built {@link Chest}

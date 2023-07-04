@@ -100,6 +100,13 @@ final class HopperImpl implements Hopper {
         }
 
         @Override
+        public Builder fill(final Button button) {
+
+            container.fill(button);
+            return this;
+        }
+
+        @Override
         public Hopper build() {
 
             return new HopperImpl(container.build());

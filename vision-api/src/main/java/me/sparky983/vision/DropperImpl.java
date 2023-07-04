@@ -100,6 +100,13 @@ final class DropperImpl implements Dropper {
         }
 
         @Override
+        public Builder fill(final Button button) {
+
+            container.fill(button);
+            return this;
+        }
+
+        @Override
         public Dropper build() {
 
             return new DropperImpl(container.build());
