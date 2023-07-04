@@ -17,7 +17,7 @@ import org.jspecify.nullness.NullMarked;
  *</pre>
  */
 @NullMarked
-non-sealed public interface Hopper extends Gui {
+public non-sealed interface Hopper extends Gui {
 
     /**
      * The number of columns hoppers have.

@@ -17,7 +17,7 @@ import org.jspecify.nullness.NullMarked;
  *</pre>
  */
 @NullMarked
-non-sealed public interface Dropper extends Gui {
+public non-sealed interface Dropper extends Gui {
 
     /**
      * The number of columns dropper have.
