@@ -1,5 +1,10 @@
 package me.sparky983.vision.paper;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.renderer.TranslatableComponentRenderer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.translation.GlobalTranslator;
+import net.kyori.adventure.translation.Translator;
 import org.bukkit.Server;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -8,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -42,18 +48,21 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
     }
 
     @Override
-    public Inventory mirror(final Gui gui) {
+    public Inventory mirror(final Gui gui, final Locale locale) {
 
         Objects.requireNonNull(gui, "gui cannot be null");
+        Objects.requireNonNull(locale, "locale cannot be null");
+
+        final Component title = GlobalTranslator.render(gui.title(), locale);
 
         final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) ->
                 switch (gui.type()) {
                     case CHEST ->
-                            server.createInventory(inventoryHolder, gui.rows() * gui.columns(), gui.title());
+                            server.createInventory(inventoryHolder, gui.rows() * gui.columns(),title);
                     case HOPPER ->
-                            server.createInventory(inventoryHolder, InventoryType.HOPPER, gui.title());
+                            server.createInventory(inventoryHolder, InventoryType.HOPPER, title);
                     case DROPPER ->
-                            server.createInventory(inventoryHolder, InventoryType.DROPPER, gui.title());
+                            server.createInventory(inventoryHolder, InventoryType.DROPPER, title);
                 };
 
         final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
@@ -70,7 +79,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
                 if (button == null) {
                     return;
                 }
-                final ItemStack item = paperConverter.convert(button).orElseThrow(() ->
+                final ItemStack item = paperConverter.convert(button, locale).orElseThrow(() ->
                         new IllegalStateException(
                                 String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
                 final int rawSlot = slot.column() + (slot.row() * gui.columns());
@@ -79,7 +88,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
                 final ItemStack craftItem = inventory.getItem(rawSlot);
                 // We need to get the item from the inventory because the item is cloned
                 assert craftItem != null;
-                buttonMirror.mirror(button, craftItem);
+                buttonMirror.mirror(button, craftItem, locale);
             }
         };
 
