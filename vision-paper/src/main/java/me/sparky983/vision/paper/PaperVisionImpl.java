@@ -43,7 +43,7 @@ final class PaperVisionImpl implements PaperVision {
             pluginManager.registerEvents(inventoryListener, plugin);
         }
 
-        final Inventory inventory = inventoryMirror.mirror(gui);
+        final Inventory inventory = inventoryMirror.mirror(gui, player.locale());
 
         player.openInventory(inventory);
     }

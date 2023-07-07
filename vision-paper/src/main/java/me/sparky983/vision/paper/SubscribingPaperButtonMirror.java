@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import me.sparky983.vision.Button;
@@ -24,17 +25,18 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
     }
 
     @Override
-    public void mirror(final Button button, final ItemStack item) {
+    public void mirror(final Button button, final ItemStack item, final Locale locale) {
 
         Objects.requireNonNull(button, "button cannot be null");
         Objects.requireNonNull(item, "item cannot be null");
+        Objects.requireNonNull(locale, "locale cannot be null");
 
         button.subscribe(new Button.Subscriber() {
             @Override
             public void name(final Component name) {
 
                 item.editMeta((meta) ->
-                        meta.displayName(paperConverter.convert(name))
+                        meta.displayName(paperConverter.convert(name, locale))
                 );
             }
 
@@ -43,7 +45,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
                 item.editMeta((meta) -> meta.lore(lore
                         .stream()
-                        .map(paperConverter::convert)
+                        .map((line) -> paperConverter.convert(line, locale))
                         .toList()));
             }
 
