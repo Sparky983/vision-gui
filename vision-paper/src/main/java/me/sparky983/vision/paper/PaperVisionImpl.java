@@ -39,7 +39,7 @@ final class PaperVisionImpl implements PaperVision {
         Objects.requireNonNull(gui, "gui cannot be null");
 
         if (inventoryListener == null) {
-            inventoryListener = new InventoryListener();
+            inventoryListener = new InventoryListener(this);
             pluginManager.registerEvents(inventoryListener, plugin);
         }
 

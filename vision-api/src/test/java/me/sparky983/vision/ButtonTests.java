@@ -2,6 +2,7 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -54,11 +55,13 @@ class ButtonTests {
     /**
      * A click to be used for testing.
      */
-    static final Click CLICK = Click.of(
-            Audience.empty(),
-            Button.of(ItemType.STONE),
-            Slot.of(0, 0),
-            Click.Type.LEFT);
+    static final Click CLICK = mock();
+
+    @AfterAll
+    static void tearDownAll() {
+
+        verifyNoInteractions(CLICK);
+    }
 
     @Nested
     class ButtonFactory {

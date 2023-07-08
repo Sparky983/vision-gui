@@ -1,5 +1,6 @@
 package me.sparky983.vision.paper;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -14,6 +15,15 @@ import me.sparky983.vision.Slot;
 @NullMarked
 final class InventoryListener implements Listener {
 
+    private final PaperVision vision;
+
+    InventoryListener(final PaperVision vision) {
+
+        Objects.requireNonNull(vision, "vision cannot be null");
+
+        this.vision = vision;
+    }
+
     @EventHandler
     void onInventoryClick(final InventoryClickEvent event) {
 
@@ -26,6 +36,10 @@ final class InventoryListener implements Listener {
         event.setCancelled(true);
 
         if (!Objects.equals(event.getInventory(), event.getClickedInventory())) {
+            return;
+        }
+
+        if (!(event.getWhoClicked() instanceof final Player player)) {
             return;
         }
 
@@ -50,7 +64,7 @@ final class InventoryListener implements Listener {
                 return;
             }
 
-            button.click(Click.of(event.getWhoClicked(), button, slot, type));
+            button.click(new PaperClick(player, button, slot, type, vision));
         });
     }
 }
