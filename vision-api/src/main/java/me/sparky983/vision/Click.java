@@ -13,30 +13,23 @@ import org.jspecify.nullness.NullMarked;
 public interface Click {
 
     /**
-     * Creates a new {@code Click} with the specified clicker, button, slot and type.
-     *
-     * @param clicker the audience who clicked the {@link Button}
-     * @param button the {@link Button} that was clicked
-     * @param slot the {@link Slot} that was clicked
-     * @param type the type of this click
-     * @return the new {@code Click}.
-     * @throws NullPointerException if the clicker, button, slot or type is {@code null}.
-     * @since 0.1
-     * @vision.experimental because this may become internal in the future.
-     */
-    @ApiStatus.Experimental
-    static Click of(final Audience clicker, final Button button, final Slot slot, final Type type) {
-
-        return new ClickImpl(clicker, button, slot, type);
-    }
-
-    /**
      * Returns the {@link Audience} who clicked the {@link Button}.
      *
      * @return the {@link Audience} who clicked the {@link Button}
      * @since 0.1
      */
     Audience clicker();
+
+    /**
+     * Opens the specified {@link Gui} for the clicker.
+     *
+     * @param gui the {@link Gui} to open
+     * @throws NullPointerException if the {@link Gui} is {@code null}.
+     * @since 1.0
+     * @vision.experimental because this may be removed or renamed.
+     */
+    @ApiStatus.Experimental
+    void open(Gui gui);
 
     /**
      * Returns the {@link Button} that was clicked.
