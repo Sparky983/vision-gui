@@ -424,6 +424,18 @@ class ButtonTests {
         }
 
         @Test
+        void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            final Subscription subscription = button.subscribe(mock());
+
+            subscription.cancel();
+
+            assertThrows(IllegalStateException.class, subscription::cancel);
+        }
+
+        @Test
         void testCancelSubscription() {
 
             final Button button = Button.button().type(ItemType.STONE);
@@ -816,6 +828,18 @@ class ButtonTests {
             verify(subscriber, times(2)).name(Component.text("name"));
             verify(subscriber, times(8)).exception(e);
             verifyNoMoreInteractions(subscriber); // exception should not be called again
+        }
+
+        @Test
+        void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            final Subscription subscription = button.subscribe(mock());
+
+            subscription.cancel();
+
+            assertThrows(IllegalStateException.class, subscription::cancel);
         }
 
         @Test

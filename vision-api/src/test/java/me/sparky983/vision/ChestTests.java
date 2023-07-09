@@ -336,6 +336,18 @@ class ChestTests {
     }
 
     @Test
+    void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
+
+        final Gui gui = Gui.chest().build();
+
+        final Subscription subscription = gui.subscribe(mock());
+
+        subscription.cancel();
+
+        assertThrows(IllegalStateException.class, subscription::cancel);
+    }
+
+    @Test
     void testCancelSubscription() {
 
         final Gui gui = Gui.chest().build();
