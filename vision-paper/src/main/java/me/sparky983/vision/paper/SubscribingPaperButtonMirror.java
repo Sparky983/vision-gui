@@ -1,6 +1,8 @@
 package me.sparky983.vision.paper;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 
@@ -31,6 +33,8 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
         Objects.requireNonNull(item, "item cannot be null");
         Objects.requireNonNull(locale, "locale cannot be null");
 
+        item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
         button.subscribe(new Button.Subscriber() {
             @Override
             public void name(final Component name) {
@@ -56,19 +60,19 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             }
 
             @Override
+            public void glow(boolean glow) {
+
+                if (glow) {
+                    item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+                } else {
+                    item.removeEnchantment(Enchantment.DURABILITY);
+                }
+            }
+
+            @Override
             public void type(final ItemType type) {
 
                 paperConverter.convert(type).ifPresent(item::setType);
-            }
-
-            @Override
-            public void click(final Click click) {
-
-            }
-
-            @Override
-            public void exception(final RuntimeException thrown) {
-
             }
         });
     }
