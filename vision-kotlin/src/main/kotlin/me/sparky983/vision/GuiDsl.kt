@@ -209,6 +209,14 @@ public interface ButtonDsl {
     public var amount: Int
 
     /**
+     * Whether the [Button] is glowing.
+     *
+     * @see Button#glow
+     * @since 1.0
+     */
+    public var glow: Boolean
+
+    /**
      * Adds a click handler to the [Button].
      *
      * @param handler the click handler
@@ -234,6 +242,7 @@ private class ButtonDslImpl : ButtonDsl {
             _lore = lore.toList()
         }
     public override var amount: Int = 1
+    override var glow: Boolean = false
 
     private val clickHandlers: MutableList<(Click) -> Unit> = mutableListOf()
 
@@ -249,6 +258,7 @@ private class ButtonDslImpl : ButtonDsl {
             .name(name)
             .lore(lore)
             .amount(amount)
+            .glow(glow)
 
         clickHandlers.forEach(button::onClick)
 

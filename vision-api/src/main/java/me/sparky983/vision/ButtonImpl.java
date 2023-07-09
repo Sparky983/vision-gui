@@ -26,6 +26,7 @@ final class ButtonImpl implements Button {
     private Component name;
     private List<Component> lore = List.of();
     private int amount = 1;
+    private boolean glow = false;
 
     ButtonImpl(final ItemType type) {
 
@@ -97,6 +98,20 @@ final class ButtonImpl implements Button {
     public int amount() {
 
         return amount;
+    }
+
+    @Override
+    public Button glow(final boolean glow) {
+
+        this.glow = glow;
+        subscribers.notify((subscriber) -> subscriber.glow(glow));
+        return this;
+    }
+
+    @Override
+    public boolean glow() {
+
+        return glow;
     }
 
     @Override
@@ -174,10 +189,11 @@ final class ButtonImpl implements Button {
     public String toString() {
 
         return String.format(
-                "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s]",
+                "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s, glow=%s]",
                 type,
                 name,
                 lore,
-                amount);
+                amount,
+                glow);
     }
 }
