@@ -47,6 +47,7 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
 
         scheduler.runTaskTimer(plugin, () -> {
             counter.name(Component.text("Counter: " + count.incrementAndGet()));
+            counter.glow(count.get() % 2 == 0);
         }, 20, 10);
 
         final Gui gui = Gui.chest()
