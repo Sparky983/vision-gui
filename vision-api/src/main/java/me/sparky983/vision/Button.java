@@ -138,6 +138,27 @@ public interface Button extends Subscribable<Button.Subscriber> {
     int amount();
 
     /**
+     * Sets whether this {@code Button} is glowing.
+     *
+     * @param glow {@code true} to make this
+     * @return this {@code Button} instance (for chaining)
+     * @since 1.0
+     * @vision.experimental because this may be renamed or changed.
+     */
+    @ApiStatus.Experimental
+    Button glow(boolean glow);
+
+    /**
+     * Checks whether this {@code Button} is glowing.
+     *
+     * @return {@code true} if this {@code Button} is glowing, otherwise {@code false}
+     * @since 1.0
+     * @vision.experimental because this may be renamed.
+     */
+    @ApiStatus.Experimental
+    boolean glow();
+
+    /**
      * Sets the type of this {@code Button}.
      *
      * @param type the type
@@ -262,6 +283,21 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @since 0.1
          */
         default void amount(final int amount) {
+
+        }
+
+        /**
+         * Called when the glowing state of the {@code Button} changes.
+         * <p>
+         * The default implementation does nothing.
+         *
+         * @param glow the new glowing state
+         * @see #glow(boolean)
+         * @since 1.0
+         * @vision.experimental because this may be renamed.
+         */
+        @ApiStatus.Experimental
+        default void glow(final boolean glow) {
 
         }
 

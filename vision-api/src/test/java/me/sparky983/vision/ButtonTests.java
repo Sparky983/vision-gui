@@ -1,6 +1,5 @@
 package me.sparky983.vision;
 
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Nested;
@@ -212,6 +211,25 @@ class ButtonTests {
             assertEquals(amount, button.amount());
         }
 
+        @Test
+        void testDefaultGlow() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            assertFalse(button.glow());
+        }
+
+        @ValueSource(booleans = {true, false})
+        @ParameterizedTest
+        void testGlow(final boolean glow) {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            assertEquals(button, button.glow(glow));
+
+            assertEquals(glow, button.glow());
+        }
+
         @SuppressWarnings("ConstantConditions")
         @Test
         void testFactoryTypeWhenTypeIsNull() {
@@ -335,6 +353,9 @@ class ButtonTests {
             button.amount(5);
             verify(subscriber).amount(5);
 
+            button.glow(true);
+            verify(subscriber).glow(true);
+
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
 
@@ -377,22 +398,28 @@ class ButtonTests {
             verify(subscriber, times(4)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
+            doThrow(e).when(subscriber).glow(true);
+            button.glow(true);
+            verify(subscriber).glow(true);
+            verify(subscriber, times(5)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
             doThrow(e).when(subscriber).type(ItemType.STONE);
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
-            verify(subscriber, times(5)).exception(e);
+            verify(subscriber, times(6)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).click(CLICK);
             button.click(CLICK);
             verify(subscriber).click(CLICK);
-            verify(subscriber, times(6)).exception(e);
+            verify(subscriber, times(7)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).exception(e);
             button.name(NAME);
             verify(subscriber, times(2)).name(NAME);
-            verify(subscriber, times(7)).exception(e);
+            verify(subscriber, times(8)).exception(e);
             verifyNoMoreInteractions(subscriber); // exception should not be called again
         }
 
@@ -412,6 +439,7 @@ class ButtonTests {
             button.lore(LORE_LIST);
             button.lore(LORE_ARRAY);
             button.amount(5);
+            button.glow(true);
             button.type(ItemType.STONE);
             button.click(CLICK);
 
@@ -426,15 +454,17 @@ class ButtonTests {
                     .type(ItemType.STONE)
                     .name(NAME)
                     .lore(LORE_LIST)
-                    .amount(2);
+                    .amount(2)
+                    .glow(true);
 
             assertEquals(
                     String.format(
-                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s]",
+                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s, glow=%s]",
                             ItemType.STONE,
                             NAME,
                             LORE_LIST,
-                            2), button.toString());
+                            2,
+                            true), button.toString());
         }
     }
 
@@ -594,6 +624,25 @@ class ButtonTests {
             assertEquals(amount, button.amount());
         }
 
+        @Test
+        void testDefaultGlow() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            assertFalse(button.glow());
+        }
+
+        @ValueSource(booleans = {true, false})
+        @ParameterizedTest
+        void testGlow(final boolean glow) {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            assertEquals(button, button.glow(glow));
+
+            assertEquals(glow, button.glow());
+        }
+
         @SuppressWarnings("ConstantConditions")
         @Test
         void testTypeWhenTypeIsNull() {
@@ -699,6 +748,9 @@ class ButtonTests {
             button.amount(5);
             verify(subscriber).amount(5);
 
+            button.glow(true);
+            verify(subscriber).glow(true);
+
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
 
@@ -741,22 +793,28 @@ class ButtonTests {
             verify(subscriber, times(4)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
+            doThrow(e).when(subscriber).glow(true);
+            button.glow(true);
+            verify(subscriber).glow(true);
+            verify(subscriber, times(5)).exception(e);
+            verifyNoMoreInteractions(subscriber);
+
             doThrow(e).when(subscriber).type(ItemType.STONE);
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
-            verify(subscriber, times(5)).exception(e);
+            verify(subscriber, times(6)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).click(CLICK);
             button.click(CLICK);
             verify(subscriber).click(CLICK);
-            verify(subscriber, times(6)).exception(e);
+            verify(subscriber, times(7)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).exception(e);
             button.name(Component.text("name"));
             verify(subscriber, times(2)).name(Component.text("name"));
-            verify(subscriber, times(7)).exception(e);
+            verify(subscriber, times(8)).exception(e);
             verifyNoMoreInteractions(subscriber); // exception should not be called again
         }
 
@@ -776,6 +834,7 @@ class ButtonTests {
             button.lore(LORE_LIST);
             button.lore(LORE_ARRAY);
             button.amount(5);
+            button.glow(true);
             button.type(ItemType.STONE);
             button.click(CLICK);
 
@@ -789,15 +848,17 @@ class ButtonTests {
             final Button button = Button.of(ItemType.STONE)
                     .name(NAME)
                     .lore(LORE_LIST)
-                    .amount(2);
+                    .amount(2)
+                    .glow(true);
 
             assertEquals(
                     String.format(
-                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s]",
+                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s, glow=%s]",
                             ItemType.STONE,
                             NAME,
                             LORE_LIST,
-                            2), button.toString());
+                            2,
+                            true), button.toString());
         }
     }
 }
