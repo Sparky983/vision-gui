@@ -144,30 +144,6 @@ final class ButtonImpl implements Button {
         Objects.requireNonNull(handler, "handler cannot be null");
 
         subscribe(new Subscriber() {
-            @Override
-            public void exception(final RuntimeException thrown) {
-
-            }
-
-            @Override
-            public void name(final Component name) {
-
-            }
-
-            @Override
-            public void lore(final List<Component> lore) {
-
-            }
-
-            @Override
-            public void amount(final int amount) {
-
-            }
-
-            @Override
-            public void type(final ItemType type) {
-
-            }
 
             @Override
             public void click(final Click click) {
