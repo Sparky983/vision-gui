@@ -25,7 +25,9 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
             @Override
             public void cancel() {
 
-                subscribers.remove(this);
+                if (subscribers.remove(this) == null) {
+                    throw new IllegalStateException("Subscription has already been cancelled");
+                }
             }
 
             @Override
