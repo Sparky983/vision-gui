@@ -79,8 +79,9 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
                 if (button == null) {
                     return;
                 }
-                final ItemStack item = paperConverter.convert(button, locale).orElseThrow(() ->
-                        new IllegalStateException(
+                final ItemStack item = paperConverter.convert(button.type())
+                        .map(ItemStack::new)
+                        .orElseThrow(() -> new IllegalStateException(
                                 String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
                 final int rawSlot = slot.column() + (slot.row() * gui.columns());
                 inventory.setItem(rawSlot, item);
