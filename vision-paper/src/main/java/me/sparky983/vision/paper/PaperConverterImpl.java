@@ -6,6 +6,8 @@ import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.translation.GlobalTranslator;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
@@ -47,6 +49,10 @@ final class PaperConverterImpl implements PaperConverter {
         return convert(button.type())
                 .map((material) -> {
                     final ItemStack item = new ItemStack(material, button.amount());
+                    if (button.glow()) {
+                        item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+                    }
                     item.editMeta((itemMeta) -> {
                         itemMeta.displayName(convert(button.name(), locale));
                         itemMeta.lore(button.lore()

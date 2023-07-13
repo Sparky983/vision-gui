@@ -35,7 +35,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
         item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-        button.subscribe(new Button.Subscriber() {
+        final Button.Subscriber subscriber = new Button.Subscriber() {
             @Override
             public void name(final Component name) {
 
@@ -60,7 +60,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             }
 
             @Override
-            public void glow(boolean glow) {
+            public void glow(final boolean glow) {
 
                 if (glow) {
                     item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
@@ -74,6 +74,16 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
                 paperConverter.convert(type).ifPresent(item::setType);
             }
-        });
+        };
+
+        // Essentially replay the button's state to the subscriber
+        // Ensures that the ItemStack and Button are consistent
+        subscriber.name(button.name());
+        subscriber.lore(button.lore());
+        subscriber.amount(button.amount());
+        subscriber.glow(button.glow());
+        subscriber.type(button.type());
+
+        button.subscribe(subscriber);
     }
 }
