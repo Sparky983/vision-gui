@@ -184,7 +184,9 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @param click an object describing the click
      * @throws NullPointerException if the click is {@code null}.
      * @since 0.1
+     * @vision.experimental because this may be replaced with directly posting events.
      */
+    @ApiStatus.Experimental
     void click(Click click);
 
     /**
