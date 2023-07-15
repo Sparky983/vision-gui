@@ -1,5 +1,6 @@
 package me.sparky983.vision.paper;
 
+import me.sparky983.vision.ClickType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,7 +9,6 @@ import org.jspecify.nullness.NullMarked;
 
 import java.util.Objects;
 
-import me.sparky983.vision.Click;
 import me.sparky983.vision.Gui;
 import me.sparky983.vision.Slot;
 
@@ -47,16 +47,16 @@ final class InventoryListener implements Listener {
         final Slot slot = Slot.of(event.getSlot() / gui.columns(), event.getSlot() % gui.columns());
 
         gui.button(slot).ifPresent((button) -> {
-            final Click.Type type = switch (event.getClick()) {
-                case LEFT -> Click.Type.LEFT;
-                case SHIFT_LEFT -> Click.Type.SHIFT_LEFT;
-                case RIGHT -> Click.Type.RIGHT;
-                case SHIFT_RIGHT -> Click.Type.SHIFT_RIGHT;
-                case MIDDLE -> Click.Type.MIDDLE;
-                case DROP -> Click.Type.DROP;
-                case CONTROL_DROP -> Click.Type.CONTROL_DROP;
-                case DOUBLE_CLICK -> Click.Type.DOUBLE_CLICK;
-                case NUMBER_KEY -> Click.Type.NUMBER_KEY;
+            final ClickType type = switch (event.getClick()) {
+                case LEFT -> ClickType.LEFT;
+                case SHIFT_LEFT -> ClickType.SHIFT_LEFT;
+                case RIGHT -> ClickType.RIGHT;
+                case SHIFT_RIGHT -> ClickType.SHIFT_RIGHT;
+                case MIDDLE -> ClickType.MIDDLE;
+                case DROP -> ClickType.DROP;
+                case CONTROL_DROP -> ClickType.CONTROL_DROP;
+                case DOUBLE_CLICK -> ClickType.DOUBLE_CLICK;
+                case NUMBER_KEY -> ClickType.NUMBER_KEY;
                 default -> null;
             };
 
