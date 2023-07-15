@@ -1,12 +1,8 @@
 package me.sparky983.vision.paper;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.renderer.TranslatableComponentRenderer;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.translation.GlobalTranslator;
-import net.kyori.adventure.translation.Translator;
 import org.bukkit.Server;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -14,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;

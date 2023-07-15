@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import me.sparky983.vision.Gui;
-import me.sparky983.vision.paper.PaperVision;
 
 class PaperVisionTests {
 
