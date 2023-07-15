@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
 import java.util.Optional;
 
 import static me.sparky983.vision.Chest.COLUMNS;
@@ -291,6 +292,36 @@ class ChestTests {
         final Gui gui = Gui.chest().build();
 
         assertEquals(GuiType.CHEST, gui.type());
+    }
+
+    @Test
+    void testSlots() {
+
+        final Gui gui = Gui.chest().rows(2).build();
+
+        final List<Slot> slots = List.of(
+                Slot.of(0, 0),
+                Slot.of(0, 1),
+                Slot.of(0, 2),
+                Slot.of(0, 3),
+                Slot.of(0, 4),
+                Slot.of(0, 5),
+                Slot.of(0, 6),
+                Slot.of(0, 7),
+                Slot.of(0, 8),
+
+                Slot.of(1, 0),
+                Slot.of(1, 1),
+                Slot.of(1, 2),
+                Slot.of(1, 3),
+                Slot.of(1, 4),
+                Slot.of(1, 5),
+                Slot.of(1, 6),
+                Slot.of(1, 7),
+                Slot.of(1, 8)
+        );
+
+        assertEquals(slots, gui.slots());
     }
 
     @SuppressWarnings("DataFlowIssue")

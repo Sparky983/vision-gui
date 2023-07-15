@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
 import java.util.Optional;
 
 import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
@@ -251,6 +252,20 @@ class DropperTest {
         final Gui gui = Gui.dropper().build();
 
         assertEquals(GuiType.DROPPER, gui.type());
+    }
+
+    @Test
+    void testSlots() {
+
+        final Gui gui = Gui.dropper().build();
+
+        final List<Slot> slots = List.of(
+                Slot.of(0, 0), Slot.of(0, 1), Slot.of(0, 2),
+                Slot.of(1, 0), Slot.of(1, 1), Slot.of(1, 2),
+                Slot.of(2, 0), Slot.of(2, 1), Slot.of(2, 2)
+        );
+
+        assertEquals(slots, gui.slots());
     }
 
     @SuppressWarnings("DataFlowIssue")

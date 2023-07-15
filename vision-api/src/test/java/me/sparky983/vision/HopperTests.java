@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
 import java.util.Optional;
 
 import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
@@ -261,6 +262,22 @@ class HopperTests {
         final Gui gui = Gui.hopper().build();
 
         assertEquals(GuiType.HOPPER, gui.type());
+    }
+
+    @Test
+    void testSlots() {
+
+        final Gui gui = Gui.hopper().build();
+
+        final List<Slot> slots = List.of(
+                Slot.of(0, 0),
+                Slot.of(0, 1),
+                Slot.of(0, 2),
+                Slot.of(0, 3),
+                Slot.of(0, 4)
+        );
+
+        assertEquals(slots, gui.slots());
     }
 
     @Test
