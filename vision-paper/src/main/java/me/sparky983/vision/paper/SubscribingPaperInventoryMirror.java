@@ -90,14 +90,11 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
             }
         };
 
-        for (int row = 0; row < gui.rows(); row++) {
-            for (int column = 0; column < gui.columns(); column++) {
-                final Slot slot = Slot.of(row, column);
-                gui.button(slot).ifPresent((button) -> {
-                    // Essentially replaying the button sets
-                    subscriber.button(slot, button);
-                });
-            }
+        for (final Slot slot : gui.slots()) {
+            gui.button(slot).ifPresent((button) -> {
+                // Essentially replaying the button sets
+                subscriber.button(slot, button);
+            });
         }
 
         gui.subscribe(subscriber);
