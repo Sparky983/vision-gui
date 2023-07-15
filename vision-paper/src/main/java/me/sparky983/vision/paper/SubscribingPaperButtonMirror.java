@@ -11,19 +11,22 @@ import java.util.Locale;
 import java.util.Objects;
 
 import me.sparky983.vision.Button;
-import me.sparky983.vision.Click;
 import me.sparky983.vision.ItemType;
 
 @NullMarked
 final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
-    private final PaperConverter paperConverter;
+    private final PaperComponentFixer componentFixer;
+    private final PaperItemTypeConverter itemTypeConverter;
 
-    SubscribingPaperButtonMirror(final PaperConverter paperConverter) {
+    SubscribingPaperButtonMirror(final PaperComponentFixer componentFixer,
+                                 final PaperItemTypeConverter itemTypeConverter) {
 
-        Objects.requireNonNull(paperConverter, "paperConverter cannot be null");
+        Objects.requireNonNull(componentFixer, "componentFixer cannot be null");
+        Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
 
-        this.paperConverter = paperConverter;
+        this.componentFixer = componentFixer;
+        this.itemTypeConverter = itemTypeConverter;
     }
 
     @Override
@@ -40,7 +43,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             public void name(final Component name) {
 
                 item.editMeta((meta) ->
-                        meta.displayName(paperConverter.convert(name, locale))
+                        meta.displayName(componentFixer.convert(name, locale))
                 );
             }
 
@@ -49,7 +52,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
                 item.editMeta((meta) -> meta.lore(lore
                         .stream()
-                        .map((line) -> paperConverter.convert(line, locale))
+                        .map((line) -> componentFixer.convert(line, locale))
                         .toList()));
             }
 
@@ -72,7 +75,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             @Override
             public void type(final ItemType type) {
 
-                paperConverter.convert(type).ifPresent(item::setType);
+                itemTypeConverter.convert(type).ifPresent(item::setType);
             }
         };
 

@@ -31,19 +31,19 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
             """;
 
     private final Server server;
-    private final PaperConverter paperConverter;
+    private final PaperItemTypeConverter itemTypeConverter;
     private final PaperButtonMirror buttonMirror;
 
     SubscribingPaperInventoryMirror(final Server server,
-                                    final PaperConverter paperConverter,
+                                    final PaperItemTypeConverter itemTypeConverter,
                                     final PaperButtonMirror buttonMirror) {
 
         Objects.requireNonNull(server, "server cannot be null");
-        Objects.requireNonNull(paperConverter, "paperConverter cannot be null");
+        Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
         Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
 
         this.server = server;
-        this.paperConverter = paperConverter;
+        this.itemTypeConverter = itemTypeConverter;
         this.buttonMirror = buttonMirror;
     }
 
@@ -79,7 +79,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
                 if (button == null) {
                     return;
                 }
-                final ItemStack item = paperConverter.convert(button.type())
+                final ItemStack item = itemTypeConverter.convert(button.type())
                         .map(ItemStack::new)
                         .orElseThrow(() -> new IllegalStateException(
                                 String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));

@@ -29,15 +29,18 @@ public interface PaperVision {
 
         Objects.requireNonNull(plugin, "plugin cannot be null");
 
-        final PaperConverter converter = new PaperConverterImpl(new ModernPaperItemTypeConverter());
+        final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
         return new PaperVisionImpl(
                 plugin,
                 plugin.getServer().getPluginManager(),
                 new SubscribingPaperInventoryMirror(
                         plugin.getServer(),
-                        converter,
-                        new SubscribingPaperButtonMirror(converter)
+                        itemTypeConverter,
+                        new SubscribingPaperButtonMirror(
+                                new PaperComponentFixerImpl(),
+                                itemTypeConverter
+                        )
                 )
         );
     }
