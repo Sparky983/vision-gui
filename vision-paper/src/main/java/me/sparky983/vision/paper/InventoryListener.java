@@ -44,7 +44,7 @@ final class InventoryListener implements Listener {
         }
 
         final Gui gui = guiInventoryHolder.gui();
-        final Slot slot = Slot.of(event.getSlot() / gui.columns(), event.getSlot() % gui.columns());
+        final Slot slot = gui.slots().get(event.getSlot());
 
         gui.button(slot).ifPresent((button) -> {
             final Click.Type type = switch (event.getClick()) {
