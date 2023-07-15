@@ -327,7 +327,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see #click(Click)
          * @since 0.1
          */
-        default void click(Click click) {
+        default void click(final Click click) {
 
         }
     }
