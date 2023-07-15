@@ -2,6 +2,7 @@ package me.sparky983.vision.paper;
 
 import me.sparky983.vision.Button;
 import me.sparky983.vision.Click;
+import me.sparky983.vision.ClickType;
 import me.sparky983.vision.Gui;
 import me.sparky983.vision.Slot;
 import net.kyori.adventure.audience.Audience;
@@ -19,7 +20,7 @@ final class PaperClick implements Click {
     private final Player clicker;
     private final Button button;
     private final Slot slot;
-    private final Type type;
+    private final ClickType type;
     private final PaperVision vision;
 
     /**
@@ -35,7 +36,7 @@ final class PaperClick implements Click {
     PaperClick(final Player clicker,
                final Button button,
                final Slot slot,
-               final Type type,
+               final ClickType type,
                final PaperVision vision) {
 
         Objects.requireNonNull(clicker, "clicker cannot be null");
@@ -78,7 +79,7 @@ final class PaperClick implements Click {
     }
 
     @Override
-    public Type type() {
+    public ClickType type() {
 
         return type;
     }
