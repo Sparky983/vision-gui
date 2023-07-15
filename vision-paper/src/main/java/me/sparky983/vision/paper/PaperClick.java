@@ -11,7 +11,7 @@ import org.jspecify.nullness.NullMarked;
 import java.util.Objects;
 
 /**
- * The default implementation of {@link Click}.
+ * The paper implementation of {@link Click}.
  */
 @NullMarked
 final class PaperClick implements Click {
