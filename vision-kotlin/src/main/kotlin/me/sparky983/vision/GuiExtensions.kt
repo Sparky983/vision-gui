@@ -31,3 +31,12 @@ public val Gui.rows: Int
  */
 public val Gui.columns: Int
     get() = columns()
+
+/**
+ * The [Slot]s in this [Gui].
+ *
+ * @see Gui.slots
+ * @since 1.0
+ */
+public val Gui.slots: List<Slot>
+    get() = slots()
