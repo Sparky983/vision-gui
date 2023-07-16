@@ -3,6 +3,7 @@ package me.sparky983.vision;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
+import org.jspecify.nullness.Nullable;
 
 import java.util.Set;
 
@@ -51,6 +52,16 @@ public non-sealed interface Chest extends Gui {
      */
     @ApiStatus.Experimental
     int COLUMNS = 9;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.0
+     */
+    @Override
+    Chest button(Slot slot, @Nullable Button button);
 
     /**
      * A {@link Chest} builder.

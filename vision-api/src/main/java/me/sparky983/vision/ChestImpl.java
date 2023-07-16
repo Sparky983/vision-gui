@@ -50,7 +50,7 @@ final class ChestImpl implements Chest {
     }
 
     @Override
-    public Gui button(final Slot slot, final @Nullable Button button) {
+    public Chest button(final Slot slot, final @Nullable Button button) {
 
         container.button(slot, button);
         return this;

@@ -48,7 +48,7 @@ final class HopperImpl implements Hopper {
     }
 
     @Override
-    public Gui button(final Slot slot, final @Nullable Button button) {
+    public Hopper button(final Slot slot, final @Nullable Button button) {
 
         container.button(slot, button);
         return this;

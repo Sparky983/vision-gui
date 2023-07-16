@@ -48,7 +48,7 @@ final class DropperImpl implements Dropper {
     }
 
     @Override
-    public Gui button(final Slot slot, final @Nullable Button button) {
+    public Dropper button(final Slot slot, final @Nullable Button button) {
 
         container.button(slot, button);
         return this;
