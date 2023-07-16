@@ -1,5 +1,6 @@
 package me.sparky983.vision;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.Set;
  *
  * @since 1.0
  */
+@ApiStatus.Experimental
 @NullMarked
 public enum Border {
 
