@@ -1,6 +1,8 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
@@ -94,8 +96,9 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @param name the name or {@code null} to remove the name
      * @return this {@code Button} instance (for chaining)
      * @since 0.1
-     * @vision.implNote The Paper Vision implementation removes the default Minecraft display name
-     * style (italics).
+     * @vision.implNote The Paper Vision implementation's default style is
+     * {@link NamedTextColor#WHITE} with no {@link TextDecoration}, rather than Minecraft's style
+     * (italics).
      */
     Button name(@Nullable Component name);
 
@@ -117,7 +120,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @return this {@code Button} instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
      * @since 0.1
-     * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+     * @vision.implNote The Paper Vision implementation's default style is
+     * {@link NamedTextColor#WHITE} with no {@link TextDecoration}, rather than Minecraft's style
      * (purple, italics).
      */
     Button lore(Component... lore);
@@ -131,7 +135,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @return this {@code Button} instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
      * @since 0.1
-     * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+     * @vision.implNote The Paper Vision implementation's default style is
+     * {@link NamedTextColor#WHITE} with no {@link TextDecoration}, rather than Minecraft's style
      * (purple, italics).
      */
     Button lore(List<Component> lore);
