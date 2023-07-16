@@ -266,7 +266,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @vision.experimental because this may be changed, deleted or renamed.
          */
         @ApiStatus.Experimental
-        Builder border(Button button, Set<Border> borders);
+        Builder border(Button button, Set<? extends Border> borders);
 
         /**
          * Sets the specified borders of the {@link Gui} to the specified {@link Button}.

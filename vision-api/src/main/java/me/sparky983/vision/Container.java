@@ -222,7 +222,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
             return this;
         }
 
-        Builder border(final Button button, final Set<Border> borders) {
+        Builder border(final Button button, final Set<? extends Border> borders) {
 
             Objects.requireNonNull(button, "button cannot be null");
             Objects.requireNonNull(borders, "borders cannot be null");
