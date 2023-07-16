@@ -73,6 +73,14 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     }
 
     /**
+     * Returns the type of this {@code Gui}.
+     *
+     * @return the type of this {@code Gui}
+     * @since 1.0
+     */
+    GuiType type();
+
+    /**
      * Returns the title of this {@code Gui}.
      * <p>
      * If this {@code Gui} is untitled, the returned component will match Minecraft's default
@@ -101,18 +109,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     int columns();
 
     /**
-     * Sets the {@link Button} at the specified {@link Slot}.
-     *
-     * @param slot the slot
-     * @param button the button or {@code null} to remove the button
-     * @return this {@code Gui} instance (for chaining)
-     * @throws IllegalArgumentException if the slot is out of bounds.
-     * @throws NullPointerException if the slot is {@code null}.
-     * @since 0.1
-     */
-    Gui button(Slot slot, @Nullable Button button);
-
-    /**
      * Returns the {@link Button} at the specified {@link Slot}.
      *
      * @param slot the slot
@@ -124,12 +120,16 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Optional<Button> button(Slot slot);
 
     /**
-     * Returns the type of this {@code Gui}.
+     * Sets the {@link Button} at the specified {@link Slot}.
      *
-     * @return the type of this {@code Gui}
-     * @since 1.0
+     * @param slot the slot
+     * @param button the button or {@code null} to remove the button
+     * @return this {@code Gui} instance (for chaining)
+     * @throws IllegalArgumentException if the slot is out of bounds.
+     * @throws NullPointerException if the slot is {@code null}.
+     * @since 0.1
      */
-    GuiType type();
+    Gui button(Slot slot, @Nullable Button button);
 
     /**
      * Returns an immutable list of all slots, present or absent, in this {@code Gui}.

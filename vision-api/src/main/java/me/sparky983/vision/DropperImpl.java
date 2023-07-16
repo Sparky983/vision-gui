@@ -30,6 +30,12 @@ final class DropperImpl implements Dropper {
     }
 
     @Override
+    public GuiType type() {
+
+        return GuiType.DROPPER;
+    }
+
+    @Override
     public Component title() {
 
         return container.title();
@@ -48,22 +54,16 @@ final class DropperImpl implements Dropper {
     }
 
     @Override
-    public Dropper button(final Slot slot, final @Nullable Button button) {
-
-        container.button(slot, button);
-        return this;
-    }
-
-    @Override
     public Optional<Button> button(final Slot slot) {
 
         return container.button(slot);
     }
 
     @Override
-    public GuiType type() {
+    public Dropper button(final Slot slot, final @Nullable Button button) {
 
-        return GuiType.DROPPER;
+        container.button(slot, button);
+        return this;
     }
 
     @Override

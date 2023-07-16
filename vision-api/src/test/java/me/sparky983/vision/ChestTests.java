@@ -34,6 +34,14 @@ class ChestTests {
      */
     static final Slot SLOT = Slot.of(0, 0);
 
+    @Test
+    void testType() {
+
+        final Gui gui = Gui.chest().build();
+
+        assertEquals(GuiType.CHEST, gui.type());
+    }
+
     @SuppressWarnings("ConstantConditions")
     @Test
     void testBuilderTitleWhenTitleIsNull() {
@@ -161,6 +169,38 @@ class ChestTests {
         assertEquals(Optional.of(button), gui.button(SLOT));
     }
 
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testGetButtonWhenSlotIsNull() {
+
+        final Gui gui = Gui.chest().build();
+
+        final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
+        assertEquals("slot cannot be null", e.getMessage());
+    }
+
+    @CsvSource({
+            "1, 0, 1",
+            "1, 8, 1",
+            "5, 0, 5",
+            "5, 8, 5"
+    })
+    @ParameterizedTest
+    void testGetButtonWhenSlotIsOutOfBounds(final int slotRow,
+                                            final int slotColumn,
+                                            final int guiRows) {
+
+        final Gui gui = Gui.chest()
+                .rows(guiRows)
+                .build();
+        final Slot slot = Slot.of(slotRow, slotColumn);
+
+        final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
+        assertEquals(
+                String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS),
+                e.getMessage());
+    }
+
     @SuppressWarnings("ConstantConditions")
     @Test
     void testSetButtonWhenSlotIsNull() {
@@ -220,38 +260,6 @@ class ChestTests {
         assertEquals(gui, gui.button(SLOT, button));
 
         assertEquals(Optional.of(button), gui.button(SLOT));
-    }
-
-    @SuppressWarnings("DataFlowIssue")
-    @Test
-    void testGetButtonWhenSlotIsNull() {
-
-        final Gui gui = Gui.chest().build();
-
-        final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
-        assertEquals("slot cannot be null", e.getMessage());
-    }
-
-    @CsvSource({
-            "1, 0, 1",
-            "1, 8, 1",
-            "5, 0, 5",
-            "5, 8, 5"
-    })
-    @ParameterizedTest
-    void testGetButtonWhenSlotIsOutOfBounds(final int slotRow,
-                                            final int slotColumn,
-                                            final int guiRows) {
-
-        final Gui gui = Gui.chest()
-                .rows(guiRows)
-                .build();
-        final Slot slot = Slot.of(slotRow, slotColumn);
-
-        final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
-        assertEquals(
-                String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS),
-                e.getMessage());
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -495,14 +503,6 @@ class ChestTests {
                 assertEquals(Optional.empty(), gui.button(slot), slot.toString());
             }
         }
-    }
-
-    @Test
-    void testType() {
-
-        final Gui gui = Gui.chest().build();
-
-        assertEquals(GuiType.CHEST, gui.type());
     }
 
     @Test
