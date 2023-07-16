@@ -4,6 +4,8 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 
+import java.util.Set;
+
 /**
  * Represents the {@link Dropper} variant of a {@link Gui}.
  *
@@ -90,7 +92,69 @@ public non-sealed interface Dropper extends Gui {
         Builder fill(Button button);
 
         /**
+         * Sets the specified borders of the {@link Dropper} to the specified {@link Button}.
+         * <p>
+         * Changes to the border set after this method is called will not affect the
+         * {@link Dropper}.
+         * <p>
+         * When the {@link Dropper} is built, the {@link Button Buttons} will be placed in the empty
+         * slots covered by the borders. If a border has been specified multiple times, the last
+         * specified {@link Button} will be used. The same is the case for corners.
+         *
+         * @param button {@inheritDoc}
+         * @param borders {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
+         * @throws IllegalArgumentException {@inheritDoc}
+         * @since 1.0
+         * @vision.experimental {@inheritDoc}
+         */
+        @Override
+        Builder border(Button button, Set<Border> borders);
+
+        /**
+         * Sets the specified borders of the {@link Dropper} to the specified {@link Button}.
+         * <p>
+         * Changes to the border array after this method is called will not affect the
+         * {@link Dropper}.
+         * <p>
+         * When the {@link Dropper} is built, the {@link Button Buttons} will be placed in the empty
+         * slots covered by the borders. If a border has been specified multiple times, the last
+         * specified {@link Button} will be used. The same is the case for corners.
+         *
+         * @param button {@inheritDoc}
+         * @param borders {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
+         * @throws IllegalArgumentException {@inheritDoc}
+         * @since 1.0
+         * @vision.experimental {@inheritDoc}
+         */
+        @Override
+        Builder border(Button button, Border... borders);
+
+        /**
+         * Sets all the borders of the {@link Dropper} to the specified {@link Button}.
+         * <p>
+         * When the {@link Dropper} is built, the {@link Button Buttons} will be placed in all empty
+         * border slots. If a border has been specified multiple times, the last specified
+         * {@link Button} will be used. The same is the case for corners.
+         *
+         * @param button {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
+         * @since 1.0
+         * @vision.experimental {@inheritDoc}
+         */
+        @Override
+        Builder border(Button button);
+
+        /**
          * Builds the {@link Dropper}.
+         * <p>
+         * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
+         * specified, the {@link #border(Button, Set) border} will overlay the {@link #fill(Button)}
+         * in the returned {@link Dropper}.
          *
          * @return the built {@link Dropper}
          * @throws IllegalStateException {@inheritDoc}

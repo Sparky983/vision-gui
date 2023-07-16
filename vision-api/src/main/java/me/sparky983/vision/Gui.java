@@ -7,6 +7,7 @@ import org.jspecify.nullness.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a GUI.
@@ -248,7 +249,69 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
         Builder fill(Button button);
 
         /**
+         * Sets the specified borders of the {@link Gui} to the specified {@link Button}.
+         * <p>
+         * Changes to the border set after this method is called will not affect the {@link Gui}.
+         * <p>
+         * When the {@link Gui} is built, the {@link Button Buttons} will be placed in the empty
+         * slots covered by the borders. If a border has been specified multiple times, the last
+         * specified {@link Button} will be used. The same is the case for corners.
+         *
+         * @param button the button
+         * @param borders the borders
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the button is {@code null} or the borders contains or is
+         * {@code null}.
+         * @throws IllegalArgumentException if there are no borders.
+         * @since 1.0
+         * @vision.experimental because this may be changed, deleted or renamed.
+         */
+        @ApiStatus.Experimental
+        Builder border(Button button, Set<Border> borders);
+
+        /**
+         * Sets the specified borders of the {@link Gui} to the specified {@link Button}.
+         * <p>
+         * Changes to the border array after this method is called will not affect the {@link Gui}.
+         * <p>
+         * When the {@link Gui} is built, the {@link Button Buttons} will be placed in the empty
+         * slots covered by the borders. If a border has been specified multiple times, the last
+         * specified {@link Button} will be used. The same is the case for corners.
+         *
+         * @param button the button
+         * @param borders the borders
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the button is {@code null} or the borders contains or is
+         * {@code null}.
+         * @throws IllegalArgumentException if there are no or duplicate borders.
+         * @since 1.0
+         * @vision.experimental because this may be changed, deleted or renamed.
+         */
+        @ApiStatus.Experimental
+        Builder border(Button button, Border... borders);
+
+        /**
+         * Sets all the borders of the {@link Gui} to the specified {@link Button}.
+         * <p>
+         * When the {@link Gui} is built, the {@link Button Buttons} will be placed in all empty
+         * border slots. If a border has been specified multiple times, the last specified
+         * {@link Button} will be used. The same is the case for corners.
+         *
+         * @param button the button
+         * @return this builder instance (for chaining)
+         * @throws NullPointerException if the button is {@code null}
+         * @since 1.0
+         * @vision.experimental because this may be changed, deleted or renamed.
+         */
+        @ApiStatus.Experimental
+        Builder border(Button button);
+
+        /**
          * Builds the {@link Gui}.
+         * <p>
+         * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
+         * specified, the {@link #border(Button, Set) border} will overlay the {@link #fill(Button)}
+         * in the returned {@link Gui}.
          *
          * @return the built {@link Gui}
          * @throws IllegalStateException if any of the buttons are out of bounds.

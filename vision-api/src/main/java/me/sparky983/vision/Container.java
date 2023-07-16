@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.IntStream;
+import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * A representation of a {@link Gui}'s contents.
@@ -161,9 +162,10 @@ final class Container implements Subscribable<Gui.Subscriber> {
     /**
      * A {@link Container} builder.
      */
-    static final class Builder {
+    static class Builder {
 
         private final Map<Slot, Button> buttons = new HashMap<>();
+        private final Map<Border, Button> borders = new LinkedHashMap<>();
         private @Nullable Button filler = null;
         private Component title;
         private int rows;
@@ -221,9 +223,67 @@ final class Container implements Subscribable<Gui.Subscriber> {
             return this;
         }
 
+        private static final Logger LOGGER = Logger.getLogger("Container.Builder");
+
+        Builder border(final Button button, final Set<Border> borders) {
+
+            Objects.requireNonNull(button, "button cannot be null");
+            Objects.requireNonNull(borders, "borders cannot be null");
+
+            for (final Border border : borders) {
+                Objects.requireNonNull(border, "borders cannot contain null");
+            }
+
+            if (borders.isEmpty()) {
+                throw new IllegalArgumentException("""
+                        borders cannot be empty
+                        to set all borders, use Gui.Builder.border(Button) instead""");
+            }
+
+           LOGGER.info("button = " + button);
+           LOGGER.info("borders = " + borders);
+           LOGGER.info("");
+
+            for (final Border border : borders) {
+                this.borders.remove(border); // remove so that the last one wins
+                this.borders.put(border, button);
+            }
+            return this;
+        }
+
+        Builder border(final Button button, final Border... borders) {
+
+            Objects.requireNonNull(borders, "borders cannot be null");
+
+            final Set<Border> borderSet = new LinkedHashSet<>();
+
+            for (int i = 0; i < borders.length; i++) {
+                final Border border = borders[i];
+                Objects.requireNonNull(border, "borders[" + i + " cannot contain null");
+                if (!borderSet.add(border)) {
+                    throw new IllegalArgumentException("borders cannot contain duplicates");
+                }
+            }
+
+            return border(button, borderSet);
+        }
+
+        Builder border(final Button button) {
+
+            return border(button, Border.all());
+        }
+
         Container build() {
 
             final Map<Slot, Button> buttons = new HashMap<>();
+
+            for (final Slot slot : this.buttons.keySet()) {
+                if (slot.row() >= rows || slot.column() >= columns) {
+                    throw new IllegalStateException(
+                            String.format(
+                                    SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
+                }
+            }
 
             if (filler != null) {
                 for (int row = 0; row < rows; row++) {
@@ -233,11 +293,29 @@ final class Container implements Subscribable<Gui.Subscriber> {
                 }
             }
 
-            for (final Slot slot : this.buttons.keySet()) {
-                if (slot.row() >= rows || slot.column() >= columns) {
-                    throw new IllegalStateException(
-                            String.format(
-                                    SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
+            for (final Map.Entry<Border, Button> entry : borders.entrySet()) {
+                final Button button = entry.getValue();
+                switch (entry.getKey()) {
+                    case TOP -> {
+                        for (int column = 0; column < columns; column++) {
+                            buttons.put(Slot.of(0, column), button);
+                        }
+                    }
+                    case BOTTOM -> {
+                        for (int column = 0; column < columns; column++) {
+                            buttons.put(Slot.of(rows - 1, column), button);
+                        }
+                    }
+                    case LEFT -> {
+                        for (int row = 0; row < rows; row++) {
+                            buttons.put(Slot.of(row, 0), button);
+                        }
+                    }
+                    case RIGHT -> {
+                        for (int row = 0; row < rows; row++) {
+                            buttons.put(Slot.of(row, columns - 1), button);
+                        }
+                    }
                 }
             }
 
