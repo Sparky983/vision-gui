@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
 import static me.sparky983.vision.Hopper.COLUMNS;
@@ -252,6 +253,148 @@ class HopperTests {
                 } else {
                     assertEquals(Optional.of(filler), gui.button(Slot.of(row, column)));
                 }
+            }
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderSetWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.hopper();
+
+        assertThrows(NullPointerException.class, () -> builder.border(null, Set.of(Border.TOP)));
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderSetWhenBordersIsNull() {
+
+        final Gui.Builder builder = Gui.hopper();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(NullPointerException.class, () -> builder.border(button, (Set<Border>) null));
+    }
+
+    @Test
+    void testBuilderBorderSetWhenBordersIsEmpty() {
+
+        final Gui.Builder builder = Gui.hopper();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(IllegalArgumentException.class, () -> builder.border(button, Set.of()));
+    }
+
+    @Test
+    void testBuilderBorderSet() {
+
+        final Button button = Button.of(ItemType.STONE);
+        final Button border = Button.of(ItemType.DIAMOND);
+        final Gui.Builder builder = Gui.hopper()
+                .button(Slot.of(0, 2), button);
+
+        assertEquals(builder, builder.border(border, Set.of(Border.TOP)));
+
+        final Gui gui = builder.build();
+
+        for (final Slot slot : gui.slots()) {
+            if (slot.column() == 2) {
+                assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+            } else {
+                assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+            }
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderVarargsWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.hopper();
+
+        assertThrows(NullPointerException.class, () -> builder.border(null, Border.TOP));
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderVarargsWhenBordersIsNull() {
+
+        final Gui.Builder builder = Gui.hopper();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(NullPointerException.class, () -> builder.border(button, (Border) null));
+    }
+
+    @Test
+    void testBuilderBorderVarargsWhenBordersIsEmpty() {
+
+        final Gui.Builder builder = Gui.hopper();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(IllegalArgumentException.class, () -> builder.border(button, new Border[0]));
+    }
+
+    @Test
+    void testBuilderBorderVarargsWhenBordersHasDuplicates() {
+
+        final Gui.Builder builder = Gui.hopper();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                builder.border(button, Border.TOP, Border.TOP));
+    }
+
+    @Test
+    void testBuilderBorderVarargs() {
+
+        final Button button = Button.of(ItemType.STONE);
+        final Button border = Button.of(ItemType.DIAMOND);
+        final Gui.Builder builder = Gui.hopper()
+                .button(Slot.of(0, 2), button);
+
+        assertEquals(builder, builder.border(border, Border.LEFT, Border.RIGHT));
+
+        final Gui gui = builder.build();
+
+        final Set<Slot> slots = Set.of(Slot.of(0, 0), Slot.of(0, 4));
+
+        for (final Slot slot : gui.slots()) {
+            if (slots.contains(slot)) {
+                assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+            } else if (slot.column() == 2) {
+                assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+            } else {
+                assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+            }
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.hopper();
+
+        assertThrows(NullPointerException.class, () -> builder.border(null));
+    }
+
+    @Test
+    void testBuilderBorder() {
+
+        final Button button = Button.of(ItemType.STONE);
+        final Button border = Button.of(ItemType.DIAMOND);
+        final Gui.Builder builder = Gui.hopper()
+                .button(Slot.of(0, 1), button);
+
+        assertEquals(builder, builder.border(border));
+
+        final Gui gui = builder.build();
+
+        for (final Slot slot : gui.slots()) {
+            if (slot.column() == 1) {
+                assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+            } else {
+                assertEquals(Optional.of(border), gui.button(slot), slot.toString());
             }
         }
     }

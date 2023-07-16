@@ -7,6 +7,7 @@ import org.jspecify.nullness.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * The default implementation of {@link Chest}.
@@ -120,6 +121,27 @@ final class ChestImpl implements Chest {
         public Builder fill(final Button button) {
 
             container.fill(button);
+            return this;
+        }
+
+        @Override
+        public Builder border(final Button button, final Set<Border> borders) {
+
+            container.border(button, borders);
+            return this;
+        }
+
+        @Override
+        public Builder border(final Button button, final Border... borders) {
+
+            container.border(button, borders);
+            return this;
+        }
+
+        @Override
+        public Builder border(final Button button) {
+
+            container.border(button);
             return this;
         }
 
