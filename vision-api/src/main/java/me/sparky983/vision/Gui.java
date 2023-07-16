@@ -210,7 +210,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *        .build();
      *</pre>
      */
-    interface Builder {
+    sealed interface Builder permits Chest.Builder, Dropper.Builder, Hopper.Builder {
 
         /**
          * Sets the title of the {@link Gui}.

@@ -76,7 +76,7 @@ public non-sealed interface Chest extends Gui {
      *        .build();
      *</pre>
      */
-    interface Builder extends Gui.Builder {
+    non-sealed interface Builder extends Gui.Builder {
 
         /**
          * {@inheritDoc}

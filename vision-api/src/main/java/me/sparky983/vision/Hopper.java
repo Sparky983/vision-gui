@@ -64,7 +64,7 @@ public non-sealed interface Hopper extends Gui {
      *        .build();
      *</pre>
      */
-    interface Builder extends Gui.Builder {
+    non-sealed interface Builder extends Gui.Builder {
 
         /**
          * {@inheritDoc}
