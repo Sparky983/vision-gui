@@ -45,18 +45,18 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
         for (final T subscriber : subscribers.values()) {
             try {
                 consumer.accept(subscriber);
-            } catch (final RuntimeException e) {
+            } catch (final Throwable e) {
                 exception(e);
             }
         }
     }
 
-    private void exception(final RuntimeException thrown) {
+    private void exception(final Throwable thrown) {
 
         for (final T subscriber : subscribers.values()) {
             try {
                 subscriber.exception(thrown);
-            } catch (final RuntimeException e) {
+            } catch (final Throwable e) {
                 e.printStackTrace();
             }
         }

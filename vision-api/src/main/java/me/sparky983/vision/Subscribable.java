@@ -33,7 +33,7 @@ public interface Subscribable<T extends Subscribable.Subscriber> {
     interface Subscriber {
 
         /**
-         * Called when a handling an event throws an exception.
+         * Called when a handling an event throws.
          * <p>
          * If this method throws an exception, the exception may be
          * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
@@ -44,7 +44,7 @@ public interface Subscribable<T extends Subscribable.Subscriber> {
          * @throws NullPointerException if the thrown exception is {@code null} (optional).
          * @since 0.1
          */
-        default void exception(final RuntimeException thrown) {
+        default void exception(final Throwable thrown) {
 
         }
     }

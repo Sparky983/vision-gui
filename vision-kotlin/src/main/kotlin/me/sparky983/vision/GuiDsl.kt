@@ -211,7 +211,7 @@ public interface ButtonDsl {
     /**
      * Whether the [Button] is glowing.
      *
-     * @see Button#glow
+     * @see Button.glow
      * @since 1.0
      */
     public var glow: Boolean
