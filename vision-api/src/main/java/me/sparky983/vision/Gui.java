@@ -180,6 +180,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @param slot the slot
          * @param button the new button or {@code null} if there is no new {@link Button}
          * @throws NullPointerException if the slot is {@code null} (optional).
+         * @see Gui#button(Slot, Button)
          * @since 0.1
          */
         default void button(final Slot slot, final @Nullable Button button) {
