@@ -8,6 +8,7 @@ import org.jspecify.nullness.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -73,7 +74,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
         this.title = title;
         this.rows = rows;
         this.columns = columns;
-        this.buttons = new HashMap<>(buttons);
+        this.buttons = buttons;
 
         final List<Slot> slots = new ArrayList<>();
         for (int row = 0; row < rows; row++) {
@@ -222,7 +223,17 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
         Container build() {
 
-            for (final Slot slot : buttons.keySet()) {
+            final Map<Slot, Button> buttons = new HashMap<>();
+
+            if (filler != null) {
+                for (int row = 0; row < rows; row++) {
+                    for (int column = 0; column < columns; column++) {
+                        buttons.put(Slot.of(row, column), filler);
+                    }
+                }
+            }
+
+            for (final Slot slot : this.buttons.keySet()) {
                 if (slot.row() >= rows || slot.column() >= columns) {
                     throw new IllegalStateException(
                             String.format(
@@ -230,13 +241,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
                 }
             }
 
-            if (filler != null) {
-                for (int row = 0; row < rows; row++) {
-                    for (int column = 0; column < columns; column++) {
-                        buttons.putIfAbsent(Slot.of(row, column), filler);
-                    }
-                }
-            }
+            buttons.putAll(this.buttons);
 
             return new Container(title, rows, columns, buttons);
         }
