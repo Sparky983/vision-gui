@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * A representation of a {@link Gui}'s contents.
@@ -223,8 +222,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
             return this;
         }
 
-        private static final Logger LOGGER = Logger.getLogger("Container.Builder");
-
         Builder border(final Button button, final Set<Border> borders) {
 
             Objects.requireNonNull(button, "button cannot be null");
@@ -239,10 +236,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
                         borders cannot be empty
                         to set all borders, use Gui.Builder.border(Button) instead""");
             }
-
-           LOGGER.info("button = " + button);
-           LOGGER.info("borders = " + borders);
-           LOGGER.info("");
 
             for (final Border border : borders) {
                 this.borders.remove(border); // remove so that the last one wins
