@@ -57,7 +57,7 @@ public enum Border {
      *
      * @return an unmodifiable set containing all {@code Borders}
      * @since 1.0
-     * @implNote The returned set is cached.
+     * @vision.implNote The returned set is cached.
      */
     // TODO(Sparky983): Does this really need to be public? Users shouldn't need to use this because
     //  of Gui.Builder.border(Button).
