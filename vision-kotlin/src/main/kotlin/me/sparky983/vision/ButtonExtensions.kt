@@ -56,3 +56,15 @@ public var Button.amount: Int
     set(amount) {
         amount(amount)
     }
+
+/**
+ * Whether this [Button] is glowing.
+ *
+ * @see Button.glow
+ * @since 1.0
+ */
+public var Button.glow: Boolean
+    get() = glow()
+    set(glow) {
+        glow(glow)
+    }
