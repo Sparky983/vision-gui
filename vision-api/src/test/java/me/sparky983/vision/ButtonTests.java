@@ -517,7 +517,7 @@ class ButtonTests {
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(button, button.type(ItemType.DIRT));
-            assertEquals(button.type(), ItemType.DIRT);
+            assertEquals(ItemType.DIRT, button.type());
         }
 
         @Test
