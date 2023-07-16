@@ -251,7 +251,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          *
          * @param name the new name
          * @throws NullPointerException if the name is {@code null} (optional).
-         * @see #name(Component)
+         * @see Button#name(Component)
          * @since 0.1
          */
         default void name(final Component name) {
@@ -265,8 +265,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
          *
          * @param lore the new lore
          * @throws NullPointerException if the lore is or contains {@code null} (optional).
-         * @see #lore(List)
-         * @see #lore(Component...)
+         * @see Button#lore(List)
+         * @see Button#lore(Component...)
          * @since 0.1
          */
         default void lore(final List<Component> lore) {
@@ -281,7 +281,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @param amount the new amount
          * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
          * {@code 64} (optional).
-         * @see #amount(int)
+         * @see Button#amount(int)
          * @since 0.1
          */
         default void amount(final int amount) {
@@ -294,7 +294,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * The default implementation does nothing.
          *
          * @param glow the new glowing state
-         * @see #glow(boolean)
+         * @see Button#glow(boolean)
          * @since 1.0
          * @vision.experimental because this may be renamed.
          */
@@ -310,7 +310,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          *
          * @param type the new type
          * @throws NullPointerException if the type is {@code null} (optional).
-         * @see #type(ItemType)
+         * @see Button#type(ItemType)
          * @since 0.1
          */
         default void type(final ItemType type) {
@@ -324,7 +324,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          *
          * @param click an object describing the click
          * @throws NullPointerException if the click is {@code null} (optional).
-         * @see #click(Click)
+         * @see Button#click(Click)
          * @since 0.1
          */
         default void click(final Click click) {
