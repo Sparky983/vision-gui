@@ -29,6 +29,14 @@ class HopperTests {
      */
     static final Slot SLOT = Slot.of(0, 0);
 
+    @Test
+    void testType() {
+
+        final Gui gui = Gui.hopper().build();
+
+        assertEquals(GuiType.HOPPER, gui.type());
+    }
+
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderTitleWhenTitleIsNull() {
@@ -132,6 +140,34 @@ class HopperTests {
 
     @SuppressWarnings("DataFlowIssue")
     @Test
+    void testGetButtonWhenSlotIsNull() {
+
+        final Gui gui = Gui.hopper().build();
+
+        final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
+        assertEquals("slot cannot be null", e.getMessage());
+    }
+
+    @CsvSource({
+            "2, 3",
+            "3, 3",
+            "3, 2",
+            "3, 3"
+    })
+    @ParameterizedTest
+    void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
+
+        final Slot slot = Slot.of(row, column);
+        final Gui gui = Gui.hopper().build();
+
+        final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
+        assertEquals(
+                String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
+                e.getMessage());
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
     void testSetButtonWhenSlotIsNull() {
 
         final Gui gui = Gui.hopper().build();
@@ -185,34 +221,6 @@ class HopperTests {
         assertEquals(gui, gui.button(SLOT, button));
 
         assertEquals(Optional.of(button), gui.button(SLOT));
-    }
-
-    @SuppressWarnings("DataFlowIssue")
-    @Test
-    void testGetButtonWhenSlotIsNull() {
-
-        final Gui gui = Gui.hopper().build();
-
-        final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
-        assertEquals("slot cannot be null", e.getMessage());
-    }
-
-    @CsvSource({
-            "2, 3",
-            "3, 3",
-            "3, 2",
-            "3, 3"
-    })
-    @ParameterizedTest
-    void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
-
-        final Slot slot = Slot.of(row, column);
-        final Gui gui = Gui.hopper().build();
-
-        final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
-        assertEquals(
-                String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
-                e.getMessage());
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -395,14 +403,6 @@ class HopperTests {
                 assertEquals(Optional.of(border), gui.button(slot), slot.toString());
             }
         }
-    }
-
-    @Test
-    void testType() {
-
-        final Gui gui = Gui.hopper().build();
-
-        assertEquals(GuiType.HOPPER, gui.type());
     }
 
     @Test

@@ -116,6 +116,18 @@ final class Container implements Subscribable<Gui.Subscriber> {
         return rows;
     }
 
+    Optional<Button> button(final Slot slot) {
+
+        Objects.requireNonNull(slot, "slot cannot be null");
+
+        if (slot.column() >= columns || slot.row() >= rows) {
+            throw new IllegalArgumentException(
+                    String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
+        }
+
+        return Optional.ofNullable(buttons.get(slot));
+    }
+
     void button(final Slot slot, final @Nullable Button button) {
 
         Objects.requireNonNull(slot, "slot cannot be null");
@@ -131,18 +143,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
             buttons.put(slot, button);
         }
         subscribers.notify((subscriber) -> subscriber.button(slot, button));
-    }
-
-    Optional<Button> button(final Slot slot) {
-
-        Objects.requireNonNull(slot, "slot cannot be null");
-
-        if (slot.column() >= columns || slot.row() >= rows) {
-            throw new IllegalArgumentException(
-                    String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
-        }
-
-        return Optional.ofNullable(buttons.get(slot));
     }
 
     List<Slot> slots() {

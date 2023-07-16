@@ -30,6 +30,12 @@ final class HopperImpl implements Hopper {
     }
 
     @Override
+    public GuiType type() {
+
+        return GuiType.HOPPER;
+    }
+
+    @Override
     public Component title() {
 
         return container.title();
@@ -48,22 +54,16 @@ final class HopperImpl implements Hopper {
     }
 
     @Override
-    public Hopper button(final Slot slot, final @Nullable Button button) {
-
-        container.button(slot, button);
-        return this;
-    }
-
-    @Override
     public Optional<Button> button(final Slot slot) {
 
         return container.button(slot);
     }
 
     @Override
-    public GuiType type() {
+    public Hopper button(final Slot slot, final @Nullable Button button) {
 
-        return GuiType.HOPPER;
+        container.button(slot, button);
+        return this;
     }
 
     @Override

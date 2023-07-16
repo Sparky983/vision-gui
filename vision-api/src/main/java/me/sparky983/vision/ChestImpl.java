@@ -32,6 +32,12 @@ final class ChestImpl implements Chest {
     }
 
     @Override
+    public GuiType type() {
+
+        return GuiType.CHEST;
+    }
+
+    @Override
     public Component title() {
 
         return container.title();
@@ -50,22 +56,16 @@ final class ChestImpl implements Chest {
     }
 
     @Override
-    public Chest button(final Slot slot, final @Nullable Button button) {
-
-        container.button(slot, button);
-        return this;
-    }
-
-    @Override
     public Optional<Button> button(final Slot slot) {
 
         return container.button(slot);
     }
 
     @Override
-    public GuiType type() {
+    public Chest button(final Slot slot, final @Nullable Button button) {
 
-        return GuiType.CHEST;
+        container.button(slot, button);
+        return this;
     }
 
     @Override
