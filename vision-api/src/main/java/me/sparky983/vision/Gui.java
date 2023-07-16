@@ -216,7 +216,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * Sets the title of the {@link Gui}.
          *
          * @param title the title
-         * @return this builder instance (for chaining)
+         * @return this {@code Builder} instance (for chaining)
          * @throws NullPointerException if the title is {@code null}.
          * @since 0.1
          * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
@@ -229,7 +229,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          *
          * @param slot the slot
          * @param button the button
-         * @return this builder instance (for chaining)
+         * @return this {@code Builder} instance (for chaining)
          * @throws NullPointerException if the slot or button is {@code null}.
          * @since 1.0
          */
@@ -239,7 +239,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * Sets all the empty slots to the specified {@link Button} in the {@link Gui}.
          *
          * @param button the button
-         * @return this builder instance (for chaining)
+         * @return this {@code Builder} instance (for chaining)
          * @throws NullPointerException if the button is {@code null}.
          * @since 1.0
          * @vision.experimental because this may be changed, deleted or renamed.
@@ -258,7 +258,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          *
          * @param button the button
          * @param borders the borders
-         * @return this builder instance (for chaining)
+         * @return this {@code Builder} instance (for chaining)
          * @throws IllegalArgumentException if there are no borders.
          * @throws NullPointerException if the button is {@code null} or the borders contains or is
          * {@code null}.
@@ -279,7 +279,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          *
          * @param button the button
          * @param borders the borders
-         * @return this builder instance (for chaining)
+         * @return this {@code Builder} instance (for chaining)
          * @throws IllegalArgumentException if there are no or duplicate borders.
          * @throws NullPointerException if the button is {@code null} or the borders contains or is
          * {@code null}.
@@ -297,7 +297,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * {@link Button} will be used. The same is the case for corners.
          *
          * @param button the button
-         * @return this builder instance (for chaining)
+         * @return this {@code Builder} instance (for chaining)
          * @throws NullPointerException if the button is {@code null}
          * @since 1.0
          * @vision.experimental because this may be changed, deleted or renamed.
