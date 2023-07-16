@@ -227,10 +227,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
      *    public void type(ItemType type) {
      *        System.out.println("Type updated");
      *    }
-     *    public void click(Click click) {
-     *    }
-     *    public void exception(RuntimeException thrown) {
-     *    }
      *})}</pre>
      */
     @Override

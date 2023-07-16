@@ -157,8 +157,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *    public void button(Slot slot, Button button) {
      *        System.out.println("Slot changed");
      *    }
-     *    public void exception(RuntimeException thrown) {
-     *    }
      *}}</pre>
      */
     @Override
