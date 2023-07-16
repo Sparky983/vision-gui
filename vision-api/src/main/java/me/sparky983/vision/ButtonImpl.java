@@ -37,6 +37,28 @@ final class ButtonImpl implements Button {
     }
 
     @Override
+    public ItemType type() {
+
+        return type;
+    }
+
+    @Override
+    public Button type(final ItemType type) {
+
+        Objects.requireNonNull(type, "type cannot be null");
+
+        this.type = type;
+        subscribers.notify((subscriber) -> subscriber.type(type));
+        return this;
+    }
+
+    @Override
+    public Component name() {
+
+        return name;
+    }
+
+    @Override
     public Button name(final @Nullable Component name) {
 
         if (name != null) {
@@ -49,9 +71,9 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public Component name() {
+    public List<Component> lore() {
 
-        return name;
+        return lore;
     }
 
     @Override
@@ -77,9 +99,9 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public List<Component> lore() {
+    public int amount() {
 
-        return lore;
+        return amount;
     }
 
     @Override
@@ -95,9 +117,9 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public int amount() {
+    public boolean glow() {
 
-        return amount;
+        return glow;
     }
 
     @Override
@@ -106,28 +128,6 @@ final class ButtonImpl implements Button {
         this.glow = glow;
         subscribers.notify((subscriber) -> subscriber.glow(glow));
         return this;
-    }
-
-    @Override
-    public boolean glow() {
-
-        return glow;
-    }
-
-    @Override
-    public Button type(final ItemType type) {
-
-        Objects.requireNonNull(type, "type cannot be null");
-
-        this.type = type;
-        subscribers.notify((subscriber) -> subscriber.type(type));
-        return this;
-    }
-
-    @Override
-    public ItemType type() {
-
-        return type;
     }
 
     @Override

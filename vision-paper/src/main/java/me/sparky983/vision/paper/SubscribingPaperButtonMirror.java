@@ -40,6 +40,12 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
         final Button.Subscriber subscriber = new Button.Subscriber() {
             @Override
+            public void type(final ItemType type) {
+
+                itemTypeConverter.convert(type).ifPresent(item::setType);
+            }
+
+            @Override
             public void name(final Component name) {
 
                 item.editMeta((meta) ->
@@ -71,21 +77,15 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
                     item.removeEnchantment(Enchantment.DURABILITY);
                 }
             }
-
-            @Override
-            public void type(final ItemType type) {
-
-                itemTypeConverter.convert(type).ifPresent(item::setType);
-            }
         };
 
         // Essentially replay the button's state to the subscriber
         // Ensures that the ItemStack and Button are consistent
+        subscriber.type(button.type());
         subscriber.name(button.name());
         subscriber.lore(button.lore());
         subscriber.amount(button.amount());
         subscriber.glow(button.glow());
-        subscriber.type(button.type());
 
         button.subscribe(subscriber);
     }

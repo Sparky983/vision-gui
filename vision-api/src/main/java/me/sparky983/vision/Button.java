@@ -59,15 +59,22 @@ public interface Button extends Subscribable<Button.Subscriber> {
     }
 
     /**
-     * Sets the name of this {@code Button}.
+     * Returns the type of this {@code Button}.
      *
-     * @param name the name or {@code null} to remove the name
-     * @return this {@code Button} instance (for chaining)
+     * @return the type of this {@code Button}
      * @since 0.1
-     * @vision.implNote The Paper Vision implementation removes the default Minecraft display name
-     * style (italics).
      */
-    Button name(@Nullable Component name);
+    ItemType type();
+
+    /**
+     * Sets the type of this {@code Button}.
+     *
+     * @param type the type
+     * @return this {@code Button} instance (for chaining)
+     * @throws NullPointerException if the type is {@code null}.
+     * @since 0.1
+     */
+    Button type(ItemType type);
 
     /**
      * Returns the name of this {@code Button}.
@@ -80,6 +87,26 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @since 0.1
      */
     Component name();
+
+    /**
+     * Sets the name of this {@code Button}.
+     *
+     * @param name the name or {@code null} to remove the name
+     * @return this {@code Button} instance (for chaining)
+     * @since 0.1
+     * @vision.implNote The Paper Vision implementation removes the default Minecraft display name
+     * style (italics).
+     */
+    Button name(@Nullable Component name);
+
+    /**
+     * Returns the lore of this {@code Button}.
+     *
+     * @return an unmodifiable {@link List} containing the lore of this button or an empty
+     * {@link List} if no lore is set
+     * @since 0.1
+     */
+    List<Component> lore();
 
     /**
      * Sets the lore of this {@code Button}.
@@ -110,13 +137,12 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button lore(List<Component> lore);
 
     /**
-     * Returns the lore of this {@code Button}.
+     * Returns the amount items in this {@code Button}.
      *
-     * @return an unmodifiable {@link List} containing the lore of this button or an empty
-     * {@link List} if no lore is set
+     * @return the amount of items in this {@code Button}
      * @since 0.1
      */
-    List<Component> lore();
+    int amount();
 
     /**
      * Sets the amount of items in this {@code Button}.
@@ -130,12 +156,14 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button amount(int amount);
 
     /**
-     * Returns the amount items in this {@code Button}.
+     * Checks whether this {@code Button} is glowing.
      *
-     * @return the amount of items in this {@code Button}
-     * @since 0.1
+     * @return {@code true} if this {@code Button} is glowing, otherwise {@code false}
+     * @since 1.0
+     * @vision.experimental because this may be renamed.
      */
-    int amount();
+    @ApiStatus.Experimental
+    boolean glow();
 
     /**
      * Sets whether this {@code Button} is glowing.
@@ -147,34 +175,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
      */
     @ApiStatus.Experimental
     Button glow(boolean glow);
-
-    /**
-     * Checks whether this {@code Button} is glowing.
-     *
-     * @return {@code true} if this {@code Button} is glowing, otherwise {@code false}
-     * @since 1.0
-     * @vision.experimental because this may be renamed.
-     */
-    @ApiStatus.Experimental
-    boolean glow();
-
-    /**
-     * Sets the type of this {@code Button}.
-     *
-     * @param type the type
-     * @return this {@code Button} instance (for chaining)
-     * @throws NullPointerException if the type is {@code null}.
-     * @since 0.1
-     */
-    Button type(ItemType type);
-
-    /**
-     * Returns the type of this {@code Button}.
-     *
-     * @return the type of this {@code Button}
-     * @since 0.1
-     */
-    ItemType type();
 
     /**
      * Clicks this {@code Button}.
@@ -215,6 +215,9 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @vision.examples <pre>
      *{@code Button button = ...;
      *button.subscribe(new Button.Subscriber() {
+     *    public void type(ItemType type) {
+     *        System.out.println("Type updated");
+     *    }
      *    public void name(Component name) {
      *        System.out.println("Name updated");
      *    }
@@ -223,9 +226,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
      *    }
      *    public void amount(int amount) {
      *        System.out.println("Amount updated");
-     *    }
-     *    public void type(ItemType type) {
-     *        System.out.println("Type updated");
      *    }
      *})}</pre>
      */
@@ -239,6 +239,20 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @since 0.1
      */
     interface Subscriber extends Subscribable.Subscriber {
+
+        /**
+         * Called when the type of the {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
+         *
+         * @param type the new type
+         * @throws NullPointerException if the type is {@code null} (optional).
+         * @see Button#type(ItemType)
+         * @since 0.1
+         */
+        default void type(final ItemType type) {
+
+        }
 
         /**
          * Called when the name of a {@link Button} changes.
@@ -296,20 +310,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
          */
         @ApiStatus.Experimental
         default void glow(final boolean glow) {
-
-        }
-
-        /**
-         * Called when the type of the {@link Button} changes.
-         * <p>
-         * The default implementation does nothing.
-         *
-         * @param type the new type
-         * @throws NullPointerException if the type is {@code null} (optional).
-         * @see Button#type(ItemType)
-         * @since 0.1
-         */
-        default void type(final ItemType type) {
 
         }
 
