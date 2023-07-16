@@ -66,7 +66,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
 
         final Gui.Subscriber subscriber = new Gui.Subscriber() {
             @Override
-            public void exception(final RuntimeException thrown) {
+            public void exception(final Throwable thrown) {
 
             }
 
