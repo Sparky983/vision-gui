@@ -53,10 +53,11 @@ public enum Border {
     private static final Set<Border> ALL = Set.of(Border.values());
 
     /**
-     * Returns a set containing all {@link Border Borders}.
+     * Returns an unmodifiable set containing all {@code Borders}.
      *
-     * @return a set containing all {@link Border Borders}
+     * @return an unmodifiable set containing all {@code Borders}
      * @since 1.0
+     * @implNote The returned set is cached.
      */
     // TODO(Sparky983): Does this really need to be public? Users shouldn't need to use this because
     //  of Gui.Builder.border(Button).
