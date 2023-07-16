@@ -491,6 +491,14 @@ class ButtonTests {
             assertEquals("type cannot be null", e.getMessage());
         }
 
+        @Test
+        void testButtonOf() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            assertEquals(ItemType.STONE, button.type());
+        }
+
         @SuppressWarnings("ConstantConditions")
         @Test
         void testTypeWhenTypeIsNull() {
