@@ -246,13 +246,11 @@ class HopperTests {
 
         final Gui gui = builder.build();
 
-        for (int row = 0; row < gui.rows(); row++) {
-            for (int column = 0; column < gui.columns(); column++) {
-                if (row == 0 && column == 2) {
-                    assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
-                } else {
-                    assertEquals(Optional.of(filler), gui.button(Slot.of(row, column)));
-                }
+        for (int column = 0; column < gui.columns(); column++) {
+            if (column == 2) {
+                assertEquals(Optional.of(button), gui.button(Slot.of(0, column)));
+            } else {
+                assertEquals(Optional.of(filler), gui.button(Slot.of(0, column)));
             }
         }
     }
