@@ -79,14 +79,11 @@ public non-sealed interface Chest extends Gui {
     interface Builder extends Gui.Builder {
 
         /**
-         * Sets the title of the {@link Chest}.
+         * {@inheritDoc}
          *
-         * @param title {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @since 1.0
-         * @vision.apiNote After the {@link Chest} is built, the title cannot be changed, so it
-         * must be specified before the {@link Chest} is built
+         * @vision.apiNote {@inheritDoc}
          */
         @Override
         Builder title(Component title);
@@ -104,11 +101,8 @@ public non-sealed interface Chest extends Gui {
         Builder rows(int rows);
 
         /**
-         * Sets the {@link Button} at the specified {@link Slot} of the {@link Chest}.
+         * {@inheritDoc}
          *
-         * @param slot {@inheritDoc}
-         * @param button {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          */
@@ -116,34 +110,24 @@ public non-sealed interface Chest extends Gui {
         Builder button(Slot slot, Button button);
 
         /**
-         * Sets all the empty slots to the specified {@link Button} in the {@link Chest}.
+         * {@inheritDoc}
          * <p>
          * If the amount of rows change via subsequent calls to {@link #rows(int)}, they will be
          * prefilled with the specified {@link Button}.
          *
-         * @param button {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @since 1.0
+         * @vision.experimental {@inheritDoc}
          */
         @Override
         Builder fill(Button button);
 
         /**
-         * Sets the specified borders of the {@link Chest} to the specified {@link Button}.
-         * <p>
-         * Changes to the border set after this method is called will not affect the {@link Chest}.
-         * <p>
-         * When the {@link Chest} is built, the {@link Button Buttons} will be placed in the empty
-         * slots covered by the borders. If a border has been specified multiple times, the last
-         * specified {@link Button} will be used. The same is the case for corners.
+         * {@inheritDoc}
          * <p>
          * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
          * will move the {@link Border#BOTTOM bottom border}.
          *
-         * @param button {@inheritDoc}
-         * @param borders {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @throws IllegalArgumentException {@inheritDoc}
          * @since 1.0
@@ -153,21 +137,11 @@ public non-sealed interface Chest extends Gui {
         Builder border(Button button, Set<Border> borders);
 
         /**
-         * Sets the specified borders of the {@link Chest} to the specified {@link Button}.
-         * <p>
-         * Changes to the border array after this method is called will not affect the
-         * {@link Chest}.
-         * <p>
-         * When the {@link Chest} is built, the {@link Button Buttons} will be placed in the empty
-         * slots covered by the borders. If a border has been specified multiple times, the last
-         * specified {@link Button} will be used. The same is the case for corners.
+         * {@inheritDoc}
          * <p>
          * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
          * will move the {@link Border#BOTTOM bottom border}.
          *
-         * @param button {@inheritDoc}
-         * @param borders {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @throws IllegalArgumentException {@inheritDoc}
          * @since 1.0
@@ -177,17 +151,11 @@ public non-sealed interface Chest extends Gui {
         Builder border(Button button, Border... borders);
 
         /**
-         * Sets all the borders of the {@link Chest} to the specified {@link Button}.
-         * <p>
-         * When the {@link Chest} is built, the {@link Button Buttons} will be placed in all empty
-         * border slots. If a border has been specified multiple times, the last specified
-         * {@link Button} will be used. The same is the case for corners.
+         * {@inheritDoc}
          * <p>
          * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
          * will move the {@link Border#BOTTOM bottom border}.
          *
-         * @param button {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.experimental {@inheritDoc}
@@ -196,13 +164,8 @@ public non-sealed interface Chest extends Gui {
         Builder border(Button button);
 
         /**
-         * Builds the {@link Chest}.
-         * <p>
-         * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
-         * specified, the {@link #border(Button, Set) border} will overlay the {@link #fill(Button)}
-         * in the returned {@link Chest}.
+         * {@inheritDoc}
          *
-         * @return the built {@link Chest}
          * @throws IllegalStateException {@inheritDoc}
          * @since 1.0
          */
