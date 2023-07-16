@@ -92,11 +92,12 @@ public non-sealed interface Chest extends Gui {
          * Sets the number of rows in the {@link Chest}.
          *
          * @param rows the number of rows
-         * @return this builder instance (for chaining)
+         * @return this {@code Builder} instance (for chaining)
          * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
          * 6.
          * @since 1.0
-         * @vision.apiNote This method must be called before {@link #build()}.
+         * @vision.apiNote After the {@link Chest} is built, the number of rows cannot be changed
+         * , so it must be specified before the {@link Chest} is built
          */
         Builder rows(int rows);
 
