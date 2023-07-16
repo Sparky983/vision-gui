@@ -128,8 +128,8 @@ public non-sealed interface Chest extends Gui {
          * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
          * will move the {@link Border#BOTTOM bottom border}.
          *
-         * @throws NullPointerException {@inheritDoc}
          * @throws IllegalArgumentException {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.experimental {@inheritDoc}
          */
@@ -142,8 +142,8 @@ public non-sealed interface Chest extends Gui {
          * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
          * will move the {@link Border#BOTTOM bottom border}.
          *
-         * @throws NullPointerException {@inheritDoc}
          * @throws IllegalArgumentException {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.experimental {@inheritDoc}
          */

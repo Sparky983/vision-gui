@@ -98,8 +98,8 @@ public non-sealed interface Dropper extends Gui {
         /**
          * {@inheritDoc}
          *
-         * @throws NullPointerException {@inheritDoc}
          * @throws IllegalArgumentException {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.experimental {@inheritDoc}
          */
@@ -109,8 +109,8 @@ public non-sealed interface Dropper extends Gui {
         /**
          * {@inheritDoc}
          *
-         * @throws NullPointerException {@inheritDoc}
          * @throws IllegalArgumentException {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          * @vision.experimental {@inheritDoc}
          */

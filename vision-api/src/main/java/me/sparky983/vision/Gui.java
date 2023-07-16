@@ -259,9 +259,9 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @param button the button
          * @param borders the borders
          * @return this builder instance (for chaining)
+         * @throws IllegalArgumentException if there are no borders.
          * @throws NullPointerException if the button is {@code null} or the borders contains or is
          * {@code null}.
-         * @throws IllegalArgumentException if there are no borders.
          * @since 1.0
          * @vision.experimental because this may be changed, deleted or renamed.
          */
@@ -280,9 +280,9 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @param button the button
          * @param borders the borders
          * @return this builder instance (for chaining)
+         * @throws IllegalArgumentException if there are no or duplicate borders.
          * @throws NullPointerException if the button is {@code null} or the borders contains or is
          * {@code null}.
-         * @throws IllegalArgumentException if there are no or duplicate borders.
          * @since 1.0
          * @vision.experimental because this may be changed, deleted or renamed.
          */
