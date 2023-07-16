@@ -67,6 +67,24 @@ class ButtonTests {
 
         @SuppressWarnings("ConstantConditions")
         @Test
+        void testFactoryTypeWhenTypeIsNull() {
+
+            final Button.Factory builder = Button.button();
+
+            final Exception e = assertThrows(NullPointerException.class, () -> builder.type(null));
+            assertEquals("type cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testFactoryType() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            assertEquals(ItemType.STONE, button.type());
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        @Test
         void testTypeWhenTypeIsNull() {
 
             final Button button = Button.button().type(ItemType.STONE);
@@ -249,24 +267,6 @@ class ButtonTests {
             assertEquals(button, button.glow(glow));
 
             assertEquals(glow, button.glow());
-        }
-
-        @SuppressWarnings("ConstantConditions")
-        @Test
-        void testFactoryTypeWhenTypeIsNull() {
-
-            final Button.Factory builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () -> builder.type(null));
-            assertEquals("type cannot be null", e.getMessage());
-        }
-
-        @Test
-        void testFactoryType() {
-
-            final Button button = Button.button().type(ItemType.STONE);
-
-            assertEquals(ItemType.STONE, button.type());
         }
 
         @SuppressWarnings("DataFlowIssue")
