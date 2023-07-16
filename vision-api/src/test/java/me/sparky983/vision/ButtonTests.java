@@ -377,37 +377,37 @@ class ButtonTests {
             doThrow(e).when(subscriber).type(ItemType.STONE);
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
-            verify(subscriber, times(6)).exception(e);
+            verify(subscriber).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).name(NAME);
             button.name(NAME);
             verify(subscriber).name(NAME);
-            verify(subscriber).exception(e);
+            verify(subscriber, times(2)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).lore(LORE_LIST);
             button.lore(LORE_LIST);
             verify(subscriber).lore(LORE_LIST);
-            verify(subscriber, times(2)).exception(e);
+            verify(subscriber, times(3)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).lore(LORE_LIST);
             button.lore(LORE_ARRAY);
             verify(subscriber, times(2)).lore(LORE_LIST);
-            verify(subscriber, times(3)).exception(e);
+            verify(subscriber, times(4)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).amount(5);
             button.amount(5);
             verify(subscriber).amount(5);
-            verify(subscriber, times(4)).exception(e);
+            verify(subscriber, times(5)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).glow(true);
             button.glow(true);
             verify(subscriber).glow(true);
-            verify(subscriber, times(5)).exception(e);
+            verify(subscriber, times(6)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).click(CLICK);
@@ -784,37 +784,37 @@ class ButtonTests {
             doThrow(e).when(subscriber).type(ItemType.STONE);
             button.type(ItemType.STONE);
             verify(subscriber).type(ItemType.STONE);
-            verify(subscriber, times(6)).exception(e);
+            verify(subscriber).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).name(NAME);
             button.name(NAME);
             verify(subscriber).name(NAME);
-            verify(subscriber).exception(e);
+            verify(subscriber, times(2)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).lore(LORE_LIST);
             button.lore(LORE_LIST);
             verify(subscriber).lore(LORE_LIST);
-            verify(subscriber, times(2)).exception(e);
+            verify(subscriber, times(3)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).lore(LORE_LIST);
             button.lore(LORE_ARRAY);
             verify(subscriber, times(2)).lore(LORE_LIST);
-            verify(subscriber, times(3)).exception(e);
+            verify(subscriber, times(4)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).amount(5);
             button.amount(5);
             verify(subscriber).amount(5);
-            verify(subscriber, times(4)).exception(e);
+            verify(subscriber, times(5)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).glow(true);
             button.glow(true);
             verify(subscriber).glow(true);
-            verify(subscriber, times(5)).exception(e);
+            verify(subscriber, times(6)).exception(e);
             verifyNoMoreInteractions(subscriber);
 
             doThrow(e).when(subscriber).click(CLICK);
