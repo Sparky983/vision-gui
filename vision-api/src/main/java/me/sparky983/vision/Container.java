@@ -5,10 +5,15 @@ import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 
 /**
  * A representation of a {@link Gui}'s contents.
@@ -50,6 +55,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
     private final Component title;
     private final int rows;
     private final int columns;
+    private final List<Slot> slots;
 
     private Container(final Component title,
                       final int rows,
@@ -68,6 +74,14 @@ final class Container implements Subscribable<Gui.Subscriber> {
         this.rows = rows;
         this.columns = columns;
         this.buttons = new HashMap<>(buttons);
+
+        final List<Slot> slots = new ArrayList<>();
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                slots.add(Slot.of(row, column));
+            }
+        }
+        this.slots = Collections.unmodifiableList(slots);
     }
 
     /**
@@ -128,6 +142,11 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         return Optional.ofNullable(buttons.get(slot));
+    }
+
+    List<Slot> slots() {
+
+        return slots;
     }
 
     @Override

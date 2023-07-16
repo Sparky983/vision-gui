@@ -5,6 +5,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -128,6 +129,19 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @since 1.0
      */
     GuiType type();
+
+    /**
+     * Returns an immutable list of all slots, present or absent, in this {@code Gui}.
+     * <p>
+     * The returned list is ordered from left to right, then top to bottom.
+     *
+     * @return an immutable list of all slots in this {@code Gui}
+     * @since 1.0
+     * @vision.apiNote This method returns a {@code List} so you can get each slot by index. This is
+     * similar to Bukkit slots work.
+     * @vision.implNote The returned list is cached.
+     */
+    List<Slot> slots();
 
     /**
      * Subscribes the specified {@link Subscriber} to this {@code Gui}.

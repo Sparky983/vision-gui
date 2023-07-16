@@ -5,6 +5,7 @@ import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.nullness.NullMarked;
 import org.jspecify.nullness.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -62,6 +63,12 @@ final class DropperImpl implements Dropper {
     public GuiType type() {
 
         return GuiType.DROPPER;
+    }
+
+    @Override
+    public List<Slot> slots() {
+
+        return container.slots();
     }
 
     @Override
