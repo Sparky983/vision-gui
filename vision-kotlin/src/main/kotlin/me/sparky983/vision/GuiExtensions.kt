@@ -3,6 +3,15 @@ package me.sparky983.vision
 import net.kyori.adventure.text.Component
 
 /**
+ * The [type][GuiType] of this [Gui].
+ *
+ * @see Gui.type
+ * @since 1.0
+ */
+public val Gui.type: GuiType
+    get() = type()
+
+/**
  * The title of this [Gui].
  *
  * If this [Gui] is untitled, the title will match Minecraft's default container title which is
