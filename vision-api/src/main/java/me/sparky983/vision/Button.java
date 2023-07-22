@@ -139,7 +139,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * {@link NamedTextColor#WHITE} with no {@link TextDecoration}, rather than Minecraft's style
      * (purple, italics).
      */
-    Button lore(List<Component> lore);
+    Button lore(List<? extends Component> lore);
 
     /**
      * Returns the amount items in this {@code Button}.
@@ -208,7 +208,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
      *        .type(ItemType.DIAMOND);
      *        .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))}</pre>
      */
-    Button onClick(Consumer<Click> handler);
+    Button onClick(Consumer<? super Click> handler);
 
     /**
      * Subscribes the specified {@link Subscriber} to this {@code Button}.

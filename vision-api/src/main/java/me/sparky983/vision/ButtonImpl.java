@@ -85,7 +85,7 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public Button lore(final List<Component> lore) {
+    public Button lore(final List<? extends Component> lore) {
 
         Objects.requireNonNull(lore, "lore cannot be null");
 
@@ -139,7 +139,7 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public Button onClick(final Consumer<Click> handler) {
+    public Button onClick(final Consumer<? super Click> handler) {
 
         Objects.requireNonNull(handler, "handler cannot be null");
 

@@ -135,7 +135,7 @@ public non-sealed interface Chest extends Gui {
          * @vision.experimental {@inheritDoc}
          */
         @Override
-        Builder border(Button button, Set<Border> borders);
+        Builder border(Button button, Set<? extends Border> borders);
 
         /**
          * {@inheritDoc}

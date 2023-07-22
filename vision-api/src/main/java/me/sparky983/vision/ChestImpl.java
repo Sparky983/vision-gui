@@ -125,7 +125,7 @@ final class ChestImpl implements Chest {
         }
 
         @Override
-        public Builder border(final Button button, final Set<Border> borders) {
+        public Builder border(final Button button, final Set<? extends Border> borders) {
 
             container.border(button, borders);
             return this;
