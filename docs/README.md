@@ -26,6 +26,10 @@ Vision GUI is a minimal GUI API for Paper.
 
 ## Installation
 
+{% hint style="danger" %}
+This version is unstable.&#x20;
+{% endhint %}
+
 Add the following to your build configuration:
 
 {% tabs %}
