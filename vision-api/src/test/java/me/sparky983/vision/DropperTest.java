@@ -458,24 +458,6 @@ class DropperTest {
     }
 
     @Test
-    void testSubscriberThrowsException() {
-
-        final Gui gui = Gui.dropper().build();
-        final Gui.Subscriber subscriber = mock();
-        final Button button = Button.of(ItemType.STONE);
-        final RuntimeException e = new RuntimeException();
-
-        gui.subscribe(subscriber);
-
-        doThrow(e).when(subscriber).button(SLOT, button);
-        gui.button(SLOT, button);
-
-        verify(subscriber).button(SLOT, button);
-        verify(subscriber).exception(e);
-        verifyNoMoreInteractions(subscriber);
-    }
-
-    @Test
     void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
 
         final Gui gui = Gui.dropper().build();

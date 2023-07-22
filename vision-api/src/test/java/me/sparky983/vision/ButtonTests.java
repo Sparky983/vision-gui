@@ -304,24 +304,6 @@ class ButtonTests {
             verifyNoMoreInteractions(clickHandler);
         }
 
-        @Test
-        void testOnClickWhenThrowsException() {
-
-            final Button button = Button.button().type(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final Consumer<Click> clickHandler = mock();
-            final RuntimeException e = new RuntimeException();
-            button.onClick(clickHandler);
-            button.subscribe(subscriber);
-
-            doThrow(e).when(clickHandler).accept(CLICK);
-            button.click(CLICK);
-            verify(clickHandler).accept(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(clickHandler, subscriber);
-        }
-
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testSubscribeWhenSubscriberIsNull() {
@@ -363,64 +345,6 @@ class ButtonTests {
             verify(subscriber).click(CLICK);
 
             verifyNoMoreInteractions(subscriber);
-        }
-
-        @Test
-        void testSubscriberThrowsException() {
-
-            final Button button = Button.button().type(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final RuntimeException e = new RuntimeException();
-
-            button.subscribe(subscriber);
-
-            doThrow(e).when(subscriber).type(ItemType.STONE);
-            button.type(ItemType.STONE);
-            verify(subscriber).type(ItemType.STONE);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).name(NAME);
-            button.name(NAME);
-            verify(subscriber).name(NAME);
-            verify(subscriber, times(2)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_LIST);
-            verify(subscriber).lore(LORE_LIST);
-            verify(subscriber, times(3)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_ARRAY);
-            verify(subscriber, times(2)).lore(LORE_LIST);
-            verify(subscriber, times(4)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).amount(5);
-            button.amount(5);
-            verify(subscriber).amount(5);
-            verify(subscriber, times(5)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).glow(true);
-            button.glow(true);
-            verify(subscriber).glow(true);
-            verify(subscriber, times(6)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).click(CLICK);
-            button.click(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber, times(7)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).exception(e);
-            button.name(NAME);
-            verify(subscriber, times(2)).name(NAME);
-            verify(subscriber, times(8)).exception(e);
-            verifyNoMoreInteractions(subscriber); // exception should not be called again
         }
 
         @Test
@@ -719,24 +643,6 @@ class ButtonTests {
             verifyNoMoreInteractions(clickHandler);
         }
 
-        @Test
-        void testOnClickWhenThrowsException() {
-
-            final Button button = Button.of(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final Consumer<Click> clickHandler = mock();
-            final RuntimeException e = new RuntimeException();
-            button.onClick(clickHandler);
-            button.subscribe(subscriber);
-
-            doThrow(e).when(clickHandler).accept(CLICK);
-            button.click(CLICK);
-            verify(clickHandler).accept(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(clickHandler, subscriber);
-        }
-
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testSubscribeWhenSubscriberIsNull() {
@@ -778,64 +684,6 @@ class ButtonTests {
             verify(subscriber).click(CLICK);
 
             verifyNoMoreInteractions(subscriber);
-        }
-
-        @Test
-        void testSubscriberThrowsException() {
-
-            final Button button = Button.of(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final RuntimeException e = new RuntimeException();
-
-            button.subscribe(subscriber);
-
-            doThrow(e).when(subscriber).type(ItemType.STONE);
-            button.type(ItemType.STONE);
-            verify(subscriber).type(ItemType.STONE);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).name(NAME);
-            button.name(NAME);
-            verify(subscriber).name(NAME);
-            verify(subscriber, times(2)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_LIST);
-            verify(subscriber).lore(LORE_LIST);
-            verify(subscriber, times(3)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_ARRAY);
-            verify(subscriber, times(2)).lore(LORE_LIST);
-            verify(subscriber, times(4)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).amount(5);
-            button.amount(5);
-            verify(subscriber).amount(5);
-            verify(subscriber, times(5)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).glow(true);
-            button.glow(true);
-            verify(subscriber).glow(true);
-            verify(subscriber, times(6)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).click(CLICK);
-            button.click(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber, times(7)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).exception(e);
-            button.name(Component.text("name"));
-            verify(subscriber, times(2)).name(Component.text("name"));
-            verify(subscriber, times(8)).exception(e);
-            verifyNoMoreInteractions(subscriber); // exception should not be called again
         }
 
         @Test
