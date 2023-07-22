@@ -8,11 +8,11 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * A representation of a {@link Subscribable}'s
- * {@link Subscribable.Subscriber Subscribable.Subscribers}.
+ * A representation of a {@link Publisher}'s
+ * {@link Publisher.Subscriber Publisher.Subscribers}.
  */
 @NullMarked
-final class Subscribers<T extends Subscribable.Subscriber> implements Subscribable<T> {
+final class Subscribers<T extends Publisher.Subscriber> implements Publisher<T> {
 
     private final Map<Subscription, T> subscribers = new HashMap<>();
 
