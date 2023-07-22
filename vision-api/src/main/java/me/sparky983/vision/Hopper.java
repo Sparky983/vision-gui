@@ -23,7 +23,7 @@ import java.util.Set;
 public non-sealed interface Hopper extends Gui {
 
     /**
-     * The number of columns hoppers have.
+     * The number of columns {@code Hopper}s have.
      *
      * @see Gui#columns()
      * @since 1.0
@@ -33,7 +33,7 @@ public non-sealed interface Hopper extends Gui {
     int ROWS = 1;
 
     /**
-     * The number of columns hoppers have.
+     * The number of columns {@code Hopper}s have.
      *
      * @see Gui#columns()
      * @since 1.0

@@ -260,7 +260,7 @@ public sealed interface Gui extends Publisher<Gui.Subscriber> permits Chest, Hop
          * @param borders the borders
          * @return this {@code Builder} instance (for chaining)
          * @throws IllegalArgumentException if there are no borders.
-         * @throws NullPointerException if the button is {@code null} or the borders contains or is
+         * @throws NullPointerException if the button is {@code null} or the borders is or contains
          * {@code null}.
          * @since 1.0
          * @vision.experimental because this may be changed, deleted or renamed.
@@ -281,7 +281,7 @@ public sealed interface Gui extends Publisher<Gui.Subscriber> permits Chest, Hop
          * @param borders the borders
          * @return this {@code Builder} instance (for chaining)
          * @throws IllegalArgumentException if there are no or duplicate borders.
-         * @throws NullPointerException if the button is {@code null} or the borders contains or is
+         * @throws NullPointerException if the button is {@code null} or the borders is or contains
          * {@code null}.
          * @since 1.0
          * @vision.experimental because this may be changed, deleted or renamed.
@@ -309,8 +309,8 @@ public sealed interface Gui extends Publisher<Gui.Subscriber> permits Chest, Hop
          * Builds the {@link Gui}.
          * <p>
          * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
-         * specified, the {@link #border(Button, Set) border} will overlay the {@link #fill(Button)}
-         * in the returned {@link Gui}.
+         * specified, the {@link #border(Button, Set) border} will overlay the
+         * {@link #fill(Button) fill} in the returned {@link Gui}.
          *
          * @return the built {@link Gui}
          * @throws IllegalStateException if any of the buttons are out of bounds.

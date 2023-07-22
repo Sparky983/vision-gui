@@ -23,7 +23,7 @@ import java.util.Set;
 public non-sealed interface Dropper extends Gui {
 
     /**
-     * The number of columns dropper have.
+     * The number of columns {@code Dropper}s have.
      *
      * @see Gui#columns()
      * @since 1.0
@@ -33,7 +33,7 @@ public non-sealed interface Dropper extends Gui {
     int ROWS = 3;
 
     /**
-     * The number of columns dropper have.
+     * The number of columns {@code Dropper}s have.
      *
      * @see Gui#columns()
      * @since 1.0

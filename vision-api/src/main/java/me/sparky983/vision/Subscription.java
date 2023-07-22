@@ -1,7 +1,7 @@
 package me.sparky983.vision;
 
 /**
- * Represents a subscription to a {@link Publisher} object.
+ * Represents a subscription to a {@link Publisher}.
  *
  * @see Publisher#subscribe(Publisher.Subscriber)
  * @since 0.1

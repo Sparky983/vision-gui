@@ -48,9 +48,9 @@ public interface Click {
     Slot slot();
 
     /**
-     * Returns the {@code Type} of this click.
+     * Returns the {@link ClickType} of this click.
      *
-     * @return the {@code Type} of this click
+     * @return the {@link ClickType} of this click
      * @since 0.1
      */
     ClickType type();

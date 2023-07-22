@@ -24,7 +24,7 @@ import java.util.Set;
 public non-sealed interface Chest extends Gui {
 
     /**
-     * The minimum number of rows that a chest can have.
+     * The minimum number of rows that a {@code Chest} can have.
      *
      * @see Gui#rows()
      * @since 1.0
@@ -34,7 +34,7 @@ public non-sealed interface Chest extends Gui {
     int MIN_ROWS = 1;
 
     /**
-     * The maximum number of rows that a chest can have.
+     * The maximum number of rows that a {@code Chest} can have.
      *
      * @see Gui#rows()
      * @since 1.0
@@ -44,7 +44,7 @@ public non-sealed interface Chest extends Gui {
     int MAX_ROWS = 6;
 
     /**
-     * The number of columns chests have.
+     * The number of columns {@code Chest}s have.
      *
      * @see Gui#columns()
      * @since 1.0

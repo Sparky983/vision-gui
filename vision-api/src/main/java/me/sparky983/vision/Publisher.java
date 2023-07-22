@@ -3,7 +3,7 @@ package me.sparky983.vision;
 import org.jspecify.nullness.NullMarked;
 
 /**
- * Represents a subscribable object.
+ * Represents an object that publishes events.
  *
  * @param <T> the type of subscriber
  * @see Button
@@ -24,7 +24,7 @@ public interface Publisher<T extends Publisher.Subscriber> {
     Subscription subscribe(T subscriber);
 
     /**
-     * Represents a subscriber to a {@link Publisher} object.
+     * Represents a subscriber to a {@link Publisher}.
      *
      * @see Button.Subscriber
      * @see Gui.Subscriber
