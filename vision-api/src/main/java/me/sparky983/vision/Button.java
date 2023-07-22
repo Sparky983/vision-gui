@@ -20,7 +20,7 @@ import java.util.function.Consumer;
  * {@link Gui}.
  */
 @NullMarked
-public interface Button extends Subscribable<Button.Subscriber> {
+public interface Button extends Publisher<Button.Subscriber> {
 
     /**
      * Creates a new {@code Button} of the specified type.
@@ -243,7 +243,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @see #subscribe(Subscriber)
      * @since 0.1
      */
-    interface Subscriber extends Subscribable.Subscriber {
+    interface Subscriber extends Publisher.Subscriber {
 
         /**
          * Called when the type of the {@link Button} changes.

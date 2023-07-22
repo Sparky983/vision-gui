@@ -24,7 +24,7 @@ import java.util.Set;
  * @see Container#builder(Component, int, int)
  */
 @NullMarked
-final class Container implements Subscribable<Gui.Subscriber> {
+final class Container implements Publisher<Gui.Subscriber> {
 
     @VisibleForTesting
     static final String SLOT_OUT_OF_BOUNDS =
