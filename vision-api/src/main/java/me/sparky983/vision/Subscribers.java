@@ -46,17 +46,6 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
             try {
                 consumer.accept(subscriber);
             } catch (final Throwable e) {
-                exception(e);
-            }
-        }
-    }
-
-    private void exception(final Throwable thrown) {
-
-        for (final T subscriber : subscribers.values()) {
-            try {
-                subscriber.exception(thrown);
-            } catch (final Throwable e) {
                 e.printStackTrace();
             }
         }
