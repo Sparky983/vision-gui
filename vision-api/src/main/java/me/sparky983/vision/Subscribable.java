@@ -11,10 +11,10 @@ import org.jspecify.nullness.NullMarked;
  * @since 0.1
  */
 @NullMarked
-public interface Publisher<T extends Publisher.Subscriber> {
+public interface Subscribable<T extends Subscribable.Subscriber> {
 
     /**
-     * Subscribes the specified subscriber to this {@code Publisher} object.
+     * Subscribes the specified subscriber to this {@code Subscribable} object.
      *
      * @param subscriber the subscriber
      * @return a subscription that can be used to unsubscribe the subscriber
@@ -24,7 +24,7 @@ public interface Publisher<T extends Publisher.Subscriber> {
     Subscription subscribe(T subscriber);
 
     /**
-     * Represents a subscriber to a {@link Publisher}.
+     * Represents a subscriber to a {@link Subscribable} object.
      *
      * @see Button.Subscriber
      * @see Gui.Subscriber

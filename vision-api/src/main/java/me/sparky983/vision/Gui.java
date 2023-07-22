@@ -15,7 +15,7 @@ import java.util.Set;
  * @since 0.1
  */
 @NullMarked
-public sealed interface Gui extends Publisher<Gui.Subscriber> permits Chest, Hopper, Dropper {
+public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, Hopper, Dropper {
 
     /**
      * Creates a new {@link Chest.Builder} with 1 row.
@@ -168,7 +168,7 @@ public sealed interface Gui extends Publisher<Gui.Subscriber> permits Chest, Hop
      * @see Gui#subscribe(Subscriber)
      * @since 0.1
      */
-    interface Subscriber extends Publisher.Subscriber {
+    interface Subscriber extends Subscribable.Subscriber {
 
         /**
          * Called when the specified {@link Slot} changes.
