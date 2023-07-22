@@ -96,8 +96,8 @@ public non-sealed interface Chest extends Gui {
          * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
          * 6.
          * @since 1.0
-         * @vision.apiNote After the {@link Chest} is built, the number of rows cannot be changed
-         * , so it must be specified before the {@link Chest} is built
+         * @vision.apiNote After the {@link Chest} is built, the number of rows cannot be changed,
+         * so it must be specified before the {@link Chest} is built.
          */
         Builder rows(int rows);
 

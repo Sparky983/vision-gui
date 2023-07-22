@@ -220,7 +220,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @throws NullPointerException if the title is {@code null}.
          * @since 0.1
          * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
-         * must be specified before the {@link Gui} is built
+         * must be specified before the {@link Gui} is built.
          */
         Builder title(Component title);
 

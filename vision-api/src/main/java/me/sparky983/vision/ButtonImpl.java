@@ -144,7 +144,6 @@ final class ButtonImpl implements Button {
         Objects.requireNonNull(handler, "handler cannot be null");
 
         subscribe(new Subscriber() {
-
             @Override
             public void click(final Click click) {
 
