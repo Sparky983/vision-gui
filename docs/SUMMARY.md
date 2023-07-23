@@ -6,4 +6,3 @@
 
 * [GUIs](guides/guis.md)
 * [Buttons](guides/buttons.md)
-* [Kotlin DSL](guides/kotlin-dsl.md)
