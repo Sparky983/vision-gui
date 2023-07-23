@@ -2,7 +2,7 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.audience.Audience;
 import org.jetbrains.annotations.ApiStatus;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Represents the clicking of a {@link Button}.

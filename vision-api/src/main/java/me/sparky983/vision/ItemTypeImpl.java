@@ -1,7 +1,7 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.key.Key;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.HashMap;
 import java.util.Objects;

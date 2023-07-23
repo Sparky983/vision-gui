@@ -7,7 +7,7 @@ import me.sparky983.vision.Gui;
 import me.sparky983.vision.Slot;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
 

@@ -1,7 +1,7 @@
 package me.sparky983.vision;
 
 import org.jetbrains.annotations.ApiStatus;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Set;
 
