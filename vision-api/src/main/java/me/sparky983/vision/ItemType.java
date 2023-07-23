@@ -3,7 +3,7 @@ package me.sparky983.vision;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
 import net.kyori.adventure.translation.Translatable;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 

@@ -2,7 +2,7 @@ package me.sparky983.vision.paper;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 import me.sparky983.vision.Button;
 
 import java.util.Locale;

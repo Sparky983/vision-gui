@@ -1,7 +1,7 @@
 package me.sparky983.vision.paper;
 
 import net.kyori.adventure.text.Component;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Locale;
 

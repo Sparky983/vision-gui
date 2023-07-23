@@ -1,7 +1,7 @@
 package me.sparky983.vision.paper;
 
 import org.bukkit.Material;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package me.sparky983.vision;
 
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Represents an object that publishes events.
