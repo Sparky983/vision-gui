@@ -51,11 +51,11 @@ Add the following to your build configuration:
 {% tab title="build.gradle" %}
 ```groovy
 repositories {
-    maven { url 'https://repo.sparky983.me/snapshots' }
+    maven { url 'https://repo.sparky983.me/releases' }
 }
 
 dependencies {
-    implementation 'me.sparky983:vision-paper:1.0.0-SNAPSHOT'
+    implementation 'me.sparky983:vision-paper:1.0.0'
 }
 ```
 {% endtab %}
@@ -63,11 +63,11 @@ dependencies {
 {% tab title="build.gradle.kts" %}
 ```kotlin
 repositories {
-    maven("https://repo.sparky983.me/snapshots")
+    maven("https://repo.sparky983.me/releases")
 }
 
 dependencies {
-    implementation("me.sparky983:vision-paper:1.0.0-SNAPSHOT")
+    implementation("me.sparky983:vision-paper:1.0.0")
 }
 ```
 {% endtab %}
