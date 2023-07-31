@@ -93,6 +93,7 @@ public non-sealed interface Dropper extends Gui {
          * @vision.experimental {@inheritDoc}
          */
         @Override
+        @ApiStatus.Experimental
         Builder fill(Button button);
 
         /**
@@ -104,6 +105,7 @@ public non-sealed interface Dropper extends Gui {
          * @vision.experimental {@inheritDoc}
          */
         @Override
+        @ApiStatus.Experimental
         Builder border(Button button, Set<? extends Border> borders);
 
         /**
@@ -115,6 +117,7 @@ public non-sealed interface Dropper extends Gui {
          * @vision.experimental {@inheritDoc}
          */
         @Override
+        @ApiStatus.Experimental
         Builder border(Button button, Border... borders);
 
         /**
@@ -125,6 +128,7 @@ public non-sealed interface Dropper extends Gui {
          * @vision.experimental {@inheritDoc}
          */
         @Override
+        @ApiStatus.Experimental
         Builder border(Button button);
 
         /**
