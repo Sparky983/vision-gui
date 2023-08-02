@@ -25,7 +25,7 @@ Add the following to your build configuration:
     <dependency>
         <groupId>me.sparky983</groupId>
         <artifactId>vision-paper</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 </dependencies>
 ```
@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.sparky983:vision-paper:1.0.0'
+    implementation 'me.sparky983:vision-paper:1.0.1'
 }
 ```
 </details>
@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    implementation("me.sparky983:vision-paper:1.0.0")
+    implementation("me.sparky983:vision-paper:1.0.1")
 }
 ```
 </details>
