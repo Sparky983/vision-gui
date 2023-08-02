@@ -4,11 +4,13 @@ on:
       - docs/**
     branches:
       - main
+      - ver/**
   pull_request:
     paths-ignore:
       - docs/**
     branches:
       - main
+      - ver/**
 
 jobs:
   build:
