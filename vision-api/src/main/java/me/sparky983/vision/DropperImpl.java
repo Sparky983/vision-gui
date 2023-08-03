@@ -73,6 +73,12 @@ final class DropperImpl implements Dropper {
     }
 
     @Override
+    public Publisher publisher() {
+
+        return container.publisher();
+    }
+
+    @Override
     public Subscription subscribe(final Gui.Subscriber subscriber) {
 
         return container.subscribe(subscriber);

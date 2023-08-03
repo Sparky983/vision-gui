@@ -151,6 +151,11 @@ final class Container implements Subscribable<Gui.Subscriber> {
         return slots;
     }
 
+    Gui.Publisher publisher() {
+
+        return publisher;
+    }
+
     @Override
     public Subscription subscribe(final Gui.Subscriber subscriber) {
 
