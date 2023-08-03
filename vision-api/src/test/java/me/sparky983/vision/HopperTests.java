@@ -29,6 +29,11 @@ class HopperTests {
      */
     static final Slot SLOT = Slot.of(0, 0);
 
+    /**
+     * A close to be used for testing.
+     */
+    static final Close CLOSE = mock();
+
     @Test
     void testType() {
 
@@ -432,6 +437,10 @@ class HopperTests {
 
         gui.button(SLOT, button);
         verify(subscriber).button(SLOT, button);
+
+        gui.publisher().close(CLOSE);
+        verify(subscriber).close(CLOSE);
+
         verifyNoMoreInteractions(subscriber);
     }
 
@@ -461,6 +470,7 @@ class HopperTests {
         subscription.cancel();
 
         gui.button(SLOT, button);
+        gui.publisher().close(CLOSE);
 
         assertTrue(subscription.isCancelled());
         verifyNoMoreInteractions(subscriber);

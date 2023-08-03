@@ -75,6 +75,12 @@ final class ChestImpl implements Chest {
     }
 
     @Override
+    public Publisher publisher() {
+
+        return container.publisher();
+    }
+
+    @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
         return container.subscribe(subscriber);

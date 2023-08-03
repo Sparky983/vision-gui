@@ -34,6 +34,11 @@ class ChestTests {
      */
     static final Slot SLOT = Slot.of(0, 0);
 
+    /**
+     * A close to be used for testing.
+     */
+    static final Close CLOSE = mock();
+
     @Test
     void testType() {
 
@@ -556,6 +561,10 @@ class ChestTests {
 
         gui.button(SLOT, button);
         verify(subscriber).button(SLOT, button);
+
+        gui.publisher().close(CLOSE);
+        verify(subscriber).close(CLOSE);
+
         verifyNoMoreInteractions(subscriber);
     }
 
@@ -585,6 +594,7 @@ class ChestTests {
         subscription.cancel();
 
         gui.button(SLOT, button);
+        gui.publisher().close(CLOSE);
 
         assertTrue(subscription.isCancelled());
         verifyNoMoreInteractions(subscriber);

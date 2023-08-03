@@ -145,6 +145,14 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     List<Slot> slots();
 
     /**
+     * Returns the {@link Publisher} associated with this {@code Gui}.
+     *
+     * @return the {@link Publisher} associated with this {@code Gui}
+     * @since 1.1
+     */
+    Publisher publisher();
+
+    /**
      * Subscribes the specified {@link Subscriber} to this {@code Gui}.
      *
      * @param subscriber the subscriber to subscribe
@@ -161,6 +169,24 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      */
     @Override
     Subscription subscribe(Subscriber subscriber);
+
+    /**
+     * Represents a {@link Gui} {@link Publisher}
+     *
+     * @see #publisher()
+     * @since 1.1
+     */
+    interface Publisher {
+
+        /**
+         * Publishes the close event.
+         *
+         * @param close the close
+         * @throws NullPointerException if the viewer is {@code null}.
+         * @since 1.1
+         */
+        void close(Close close);
+    }
 
     /**
      * Represents a subscriber to a {@link Gui}.
@@ -182,6 +208,18 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @since 0.1
          */
         default void button(final Slot slot, final @Nullable Button button) {
+
+        }
+
+        /**
+         * Called when a {@link Gui} is closed.
+         *
+         * @param close an object describing the closure
+         * @throws NullPointerException if the close is {@code null} (optional).
+         * @see Publisher#close(Close)
+         * @since 1.1
+         */
+        default void close(Close close) {
 
         }
     }
