@@ -155,6 +155,14 @@ final class Container implements Subscribable<Gui.Subscriber> {
     void onClose(final Consumer<? super Close> handler) {
 
         Objects.requireNonNull(handler, "handler cannot be null");
+
+        subscribers.subscribe(new Gui.Subscriber() {
+            @Override
+            public void close(final Close close) {
+
+                handler.accept(close);
+            }
+        });
     }
 
     Gui.Publisher publisher() {
