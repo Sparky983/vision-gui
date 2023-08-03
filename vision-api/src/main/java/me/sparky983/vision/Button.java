@@ -236,7 +236,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * Represents a {@link Button} {@link Publisher}.
      *
      * @see #publisher()
-     * @since 1.0
+     * @since 1.1
      */
     interface Publisher {
 
@@ -245,7 +245,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          *
          * @param click the click
          * @throws NullPointerException if the click is {@code null}.
-         * @since 1.0
+         * @since 1.1
          */
         void click(Click click);
     }
