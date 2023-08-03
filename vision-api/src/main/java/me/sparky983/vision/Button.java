@@ -233,7 +233,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Subscription subscribe(Subscriber subscriber);
 
     /**
-     * The {@link Button} {@link Publisher}.
+     * Represents a {@link Button} {@link Publisher}.
      *
      * @see #publisher()
      * @since 1.0
