@@ -64,7 +64,7 @@ final class InventoryListener implements Listener {
                 return;
             }
 
-            button.click(new PaperClick(player, button, slot, type, vision));
+            button.publisher().click(new PaperClick(player, button, slot, type, vision));
         });
     }
 }
