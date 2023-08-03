@@ -14,7 +14,7 @@ import java.util.Objects;
  * @param gui the {@link Gui} that was closed
  */
 @NullMarked
-record PaperClose(@Override Player closer, @Override Gui gui) implements Close {
+record PaperClose(@Override Player closer, @Override Gui gui, PaperVision vision) implements Close {
 
     /**
      * Creates a new {@code PaperClose}.
@@ -27,5 +27,11 @@ record PaperClose(@Override Player closer, @Override Gui gui) implements Close {
 
         Objects.requireNonNull(closer, "closer cannot be null");
         Objects.requireNonNull(gui, "gui cannot be null");
+    }
+
+    @Override
+    public void open(final Gui gui) {
+
+        vision.open(closer, gui);
     }
 }
