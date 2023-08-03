@@ -25,13 +25,4 @@ public interface Close {
      * @since 1.1
      */
     Gui gui();
-
-    /**
-     * Cancels the closing of the {@link Gui}.
-     *
-     * @vision.apiNote This method cannot be undone, nor can the cancellation state be queried. This
-     * is to ensure isolation between subscribers. This may change in the future.
-     * @since 1.1
-     */
-    void cancel();
 }

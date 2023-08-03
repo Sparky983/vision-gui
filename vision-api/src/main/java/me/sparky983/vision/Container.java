@@ -319,5 +319,14 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
     }
 
-    
+    private final class PublisherImpl implements Gui.Publisher {
+
+        @Override
+        public void close(final Close close) {
+
+            Objects.requireNonNull(close, "close cannot be null");
+
+            subscribers.notify((subscriber) -> subscriber.close(close));
+        }
+    }
 }

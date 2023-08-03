@@ -182,7 +182,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * Publishes the close event.
          *
          * @param close the close
-         * @throws NullPointerException if the viewer is {@code null}.
+         * @throws NullPointerException if the close is {@code null}.
          * @since 1.1
          */
         void close(Close close);
@@ -219,7 +219,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @see Publisher#close(Close)
          * @since 1.1
          */
-        default void close(Close close) {
+        default void close(final Close close) {
 
         }
     }

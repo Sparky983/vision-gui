@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
@@ -66,5 +67,23 @@ final class InventoryListener implements Listener {
 
             button.publisher().click(new PaperClick(player, button, slot, type, vision));
         });
+    }
+
+    @EventHandler
+    void onInventoryClose(final InventoryCloseEvent event) {
+
+        Objects.requireNonNull(event, "event cannot be null");
+
+        if (!(event.getInventory().getHolder() instanceof final GuiInventoryHolder guiInventoryHolder)) {
+            return;
+        }
+
+        if (!(event.getPlayer() instanceof final Player player)) {
+            return;
+        }
+
+        final Gui gui = guiInventoryHolder.gui();
+
+        gui.publisher().close(new PaperClose(player, gui));
     }
 }
