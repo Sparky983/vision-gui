@@ -378,7 +378,7 @@ class ButtonTests {
             button.lore(LORE_ARRAY);
             button.amount(5);
             button.glow(true);
-            button.click(CLICK);
+            button.publisher().click(CLICK);
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);
@@ -615,7 +615,8 @@ class ButtonTests {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    button.publisher().click(null));
             assertEquals("click cannot be null", e.getMessage());
         }
 
