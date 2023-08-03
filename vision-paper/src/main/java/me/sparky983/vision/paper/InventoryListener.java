@@ -84,6 +84,6 @@ final class InventoryListener implements Listener {
 
         final Gui gui = guiInventoryHolder.gui();
 
-        gui.publisher().close(new PaperClose(player, gui));
+        gui.publisher().close(new PaperClose(player, gui, vision));
     }
 }

@@ -9,12 +9,13 @@ import java.util.Objects;
 
 /**
  * The paper implementation of {@link Close}.
- *
- * @param closer the closer
- * @param gui the {@link Gui} that was closed
  */
 @NullMarked
-record PaperClose(@Override Player closer, @Override Gui gui, PaperVision vision) implements Close {
+final class PaperClose implements Close {
+
+    private final Player closer;
+    private final Gui gui;
+    private final PaperVision vision;
 
     /**
      * Creates a new {@code PaperClose}.
@@ -23,15 +24,30 @@ record PaperClose(@Override Player closer, @Override Gui gui, PaperVision vision
      * @param gui the {@link Gui} that was closed
      * @throws NullPointerException if the closer or the GUI is {@code null}.
      */
-    PaperClose {
+    PaperClose(final Player closer, final Gui gui, final PaperVision vision) {
 
         Objects.requireNonNull(closer, "closer cannot be null");
         Objects.requireNonNull(gui, "gui cannot be null");
+        Objects.requireNonNull(vision, "vision cannot be null");
+
+        this.closer = closer;
+        this.gui = gui;
+        this.vision = vision;
     }
 
     @Override
     public void open(final Gui gui) {
 
         vision.open(closer, gui);
+    }
+
+    @Override
+    public Player closer() {
+        return closer;
+    }
+
+    @Override
+    public Gui gui() {
+        return gui;
     }
 }
