@@ -338,7 +338,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          *
          * @param click an object describing the click
          * @throws NullPointerException if the click is {@code null} (optional).
-         * @see Button#click(Click)
+         * @see Publisher#click(Click)
          * @since 0.1
          */
         default void click(final Click click) {
