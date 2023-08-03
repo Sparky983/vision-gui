@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * A representation of a {@link Gui}'s contents.
@@ -149,6 +150,11 @@ final class Container implements Subscribable<Gui.Subscriber> {
     List<Slot> slots() {
 
         return slots;
+    }
+
+    void onClose(final Consumer<? super Close> handler) {
+
+        Objects.requireNonNull(handler, "handler cannot be null");
     }
 
     Gui.Publisher publisher() {

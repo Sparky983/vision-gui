@@ -8,6 +8,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * Represents a GUI.
@@ -143,6 +144,21 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @vision.implNote The returned list is cached.
      */
     List<Slot> slots();
+
+    /**
+     * Subscribes the specified {@link Close} handler to this {@code Gui}.
+     *
+     * @param handler the {@link Close} handler
+     * @return this {@code Gui} instance (for chaining)
+     * @throws NullPointerException if the {@link Click} handler is {@code null}.
+     * @since 1.1
+     * @vision.apiNote This method may be called multiple times to add multiple handlers.
+     * @vision.examples <pre>
+     *{@code Gui gui = Gui.chest()
+     *        .build()
+     *        .onClick(close -> close.closer().sendMessage(Component.text("You closed me!")))}</pre>
+     */
+    Gui onClose(Consumer<? super Close> handler);
 
     /**
      * Returns the {@link Publisher} associated with this {@code Gui}.

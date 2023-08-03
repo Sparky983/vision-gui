@@ -8,6 +8,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * The default implementation of {@link Chest}.
@@ -72,6 +73,13 @@ final class ChestImpl implements Chest {
     public List<Slot> slots() {
 
         return container.slots();
+    }
+
+    @Override
+    public Gui onClose(final Consumer<? super Close> handler) {
+
+        container.onClose(handler);
+        return this;
     }
 
     @Override

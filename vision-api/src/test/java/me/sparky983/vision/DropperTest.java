@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import static me.sparky983.vision.Container.SLOT_OUT_OF_BOUNDS;
 import static me.sparky983.vision.Dropper.COLUMNS;
@@ -436,6 +437,28 @@ class DropperTest {
         );
 
         assertEquals(slots, gui.slots());
+    }
+    @Test
+    void testOnclickWhenHandlerIsNull() {
+
+        final Gui gui = Gui.dropper().build();
+
+        final Exception e = assertThrows(NullPointerException.class, () -> gui.onClose(null));
+        assertEquals("handler cannot be null", e.getMessage());
+    }
+
+    @Test
+    void testOnClick() {
+
+        final Gui gui = Gui.dropper().build();
+        final Consumer<Close> clickHandler = mock();
+
+        assertEquals(gui, gui.onClose(clickHandler));
+
+        gui.publisher().close(CLOSE);
+
+        verify(clickHandler).accept(CLOSE);
+        verifyNoMoreInteractions(clickHandler);
     }
 
     @SuppressWarnings("DataFlowIssue")
