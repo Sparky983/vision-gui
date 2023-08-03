@@ -275,7 +275,8 @@ class ButtonTests {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    button.publisher().click(null));
             assertEquals("click cannot be null", e.getMessage());
         }
 
@@ -298,7 +299,7 @@ class ButtonTests {
 
             assertEquals(button, button.onClick(clickHandler));
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
 
             verify(clickHandler).accept(CLICK);
             verifyNoMoreInteractions(clickHandler);
@@ -341,7 +342,7 @@ class ButtonTests {
             button.glow(true);
             verify(subscriber).glow(true);
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
             verify(subscriber).click(CLICK);
 
             verifyNoMoreInteractions(subscriber);
@@ -377,7 +378,7 @@ class ButtonTests {
             button.lore(LORE_ARRAY);
             button.amount(5);
             button.glow(true);
-            button.click(CLICK);
+            button.publisher().click(CLICK);
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);
@@ -614,7 +615,8 @@ class ButtonTests {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    button.publisher().click(null));
             assertEquals("click cannot be null", e.getMessage());
         }
 
@@ -637,7 +639,7 @@ class ButtonTests {
 
             assertEquals(button, button.onClick(clickHandler));
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
 
             verify(clickHandler).accept(CLICK);
             verifyNoMoreInteractions(clickHandler);
@@ -680,7 +682,7 @@ class ButtonTests {
             button.glow(true);
             verify(subscriber).glow(true);
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
             verify(subscriber).click(CLICK);
 
             verifyNoMoreInteractions(subscriber);
@@ -716,7 +718,7 @@ class ButtonTests {
             button.lore(LORE_ARRAY);
             button.amount(5);
             button.glow(true);
-            button.click(CLICK);
+            button.publisher().click(CLICK);
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);

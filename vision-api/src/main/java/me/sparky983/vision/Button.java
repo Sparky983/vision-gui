@@ -182,19 +182,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button glow(boolean glow);
 
     /**
-     * Clicks this {@code Button}.
-     * <p>
-     * This method is called by Vision when this button is clicked.
-     *
-     * @param click an object describing the click
-     * @throws NullPointerException if the click is {@code null}.
-     * @since 0.1
-     * @vision.experimental because this may be replaced with directly posting events.
-     */
-    @ApiStatus.Experimental
-    void click(Click click);
-
-    /**
      * Subscribes the specified {@link Click} handler to this button.
      *
      * @param handler the {@link Click} handler
@@ -209,6 +196,14 @@ public interface Button extends Subscribable<Button.Subscriber> {
      *        .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))}</pre>
      */
     Button onClick(Consumer<? super Click> handler);
+
+    /**
+     * Returns the {@link Publisher} associated with this {@code Button}.
+     *
+     * @return the {@link Publisher} associated with this {@code Button}
+     * @since 1.1
+     */
+    Publisher publisher();
 
     /**
      * Subscribes the specified {@link Subscriber} to this {@code Button}.
@@ -236,6 +231,24 @@ public interface Button extends Subscribable<Button.Subscriber> {
      */
     @Override
     Subscription subscribe(Subscriber subscriber);
+
+    /**
+     * Represents a {@link Button} {@link Publisher}.
+     *
+     * @see #publisher()
+     * @since 1.1
+     */
+    interface Publisher {
+
+        /**
+         * Publishes the click event.
+         *
+         * @param click the click
+         * @throws NullPointerException if the click is {@code null}.
+         * @since 1.1
+         */
+        void click(Click click);
+    }
 
     /**
      * Represents a subscriber to a {@link Button}.
@@ -325,7 +338,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          *
          * @param click an object describing the click
          * @throws NullPointerException if the click is {@code null} (optional).
-         * @see Button#click(Click)
+         * @see Publisher#click(Click)
          * @since 0.1
          */
         default void click(final Click click) {
