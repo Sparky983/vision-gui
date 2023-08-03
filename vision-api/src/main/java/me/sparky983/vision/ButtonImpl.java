@@ -21,6 +21,7 @@ final class ButtonImpl implements Button {
     static final Button.Factory FACTORY = ButtonImpl::new;
 
     private final Subscribers<Subscriber> subscribers = new Subscribers<>();
+    private final Publisher publisher = new PublisherImpl();
 
     private ItemType type;
     private Component name;
@@ -155,6 +156,12 @@ final class ButtonImpl implements Button {
     }
 
     @Override
+    public Publisher publisher() {
+
+        return publisher;
+    }
+
+    @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
         return subscribers.subscribe(subscriber);
@@ -170,5 +177,16 @@ final class ButtonImpl implements Button {
                 lore,
                 amount,
                 glow);
+    }
+
+    final class PublisherImpl implements Publisher {
+
+        @Override
+        public void click(final Click click) {
+
+            Objects.requireNonNull(click, "click cannot be null");
+
+            subscribers.notify((subscriber) -> subscriber.click(click));
+        }
     }
 }
