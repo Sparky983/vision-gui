@@ -200,7 +200,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
     /**
      * Returns the {@link Publisher} associated with this {@code Button}.
      *
-     * @return the {@link Publisher} associated with this {@code Button}.
+     * @return the {@link Publisher} associated with this {@code Button}
      * @since 1.1
      */
     Publisher publisher();
