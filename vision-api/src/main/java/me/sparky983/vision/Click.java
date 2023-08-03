@@ -7,7 +7,7 @@ import org.jspecify.annotations.NullMarked;
 /**
  * Represents the clicking of a {@link Button}.
  *
- * @see Button#click(Click)
+ * @see Button.Publisher#click(Click)
  */
 @NullMarked
 public interface Click {
