@@ -166,6 +166,38 @@ val gui = Gui.chest()
 {% endtab %}
 {% endtabs %}
 
+## Close Handling
+
+To handle when a player closes a GUI, you can use `onClose(Consumer<Close>)`:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+Gui gui = Gui.chest()
+        .build()
+        .onClose(close -> {
+            Audience closer = close.closer();
+            
+            // reopen the GUI
+            close.open(close.gui());
+        });
+```
+{% endtab %}
+
+{% tab title="Kotlin" %}
+```kotlin
+val gui = Gui.chest()
+        .build()
+        .onClose { close ->
+            val player = close.player()
+            
+            // reopen the GUI
+            close.open(close.gui())
+        }
+```
+{% endtab %}
+{% endtabs %}
+
 ## Opening The GUI
 
 To open a `Gui`, you need to first create a `PaperVision`:
