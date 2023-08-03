@@ -171,7 +171,7 @@ final class ButtonImpl implements Button {
                 glow);
     }
 
-    final class PublisherImpl implements Publisher {
+    private final class PublisherImpl implements Publisher {
 
         @Override
         public void click(final Click click) {
