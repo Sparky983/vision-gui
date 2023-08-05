@@ -16,6 +16,8 @@ import me.sparky983.vision.ItemType;
 @NullMarked
 final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
+    private static final ItemFlag[] ITEM_FLAGS = ItemFlag.values();
+    
     private final PaperComponentFixer componentFixer;
     private final PaperItemTypeConverter itemTypeConverter;
 
@@ -36,7 +38,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
         Objects.requireNonNull(item, "item cannot be null");
         Objects.requireNonNull(locale, "locale cannot be null");
 
-        item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.addItemFlags(ITEM_FLAGS);
 
         final Button.Subscriber subscriber = new Button.Subscriber() {
             @Override
