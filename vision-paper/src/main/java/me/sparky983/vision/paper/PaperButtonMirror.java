@@ -1,5 +1,6 @@
 package me.sparky983.vision.paper;
 
+import me.sparky983.vision.Subscription;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
@@ -23,5 +24,5 @@ interface PaperButtonMirror {
      * @param locale the locale to render {@link Component Components} with
      * @throws NullPointerException if the button, the item or the locale is {@code null}.
      */
-    void mirror(Button button, ItemStack item, Locale locale);
+    Subscription mirror(Button button, ItemStack item, Locale locale);
 }

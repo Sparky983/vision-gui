@@ -1,5 +1,6 @@
 package me.sparky983.vision.paper;
 
+import me.sparky983.vision.Subscription;
 import net.kyori.adventure.text.Component;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -17,7 +18,7 @@ import me.sparky983.vision.ItemType;
 final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
     private static final ItemFlag[] ITEM_FLAGS = ItemFlag.values();
-    
+
     private final PaperComponentFixer componentFixer;
     private final PaperItemTypeConverter itemTypeConverter;
 
@@ -32,7 +33,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
     }
 
     @Override
-    public void mirror(final Button button, final ItemStack item, final Locale locale) {
+    public Subscription mirror(final Button button, final ItemStack item, final Locale locale) {
 
         Objects.requireNonNull(button, "button cannot be null");
         Objects.requireNonNull(item, "item cannot be null");
@@ -89,6 +90,6 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
         subscriber.amount(button.amount());
         subscriber.glow(button.glow());
 
-        button.subscribe(subscriber);
+        return button.subscribe(subscriber);
     }
 }
