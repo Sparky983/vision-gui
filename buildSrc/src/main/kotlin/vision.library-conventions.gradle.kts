@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
+    id("com.diffplug.spotless")
 }
 
 repositories {
@@ -25,6 +26,13 @@ java {
     }
     withJavadocJar()
     withSourcesJar()
+}
+
+spotless {
+    java {
+        palantirJavaFormat().style("GOOGLE")
+        formatAnnotations()
+    }
 }
 
 publishing {
