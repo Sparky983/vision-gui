@@ -1,9 +1,9 @@
 package me.sparky983.vision;
 
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 /**
- * Represents a subscribable object.
+ * Represents an object that publishes events.
  *
  * @param <T> the type of subscriber
  * @see Button
@@ -32,16 +32,5 @@ public interface Subscribable<T extends Subscribable.Subscriber> {
      */
     interface Subscriber {
 
-        /**
-         * Called when a handling an event throws an exception.
-         * <p>
-         * If this method throws an exception, the exception may be
-         * <a href="https://en.wikipedia.org/wiki/Error_hiding">swallowed</a>.
-         *
-         * @param thrown the thrown exception
-         * @throws NullPointerException if the thrown exception is {@code null} (optional).
-         * @since 0.1
-         */
-        void exception(RuntimeException thrown);
     }
 }

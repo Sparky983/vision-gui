@@ -2,7 +2,10 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Set;
 
 /**
  * Represents the {@link Hopper} variant of a {@link Gui}.
@@ -17,10 +20,10 @@ import org.jspecify.nullness.NullMarked;
  *</pre>
  */
 @NullMarked
-non-sealed public interface Hopper extends Gui {
+public non-sealed interface Hopper extends Gui {
 
     /**
-     * The number of columns hoppers have.
+     * The number of columns {@code Hopper}s have.
      *
      * @see Gui#columns()
      * @since 1.0
@@ -30,7 +33,7 @@ non-sealed public interface Hopper extends Gui {
     int ROWS = 1;
 
     /**
-     * The number of columns hoppers have.
+     * The number of columns {@code Hopper}s have.
      *
      * @see Gui#columns()
      * @since 1.0
@@ -38,6 +41,16 @@ non-sealed public interface Hopper extends Gui {
      */
     @ApiStatus.Experimental
     int COLUMNS = 5;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.0
+     */
+    @Override
+    Hopper button(Slot slot, @Nullable Button button);
 
     /**
      * A {@link Hopper} builder.
@@ -51,27 +64,21 @@ non-sealed public interface Hopper extends Gui {
      *        .build();
      *</pre>
      */
-    interface Builder extends Gui.Builder {
+    non-sealed interface Builder extends Gui.Builder {
 
         /**
-         * Sets the title of the {@link Hopper}.
+         * {@inheritDoc}
          *
-         * @param title {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @since 1.0
-         * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
-         * must be specified before the {@link Gui} is built
+         * @vision.apiNote {@inheritDoc}
          */
         @Override
         Builder title(Component title);
 
         /**
-         * Sets the {@link Button} at the specified {@link Slot} of the {@link Hopper}.
+         * {@inheritDoc}
          *
-         * @param slot {@inheritDoc}
-         * @param button {@inheritDoc}
-         * @return {@inheritDoc}
          * @throws NullPointerException {@inheritDoc}
          * @since 1.0
          */
@@ -79,9 +86,54 @@ non-sealed public interface Hopper extends Gui {
         Builder button(Slot slot, Button button);
 
         /**
-         * Builds the {@link Hopper}.
+         * {@inheritDoc}
          *
-         * @return the built {@link Hopper}
+         * @throws NullPointerException {@inheritDoc}
+         * @since 1.0
+         * @vision.experimental {@inheritDoc}
+         */
+        @Override
+        @ApiStatus.Experimental
+        Builder fill(Button button);
+
+        /**
+         * {@inheritDoc}
+         *
+         * @throws IllegalArgumentException {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
+         * @since 1.0
+         * @vision.experimental {@inheritDoc}
+         */
+        @Override
+        @ApiStatus.Experimental
+        Builder border(Button button, Set<? extends Border> borders);
+
+        /**
+         * {@inheritDoc}
+         *
+         * @throws IllegalArgumentException {@inheritDoc}
+         * @throws NullPointerException {@inheritDoc}
+         * @since 1.0
+         * @vision.experimental {@inheritDoc}
+         */
+        @Override
+        @ApiStatus.Experimental
+        Builder border(Button button, Border... borders);
+
+        /**
+         * {@inheritDoc}
+         *
+         * @throws NullPointerException {@inheritDoc}
+         * @since 1.0
+         * @vision.experimental {@inheritDoc}
+         */
+        @Override
+        @ApiStatus.Experimental
+        Builder border(Button button);
+
+        /**
+         * {@inheritDoc}
+         *
          * @throws IllegalStateException {@inheritDoc}
          * @since 1.0
          */

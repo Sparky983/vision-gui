@@ -2,7 +2,7 @@ package me.sparky983.vision.paper;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
 
@@ -29,15 +29,18 @@ public interface PaperVision {
 
         Objects.requireNonNull(plugin, "plugin cannot be null");
 
-        final PaperConverter converter = new PaperConverterImpl(new ModernPaperItemTypeConverter());
+        final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
         return new PaperVisionImpl(
                 plugin,
                 plugin.getServer().getPluginManager(),
                 new SubscribingPaperInventoryMirror(
                         plugin.getServer(),
-                        converter,
-                        new SubscribingPaperButtonMirror(converter)
+                        itemTypeConverter,
+                        new SubscribingPaperButtonMirror(
+                                new PaperComponentFixerImpl(),
+                                itemTypeConverter
+                        )
                 )
         );
     }

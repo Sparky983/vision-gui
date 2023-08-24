@@ -7,14 +7,16 @@ repositories {
 }
 
 dependencies {
-    api(project(":vision-api"))
+    api(project(":vision-api")) {
+        exclude("net.kyori", "adventure-api")
+    }
 
     compileOnlyApi("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT") {
-        exclude("org.jetbrains:annotations")
+        exclude("org.jetbrains", "annotations")
     }
 
     testImplementation("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT") {
-        exclude("org.jetbrains:annotations")
+        exclude("org.jetbrains", "annotations")
     }
 }
 

@@ -1,40 +1,58 @@
 package me.sparky983.vision.paper;
 
+import me.sparky983.vision.Subscription;
 import net.kyori.adventure.text.Component;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import me.sparky983.vision.Button;
-import me.sparky983.vision.Click;
 import me.sparky983.vision.ItemType;
 
 @NullMarked
 final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
-    private final PaperConverter paperConverter;
+    private static final ItemFlag[] ITEM_FLAGS = ItemFlag.values();
 
-    SubscribingPaperButtonMirror(final PaperConverter paperConverter) {
+    private final PaperComponentFixer componentFixer;
+    private final PaperItemTypeConverter itemTypeConverter;
 
-        Objects.requireNonNull(paperConverter, "paperConverter cannot be null");
+    SubscribingPaperButtonMirror(final PaperComponentFixer componentFixer,
+                                 final PaperItemTypeConverter itemTypeConverter) {
 
-        this.paperConverter = paperConverter;
+        Objects.requireNonNull(componentFixer, "componentFixer cannot be null");
+        Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
+
+        this.componentFixer = componentFixer;
+        this.itemTypeConverter = itemTypeConverter;
     }
 
     @Override
-    public void mirror(final Button button, final ItemStack item) {
+    public Subscription mirror(final Button button, final ItemStack item, final Locale locale) {
 
         Objects.requireNonNull(button, "button cannot be null");
         Objects.requireNonNull(item, "item cannot be null");
+        Objects.requireNonNull(locale, "locale cannot be null");
 
-        button.subscribe(new Button.Subscriber() {
+        item.addItemFlags(ITEM_FLAGS);
+
+        final Button.Subscriber subscriber = new Button.Subscriber() {
+            @Override
+            public void type(final ItemType type) {
+
+                itemTypeConverter.convert(type).ifPresent(item::setType);
+            }
+
             @Override
             public void name(final Component name) {
 
                 item.editMeta((meta) ->
-                        meta.displayName(paperConverter.convert(name))
+                        meta.displayName(componentFixer.convert(name, locale))
                 );
             }
 
@@ -43,7 +61,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
                 item.editMeta((meta) -> meta.lore(lore
                         .stream()
-                        .map(paperConverter::convert)
+                        .map((line) -> componentFixer.convert(line, locale))
                         .toList()));
             }
 
@@ -54,20 +72,24 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
             }
 
             @Override
-            public void type(final ItemType type) {
+            public void glow(final boolean glow) {
 
-                paperConverter.convert(type).ifPresent(item::setType);
+                if (glow) {
+                    item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+                } else {
+                    item.removeEnchantment(Enchantment.DURABILITY);
+                }
             }
+        };
 
-            @Override
-            public void click(final Click click) {
+        // Essentially replay the button's state to the subscriber
+        // Ensures that the ItemStack and Button are consistent
+        subscriber.type(button.type());
+        subscriber.name(button.name());
+        subscriber.lore(button.lore());
+        subscriber.amount(button.amount());
+        subscriber.glow(button.glow());
 
-            }
-
-            @Override
-            public void exception(final RuntimeException thrown) {
-
-            }
-        });
+        return button.subscribe(subscriber);
     }
 }

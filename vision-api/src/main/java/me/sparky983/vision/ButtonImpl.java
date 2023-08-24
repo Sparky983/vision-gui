@@ -1,8 +1,8 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
-import org.jspecify.nullness.NullMarked;
-import org.jspecify.nullness.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,11 +21,13 @@ final class ButtonImpl implements Button {
     static final Button.Factory FACTORY = ButtonImpl::new;
 
     private final Subscribers<Subscriber> subscribers = new Subscribers<>();
+    private final Publisher publisher = new PublisherImpl();
 
     private ItemType type;
     private Component name;
     private List<Component> lore = List.of();
     private int amount = 1;
+    private boolean glow = false;
 
     ButtonImpl(final ItemType type) {
 
@@ -33,6 +35,28 @@ final class ButtonImpl implements Button {
 
         this.type = type;
         this.name = Component.translatable(type);
+    }
+
+    @Override
+    public ItemType type() {
+
+        return type;
+    }
+
+    @Override
+    public Button type(final ItemType type) {
+
+        Objects.requireNonNull(type, "type cannot be null");
+
+        this.type = type;
+        subscribers.notify((subscriber) -> subscriber.type(type));
+        return this;
+    }
+
+    @Override
+    public Component name() {
+
+        return name;
     }
 
     @Override
@@ -48,9 +72,9 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public Component name() {
+    public List<Component> lore() {
 
-        return name;
+        return lore;
     }
 
     @Override
@@ -62,7 +86,7 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public Button lore(final List<Component> lore) {
+    public Button lore(final List<? extends Component> lore) {
 
         Objects.requireNonNull(lore, "lore cannot be null");
 
@@ -76,9 +100,9 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public List<Component> lore() {
+    public int amount() {
 
-        return lore;
+        return amount;
     }
 
     @Override
@@ -94,66 +118,25 @@ final class ButtonImpl implements Button {
     }
 
     @Override
-    public int amount() {
+    public boolean glow() {
 
-        return amount;
+        return glow;
     }
 
     @Override
-    public Button type(final ItemType type) {
+    public Button glow(final boolean glow) {
 
-        Objects.requireNonNull(type, "type cannot be null");
-
-        this.type = type;
-        subscribers.notify((subscriber) -> subscriber.type(type));
+        this.glow = glow;
+        subscribers.notify((subscriber) -> subscriber.glow(glow));
         return this;
     }
 
     @Override
-    public ItemType type() {
-
-        return type;
-    }
-
-    @Override
-    public void click(final Click click) {
-
-        Objects.requireNonNull(click, "click cannot be null");
-
-        subscribers.notify((subscriber) -> subscriber.click(click));
-    }
-
-    @Override
-    public Button onClick(final Consumer<Click> handler) {
+    public Button onClick(final Consumer<? super Click> handler) {
 
         Objects.requireNonNull(handler, "handler cannot be null");
 
         subscribe(new Subscriber() {
-            @Override
-            public void exception(final RuntimeException thrown) {
-
-            }
-
-            @Override
-            public void name(final Component name) {
-
-            }
-
-            @Override
-            public void lore(final List<Component> lore) {
-
-            }
-
-            @Override
-            public void amount(final int amount) {
-
-            }
-
-            @Override
-            public void type(final ItemType type) {
-
-            }
-
             @Override
             public void click(final Click click) {
 
@@ -165,8 +148,37 @@ final class ButtonImpl implements Button {
     }
 
     @Override
+    public Publisher publisher() {
+
+        return publisher;
+    }
+
+    @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
         return subscribers.subscribe(subscriber);
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+                "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s, glow=%s]",
+                type,
+                name,
+                lore,
+                amount,
+                glow);
+    }
+
+    private final class PublisherImpl implements Publisher {
+
+        @Override
+        public void click(final Click click) {
+
+            Objects.requireNonNull(click, "click cannot be null");
+
+            subscribers.notify((subscriber) -> subscriber.click(click));
+        }
     }
 }

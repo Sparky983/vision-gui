@@ -1,7 +1,7 @@
 package me.sparky983.vision;
 
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -54,14 +54,55 @@ class ButtonTests {
     /**
      * A click to be used for testing.
      */
-    static final Click CLICK = Click.of(
-            Audience.empty(),
-            Button.of(ItemType.STONE),
-            Slot.of(0, 0),
-            Click.Type.LEFT);
+    static final Click CLICK = mock();
+
+    @AfterAll
+    static void tearDownAll() {
+
+        verifyNoInteractions(CLICK);
+    }
 
     @Nested
     class ButtonFactory {
+
+        @SuppressWarnings("ConstantConditions")
+        @Test
+        void testFactoryTypeWhenTypeIsNull() {
+
+            final Button.Factory builder = Button.button();
+
+            final Exception e = assertThrows(NullPointerException.class, () -> builder.type(null));
+            assertEquals("type cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testFactoryType() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            assertEquals(ItemType.STONE, button.type());
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        @Test
+        void testTypeWhenTypeIsNull() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class, () -> button.type(null));
+            assertEquals("type cannot be null", e.getMessage());
+
+            assertNotNull(button.type());
+        }
+
+        @Test
+        void testType() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            assertEquals(button, button.type(ItemType.DIRT));
+            assertEquals(button.type(), ItemType.DIRT);
+        }
 
         @Test
         void testDefaultName() {
@@ -89,6 +130,14 @@ class ButtonTests {
             assertEquals(button, button.name(NAME));
 
             assertEquals(NAME, button.name());
+        }
+
+        @Test
+        void testDefaultLore() {
+
+            final Button button = Button.button().type(ItemType.STONE);
+
+            assertEquals(List.of(), button.lore());
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -158,14 +207,6 @@ class ButtonTests {
         }
 
         @Test
-        void testDefaultLore() {
-
-            final Button button = Button.button().type(ItemType.STONE);
-
-            assertEquals(List.of(), button.lore());
-        }
-
-        @Test
         void testDefaultAmount() {
 
             final Button button = Button.button().type(ItemType.STONE);
@@ -209,43 +250,23 @@ class ButtonTests {
             assertEquals(amount, button.amount());
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Test
-        void testFactoryTypeWhenTypeIsNull() {
-
-            final Button.Factory builder = Button.button();
-
-            final Exception e = assertThrows(NullPointerException.class, () -> builder.type(null));
-            assertEquals("type cannot be null", e.getMessage());
-        }
-
-        @Test
-        void testFactoryType() {
+        void testDefaultGlow() {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            assertEquals(ItemType.STONE, button.type());
+            assertFalse(button.glow());
         }
 
-        @SuppressWarnings("ConstantConditions")
-        @Test
-        void testTypeWhenTypeIsNull() {
+        @ValueSource(booleans = {true, false})
+        @ParameterizedTest
+        void testGlow(final boolean glow) {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () -> button.type(null));
-            assertEquals("type cannot be null", e.getMessage());
+            assertEquals(button, button.glow(glow));
 
-            assertNotNull(button.type());
-        }
-
-        @Test
-        void testType() {
-
-            final Button button = Button.button().type(ItemType.STONE);
-
-            assertEquals(button, button.type(ItemType.DIRT));
-            assertEquals(button.type(), ItemType.DIRT);
+            assertEquals(glow, button.glow());
         }
 
         @SuppressWarnings("DataFlowIssue")
@@ -254,7 +275,8 @@ class ButtonTests {
 
             final Button button = Button.button().type(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    button.publisher().click(null));
             assertEquals("click cannot be null", e.getMessage());
         }
 
@@ -277,28 +299,10 @@ class ButtonTests {
 
             assertEquals(button, button.onClick(clickHandler));
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
 
             verify(clickHandler).accept(CLICK);
             verifyNoMoreInteractions(clickHandler);
-        }
-
-        @Test
-        void testOnClickWhenThrowsException() {
-
-            final Button button = Button.button().type(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final Consumer<Click> clickHandler = mock();
-            final RuntimeException e = new RuntimeException();
-            button.onClick(clickHandler);
-            button.subscribe(subscriber);
-
-            doThrow(e).when(clickHandler).accept(CLICK);
-            button.click(CLICK);
-            verify(clickHandler).accept(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(clickHandler, subscriber);
         }
 
         @SuppressWarnings("DataFlowIssue")
@@ -320,6 +324,9 @@ class ButtonTests {
 
             button.subscribe(subscriber);
 
+            button.type(ItemType.STONE);
+            verify(subscriber).type(ItemType.STONE);
+
             button.name(NAME);
             verify(subscriber).name(NAME);
 
@@ -332,65 +339,25 @@ class ButtonTests {
             button.amount(5);
             verify(subscriber).amount(5);
 
-            button.type(ItemType.STONE);
-            verify(subscriber).type(ItemType.STONE);
+            button.glow(true);
+            verify(subscriber).glow(true);
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
             verify(subscriber).click(CLICK);
 
             verifyNoMoreInteractions(subscriber);
         }
 
         @Test
-        void testSubscriberThrowsException() {
+        void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
 
             final Button button = Button.button().type(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final RuntimeException e = new RuntimeException();
 
-            button.subscribe(subscriber);
+            final Subscription subscription = button.subscribe(mock());
 
-            doThrow(e).when(subscriber).name(NAME);
-            button.name(NAME);
-            verify(subscriber).name(NAME);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(subscriber);
+            subscription.cancel();
 
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_LIST);
-            verify(subscriber).lore(LORE_LIST);
-            verify(subscriber, times(2)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_ARRAY);
-            verify(subscriber, times(2)).lore(LORE_LIST);
-            verify(subscriber, times(3)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).amount(5);
-            button.amount(5);
-            verify(subscriber).amount(5);
-            verify(subscriber, times(4)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).type(ItemType.STONE);
-            button.type(ItemType.STONE);
-            verify(subscriber).type(ItemType.STONE);
-            verify(subscriber, times(5)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).click(CLICK);
-            button.click(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber, times(6)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).exception(e);
-            button.name(NAME);
-            verify(subscriber, times(2)).name(NAME);
-            verify(subscriber, times(7)).exception(e);
-            verifyNoMoreInteractions(subscriber); // exception should not be called again
+            assertThrows(IllegalStateException.class, subscription::cancel);
         }
 
         @Test
@@ -405,15 +372,36 @@ class ButtonTests {
 
             subscription.cancel();
 
+            button.type(ItemType.STONE);
             button.name(NAME);
             button.lore(LORE_LIST);
             button.lore(LORE_ARRAY);
             button.amount(5);
-            button.type(ItemType.STONE);
-            button.click(CLICK);
+            button.glow(true);
+            button.publisher().click(CLICK);
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);
+        }
+
+        @Test
+        void testToString() {
+
+            final Button button = Button.button()
+                    .type(ItemType.STONE)
+                    .name(NAME)
+                    .lore(LORE_LIST)
+                    .amount(2)
+                    .glow(true);
+
+            assertEquals(
+                    String.format(
+                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s, glow=%s]",
+                            ItemType.STONE,
+                            NAME,
+                            LORE_LIST,
+                            2,
+                            true), button.toString());
         }
     }
 
@@ -426,6 +414,35 @@ class ButtonTests {
 
             final Exception e = assertThrows(NullPointerException.class, () -> Button.of(null));
             assertEquals("type cannot be null", e.getMessage());
+        }
+
+        @Test
+        void testButtonOf() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            assertEquals(ItemType.STONE, button.type());
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        @Test
+        void testTypeWhenTypeIsNull() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            final Exception e = assertThrows(NullPointerException.class, () -> button.type(null));
+            assertEquals("type cannot be null", e.getMessage());
+
+            assertNotNull(button.type());
+        }
+
+        @Test
+        void testType() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            assertEquals(button, button.type(ItemType.DIRT));
+            assertEquals(ItemType.DIRT, button.type());
         }
 
         @Test
@@ -453,6 +470,14 @@ class ButtonTests {
 
             assertEquals(button, button.name(NAME));
             assertEquals(NAME, button.name());
+        }
+
+        @Test
+        void testDefaultLoreLore() {
+
+            final Button button = Button.of(ItemType.STONE);
+
+            assertEquals(List.of(), button.lore());
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -522,14 +547,6 @@ class ButtonTests {
         }
 
         @Test
-        void testDefaultLoreLore() {
-
-            final Button button = Button.of(ItemType.STONE);
-
-            assertEquals(List.of(), button.lore());
-        }
-
-        @Test
         void testDefaultAmount() {
 
             final Button button = Button.of(ItemType.STONE);
@@ -573,25 +590,23 @@ class ButtonTests {
             assertEquals(amount, button.amount());
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Test
-        void testTypeWhenTypeIsNull() {
+        void testDefaultGlow() {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () -> button.type(null));
-            assertEquals("type cannot be null", e.getMessage());
-
-            assertNotNull(button.type());
+            assertFalse(button.glow());
         }
 
-        @Test
-        void testType() {
+        @ValueSource(booleans = {true, false})
+        @ParameterizedTest
+        void testGlow(final boolean glow) {
 
             final Button button = Button.of(ItemType.STONE);
 
-            assertEquals(button, button.type(ItemType.DIRT));
-            assertEquals(button.type(), ItemType.DIRT);
+            assertEquals(button, button.glow(glow));
+
+            assertEquals(glow, button.glow());
         }
 
         @SuppressWarnings("DataFlowIssue")
@@ -600,7 +615,8 @@ class ButtonTests {
 
             final Button button = Button.of(ItemType.STONE);
 
-            final Exception e = assertThrows(NullPointerException.class, () -> button.click(null));
+            final Exception e = assertThrows(NullPointerException.class, () ->
+                    button.publisher().click(null));
             assertEquals("click cannot be null", e.getMessage());
         }
 
@@ -623,28 +639,10 @@ class ButtonTests {
 
             assertEquals(button, button.onClick(clickHandler));
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
 
             verify(clickHandler).accept(CLICK);
             verifyNoMoreInteractions(clickHandler);
-        }
-
-        @Test
-        void testOnClickWhenThrowsException() {
-
-            final Button button = Button.of(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final Consumer<Click> clickHandler = mock();
-            final RuntimeException e = new RuntimeException();
-            button.onClick(clickHandler);
-            button.subscribe(subscriber);
-
-            doThrow(e).when(clickHandler).accept(CLICK);
-            button.click(CLICK);
-            verify(clickHandler).accept(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(clickHandler, subscriber);
         }
 
         @SuppressWarnings("DataFlowIssue")
@@ -666,6 +664,9 @@ class ButtonTests {
 
             button.subscribe(subscriber);
 
+            button.type(ItemType.STONE);
+            verify(subscriber).type(ItemType.STONE);
+
             button.name(NAME);
             verify(subscriber).name(NAME);
 
@@ -678,65 +679,25 @@ class ButtonTests {
             button.amount(5);
             verify(subscriber).amount(5);
 
-            button.type(ItemType.STONE);
-            verify(subscriber).type(ItemType.STONE);
+            button.glow(true);
+            verify(subscriber).glow(true);
 
-            button.click(CLICK);
+            button.publisher().click(CLICK);
             verify(subscriber).click(CLICK);
 
             verifyNoMoreInteractions(subscriber);
         }
 
         @Test
-        void testSubscriberThrowsException() {
+        void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
 
             final Button button = Button.of(ItemType.STONE);
-            final Button.Subscriber subscriber = mock();
-            final RuntimeException e = new RuntimeException();
 
-            button.subscribe(subscriber);
+            final Subscription subscription = button.subscribe(mock());
 
-            doThrow(e).when(subscriber).name(NAME);
-            button.name(NAME);
-            verify(subscriber).name(NAME);
-            verify(subscriber).exception(e);
-            verifyNoMoreInteractions(subscriber);
+            subscription.cancel();
 
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_LIST);
-            verify(subscriber).lore(LORE_LIST);
-            verify(subscriber, times(2)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).lore(LORE_LIST);
-            button.lore(LORE_ARRAY);
-            verify(subscriber, times(2)).lore(LORE_LIST);
-            verify(subscriber, times(3)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).amount(5);
-            button.amount(5);
-            verify(subscriber).amount(5);
-            verify(subscriber, times(4)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).type(ItemType.STONE);
-            button.type(ItemType.STONE);
-            verify(subscriber).type(ItemType.STONE);
-            verify(subscriber, times(5)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).click(CLICK);
-            button.click(CLICK);
-            verify(subscriber).click(CLICK);
-            verify(subscriber, times(6)).exception(e);
-            verifyNoMoreInteractions(subscriber);
-
-            doThrow(e).when(subscriber).exception(e);
-            button.name(Component.text("name"));
-            verify(subscriber, times(2)).name(Component.text("name"));
-            verify(subscriber, times(7)).exception(e);
-            verifyNoMoreInteractions(subscriber); // exception should not be called again
+            assertThrows(IllegalStateException.class, subscription::cancel);
         }
 
         @Test
@@ -751,15 +712,35 @@ class ButtonTests {
 
             subscription.cancel();
 
+            button.type(ItemType.STONE);
             button.name(NAME);
             button.lore(LORE_LIST);
             button.lore(LORE_ARRAY);
             button.amount(5);
-            button.type(ItemType.STONE);
-            button.click(CLICK);
+            button.glow(true);
+            button.publisher().click(CLICK);
 
             assertTrue(subscription.isCancelled());
             verifyNoInteractions(subscriber);
+        }
+
+        @Test
+        void testToString() {
+
+            final Button button = Button.of(ItemType.STONE)
+                    .name(NAME)
+                    .lore(LORE_LIST)
+                    .amount(2)
+                    .glow(true);
+
+            assertEquals(
+                    String.format(
+                            "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s, glow=%s]",
+                            ItemType.STONE,
+                            NAME,
+                            LORE_LIST,
+                            2,
+                            true), button.toString());
         }
     }
 }

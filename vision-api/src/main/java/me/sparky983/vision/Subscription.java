@@ -12,6 +12,7 @@ public interface Subscription {
      * Cancels this {@code Subscription}.
      *
      * @since 0.1
+     * @throws IllegalStateException if this {@code Subscription} has already been cancelled.
      */
     void cancel();
 

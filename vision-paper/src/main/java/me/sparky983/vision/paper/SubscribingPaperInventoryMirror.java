@@ -1,13 +1,19 @@
 package me.sparky983.vision.paper;
 
+import me.sparky983.vision.Subscription;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.translation.GlobalTranslator;
 import org.bukkit.Server;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.nullness.NullMarked;
-import org.jspecify.nullness.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -25,72 +31,77 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
             """;
 
     private final Server server;
-    private final PaperConverter paperConverter;
+    private final PaperItemTypeConverter itemTypeConverter;
     private final PaperButtonMirror buttonMirror;
 
     SubscribingPaperInventoryMirror(final Server server,
-                                    final PaperConverter paperConverter,
+                                    final PaperItemTypeConverter itemTypeConverter,
                                     final PaperButtonMirror buttonMirror) {
 
         Objects.requireNonNull(server, "server cannot be null");
-        Objects.requireNonNull(paperConverter, "paperConverter cannot be null");
+        Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
         Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
 
         this.server = server;
-        this.paperConverter = paperConverter;
+        this.itemTypeConverter = itemTypeConverter;
         this.buttonMirror = buttonMirror;
     }
 
     @Override
-    public Inventory mirror(final Gui gui) {
+    public Inventory mirror(final Gui gui, final Locale locale) {
 
         Objects.requireNonNull(gui, "gui cannot be null");
+        Objects.requireNonNull(locale, "locale cannot be null");
+
+        final Component title = GlobalTranslator.render(gui.title(), locale);
 
         final Function<InventoryHolder, Inventory> inventoryFactory = (inventoryHolder) ->
                 switch (gui.type()) {
                     case CHEST ->
-                            server.createInventory(inventoryHolder, gui.rows() * gui.columns(), gui.title());
+                            server.createInventory(inventoryHolder, gui.rows() * gui.columns(),title);
                     case HOPPER ->
-                            server.createInventory(inventoryHolder, InventoryType.HOPPER, gui.title());
+                            server.createInventory(inventoryHolder, InventoryType.HOPPER, title);
                     case DROPPER ->
-                            server.createInventory(inventoryHolder, InventoryType.DROPPER, gui.title());
+                            server.createInventory(inventoryHolder, InventoryType.DROPPER, title);
                 };
 
         final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
 
         final Gui.Subscriber subscriber = new Gui.Subscriber() {
-            @Override
-            public void exception(final RuntimeException thrown) {
-
-            }
-
+            private final Map<Slot, Subscription> subscriptions = new HashMap<>();
+            
             @Override
             public void button(final Slot slot, final @Nullable Button button) {
 
+                final Subscription subscription = subscriptions.get(slot);
+                if (subscription != null) {
+                    subscription.cancel();
+                }
+
+                final int rawSlot = slot.column() + (slot.row() * gui.columns());
                 if (button == null) {
+                    inventory.setItem(rawSlot, null);
+                    subscriptions.remove(slot);
                     return;
                 }
-                final ItemStack item = paperConverter.convert(button).orElseThrow(() ->
-                        new IllegalStateException(
+                final ItemStack item = itemTypeConverter.convert(button.type())
+                        .map(ItemStack::new)
+                        .orElseThrow(() -> new IllegalStateException(
                                 String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
-                final int rawSlot = slot.column() + (slot.row() * gui.columns());
                 inventory.setItem(rawSlot, item);
 
                 final ItemStack craftItem = inventory.getItem(rawSlot);
                 // We need to get the item from the inventory because the item is cloned
                 assert craftItem != null;
-                buttonMirror.mirror(button, craftItem);
+                subscriptions.put(slot, buttonMirror.mirror(button, craftItem, locale));
             }
         };
 
-        for (int row = 0; row < gui.rows(); row++) {
-            for (int column = 0; column < gui.columns(); column++) {
-                final Slot slot = Slot.of(row, column);
-                gui.button(slot).ifPresent((button) -> {
-                    // Essentially replaying the button sets
-                    subscriber.button(slot, button);
-                });
-            }
+        for (final Slot slot : gui.slots()) {
+            gui.button(slot).ifPresent((button) -> {
+                // Essentially replaying the button sets
+                subscriber.button(slot, button);
+            });
         }
 
         gui.subscribe(subscriber);

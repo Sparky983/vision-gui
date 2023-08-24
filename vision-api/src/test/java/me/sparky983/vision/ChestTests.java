@@ -7,7 +7,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 import static me.sparky983.vision.Chest.COLUMNS;
 import static me.sparky983.vision.Chest.MAX_ROWS;
@@ -30,6 +33,14 @@ class ChestTests {
      * A slot to be used for testing.
      */
     static final Slot SLOT = Slot.of(0, 0);
+
+    @Test
+    void testType() {
+
+        final Gui gui = Gui.chest().build();
+
+        assertEquals(GuiType.CHEST, gui.type());
+    }
 
     @SuppressWarnings("ConstantConditions")
     @Test
@@ -158,6 +169,38 @@ class ChestTests {
         assertEquals(Optional.of(button), gui.button(SLOT));
     }
 
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testGetButtonWhenSlotIsNull() {
+
+        final Gui gui = Gui.chest().build();
+
+        final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
+        assertEquals("slot cannot be null", e.getMessage());
+    }
+
+    @CsvSource({
+            "1, 0, 1",
+            "1, 8, 1",
+            "5, 0, 5",
+            "5, 8, 5"
+    })
+    @ParameterizedTest
+    void testGetButtonWhenSlotIsOutOfBounds(final int slotRow,
+                                            final int slotColumn,
+                                            final int guiRows) {
+
+        final Gui gui = Gui.chest()
+                .rows(guiRows)
+                .build();
+        final Slot slot = Slot.of(slotRow, slotColumn);
+
+        final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
+        assertEquals(
+                String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS),
+                e.getMessage());
+    }
+
     @SuppressWarnings("ConstantConditions")
     @Test
     void testSetButtonWhenSlotIsNull() {
@@ -221,42 +264,275 @@ class ChestTests {
 
     @SuppressWarnings("DataFlowIssue")
     @Test
-    void testGetButtonWhenSlotIsNull() {
+    void testBuilderFillWhenButtonIsNull() {
 
-        final Gui gui = Gui.chest().build();
+        final Gui.Builder builder = Gui.chest();
 
-        final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
-        assertEquals("slot cannot be null", e.getMessage());
-    }
-
-    @CsvSource({
-            "1, 0, 1",
-            "1, 8, 1",
-            "5, 0, 5",
-            "5, 8, 5"
-    })
-    @ParameterizedTest
-    void testGetButtonWhenSlotIsOutOfBounds(final int slotRow,
-                                            final int slotColumn,
-                                            final int guiRows) {
-
-        final Gui gui = Gui.chest()
-                .rows(guiRows)
-                .build();
-        final Slot slot = Slot.of(slotRow, slotColumn);
-
-        final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
-        assertEquals(
-                String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS),
-                e.getMessage());
+        assertThrows(NullPointerException.class, () -> builder.fill(null));
     }
 
     @Test
-    void testType() {
+    void testBuilderFill() {
 
-        final Gui gui = Gui.chest().build();
+        final Button button = Button.of(ItemType.STONE);
+        final Button filler = Button.of(ItemType.STONE);
+        final Chest.Builder builder = Gui.chest()
+                .button(Slot.of(1, 4), button);
 
-        assertEquals(GuiType.CHEST, gui.type());
+        assertEquals(builder, builder.fill(filler));
+
+        builder.rows(3);
+
+        final Gui gui = builder.build();
+
+        for (int row = 0; row < gui.rows(); row++) {
+            for (int column = 0; column < gui.columns(); column++) {
+                if (row == 1 && column == 4) {
+                    assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+                } else {
+                    assertEquals(Optional.of(filler), gui.button(Slot.of(row, column)));
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderSetWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.chest();
+
+        assertThrows(NullPointerException.class, () -> builder.border(null, Set.of(Border.TOP)));
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderSetWhenBordersIsNull() {
+
+        final Gui.Builder builder = Gui.chest();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(NullPointerException.class, () -> builder.border(button, (Set<Border>) null));
+    }
+
+    @Test
+    void testBuilderBorderSetWhenBordersIsEmpty() {
+
+        final Gui.Builder builder = Gui.chest();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(IllegalArgumentException.class, () -> builder.border(button, Set.of()));
+    }
+
+    @Test
+    void testBuilderBorderSet() {
+
+        final Button button = Button.of(ItemType.STONE);
+        final Button border = Button.of(ItemType.DIAMOND);
+        final Chest.Builder builder = Gui.chest()
+                .button(Slot.of(0, 4), button);
+
+        assertEquals(builder, builder.border(border, Set.of(Border.TOP, Border.LEFT)));
+
+        builder.rows(3);
+
+        final Gui gui = builder.build();
+
+        final Set<Slot> slots = Set.of(
+                Slot.of(0, 0),
+                Slot.of(0, 1),
+                Slot.of(0, 2),
+                Slot.of(0, 3),
+                Slot.of(0, 5),
+                Slot.of(0, 6),
+                Slot.of(0, 7),
+                Slot.of(0, 8),
+
+                // Slot.of(0, 0) - corner
+                Slot.of(1, 0),
+                Slot.of(2, 0)
+        );
+
+        for (final Slot slot : gui.slots()) {
+            if (slots.contains(slot)) {
+                assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+            } else if (slot.row() == 0 && slot.column() == 4) {
+                assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+            } else {
+                assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+            }
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderVarargsWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.chest();
+
+        assertThrows(NullPointerException.class, () -> builder.border(null, Border.TOP));
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderVarargsWhenBordersIsNull() {
+
+        final Gui.Builder builder = Gui.chest();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(NullPointerException.class, () -> builder.border(button, (Border) null));
+    }
+
+    @Test
+    void testBuilderBorderVarargsWhenBordersIsEmpty() {
+
+        final Gui.Builder builder = Gui.chest();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(IllegalArgumentException.class, () -> builder.border(button, new Border[0]));
+    }
+
+    @Test
+    void testBuilderBorderVarargsWhenBordersHasDuplicates() {
+
+        final Gui.Builder builder = Gui.chest();
+        final Button button = Button.of(ItemType.STONE);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                builder.border(button, Border.TOP, Border.TOP));
+    }
+
+    @Test
+    void testBuilderBorderVarargs() {
+
+        final Button button = Button.of(ItemType.STONE);
+        final Button border = Button.of(ItemType.DIAMOND);
+        final Chest.Builder builder = Gui.chest()
+                .button(Slot.of(0, 4), button);
+
+        assertEquals(builder, builder.border(border, Border.TOP, Border.LEFT));
+
+        builder.rows(3);
+
+        final Gui gui = builder.build();
+
+        final Set<Slot> slots = Set.of(
+                Slot.of(0, 0),
+                Slot.of(0, 1),
+                Slot.of(0, 2),
+                Slot.of(0, 3),
+                Slot.of(0, 5),
+                Slot.of(0, 6),
+                Slot.of(0, 7),
+                Slot.of(0, 8),
+
+                // Slot.of(0, 0) - corner
+                Slot.of(1, 0),
+                Slot.of(2, 0)
+        );
+
+        for (final Slot slot : gui.slots()) {
+            if (slots.contains(slot)) {
+                assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+            } else if (slot.row() == 0 && slot.column() == 4) {
+                assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+            } else {
+                assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+            }
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Test
+    void testBuilderBorderWhenButtonIsNull() {
+
+        final Gui.Builder builder = Gui.chest();
+
+        assertThrows(NullPointerException.class, () -> builder.border(null));
+    }
+
+    @Test
+    void testBuilderBorder() {
+
+        final Button button = Button.of(ItemType.STONE);
+        final Button border = Button.of(ItemType.DIAMOND);
+        final Chest.Builder builder = Gui.chest()
+                .button(Slot.of(0, 4), button);
+
+        assertEquals(builder, builder.border(border)); // all borders
+
+        builder.rows(3);
+
+        final Gui gui = builder.build();
+
+        final Set<Slot> slots = Set.of(
+                Slot.of(0, 0),
+                Slot.of(0, 1),
+                Slot.of(0, 2),
+                Slot.of(0, 3),
+                Slot.of(0, 5),
+                Slot.of(0, 6),
+                Slot.of(0, 7),
+                Slot.of(0, 8),
+
+                Slot.of(2, 0),
+                Slot.of(2, 1),
+                Slot.of(2, 2),
+                Slot.of(2, 3),
+                Slot.of(2, 4),
+                Slot.of(2, 5),
+                Slot.of(2, 6),
+                Slot.of(2, 7),
+                Slot.of(2, 8),
+
+                // Slot.of(0, 0) - corner
+                Slot.of(1, 0),
+                // Slot.of(2, 0), - corner
+
+                // Slot.of(0, 8) - corner
+                Slot.of(1, 8)
+                // Slot.of(2, 8) - corner
+        );
+
+        for (final Slot slot : gui.slots()) {
+            if (slots.contains(slot)) {
+                assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+            } else if (slot.row() == 0 && slot.column() == 4) {
+                assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+            } else {
+                assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+            }
+        }
+    }
+
+    @Test
+    void testSlots() {
+
+        final Gui gui = Gui.chest().rows(2).build();
+
+        final List<Slot> slots = List.of(
+                Slot.of(0, 0),
+                Slot.of(0, 1),
+                Slot.of(0, 2),
+                Slot.of(0, 3),
+                Slot.of(0, 4),
+                Slot.of(0, 5),
+                Slot.of(0, 6),
+                Slot.of(0, 7),
+                Slot.of(0, 8),
+
+                Slot.of(1, 0),
+                Slot.of(1, 1),
+                Slot.of(1, 2),
+                Slot.of(1, 3),
+                Slot.of(1, 4),
+                Slot.of(1, 5),
+                Slot.of(1, 6),
+                Slot.of(1, 7),
+                Slot.of(1, 8)
+        );
+
+        assertEquals(slots, gui.slots());
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -284,21 +560,15 @@ class ChestTests {
     }
 
     @Test
-    void testSubscriberThrowsException() {
+    void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
 
         final Gui gui = Gui.chest().build();
-        final Gui.Subscriber subscriber = mock();
-        final Button button = Button.of(ItemType.STONE);
-        final RuntimeException e = new RuntimeException();
 
-        gui.subscribe(subscriber);
+        final Subscription subscription = gui.subscribe(mock());
 
-        doThrow(e).when(subscriber).button(SLOT, button);
-        gui.button(SLOT, button);
+        subscription.cancel();
 
-        verify(subscriber).button(SLOT, button);
-        verify(subscriber).exception(e);
-        verifyNoMoreInteractions(subscriber);
+        assertThrows(IllegalStateException.class, subscription::cancel);
     }
 
     @Test
@@ -318,5 +588,18 @@ class ChestTests {
 
         assertTrue(subscription.isCancelled());
         verifyNoMoreInteractions(subscriber);
+    }
+
+    @Test
+    void testToString() {
+
+        final Gui gui = Gui.chest()
+                .title(Component.text("title"))
+                .rows(3)
+                .build();
+
+        assertEquals(
+                String.format("ChestImpl[title=%s, rows=3]", Component.text("title")),
+                gui.toString());
     }
 }

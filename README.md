@@ -10,8 +10,7 @@ Vision GUI is a minimal GUI API for Paper.
 
 Add the following to your build configuration:
 
-<details>
-<summary>pom.xml</summary>
+### pom.xml
 
 ```xml
 <repositories>
@@ -25,15 +24,12 @@ Add the following to your build configuration:
     <dependency>
         <groupId>me.sparky983</groupId>
         <artifactId>vision-paper</artifactId>
-        <version>0.2</version>
+        <version>1.0.0</version>
     </dependency>
 </dependencies>
 ```
-</details>
 
-<details>
-
-<summary>build.gradle</summary>
+### build.gradle
 
 ```groovy
 repositories {
@@ -41,14 +37,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.sparky983:vision-paper:0.2'
+    implementation 'me.sparky983:vision-paper:1.0.0'
 }
 ```
-</details>
 
-<details>
-
-<summary>build.gradle.kts</summary>
+### build.gradle.kts
 
 ```kotlin
 repositories {
@@ -56,7 +49,6 @@ repositories {
 }
 
 dependencies {
-    implementation("me.sparky983:vision-paper:0.2")
+    implementation("me.sparky983:vision-paper:1.0.0")
 }
 ```
-</details>

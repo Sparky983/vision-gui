@@ -4,8 +4,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.jspecify.nullness.NullMarked;
-import org.jspecify.nullness.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -39,11 +39,11 @@ final class PaperVisionImpl implements PaperVision {
         Objects.requireNonNull(gui, "gui cannot be null");
 
         if (inventoryListener == null) {
-            inventoryListener = new InventoryListener();
+            inventoryListener = new InventoryListener(this);
             pluginManager.registerEvents(inventoryListener, plugin);
         }
 
-        final Inventory inventory = inventoryMirror.mirror(gui);
+        final Inventory inventory = inventoryMirror.mirror(gui, player.locale());
 
         player.openInventory(inventory);
     }

@@ -16,33 +16,87 @@ layout:
 
 ## Creating a GUI
 
-You can create a `Gui` using the type-safe builder:
+You can create a `Gui` using the builder:
 
 {% tabs %}
 {% tab title="Java" %}
 ```java
-Gui gui = Gui.gui()
+Gui gui = Gui.chest()
         .title(Component.text("A GUI"))
-        .rows(3); // The Gui is built once the rows have been specified
+        .rows(3)
+        .build();
 ```
 {% endtab %}
 
 {% tab title="Kotlin" %}
 ```kotlin
-val gui = Gui.gui()
+val gui = Gui.chest()
         .title(Component.text("A GUI"))
-        .rows(3) // The Gui is built once the rows have been specified
+        .rows(3)
+        .build()
+```
+{% endtab %}
+{% endtabs %}
+
+A dropper or hopper can be created using their builders:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+Gui gui = Gui.dropper()
+        .title(Component.text("A GUI"))
+        .build();        
+```
+
+```java
+Gui gui = Gui.hopper()
+        .title(Component.text("A GUI"))
+        .build();
+```
+{% endtab %}
+
+{% tab title="Kotlin" %}
+```kotlin
+val gui = Gui.dropper()
+        .title(Component.text("A GUI"))
+        .build()
+```
+
+```kotlin
+val gui = Gui.hopper()
+        .title(Component.text("A GUI"))
+        .build()
 ```
 {% endtab %}
 {% endtabs %}
 
 ## Adding Buttons
 
+A `Button` can be added by chaining a `button(Slot, Button)` call:
+
 {% hint style="info" %}
 Air is always represented by a `null` `Button`.
 {% endhint %}
 
-`Button`s are added using the `Gui.button()` method.
+{% tabs %}
+{% tab title="Java" %}
+```java
+Gui gui = Gui.chest()
+        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+        .build();
+```
+{% endtab %}
+
+{% tab title="Kotlin" %}
+```kotlin
+val gui = Gui.chest()
+        .button(Slot(1, 4), Button.of(ItemType.STONE))
+        .build()
+```
+{% endtab %}
+{% endtabs %}
+
+The method may also be called on a built `Gui`:
 
 {% tabs %}
 {% tab title="Java" %}
@@ -53,29 +107,61 @@ gui.button(Slot.of(1, 4), Button.of(ItemType.STONE));
 
 {% tab title="Kotlin" %}
 ```kotlin
-gui.button(Slot.of(1, 4), Button.of(ItemType.DIAMOND))
+gui.button(Slot(1, 4), Button.of(ItemType.STONE))
 ```
 {% endtab %}
 {% endtabs %}
 
-The method can also be chained:
+For more information relating to buttons, see [Buttons](buttons.md).
+
+### Borders and Filling
+
+`border(Button)` can be used to fill a border:
 
 {% tabs %}
 {% tab title="Java" %}
 ```java
-Gui gui = Gui.gui()
-        .title(Component.text("A GUI"))
-        .rows(3)
-        .button(Slot.of(1, 4), Button.of(ItemType.DIAMOND));
+Gui gui = Gui.chest()
+        .border(Button.of(ItemType.GRAY_STAINED_GLASS_PANE)) // all sides
+        .build();
+
+Gui gui = Gui.chest()
+        .border(Button.of(ItemType.GRAY_STAINED_GLASS_PANE), Border.BOTTOM)
+        .build();
 ```
 {% endtab %}
 
 {% tab title="Kotlin" %}
 ```kotlin
-val gui = Gui.gui()
-        .title(Component.text("A GUI"))
-        .rows(3)
-        .button(Slot.of(1, 4), Button.of(ItemType.DIAMOND))
+val gui = Gui.chest()
+        .border(Button.of(ItemType.GRAY_STAINED_GLASS_PANE)) // all sides
+        .build()
+
+val gui = Gui.chest()
+        .border(Button.of(ItemType.GRAY_STAINED_GLASS_PANE), Border.BOTTOM)
+        .build()
+```
+{% endtab %}
+{% endtabs %}
+
+To fill the entire GUI, `fill(Button)` can be used:
+
+
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+Gui gui = Gui.chest()
+        .fill(Button.of(ItemType.GRAY_STAINED_GLASS_PANE))
+        .build();
+```
+{% endtab %}
+
+{% tab title="Kotlin" %}
+```kotlin
+val gui = Gui.chest()
+        .fill(Button.of(ItemType.GRAY_STAINED_GLASS_PANE))
+        .build()
 ```
 {% endtab %}
 {% endtabs %}

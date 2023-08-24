@@ -2,13 +2,19 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.VisibleForTesting;
-import org.jspecify.nullness.NullMarked;
-import org.jspecify.nullness.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * A representation of a {@link Gui}'s contents.
@@ -50,6 +56,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
     private final Component title;
     private final int rows;
     private final int columns;
+    private final List<Slot> slots;
 
     private Container(final Component title,
                       final int rows,
@@ -67,7 +74,15 @@ final class Container implements Subscribable<Gui.Subscriber> {
         this.title = title;
         this.rows = rows;
         this.columns = columns;
-        this.buttons = new HashMap<>(buttons);
+        this.buttons = buttons;
+
+        final List<Slot> slots = new ArrayList<>();
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                slots.add(Slot.of(row, column));
+            }
+        }
+        this.slots = Collections.unmodifiableList(slots);
     }
 
     /**
@@ -101,6 +116,18 @@ final class Container implements Subscribable<Gui.Subscriber> {
         return rows;
     }
 
+    Optional<Button> button(final Slot slot) {
+
+        Objects.requireNonNull(slot, "slot cannot be null");
+
+        if (slot.column() >= columns || slot.row() >= rows) {
+            throw new IllegalArgumentException(
+                    String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
+        }
+
+        return Optional.ofNullable(buttons.get(slot));
+    }
+
     void button(final Slot slot, final @Nullable Button button) {
 
         Objects.requireNonNull(slot, "slot cannot be null");
@@ -118,16 +145,9 @@ final class Container implements Subscribable<Gui.Subscriber> {
         subscribers.notify((subscriber) -> subscriber.button(slot, button));
     }
 
-    Optional<Button> button(final Slot slot) {
+    List<Slot> slots() {
 
-        Objects.requireNonNull(slot, "slot cannot be null");
-
-        if (slot.column() >= columns || slot.row() >= rows) {
-            throw new IllegalArgumentException(
-                    String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
-        }
-
-        return Optional.ofNullable(buttons.get(slot));
+        return slots;
     }
 
     @Override
@@ -141,9 +161,11 @@ final class Container implements Subscribable<Gui.Subscriber> {
     /**
      * A {@link Container} builder.
      */
-    static final class Builder {
+    static class Builder {
 
         private final Map<Slot, Button> buttons = new HashMap<>();
+        private final Map<Border, Button> borders = new LinkedHashMap<>();
+        private @Nullable Button filler = null;
         private Component title;
         private int rows;
         private int columns;
@@ -192,15 +214,105 @@ final class Container implements Subscribable<Gui.Subscriber> {
             return this;
         }
 
+        Builder fill(final Button button) {
+
+            Objects.requireNonNull(button, "button cannot be null");
+
+            this.filler = button;
+            return this;
+        }
+
+        Builder border(final Button button, final Set<? extends Border> borders) {
+
+            Objects.requireNonNull(button, "button cannot be null");
+            Objects.requireNonNull(borders, "borders cannot be null");
+
+            for (final Border border : borders) {
+                Objects.requireNonNull(border, "borders cannot contain null");
+            }
+
+            if (borders.isEmpty()) {
+                throw new IllegalArgumentException("""
+                        borders cannot be empty
+                        to set all borders, use Gui.Builder.border(Button) instead""");
+            }
+
+            for (final Border border : borders) {
+                this.borders.remove(border); // remove so that the last one wins
+                this.borders.put(border, button);
+            }
+            return this;
+        }
+
+        Builder border(final Button button, final Border... borders) {
+
+            Objects.requireNonNull(borders, "borders cannot be null");
+
+            final Set<Border> borderSet = new LinkedHashSet<>();
+
+            for (int i = 0; i < borders.length; i++) {
+                final Border border = borders[i];
+                Objects.requireNonNull(border, "borders[" + i + " cannot contain null");
+                if (!borderSet.add(border)) {
+                    throw new IllegalArgumentException("borders cannot contain duplicates");
+                }
+            }
+
+            return border(button, borderSet);
+        }
+
+        Builder border(final Button button) {
+
+            return border(button, Border.all());
+        }
+
         Container build() {
 
-            for (final Slot slot : buttons.keySet()) {
+            final Map<Slot, Button> buttons = new HashMap<>();
+
+            for (final Slot slot : this.buttons.keySet()) {
                 if (slot.row() >= rows || slot.column() >= columns) {
                     throw new IllegalStateException(
                             String.format(
                                     SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), rows, columns));
                 }
             }
+
+            if (filler != null) {
+                for (int row = 0; row < rows; row++) {
+                    for (int column = 0; column < columns; column++) {
+                        buttons.put(Slot.of(row, column), filler);
+                    }
+                }
+            }
+
+            for (final Map.Entry<Border, Button> entry : borders.entrySet()) {
+                final Button button = entry.getValue();
+                switch (entry.getKey()) {
+                    case TOP -> {
+                        for (int column = 0; column < columns; column++) {
+                            buttons.put(Slot.of(0, column), button);
+                        }
+                    }
+                    case BOTTOM -> {
+                        for (int column = 0; column < columns; column++) {
+                            buttons.put(Slot.of(rows - 1, column), button);
+                        }
+                    }
+                    case LEFT -> {
+                        for (int row = 0; row < rows; row++) {
+                            buttons.put(Slot.of(row, 0), button);
+                        }
+                    }
+                    case RIGHT -> {
+                        for (int row = 0; row < rows; row++) {
+                            buttons.put(Slot.of(row, columns - 1), button);
+                        }
+                    }
+                }
+            }
+
+            buttons.putAll(this.buttons);
 
             return new Container(title, rows, columns, buttons);
         }

@@ -1,6 +1,6 @@
 package me.sparky983.vision;
 
-import org.jspecify.nullness.NullMarked;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 @NullMarked
 final class Subscribers<T extends Subscribable.Subscriber> implements Subscribable<T> {
 
-    private final Map<Subscription, T> subscribers = new HashMap<>();
+    private Map<Subscription, T> subscribers = new HashMap<>();
 
     @Override
     public Subscription subscribe(final T subscriber) {
@@ -25,7 +25,11 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
             @Override
             public void cancel() {
 
-                subscribers.remove(this);
+                final Map<Subscription, T> copy = new HashMap<>(subscribers);
+                if (copy.remove(this) == null) {
+                    throw new IllegalStateException("Subscription has already been cancelled");
+                }
+                subscribers = copy;
             }
 
             @Override
@@ -34,7 +38,10 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
                 return !subscribers.containsKey(this);
             }
         };
-        subscribers.put(subscription, subscriber);
+
+        final Map<Subscription, T> copy = new HashMap<>(subscribers);
+        copy.put(subscription, subscriber);
+        subscribers = copy;
         return subscription;
     }
 
@@ -43,18 +50,7 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
         for (final T subscriber : subscribers.values()) {
             try {
                 consumer.accept(subscriber);
-            } catch (final RuntimeException e) {
-                exception(e);
-            }
-        }
-    }
-
-    private void exception(final RuntimeException thrown) {
-
-        for (final T subscriber : subscribers.values()) {
-            try {
-                subscriber.exception(thrown);
-            } catch (final RuntimeException e) {
+            } catch (final Throwable e) {
                 e.printStackTrace();
             }
         }

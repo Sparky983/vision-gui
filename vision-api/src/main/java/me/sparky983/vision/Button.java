@@ -1,9 +1,11 @@
 package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.jetbrains.annotations.ApiStatus;
-import org.jspecify.nullness.NullMarked;
-import org.jspecify.nullness.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -59,15 +61,22 @@ public interface Button extends Subscribable<Button.Subscriber> {
     }
 
     /**
-     * Sets the name of this {@code Button}.
+     * Returns the type of this {@code Button}.
      *
-     * @param name the name or {@code null} to remove the name
-     * @return this {@code Button} instance (for chaining)
+     * @return the type of this {@code Button}
      * @since 0.1
-     * @vision.implNote The Paper Vision implementation removes the default Minecraft display name
-     * style (italics).
      */
-    Button name(@Nullable Component name);
+    ItemType type();
+
+    /**
+     * Sets the type of this {@code Button}.
+     *
+     * @param type the type
+     * @return this {@code Button} instance (for chaining)
+     * @throws NullPointerException if the type is {@code null}.
+     * @since 0.1
+     */
+    Button type(ItemType type);
 
     /**
      * Returns the name of this {@code Button}.
@@ -82,6 +91,27 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Component name();
 
     /**
+     * Sets the name of this {@code Button}.
+     *
+     * @param name the name or {@code null} to remove the name
+     * @return this {@code Button} instance (for chaining)
+     * @since 0.1
+     * @vision.implNote The Paper Vision implementation's default style is
+     * {@link NamedTextColor#WHITE} with no {@link TextDecoration}, rather than Minecraft's style
+     * (italics).
+     */
+    Button name(@Nullable Component name);
+
+    /**
+     * Returns the lore of this {@code Button}.
+     *
+     * @return an unmodifiable {@link List} containing the lore of this button or an empty
+     * {@link List} if no lore is set
+     * @since 0.1
+     */
+    List<Component> lore();
+
+    /**
      * Sets the lore of this {@code Button}.
      * <p>
      * Changes to the input array will not be reflected in the lore of this {@code Button}.
@@ -90,7 +120,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @return this {@code Button} instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
      * @since 0.1
-     * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+     * @vision.implNote The Paper Vision implementation's default style is
+     * {@link NamedTextColor#WHITE} with no {@link TextDecoration}, rather than Minecraft's style
      * (purple, italics).
      */
     Button lore(Component... lore);
@@ -104,19 +135,19 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @return this {@code Button} instance (for chaining)
      * @throws NullPointerException if the lore is or contains {@code null}.
      * @since 0.1
-     * @vision.implNote The Paper Vision implementation removes the default Minecraft lore style
+     * @vision.implNote The Paper Vision implementation's default style is
+     * {@link NamedTextColor#WHITE} with no {@link TextDecoration}, rather than Minecraft's style
      * (purple, italics).
      */
-    Button lore(List<Component> lore);
+    Button lore(List<? extends Component> lore);
 
     /**
-     * Returns the lore of this {@code Button}.
+     * Returns the amount items in this {@code Button}.
      *
-     * @return an unmodifiable {@link List} containing the lore of this button or an empty
-     * {@link List} if no lore is set
+     * @return the amount of items in this {@code Button}
      * @since 0.1
      */
-    List<Component> lore();
+    int amount();
 
     /**
      * Sets the amount of items in this {@code Button}.
@@ -130,41 +161,25 @@ public interface Button extends Subscribable<Button.Subscriber> {
     Button amount(int amount);
 
     /**
-     * Returns the amount items in this {@code Button}.
+     * Checks whether this {@code Button} is glowing.
      *
-     * @return the amount of items in this {@code Button}
-     * @since 0.1
+     * @return {@code true} if this {@code Button} is glowing, otherwise {@code false}
+     * @since 1.0
+     * @vision.experimental because this may be renamed.
      */
-    int amount();
+    @ApiStatus.Experimental
+    boolean glow();
 
     /**
-     * Sets the type of this {@code Button}.
+     * Sets whether this {@code Button} is glowing.
      *
-     * @param type the type
+     * @param glow {@code true} to make this
      * @return this {@code Button} instance (for chaining)
-     * @throws NullPointerException if the type is {@code null}.
-     * @since 0.1
+     * @since 1.0
+     * @vision.experimental because this may be renamed or changed.
      */
-    Button type(ItemType type);
-
-    /**
-     * Returns the type of this {@code Button}.
-     *
-     * @return the type of this {@code Button}
-     * @since 0.1
-     */
-    ItemType type();
-
-    /**
-     * Clicks this {@code Button}.
-     * <p>
-     * This method is called by Vision when this button is clicked.
-     *
-     * @param click an object describing the click
-     * @throws NullPointerException if the click is {@code null}.
-     * @since 0.1
-     */
-    void click(Click click);
+    @ApiStatus.Experimental
+    Button glow(boolean glow);
 
     /**
      * Subscribes the specified {@link Click} handler to this button.
@@ -180,7 +195,15 @@ public interface Button extends Subscribable<Button.Subscriber> {
      *        .type(ItemType.DIAMOND);
      *        .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))}</pre>
      */
-    Button onClick(Consumer<Click> handler);
+    Button onClick(Consumer<? super Click> handler);
+
+    /**
+     * Returns the {@link Publisher} associated with this {@code Button}.
+     *
+     * @return the {@link Publisher} associated with this {@code Button}
+     * @since 1.1
+     */
+    Publisher publisher();
 
     /**
      * Subscribes the specified {@link Subscriber} to this {@code Button}.
@@ -192,6 +215,9 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @vision.examples <pre>
      *{@code Button button = ...;
      *button.subscribe(new Button.Subscriber() {
+     *    public void type(ItemType type) {
+     *        System.out.println("Type updated");
+     *    }
      *    public void name(Component name) {
      *        System.out.println("Name updated");
      *    }
@@ -201,17 +227,28 @@ public interface Button extends Subscribable<Button.Subscriber> {
      *    public void amount(int amount) {
      *        System.out.println("Amount updated");
      *    }
-     *    public void type(ItemType type) {
-     *        System.out.println("Type updated");
-     *    }
-     *    public void click(Click click) {
-     *    }
-     *    public void exception(RuntimeException thrown) {
-     *    }
      *})}</pre>
      */
     @Override
     Subscription subscribe(Subscriber subscriber);
+
+    /**
+     * Represents a {@link Button} {@link Publisher}.
+     *
+     * @see #publisher()
+     * @since 1.1
+     */
+    interface Publisher {
+
+        /**
+         * Publishes the click event.
+         *
+         * @param click the click
+         * @throws NullPointerException if the click is {@code null}.
+         * @since 1.1
+         */
+        void click(Click click);
+    }
 
     /**
      * Represents a subscriber to a {@link Button}.
@@ -222,56 +259,91 @@ public interface Button extends Subscribable<Button.Subscriber> {
     interface Subscriber extends Subscribable.Subscriber {
 
         /**
+         * Called when the type of the {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
+         *
+         * @param type the new type
+         * @throws NullPointerException if the type is {@code null} (optional).
+         * @see Button#type(ItemType)
+         * @since 0.1
+         */
+        default void type(final ItemType type) {
+
+        }
+
+        /**
          * Called when the name of a {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param name the new name
          * @throws NullPointerException if the name is {@code null} (optional).
-         * @see #name(Component)
+         * @see Button#name(Component)
          * @since 0.1
          */
-        void name(Component name);
+        default void name(final Component name) {
+
+        }
 
         /**
          * Called when the lore of a {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param lore the new lore
          * @throws NullPointerException if the lore is or contains {@code null} (optional).
-         * @see #lore(List)
-         * @see #lore(Component...)
+         * @see Button#lore(List)
+         * @see Button#lore(Component...)
          * @since 0.1
          */
-        void lore(List<Component> lore);
+        default void lore(final List<Component> lore) {
+
+        }
 
         /**
          * Called when the amount of the {@link Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param amount the new amount
          * @throws IllegalArgumentException if the amount is less than {@code 1} or greater than
          * {@code 64} (optional).
-         * @see #amount(int)
+         * @see Button#amount(int)
          * @since 0.1
          */
-        void amount(int amount);
+        default void amount(final int amount) {
+
+        }
 
         /**
-         * Called when the type of the {@link Button} changes.
+         * Called when the glowing state of the {@code Button} changes.
+         * <p>
+         * The default implementation does nothing.
          *
-         * @param type the new type
-         * @throws NullPointerException if the type is {@code null} (optional).
-         * @see #type(ItemType)
-         * @since 0.1
+         * @param glow the new glowing state
+         * @see Button#glow(boolean)
+         * @since 1.0
+         * @vision.experimental because this may be renamed.
          */
-        void type(ItemType type);
+        @ApiStatus.Experimental
+        default void glow(final boolean glow) {
+
+        }
 
         /**
          * Called when the {@link Button} is clicked.
+         * <p>
+         * The default implementation does nothing.
          *
          * @param click an object describing the click
          * @throws NullPointerException if the click is {@code null} (optional).
-         * @see #click(Click)
+         * @see Publisher#click(Click)
          * @since 0.1
          */
-        void click(Click click);
+        default void click(final Click click) {
+
+        }
     }
 
     /**

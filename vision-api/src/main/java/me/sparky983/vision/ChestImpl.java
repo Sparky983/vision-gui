@@ -2,10 +2,12 @@ package me.sparky983.vision;
 
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.VisibleForTesting;
-import org.jspecify.nullness.NullMarked;
-import org.jspecify.nullness.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * The default implementation of {@link Chest}.
@@ -30,6 +32,12 @@ final class ChestImpl implements Chest {
     }
 
     @Override
+    public GuiType type() {
+
+        return GuiType.CHEST;
+    }
+
+    @Override
     public Component title() {
 
         return container.title();
@@ -48,28 +56,34 @@ final class ChestImpl implements Chest {
     }
 
     @Override
-    public Gui button(final Slot slot, final @Nullable Button button) {
-
-        container.button(slot, button);
-        return this;
-    }
-
-    @Override
     public Optional<Button> button(final Slot slot) {
 
         return container.button(slot);
     }
 
     @Override
-    public GuiType type() {
+    public Chest button(final Slot slot, final @Nullable Button button) {
 
-        return GuiType.CHEST;
+        container.button(slot, button);
+        return this;
+    }
+
+    @Override
+    public List<Slot> slots() {
+
+        return container.slots();
     }
 
     @Override
     public Subscription subscribe(final Subscriber subscriber) {
 
         return container.subscribe(subscriber);
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format("ChestImpl[title=%s, rows=%s]", title(), rows());
     }
 
     /**
@@ -100,6 +114,34 @@ final class ChestImpl implements Chest {
         public Builder button(final Slot slot, final Button button) {
 
             container.button(slot, button);
+            return this;
+        }
+
+        @Override
+        public Builder fill(final Button button) {
+
+            container.fill(button);
+            return this;
+        }
+
+        @Override
+        public Builder border(final Button button, final Set<? extends Border> borders) {
+
+            container.border(button, borders);
+            return this;
+        }
+
+        @Override
+        public Builder border(final Button button, final Border... borders) {
+
+            container.border(button, borders);
+            return this;
+        }
+
+        @Override
+        public Builder border(final Button button) {
+
+            container.border(button);
             return this;
         }
 
