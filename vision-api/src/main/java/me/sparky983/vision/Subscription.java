@@ -7,7 +7,6 @@ package me.sparky983.vision;
  * @since 0.1
  */
 public interface Subscription {
-
     /**
      * Cancels this {@code Subscription}.
      *

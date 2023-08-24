@@ -12,7 +12,6 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 public interface Subscribable<T extends Subscribable.Subscriber> {
-
     /**
      * Subscribes the specified subscriber to this {@code Subscribable} object.
      *
@@ -30,7 +29,5 @@ public interface Subscribable<T extends Subscribable.Subscriber> {
      * @see Gui.Subscriber
      * @since 0.1
      */
-    interface Subscriber {
-
-    }
+    interface Subscriber {}
 }

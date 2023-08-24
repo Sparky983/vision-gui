@@ -6,7 +6,6 @@ package me.sparky983.vision;
  * @since 0.1
  */
 public enum ClickType {
-
     /**
      * Represents a left click.
      *
@@ -77,7 +76,6 @@ public enum ClickType {
      * @since 0.1
      */
     public boolean isLeft() {
-
         return switch (this) {
             case LEFT, SHIFT_LEFT -> true;
             default -> false;
@@ -91,7 +89,6 @@ public enum ClickType {
      * @since 0.1
      */
     public boolean isRight() {
-
         return switch (this) {
             case RIGHT, SHIFT_RIGHT -> true;
             default -> false;
@@ -105,7 +102,6 @@ public enum ClickType {
      * @since 0.1
      */
     public boolean isShift() {
-
         return switch (this) {
             case SHIFT_LEFT, SHIFT_RIGHT -> true;
             default -> false;
@@ -119,7 +115,6 @@ public enum ClickType {
      * @since 0.1
      */
     public boolean isDrop() {
-
         return switch (this) {
             case DROP, CONTROL_DROP -> true;
             default -> false;

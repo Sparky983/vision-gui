@@ -28,7 +28,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @Nested
 class ChestTests {
-
     /**
      * A slot to be used for testing.
      */
@@ -36,7 +35,6 @@ class ChestTests {
 
     @Test
     void testType() {
-
         final Gui gui = Gui.chest().build();
 
         assertEquals(GuiType.CHEST, gui.type());
@@ -45,7 +43,6 @@ class ChestTests {
     @SuppressWarnings("ConstantConditions")
     @Test
     void testBuilderTitleWhenTitleIsNull() {
-
         final Gui.Builder builder = Gui.chest();
 
         final Exception e = assertThrows(NullPointerException.class, () -> builder.title(null));
@@ -54,7 +51,6 @@ class ChestTests {
 
     @Test
     void testBuilderTitle() {
-
         final Gui.Builder builder = Gui.chest();
 
         assertEquals(builder, builder.title(Component.empty()));
@@ -66,7 +62,6 @@ class ChestTests {
 
     @Test
     void testUnspecifiedTitle() {
-
         final Gui gui = Gui.chest().build();
 
         assertEquals(DEFAULT_TITLE, gui.title());
@@ -74,7 +69,6 @@ class ChestTests {
 
     @Test
     void testColumns() {
-
         final Gui gui = Gui.chest().build();
 
         assertEquals(COLUMNS, gui.columns());
@@ -83,7 +77,6 @@ class ChestTests {
     @ValueSource(ints = {Integer.MIN_VALUE, 0, -1, 7, 8, Integer.MAX_VALUE})
     @ParameterizedTest
     void testBuilderRowsWhenRowsIsOutOfBounds(final int rows) {
-
         final Chest.Builder builder = Gui.chest();
 
         final Exception e = assertThrows(IllegalArgumentException.class, () -> builder.rows(rows));
@@ -93,7 +86,6 @@ class ChestTests {
     @ValueSource(ints = {1, 2, 4, 5, 6})
     @ParameterizedTest
     void testBuilderRows(final int rows) {
-
         final Chest.Builder builder = Gui.chest();
 
         assertEquals(builder, builder.rows(rows));
@@ -105,7 +97,6 @@ class ChestTests {
 
     @Test
     void testUnspecifiedRows() {
-
         final Gui gui = Gui.chest().build();
 
         assertEquals(DEFAULT_ROWS, gui.rows());
@@ -114,7 +105,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderButtonWhenSlotIsNull() {
-
         final Gui.Builder builder = Gui.chest();
         final Button button = Button.of(ItemType.STONE);
 
@@ -126,7 +116,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderButtonWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.chest();
 
         final Exception e = assertThrows(NullPointerException.class, () ->
@@ -144,7 +133,6 @@ class ChestTests {
     void testBuilderButtonWhenSlotIsOutOfBounds(final int slotRow,
                                                 final int slotColumn,
                                                 final int guiRows) {
-
         final Slot slot = Slot.of(slotRow, slotColumn);
         final Gui.Builder builder = Gui.chest()
                 .rows(guiRows)
@@ -158,7 +146,6 @@ class ChestTests {
 
     @Test
     void testBuilderButton() {
-
         final Gui.Builder builder = Gui.chest();
         final Button button = Button.of(ItemType.STONE);
 
@@ -172,7 +159,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testGetButtonWhenSlotIsNull() {
-
         final Gui gui = Gui.chest().build();
 
         final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
@@ -189,7 +175,6 @@ class ChestTests {
     void testGetButtonWhenSlotIsOutOfBounds(final int slotRow,
                                             final int slotColumn,
                                             final int guiRows) {
-
         final Gui gui = Gui.chest()
                 .rows(guiRows)
                 .build();
@@ -204,7 +189,6 @@ class ChestTests {
     @SuppressWarnings("ConstantConditions")
     @Test
     void testSetButtonWhenSlotIsNull() {
-
         final Gui gui = Gui.chest().build();
         final Button button = Button.of(ItemType.STONE);
 
@@ -215,7 +199,6 @@ class ChestTests {
 
     @Test
     void testSetButtonWhenButtonIsNull() {
-
         final Gui gui = Gui.chest().build();
 
         gui.button(SLOT, Button.of(ItemType.STONE));
@@ -237,7 +220,6 @@ class ChestTests {
     void testSetButtonWhenSlotIsOutOfBounds(final int slotRow,
                                             final int slotColumn,
                                             final int guiRows) {
-
         final Gui gui = Gui.chest()
                 .rows(guiRows)
                 .build();
@@ -253,7 +235,6 @@ class ChestTests {
 
     @Test
     void testSetButton() {
-
         final Gui gui = Gui.chest().build();
         final Button button = Button.of(ItemType.STONE);
 
@@ -265,7 +246,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderFillWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.chest();
 
         assertThrows(NullPointerException.class, () -> builder.fill(null));
@@ -273,7 +253,6 @@ class ChestTests {
 
     @Test
     void testBuilderFill() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button filler = Button.of(ItemType.STONE);
         final Chest.Builder builder = Gui.chest()
@@ -299,7 +278,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderSetWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.chest();
 
         assertThrows(NullPointerException.class, () -> builder.border(null, Set.of(Border.TOP)));
@@ -308,7 +286,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderSetWhenBordersIsNull() {
-
         final Gui.Builder builder = Gui.chest();
         final Button button = Button.of(ItemType.STONE);
 
@@ -317,7 +294,6 @@ class ChestTests {
 
     @Test
     void testBuilderBorderSetWhenBordersIsEmpty() {
-
         final Gui.Builder builder = Gui.chest();
         final Button button = Button.of(ItemType.STONE);
 
@@ -326,7 +302,6 @@ class ChestTests {
 
     @Test
     void testBuilderBorderSet() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Chest.Builder builder = Gui.chest()
@@ -367,7 +342,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderVarargsWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.chest();
 
         assertThrows(NullPointerException.class, () -> builder.border(null, Border.TOP));
@@ -376,7 +350,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderVarargsWhenBordersIsNull() {
-
         final Gui.Builder builder = Gui.chest();
         final Button button = Button.of(ItemType.STONE);
 
@@ -385,7 +358,6 @@ class ChestTests {
 
     @Test
     void testBuilderBorderVarargsWhenBordersIsEmpty() {
-
         final Gui.Builder builder = Gui.chest();
         final Button button = Button.of(ItemType.STONE);
 
@@ -394,7 +366,6 @@ class ChestTests {
 
     @Test
     void testBuilderBorderVarargsWhenBordersHasDuplicates() {
-
         final Gui.Builder builder = Gui.chest();
         final Button button = Button.of(ItemType.STONE);
 
@@ -404,7 +375,6 @@ class ChestTests {
 
     @Test
     void testBuilderBorderVarargs() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Chest.Builder builder = Gui.chest()
@@ -445,7 +415,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.chest();
 
         assertThrows(NullPointerException.class, () -> builder.border(null));
@@ -453,7 +422,6 @@ class ChestTests {
 
     @Test
     void testBuilderBorder() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Chest.Builder builder = Gui.chest()
@@ -507,7 +475,6 @@ class ChestTests {
 
     @Test
     void testSlots() {
-
         final Gui gui = Gui.chest().rows(2).build();
 
         final List<Slot> slots = List.of(
@@ -538,7 +505,6 @@ class ChestTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testSubscribeWhenSubscriberIsNull() {
-
         final Gui gui = Gui.chest().build();
 
         final Exception e = assertThrows(NullPointerException.class, () -> gui.subscribe(null));
@@ -547,7 +513,6 @@ class ChestTests {
 
     @Test
     void testSubscribe() {
-
         final Gui gui = Gui.chest().build();
         final Gui.Subscriber subscriber = mock();
         final Button button = Button.of(ItemType.STONE);
@@ -561,7 +526,6 @@ class ChestTests {
 
     @Test
     void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
-
         final Gui gui = Gui.chest().build();
 
         final Subscription subscription = gui.subscribe(mock());
@@ -573,7 +537,6 @@ class ChestTests {
 
     @Test
     void testCancelSubscription() {
-
         final Gui gui = Gui.chest().build();
         final Gui.Subscriber subscriber = mock();
         final Button button = Button.of(ItemType.STONE);
@@ -592,7 +555,6 @@ class ChestTests {
 
     @Test
     void testToString() {
-
         final Gui gui = Gui.chest()
                 .title(Component.text("title"))
                 .rows(3)

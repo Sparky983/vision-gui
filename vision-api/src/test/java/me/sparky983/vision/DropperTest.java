@@ -23,7 +23,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 class DropperTest {
-
     /**
      * A slot to be used for testing.
      */
@@ -31,7 +30,6 @@ class DropperTest {
 
     @Test
     void testType() {
-
         final Gui gui = Gui.dropper().build();
 
         assertEquals(GuiType.DROPPER, gui.type());
@@ -40,7 +38,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderTitleWhenTitleIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
 
         final Exception e = assertThrows(NullPointerException.class, () -> builder.title(null));
@@ -49,7 +46,6 @@ class DropperTest {
 
     @Test
     void testBuilderTitle() {
-
         final Gui.Builder builder = Gui.dropper();
 
         assertEquals(builder, builder.title(Component.empty()));
@@ -61,7 +57,6 @@ class DropperTest {
 
     @Test
     void testUnspecifiedTitle() {
-
         final Gui gui = Gui.dropper().build();
 
         assertEquals(DEFAULT_TITLE, gui.title());
@@ -69,7 +64,6 @@ class DropperTest {
 
     @Test
     void testColumns() {
-
         final Gui gui = Gui.dropper().build();
 
         assertEquals(COLUMNS, gui.columns());
@@ -77,7 +71,6 @@ class DropperTest {
 
     @Test
     void testRows() {
-
         final Gui gui = Gui.dropper().build();
 
         assertEquals(ROWS, gui.rows());
@@ -86,7 +79,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderButtonWhenSlotIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -98,7 +90,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderButtonWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
 
         final Exception e = assertThrows(NullPointerException.class, () ->
@@ -114,7 +105,6 @@ class DropperTest {
     })
     @ParameterizedTest
     void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
-
         final Slot slot = Slot.of(row, column);
         final Gui.Builder builder = Gui.dropper()
                 .button(slot, Button.of(ItemType.STONE));
@@ -127,7 +117,6 @@ class DropperTest {
 
     @Test
     void testBuilderButton() {
-
         final Gui.Builder builder = Gui.dropper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -141,7 +130,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testGetButtonWhenSlotIsNull() {
-
         final Gui gui = Gui.dropper().build();
 
         final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
@@ -156,7 +144,6 @@ class DropperTest {
     })
     @ParameterizedTest
     void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
-
         final Slot slot = Slot.of(row, column);
         final Gui gui = Gui.dropper().build();
 
@@ -169,7 +156,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testSetButtonWhenSlotIsNull() {
-
         final Gui gui = Gui.dropper().build();
         final Button button = Button.of(ItemType.STONE);
 
@@ -180,7 +166,6 @@ class DropperTest {
 
     @Test
     void testSetButtonWhenButtonIsNull() {
-
         final Gui gui = Gui.dropper().build();
 
         gui.button(SLOT, Button.of(ItemType.STONE));
@@ -200,7 +185,6 @@ class DropperTest {
     })
     @ParameterizedTest
     void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
-
         final Slot slot = Slot.of(row, column);
         final Gui gui = Gui.dropper().build();
         final Button button = Button.of(ItemType.STONE);
@@ -214,7 +198,6 @@ class DropperTest {
 
     @Test
     void testSetButton() {
-
         final Gui gui = Gui.dropper().build();
         final Button button = Button.of(ItemType.STONE);
 
@@ -226,7 +209,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderFillWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
 
         assertThrows(NullPointerException.class, () -> builder.fill(null));
@@ -234,7 +216,6 @@ class DropperTest {
 
     @Test
     void testBuilderFill() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button filler = Button.of(ItemType.STONE);
         final Gui.Builder builder = Gui.dropper()
@@ -258,7 +239,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderSetWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
 
         assertThrows(NullPointerException.class, () -> builder.border(null, Set.of(Border.TOP)));
@@ -267,7 +247,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderSetWhenBordersIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -276,7 +255,6 @@ class DropperTest {
 
     @Test
     void testBuilderBorderSetWhenBordersIsEmpty() {
-
         final Gui.Builder builder = Gui.dropper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -285,7 +263,6 @@ class DropperTest {
 
     @Test
     void testBuilderBorderSet() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Gui.Builder builder = Gui.dropper()
@@ -315,7 +292,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderVarargsWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
 
         assertThrows(NullPointerException.class, () -> builder.border(null, Border.TOP));
@@ -324,7 +300,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderVarargsWhenBordersIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -333,7 +308,6 @@ class DropperTest {
 
     @Test
     void testBuilderBorderVarargsWhenBordersIsEmpty() {
-
         final Gui.Builder builder = Gui.dropper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -342,7 +316,6 @@ class DropperTest {
 
     @Test
     void testBuilderBorderVarargsWhenBordersHasDuplicates() {
-
         final Gui.Builder builder = Gui.dropper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -352,7 +325,6 @@ class DropperTest {
 
     @Test
     void testBuilderBorderVarargs() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Gui.Builder builder = Gui.dropper()
@@ -382,7 +354,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.dropper();
 
         assertThrows(NullPointerException.class, () -> builder.border(null));
@@ -390,7 +361,6 @@ class DropperTest {
 
     @Test
     void testBuilderBorder() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Gui.Builder builder = Gui.dropper()
@@ -421,7 +391,6 @@ class DropperTest {
 
     @Test
     void testSlots() {
-
         final Gui gui = Gui.dropper().build();
 
         final List<Slot> slots = List.of(
@@ -436,7 +405,6 @@ class DropperTest {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testSubscribeWhenSubscriberIsNull() {
-
         final Gui gui = Gui.dropper().build();
 
         final Exception e = assertThrows(NullPointerException.class, () -> gui.subscribe(null));
@@ -445,7 +413,6 @@ class DropperTest {
 
     @Test
     void testSubscribe() {
-
         final Gui gui = Gui.dropper().build();
         final Gui.Subscriber subscriber = mock();
         final Button button = Button.of(ItemType.STONE);
@@ -459,7 +426,6 @@ class DropperTest {
 
     @Test
     void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
-
         final Gui gui = Gui.dropper().build();
 
         final Subscription subscription = gui.subscribe(mock());
@@ -471,7 +437,6 @@ class DropperTest {
 
     @Test
     void testCancelSubscription() {
-
         final Gui gui = Gui.dropper().build();
         final Gui.Subscriber subscriber = mock();
         final Button button = Button.of(ItemType.STONE);
@@ -490,7 +455,6 @@ class DropperTest {
 
     @Test
     void testToString() {
-
         final Gui gui = Gui.dropper()
                 .title(Component.text("title"))
                 .build();

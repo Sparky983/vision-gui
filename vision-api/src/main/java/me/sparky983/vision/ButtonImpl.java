@@ -17,7 +17,6 @@ import java.util.function.Consumer;
  */
 @NullMarked
 final class ButtonImpl implements Button {
-
     static final Button.Factory FACTORY = ButtonImpl::new;
 
     private final Subscribers<Subscriber> subscribers = new Subscribers<>();
@@ -30,7 +29,6 @@ final class ButtonImpl implements Button {
     private boolean glow = false;
 
     ButtonImpl(final ItemType type) {
-
         Objects.requireNonNull(type, "type cannot be null");
 
         this.type = type;
@@ -39,13 +37,11 @@ final class ButtonImpl implements Button {
 
     @Override
     public ItemType type() {
-
         return type;
     }
 
     @Override
     public Button type(final ItemType type) {
-
         Objects.requireNonNull(type, "type cannot be null");
 
         this.type = type;
@@ -55,13 +51,11 @@ final class ButtonImpl implements Button {
 
     @Override
     public Component name() {
-
         return name;
     }
 
     @Override
     public Button name(final @Nullable Component name) {
-
         if (name != null) {
             this.name = name;
         } else {
@@ -73,13 +67,11 @@ final class ButtonImpl implements Button {
 
     @Override
     public List<Component> lore() {
-
         return lore;
     }
 
     @Override
     public Button lore(final Component... lore) {
-
         Objects.requireNonNull(lore, "lore cannot be null");
 
         return lore(Arrays.asList(lore));
@@ -87,7 +79,6 @@ final class ButtonImpl implements Button {
 
     @Override
     public Button lore(final List<? extends Component> lore) {
-
         Objects.requireNonNull(lore, "lore cannot be null");
 
         for (int i = 0; i < lore.size(); i++) {
@@ -101,13 +92,11 @@ final class ButtonImpl implements Button {
 
     @Override
     public int amount() {
-
         return amount;
     }
 
     @Override
     public Button amount(final int amount) {
-
         if (amount <= 0 || amount > 64) {
             throw new IllegalArgumentException("amount must be between 1 and 64");
         }
@@ -119,13 +108,11 @@ final class ButtonImpl implements Button {
 
     @Override
     public boolean glow() {
-
         return glow;
     }
 
     @Override
     public Button glow(final boolean glow) {
-
         this.glow = glow;
         subscribers.notify((subscriber) -> subscriber.glow(glow));
         return this;
@@ -133,13 +120,11 @@ final class ButtonImpl implements Button {
 
     @Override
     public Button onClick(final Consumer<? super Click> handler) {
-
         Objects.requireNonNull(handler, "handler cannot be null");
 
         subscribe(new Subscriber() {
             @Override
             public void click(final Click click) {
-
                 handler.accept(click);
             }
         });
@@ -149,19 +134,16 @@ final class ButtonImpl implements Button {
 
     @Override
     public Publisher publisher() {
-
         return publisher;
     }
 
     @Override
     public Subscription subscribe(final Subscriber subscriber) {
-
         return subscribers.subscribe(subscriber);
     }
 
     @Override
     public String toString() {
-
         return String.format(
                 "ButtonImpl[type=%s, name=%s, lore=%s, amount=%s, glow=%s]",
                 type,
@@ -172,10 +154,8 @@ final class ButtonImpl implements Button {
     }
 
     private final class PublisherImpl implements Publisher {
-
         @Override
         public void click(final Click click) {
-
             Objects.requireNonNull(click, "click cannot be null");
 
             subscribers.notify((subscriber) -> subscriber.click(click));

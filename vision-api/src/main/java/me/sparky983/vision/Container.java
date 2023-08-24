@@ -25,7 +25,6 @@ import java.util.Set;
  */
 @NullMarked
 final class Container implements Subscribable<Gui.Subscriber> {
-
     @VisibleForTesting
     static final String SLOT_OUT_OF_BOUNDS =
             "Button at (%s, %s) is out of bounds for %s rows and %s columns";
@@ -62,7 +61,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
                       final int rows,
                       final int columns,
                       final Map<Slot, Button> buttons) {
-
         assert title != null;
         assert rows >= 1 && rows <= MAX_ROWS;
         assert columns >= 1 && columns <= MAX_COLUMNS;
@@ -97,27 +95,22 @@ final class Container implements Subscribable<Gui.Subscriber> {
      * @throws NullPointerException if the title is {@code null}.
      */
     static Container.Builder builder(final Component title, final int rows, final int columns) {
-
         return new Container.Builder(title, rows, columns);
     }
 
     Component title() {
-
         return title;
     }
 
     int columns() {
-
         return columns;
     }
 
     int rows() {
-
         return rows;
     }
 
     Optional<Button> button(final Slot slot) {
-
         Objects.requireNonNull(slot, "slot cannot be null");
 
         if (slot.column() >= columns || slot.row() >= rows) {
@@ -129,7 +122,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
     }
 
     void button(final Slot slot, final @Nullable Button button) {
-
         Objects.requireNonNull(slot, "slot cannot be null");
 
         if (slot.row() >= rows || slot.column() >= columns) {
@@ -146,13 +138,11 @@ final class Container implements Subscribable<Gui.Subscriber> {
     }
 
     List<Slot> slots() {
-
         return slots;
     }
 
     @Override
     public Subscription subscribe(final Gui.Subscriber subscriber) {
-
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
         return subscribers.subscribe(subscriber);
@@ -161,8 +151,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
     /**
      * A {@link Container} builder.
      */
-    static class Builder {
-
+    static final class Builder {
         private final Map<Slot, Button> buttons = new HashMap<>();
         private final Map<Border, Button> borders = new LinkedHashMap<>();
         private @Nullable Button filler = null;
@@ -171,14 +160,12 @@ final class Container implements Subscribable<Gui.Subscriber> {
         private int columns;
 
         private Builder(final Component title, final int rows, final int columns) {
-
             title(title);
             rows(rows);
             columns(columns);
         }
 
         Builder title(final Component title) {
-
             Objects.requireNonNull(title, "title cannot be null");
 
             this.title = title;
@@ -186,7 +173,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         Builder rows(final int rows) {
-
             if (rows < MIN_ROWS || rows > MAX_ROWS) {
                 throw new IllegalArgumentException("rows must be between 1 and " + MAX_ROWS);
             }
@@ -196,7 +182,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         Builder columns(final int columns) {
-
             if (columns < MIN_COLUMNS || columns > MAX_COLUMNS) {
                 throw new IllegalArgumentException("columns must be between 1 and " + MAX_COLUMNS);
             }
@@ -206,7 +191,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         Builder button(final Slot slot, final Button button) {
-
             Objects.requireNonNull(slot, "slot cannot be null");
             Objects.requireNonNull(button, "button cannot be null");
 
@@ -215,7 +199,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         Builder fill(final Button button) {
-
             Objects.requireNonNull(button, "button cannot be null");
 
             this.filler = button;
@@ -223,7 +206,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         Builder border(final Button button, final Set<? extends Border> borders) {
-
             Objects.requireNonNull(button, "button cannot be null");
             Objects.requireNonNull(borders, "borders cannot be null");
 
@@ -245,7 +227,6 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         Builder border(final Button button, final Border... borders) {
-
             Objects.requireNonNull(borders, "borders cannot be null");
 
             final Set<Border> borderSet = new LinkedHashSet<>();
@@ -262,12 +243,10 @@ final class Container implements Subscribable<Gui.Subscriber> {
         }
 
         Builder border(final Button button) {
-
             return border(button, Border.all());
         }
 
         Container build() {
-
             final Map<Slot, Button> buttons = new HashMap<>();
 
             for (final Slot slot : this.buttons.keySet()) {

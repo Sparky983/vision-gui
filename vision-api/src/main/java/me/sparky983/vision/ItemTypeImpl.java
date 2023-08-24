@@ -12,7 +12,6 @@ import java.util.Optional;
  */
 @NullMarked
 record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
-
     private static final HashMap<Key, ItemType> itemTypes = new HashMap<>();
 
     /**
@@ -23,7 +22,6 @@ record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
      * @throws NullPointerException if the key is {@code null}
      */
     ItemTypeImpl {
-
         Objects.requireNonNull(key, "key cannot be null");
     }
 
@@ -36,7 +34,6 @@ record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
      * @throws NullPointerException if the key is {@code null}.
      */
     static ItemType of(final Key key, final boolean isBlock) {
-
         final ItemType item = new ItemTypeImpl(key, isBlock);
         itemTypes.put(key, item);
         return item;
@@ -51,7 +48,6 @@ record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
      * @throws NullPointerException if the key is {@code null}.
      */
     static Optional<ItemType> findByKey(final Key key) {
-
         Objects.requireNonNull(key, "key cannot be null");
 
         return Optional.ofNullable(itemTypes.get(key));
@@ -59,14 +55,12 @@ record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
 
     @Override
     public String translationKey() {
-
         final String category = isBlock ? "block." : "item.";
         return category + key.namespace() + "." + key.value().replace('/', '.');
     }
 
     @Override
     public String toString() {
-
         return key.asString();
     }
 }

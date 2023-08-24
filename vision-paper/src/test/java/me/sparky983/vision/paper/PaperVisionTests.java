@@ -13,13 +13,11 @@ import static org.mockito.Mockito.mock;
 import me.sparky983.vision.Gui;
 
 class PaperVisionTests {
-
     Plugin plugin;
     PaperVision paperVision;
 
     @BeforeEach
     void setUp() {
-
         plugin = mock(Answers.RETURNS_MOCKS);
         paperVision = PaperVision.create(plugin);
     }
@@ -27,7 +25,6 @@ class PaperVisionTests {
     @SuppressWarnings("ConstantConditions")
     @Test
     void testCreateWhenPluginIsNull() {
-
         final Exception e =
                 assertThrows(NullPointerException.class, () -> PaperVision.create(null));
         assertEquals("plugin cannot be null", e.getMessage());
@@ -36,7 +33,6 @@ class PaperVisionTests {
     @SuppressWarnings("ConstantConditions")
     @Test
     void testOpenWhenPlayerIsNull() {
-
         final Exception e =
                 assertThrows(NullPointerException.class, () -> paperVision.open(null, Gui.chest().build()));
         assertEquals("player cannot be null", e.getMessage());
@@ -45,7 +41,6 @@ class PaperVisionTests {
     @SuppressWarnings("ConstantConditions")
     @Test
     void testOpenWhenGuiIsNull() {
-
         final Player player = mock();
 
         final Exception e =

@@ -16,7 +16,6 @@ import java.util.Set;
  */
 @NullMarked
 public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, Hopper, Dropper {
-
     /**
      * Creates a new {@link Chest.Builder} with 1 row.
      *
@@ -32,7 +31,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *</pre>
      */
     static Chest.Builder chest() {
-
         return new ChestImpl.BuilderImpl();
     }
 
@@ -50,7 +48,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *</pre>
      */
     static Dropper.Builder dropper() {
-
         return new DropperImpl.BuilderImpl();
     }
 
@@ -68,7 +65,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *</pre>
      */
     static Hopper.Builder hopper() {
-
         return new HopperImpl.BuilderImpl();
     }
 
@@ -169,7 +165,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @since 0.1
      */
     interface Subscriber extends Subscribable.Subscriber {
-
         /**
          * Called when the specified {@link Slot} changes.
          * <p>
@@ -181,9 +176,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
          * @see Gui#button(Slot, Button)
          * @since 0.1
          */
-        default void button(final Slot slot, final @Nullable Button button) {
-
-        }
+        default void button(final Slot slot, final @Nullable Button button) {}
     }
 
     /**
@@ -211,7 +204,6 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      *</pre>
      */
     sealed interface Builder permits Chest.Builder, Dropper.Builder, Hopper.Builder {
-
         /**
          * Sets the title of the {@link Gui}.
          *

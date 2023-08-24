@@ -15,7 +15,6 @@ import me.sparky983.vision.Gui;
  */
 @NullMarked
 public interface PaperVision {
-
     /**
      * Creates a new Paper {@link Gui} manager.
      *
@@ -26,7 +25,6 @@ public interface PaperVision {
      * @vision.apiNote This method is pure since {@code Listener} registration is done lazily.
      */
     static PaperVision create(final Plugin plugin) {
-
         Objects.requireNonNull(plugin, "plugin cannot be null");
 
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();

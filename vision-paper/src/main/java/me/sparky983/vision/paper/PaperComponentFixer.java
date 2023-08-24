@@ -10,7 +10,6 @@ import java.util.Locale;
  */
 @NullMarked
 interface PaperComponentFixer {
-
     /**
      * Fixes the given {@link Component}.
      *

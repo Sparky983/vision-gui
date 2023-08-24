@@ -13,7 +13,6 @@ import java.util.Objects;
 
 @NullMarked
 final class PaperComponentFixerImpl implements PaperComponentFixer {
-
     /**
      * The style Vision uses for all items.
      */
@@ -25,7 +24,6 @@ final class PaperComponentFixerImpl implements PaperComponentFixer {
 
     @Override
     public Component convert(final Component component, final Locale locale) {
-
         Objects.requireNonNull(component, "component cannot be null");
         Objects.requireNonNull(locale, "locale cannot be null");
 

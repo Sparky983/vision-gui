@@ -13,7 +13,6 @@ import java.util.Set;
 @ApiStatus.Experimental
 @NullMarked
 public enum Border {
-
     /**
      * The top border.
      * <p>
@@ -62,7 +61,6 @@ public enum Border {
     // TODO(Sparky983): Does this really need to be public? Users shouldn't need to use this because
     //  of Gui.Builder.border(Button).
     public static Set<Border> all() {
-
         return ALL;
     }
 }

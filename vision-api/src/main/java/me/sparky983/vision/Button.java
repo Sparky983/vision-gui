@@ -21,7 +21,6 @@ import java.util.function.Consumer;
  */
 @NullMarked
 public interface Button extends Subscribable<Button.Subscriber> {
-
     /**
      * Creates a new {@code Button} of the specified type.
      *
@@ -35,7 +34,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
      *        .lore(Component.text("My lore line 1"), Component.text("My lore line 2"));</pre>
      */
     static Button of(final ItemType type) {
-
         return new ButtonImpl(type);
     }
 
@@ -56,7 +54,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
      */
     @ApiStatus.Experimental
     static Factory button() {
-
         return ButtonImpl.FACTORY;
     }
 
@@ -239,7 +236,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @since 1.1
      */
     interface Publisher {
-
         /**
          * Publishes the click event.
          *
@@ -257,7 +253,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @since 0.1
      */
     interface Subscriber extends Subscribable.Subscriber {
-
         /**
          * Called when the type of the {@link Button} changes.
          * <p>
@@ -268,9 +263,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see Button#type(ItemType)
          * @since 0.1
          */
-        default void type(final ItemType type) {
-
-        }
+        default void type(final ItemType type) {}
 
         /**
          * Called when the name of a {@link Button} changes.
@@ -282,9 +275,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see Button#name(Component)
          * @since 0.1
          */
-        default void name(final Component name) {
-
-        }
+        default void name(final Component name) {}
 
         /**
          * Called when the lore of a {@link Button} changes.
@@ -297,9 +288,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see Button#lore(Component...)
          * @since 0.1
          */
-        default void lore(final List<Component> lore) {
-
-        }
+        default void lore(final List<Component> lore) {}
 
         /**
          * Called when the amount of the {@link Button} changes.
@@ -312,9 +301,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see Button#amount(int)
          * @since 0.1
          */
-        default void amount(final int amount) {
-
-        }
+        default void amount(final int amount) {}
 
         /**
          * Called when the glowing state of the {@code Button} changes.
@@ -327,9 +314,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @vision.experimental because this may be renamed.
          */
         @ApiStatus.Experimental
-        default void glow(final boolean glow) {
-
-        }
+        default void glow(final boolean glow) {}
 
         /**
          * Called when the {@link Button} is clicked.
@@ -341,9 +326,7 @@ public interface Button extends Subscribable<Button.Subscriber> {
          * @see Publisher#click(Click)
          * @since 0.1
          */
-        default void click(final Click click) {
-
-        }
+        default void click(final Click click) {}
     }
 
     /**
@@ -368,7 +351,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
     @FunctionalInterface
     @ApiStatus.Experimental
     interface Factory {
-
         /**
          * Creates a new {@code Button} of the specified type.
          *

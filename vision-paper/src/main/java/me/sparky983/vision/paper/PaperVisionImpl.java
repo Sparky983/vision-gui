@@ -13,7 +13,6 @@ import me.sparky983.vision.Gui;
 
 @NullMarked
 final class PaperVisionImpl implements PaperVision {
-
     private final Plugin plugin;
     private final PluginManager pluginManager;
     private final PaperInventoryMirror inventoryMirror;
@@ -22,7 +21,6 @@ final class PaperVisionImpl implements PaperVision {
     PaperVisionImpl(final Plugin plugin,
                     final PluginManager pluginManager,
                     final PaperInventoryMirror inventoryMirror) {
-
         Objects.requireNonNull(plugin, "plugin cannot be null");
         Objects.requireNonNull(pluginManager, "pluginManager cannot be null");
         Objects.requireNonNull(inventoryMirror, "inventoryMirror cannot be null");
@@ -34,7 +32,6 @@ final class PaperVisionImpl implements PaperVision {
 
     @Override
     public void open(final Player player, final Gui gui) {
-
         Objects.requireNonNull(player, "player cannot be null");
         Objects.requireNonNull(gui, "gui cannot be null");
 

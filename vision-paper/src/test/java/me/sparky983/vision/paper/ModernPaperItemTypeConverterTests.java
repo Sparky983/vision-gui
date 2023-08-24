@@ -14,9 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ModernPaperItemTypeConverterTests {
-
     static List<Arguments> provideConversions() {
-
         return List.of(
                 Arguments.of(ItemType.STONE, Material.STONE),
                 Arguments.of(ItemType.GRANITE, Material.GRANITE),
@@ -29,7 +27,6 @@ class ModernPaperItemTypeConverterTests {
     @SuppressWarnings("ConstantConditions")
     @Test
     void testConvertWhenItemTypeIsNull() {
-
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
         final Exception e = assertThrows(NullPointerException.class, () ->
@@ -41,7 +38,6 @@ class ModernPaperItemTypeConverterTests {
     @ParameterizedTest
     @MethodSource("provideConversions")
     void testConvert(final ItemType itemType, final Material expectedMaterial) {
-
         final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
 
         final Optional<Material> material = itemTypeConverter.convert(itemType);

@@ -13,7 +13,6 @@ import java.util.Locale;
  */
 @NullMarked
 interface PaperInventoryMirror {
-
     /**
      * Mirrors the specified {@link Gui} to the specified {@link Inventory}.
      *

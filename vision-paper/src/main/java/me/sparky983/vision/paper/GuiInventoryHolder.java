@@ -11,13 +11,11 @@ import me.sparky983.vision.Gui;
 
 @NullMarked
 final class GuiInventoryHolder implements InventoryHolder {
-
     private final Gui gui;
     private final Inventory inventory;
 
     GuiInventoryHolder(final Gui gui,
                        final Function<? super InventoryHolder, Inventory> inventoryFactory) {
-
         Objects.requireNonNull(gui, "gui cannot be null");
         Objects.requireNonNull(inventoryFactory, "inventory cannot be null");
 
@@ -27,12 +25,10 @@ final class GuiInventoryHolder implements InventoryHolder {
 
     @Override
     public Inventory getInventory() {
-
         return inventory;
     }
 
     public Gui gui() {
-
         return gui;
     }
 }

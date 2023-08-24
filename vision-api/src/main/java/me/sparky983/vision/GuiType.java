@@ -12,7 +12,6 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @ApiStatus.Experimental
 public enum GuiType {
-
     /**
      * The {@link Chest} variant.
      *

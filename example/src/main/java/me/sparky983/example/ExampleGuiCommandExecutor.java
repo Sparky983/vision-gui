@@ -16,13 +16,11 @@ import org.bukkit.scheduler.BukkitScheduler;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ExampleGuiCommandExecutor implements CommandExecutor {
-
     private final PaperVision vision;
     private final Plugin plugin;
     private final BukkitScheduler scheduler;
 
     public ExampleGuiCommandExecutor(final PaperVision vision, Plugin plugin, BukkitScheduler scheduler) {
-
         this.vision = vision;
         this.plugin = plugin;
         this.scheduler = scheduler;
@@ -33,7 +31,6 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
                              final Command command,
                              final String label,
                              final String[] args) {
-
         if (!(sender instanceof Player player)) {
             sender.sendMessage(Component.text("Only players can use this command"));
             return false;

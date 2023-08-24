@@ -13,7 +13,6 @@ import java.util.Locale;
  */
 @NullMarked
 interface PaperButtonMirror {
-
     /**
      * Mirrors all the changes to the specified {@link Button} to the specified {@link ItemStack}.
      * <p>

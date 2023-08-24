@@ -25,7 +25,6 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 class ButtonTests {
-
     /**
      * A component to be used for testing as a button's name.
      */
@@ -58,17 +57,14 @@ class ButtonTests {
 
     @AfterAll
     static void tearDownAll() {
-
         verifyNoInteractions(CLICK);
     }
 
     @Nested
     class ButtonFactory {
-
         @SuppressWarnings("ConstantConditions")
         @Test
         void testFactoryTypeWhenTypeIsNull() {
-
             final Button.Factory builder = Button.button();
 
             final Exception e = assertThrows(NullPointerException.class, () -> builder.type(null));
@@ -77,7 +73,6 @@ class ButtonTests {
 
         @Test
         void testFactoryType() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(ItemType.STONE, button.type());
@@ -86,7 +81,6 @@ class ButtonTests {
         @SuppressWarnings("ConstantConditions")
         @Test
         void testTypeWhenTypeIsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () -> button.type(null));
@@ -97,7 +91,6 @@ class ButtonTests {
 
         @Test
         void testType() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(button, button.type(ItemType.DIRT));
@@ -106,7 +99,6 @@ class ButtonTests {
 
         @Test
         void testDefaultName() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(Component.translatable(ItemType.STONE), button.name());
@@ -114,7 +106,6 @@ class ButtonTests {
 
         @Test
         void testNameWhenNameIsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             button.name(null);
@@ -124,7 +115,6 @@ class ButtonTests {
 
         @Test
         void testName() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(button, button.name(NAME));
@@ -134,7 +124,6 @@ class ButtonTests {
 
         @Test
         void testDefaultLore() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(List.of(), button.lore());
@@ -143,7 +132,6 @@ class ButtonTests {
         @SuppressWarnings("ConstantConditions")
         @Test
         void testVarargsLoreWhenLoreIsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e =
@@ -155,7 +143,6 @@ class ButtonTests {
 
         @Test
         void testVarargsLoreWhenLoreContainsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -167,7 +154,6 @@ class ButtonTests {
 
         @Test
         void testVarargsLore() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(button, button.lore(LORE_ARRAY));
@@ -177,7 +163,6 @@ class ButtonTests {
         @SuppressWarnings("ConstantConditions")
         @Test
         void testListLoreWhenLoreIsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -189,7 +174,6 @@ class ButtonTests {
 
         @Test
         void testListLoreWhenLoreContainsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -199,7 +183,6 @@ class ButtonTests {
 
         @Test
         void testListLore() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(button, button.lore(LORE_LIST));
@@ -208,7 +191,6 @@ class ButtonTests {
 
         @Test
         void testDefaultAmount() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(1, button.amount());
@@ -217,7 +199,6 @@ class ButtonTests {
         @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
         @ParameterizedTest
         void testAmountWhenAmountIsLessThan1(final int amount) {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
@@ -230,7 +211,6 @@ class ButtonTests {
         @ValueSource(ints = {65, 66, Integer.MAX_VALUE})
         @ParameterizedTest
         void testAmountWhenAmountIsGreaterThanOrEqualTo64(final int amount) {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e =
@@ -243,7 +223,6 @@ class ButtonTests {
         @ValueSource(ints = {1, 5, 64})
         @ParameterizedTest
         void testAmount(final int amount) {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(button, button.amount(amount));
@@ -252,7 +231,6 @@ class ButtonTests {
 
         @Test
         void testDefaultGlow() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertFalse(button.glow());
@@ -261,7 +239,6 @@ class ButtonTests {
         @ValueSource(booleans = {true, false})
         @ParameterizedTest
         void testGlow(final boolean glow) {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             assertEquals(button, button.glow(glow));
@@ -272,7 +249,6 @@ class ButtonTests {
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testClickWhenClickIsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -283,7 +259,6 @@ class ButtonTests {
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testOnClickWhenHandlerIsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -293,7 +268,6 @@ class ButtonTests {
 
         @Test
         void testOnClick() {
-
             final Button button = Button.button().type(ItemType.STONE);
             final Consumer<Click> clickHandler = mock();
 
@@ -308,7 +282,6 @@ class ButtonTests {
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testSubscribeWhenSubscriberIsNull() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class,
@@ -318,7 +291,6 @@ class ButtonTests {
 
         @Test
         void testSubscribe() {
-
             final Button button = Button.button().type(ItemType.STONE);
             final Button.Subscriber subscriber = mock();
 
@@ -350,7 +322,6 @@ class ButtonTests {
 
         @Test
         void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
-
             final Button button = Button.button().type(ItemType.STONE);
 
             final Subscription subscription = button.subscribe(mock());
@@ -362,7 +333,6 @@ class ButtonTests {
 
         @Test
         void testCancelSubscription() {
-
             final Button button = Button.button().type(ItemType.STONE);
             final Button.Subscriber subscriber = mock();
 
@@ -386,7 +356,6 @@ class ButtonTests {
 
         @Test
         void testToString() {
-
             final Button button = Button.button()
                     .type(ItemType.STONE)
                     .name(NAME)
@@ -407,18 +376,15 @@ class ButtonTests {
 
     @Nested
     class ButtonOf {
-
         @SuppressWarnings("ConstantConditions")
         @Test
         void testButtonOfWhenTypeIsNull() {
-
             final Exception e = assertThrows(NullPointerException.class, () -> Button.of(null));
             assertEquals("type cannot be null", e.getMessage());
         }
 
         @Test
         void testButtonOf() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(ItemType.STONE, button.type());
@@ -427,7 +393,6 @@ class ButtonTests {
         @SuppressWarnings("ConstantConditions")
         @Test
         void testTypeWhenTypeIsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () -> button.type(null));
@@ -438,7 +403,6 @@ class ButtonTests {
 
         @Test
         void testType() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(button, button.type(ItemType.DIRT));
@@ -447,7 +411,6 @@ class ButtonTests {
 
         @Test
         void testDefaultName() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(Component.translatable(ItemType.STONE), button.name());
@@ -455,7 +418,6 @@ class ButtonTests {
 
         @Test
         void testNameWhenNameIsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             button.name(null);
@@ -465,7 +427,6 @@ class ButtonTests {
 
         @Test
         void testName() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(button, button.name(NAME));
@@ -474,7 +435,6 @@ class ButtonTests {
 
         @Test
         void testDefaultLoreLore() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(List.of(), button.lore());
@@ -483,7 +443,6 @@ class ButtonTests {
         @SuppressWarnings("ConstantConditions")
         @Test
         void testVarargsLoreWhenLoreIsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -495,7 +454,6 @@ class ButtonTests {
 
         @Test
         void testVarargsLoreWhenLoreContainsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -507,7 +465,6 @@ class ButtonTests {
 
         @Test
         void testVarargsLore() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(button, button.lore(LORE_ARRAY));
@@ -517,7 +474,6 @@ class ButtonTests {
         @SuppressWarnings("ConstantConditions")
         @Test
         void testListLoreWhenLoreIsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -529,7 +485,6 @@ class ButtonTests {
 
         @Test
         void testListLoreWhenLoreContainsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -539,7 +494,6 @@ class ButtonTests {
 
         @Test
         void testListLore() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(button, button.lore(LORE_LIST));
@@ -548,7 +502,6 @@ class ButtonTests {
 
         @Test
         void testDefaultAmount() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(1, button.amount());
@@ -557,7 +510,6 @@ class ButtonTests {
         @ValueSource(ints = {0, -1, Integer.MIN_VALUE})
         @ParameterizedTest
         void testAmountWhenAmountIsLessThan1(final int amount) {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
@@ -570,7 +522,6 @@ class ButtonTests {
         @ValueSource(ints = {65, 66, Integer.MAX_VALUE})
         @ParameterizedTest
         void testAmountWhenAmountIsGreaterThanOrEqualTo64(final int amount) {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(IllegalArgumentException.class, () ->
@@ -583,7 +534,6 @@ class ButtonTests {
         @ValueSource(ints = {1, 5, 64})
         @ParameterizedTest
         void testAmount(final int amount) {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(button, button.amount(amount));
@@ -592,7 +542,6 @@ class ButtonTests {
 
         @Test
         void testDefaultGlow() {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertFalse(button.glow());
@@ -601,7 +550,6 @@ class ButtonTests {
         @ValueSource(booleans = {true, false})
         @ParameterizedTest
         void testGlow(final boolean glow) {
-
             final Button button = Button.of(ItemType.STONE);
 
             assertEquals(button, button.glow(glow));
@@ -612,7 +560,6 @@ class ButtonTests {
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testClickWhenClickIsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -623,7 +570,6 @@ class ButtonTests {
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testOnClickWhenHandlerIsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -633,7 +579,6 @@ class ButtonTests {
 
         @Test
         void testOnClick() {
-
             final Button button = Button.of(ItemType.STONE);
             final Consumer<Click> clickHandler = mock();
 
@@ -648,7 +593,6 @@ class ButtonTests {
         @SuppressWarnings("DataFlowIssue")
         @Test
         void testSubscribeWhenSubscriberIsNull() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Exception e = assertThrows(NullPointerException.class, () ->
@@ -658,7 +602,6 @@ class ButtonTests {
 
         @Test
         void testSubscribe() {
-
             final Button button = Button.of(ItemType.STONE);
             final Button.Subscriber subscriber = mock();
 
@@ -690,7 +633,6 @@ class ButtonTests {
 
         @Test
         void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
-
             final Button button = Button.of(ItemType.STONE);
 
             final Subscription subscription = button.subscribe(mock());
@@ -702,7 +644,6 @@ class ButtonTests {
 
         @Test
         void testCancelSubscription() {
-
             final Button button = Button.of(ItemType.STONE);
             final Button.Subscriber subscriber = mock();
 
@@ -726,7 +667,6 @@ class ButtonTests {
 
         @Test
         void testToString() {
-
             final Button button = Button.of(ItemType.STONE)
                     .name(NAME)
                     .lore(LORE_LIST)

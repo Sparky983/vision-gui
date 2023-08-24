@@ -22,7 +22,6 @@ import java.util.Set;
  */
 @NullMarked
 public non-sealed interface Chest extends Gui {
-
     /**
      * The minimum number of rows that a {@code Chest} can have.
      *
@@ -77,7 +76,6 @@ public non-sealed interface Chest extends Gui {
      *</pre>
      */
     non-sealed interface Builder extends Gui.Builder {
-
         /**
          * {@inheritDoc}
          *

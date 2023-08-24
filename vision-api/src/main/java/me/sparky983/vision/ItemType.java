@@ -17,7 +17,6 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @NullMarked
 public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImpl {
-
     // <editor-fold desc="ItemTypes" defaultstate="collapsed">
     // @formatter:off
     /**
@@ -8808,7 +8807,6 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @throws NullPointerException if the key is {@code null}.
      */
     private static ItemType item(final Key key) {
-
         return ItemTypeImpl.of(key, false);
     }
 
@@ -8820,7 +8818,6 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @throws NullPointerException if the key is {@code null}.
      */
     private static ItemType block(final Key key) {
-
         return ItemTypeImpl.of(key, true);
     }
 
@@ -8834,7 +8831,6 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
      * @since 0.1
      */
     static Optional<ItemType> findByKey(final Key key) {
-
         return ItemTypeImpl.findByKey(key);
     }
 }

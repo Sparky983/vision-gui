@@ -21,7 +21,6 @@ import java.util.Set;
  */
 @NullMarked
 public non-sealed interface Hopper extends Gui {
-
     /**
      * The number of columns {@code Hopper}s have.
      *
@@ -65,7 +64,6 @@ public non-sealed interface Hopper extends Gui {
      *</pre>
      */
     non-sealed interface Builder extends Gui.Builder {
-
         /**
          * {@inheritDoc}
          *

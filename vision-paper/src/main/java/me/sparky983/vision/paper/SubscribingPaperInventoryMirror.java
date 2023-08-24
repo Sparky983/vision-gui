@@ -23,7 +23,6 @@ import me.sparky983.vision.Slot;
 
 @NullMarked
 final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
-
     private static final String UNABLE_TO_MIRROR_MESSAGE = """
             Unable to converter item type "%s". Possible causes:
             - The item is not available in this version of Minecraft
@@ -37,7 +36,6 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
     SubscribingPaperInventoryMirror(final Server server,
                                     final PaperItemTypeConverter itemTypeConverter,
                                     final PaperButtonMirror buttonMirror) {
-
         Objects.requireNonNull(server, "server cannot be null");
         Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
         Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
@@ -49,7 +47,6 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
 
     @Override
     public Inventory mirror(final Gui gui, final Locale locale) {
-
         Objects.requireNonNull(gui, "gui cannot be null");
         Objects.requireNonNull(locale, "locale cannot be null");
 
@@ -72,7 +69,6 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
             
             @Override
             public void button(final Slot slot, final @Nullable Button button) {
-
                 final Subscription subscription = subscriptions.get(slot);
                 if (subscription != null) {
                     subscription.cancel();

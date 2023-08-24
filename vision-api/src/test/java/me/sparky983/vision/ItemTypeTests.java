@@ -13,9 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ItemTypeTests {
-
     static List<Arguments> provideItemTypesAndKey() {
-
         return List.of(
                 Arguments.of(ItemType.STONE, Key.key("minecraft", "stone")),
                 Arguments.of(ItemType.GRANITE, Key.key("minecraft", "granite")),
@@ -26,7 +24,6 @@ class ItemTypeTests {
     }
 
     static List<Arguments> provideItemTypesAndName() {
-
         return List.of(
                 Arguments.of(ItemType.STONE, "block.minecraft.stone"),
                 Arguments.of(ItemType.GRANITE, "block.minecraft.granite"),
@@ -39,21 +36,18 @@ class ItemTypeTests {
     @MethodSource("provideItemTypesAndKey")
     @ParameterizedTest
     void testItemTypeHasKey(final ItemType itemType, final Key key) {
-
         assertEquals(key, itemType.key());
     }
 
     @MethodSource("provideItemTypesAndName")
     @ParameterizedTest
     void testItemTranslationKey(final ItemType itemType, final String translationKey) {
-
         assertEquals(translationKey, itemType.translationKey());
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test
     void testFindByKeyWhenKeyIsNull() {
-
         final Exception e =
                 assertThrows(NullPointerException.class, () -> ItemType.findByKey(null));
 
@@ -62,21 +56,18 @@ class ItemTypeTests {
 
     @Test
     void testFindByKeyWhenKeyIsNotPresent() {
-
         assertEquals(Optional.empty(), ItemType.findByKey(Key.key("vision_test", "not_present")));
     }
 
     @MethodSource("provideItemTypesAndKey")
     @ParameterizedTest
     void testFindByKey(final ItemType itemType, final Key key) {
-
         assertEquals(Optional.of(itemType), ItemType.findByKey(key));
     }
 
     @MethodSource("provideItemTypesAndKey")
     @ParameterizedTest
     void testToString(final ItemType itemType, final Key key) {
-
         assertEquals(key.asString(), itemType.toString());
     }
 }

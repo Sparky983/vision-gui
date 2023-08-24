@@ -6,10 +6,8 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ExamplePlugin extends JavaPlugin {
-
     @Override
     public void onEnable() {
-
         final PaperVision vision = PaperVision.create(this);
 
         final CommandExecutor testGuiCommandExecutor = new ExampleGuiCommandExecutor(

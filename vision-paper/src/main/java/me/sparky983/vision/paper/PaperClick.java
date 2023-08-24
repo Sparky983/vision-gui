@@ -16,7 +16,6 @@ import java.util.Objects;
  */
 @NullMarked
 final class PaperClick implements Click {
-
     private final Player clicker;
     private final Button button;
     private final Slot slot;
@@ -38,7 +37,6 @@ final class PaperClick implements Click {
                final Slot slot,
                final ClickType type,
                final PaperVision vision) {
-
         Objects.requireNonNull(clicker, "clicker cannot be null");
         Objects.requireNonNull(button, "button cannot be null");
         Objects.requireNonNull(slot, "slot cannot be null");
@@ -54,13 +52,11 @@ final class PaperClick implements Click {
 
     @Override
     public Audience clicker() {
-
         return clicker;
     }
 
     @Override
     public void open(final Gui gui) {
-
         Objects.requireNonNull(gui, "gui cannot be null");
 
         vision.open(clicker, gui);
@@ -68,19 +64,16 @@ final class PaperClick implements Click {
 
     @Override
     public Button button() {
-
         return button;
     }
 
     @Override
     public Slot slot() {
-
         return slot;
     }
 
     @Override
     public ClickType type() {
-
         return type;
     }
 }

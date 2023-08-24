@@ -13,18 +13,15 @@ import java.util.function.Consumer;
  */
 @NullMarked
 final class Subscribers<T extends Subscribable.Subscriber> implements Subscribable<T> {
-
     private Map<Subscription, T> subscribers = new HashMap<>();
 
     @Override
     public Subscription subscribe(final T subscriber) {
-
         Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
         final Subscription subscription = new Subscription() {
             @Override
             public void cancel() {
-
                 final Map<Subscription, T> copy = new HashMap<>(subscribers);
                 if (copy.remove(this) == null) {
                     throw new IllegalStateException("Subscription has already been cancelled");
@@ -34,7 +31,6 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
 
             @Override
             public boolean isCancelled() {
-
                 return !subscribers.containsKey(this);
             }
         };
@@ -46,7 +42,6 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
     }
 
     void notify(final Consumer<? super T> consumer) {
-
         for (final T subscriber : subscribers.values()) {
             try {
                 consumer.accept(subscriber);

@@ -11,7 +11,6 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 public interface Click {
-
     /**
      * Returns the {@link Audience} who clicked the {@link Button}.
      *

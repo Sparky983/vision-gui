@@ -12,7 +12,6 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 public record Slot(int row, int column) {
-
     /**
      * The highest row index allowed.
      */
@@ -34,14 +33,11 @@ public record Slot(int row, int column) {
      * @since 0.1
      */
     public Slot {
-
         if (row < 0 || row > MAX_ROW) {
-
             throw new IllegalArgumentException("row must be between 0 and " + MAX_ROW);
         }
 
         if (column < 0 || column > MAX_COLUMN) {
-
             throw new IllegalArgumentException("column must be between 0 and " + MAX_COLUMN);
         }
     }
@@ -58,7 +54,6 @@ public record Slot(int row, int column) {
      * @since 0.1
      */
     public static Slot of(final int row, final int column) {
-
         return new Slot(row, column);
     }
 }

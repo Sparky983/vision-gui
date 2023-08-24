@@ -13,10 +13,8 @@ import me.sparky983.vision.ItemType;
  */
 @NullMarked
 final class ModernPaperItemTypeConverter implements PaperItemTypeConverter {
-
     @Override
     public Optional<Material> convert(final ItemType itemType) {
-
         Objects.requireNonNull(itemType, "itemType cannot be null");
 
         return Optional.ofNullable(Material.matchMaterial(itemType.key().asString()));

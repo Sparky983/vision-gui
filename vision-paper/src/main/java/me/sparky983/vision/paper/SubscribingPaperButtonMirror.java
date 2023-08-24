@@ -16,7 +16,6 @@ import me.sparky983.vision.ItemType;
 
 @NullMarked
 final class SubscribingPaperButtonMirror implements PaperButtonMirror {
-
     private static final ItemFlag[] ITEM_FLAGS = ItemFlag.values();
 
     private final PaperComponentFixer componentFixer;
@@ -24,7 +23,6 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
     SubscribingPaperButtonMirror(final PaperComponentFixer componentFixer,
                                  final PaperItemTypeConverter itemTypeConverter) {
-
         Objects.requireNonNull(componentFixer, "componentFixer cannot be null");
         Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
 
@@ -34,7 +32,6 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
     @Override
     public Subscription mirror(final Button button, final ItemStack item, final Locale locale) {
-
         Objects.requireNonNull(button, "button cannot be null");
         Objects.requireNonNull(item, "item cannot be null");
         Objects.requireNonNull(locale, "locale cannot be null");
@@ -44,13 +41,11 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
         final Button.Subscriber subscriber = new Button.Subscriber() {
             @Override
             public void type(final ItemType type) {
-
                 itemTypeConverter.convert(type).ifPresent(item::setType);
             }
 
             @Override
             public void name(final Component name) {
-
                 item.editMeta((meta) ->
                         meta.displayName(componentFixer.convert(name, locale))
                 );
@@ -58,7 +53,6 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
             @Override
             public void lore(final List<Component> lore) {
-
                 item.editMeta((meta) -> meta.lore(lore
                         .stream()
                         .map((line) -> componentFixer.convert(line, locale))
@@ -67,13 +61,11 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
             @Override
             public void amount(final int amount) {
-
                 item.setAmount(amount);
             }
 
             @Override
             public void glow(final boolean glow) {
-
                 if (glow) {
                     item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
                 } else {

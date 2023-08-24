@@ -12,7 +12,6 @@ import me.sparky983.vision.ItemType;
  */
 @NullMarked
 interface PaperItemTypeConverter {
-
     /**
      * Converts the specified {@link ItemType} to a {@link Material}.
      *
