@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
+    id("vision.java-conventions")
 }
 
 repositories {
@@ -11,18 +12,9 @@ dependencies {
     compileOnly("org.jetbrains:annotations:24.0.1")
     compileOnly("org.jspecify:jspecify:0.3.0")
     // TODO: Update to 0.3.0 when more tools add support
-
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    testImplementation("org.junit.jupiter:junit-jupiter-params")
-    testImplementation("org.mockito:mockito-core:5.5.0")
 }
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
     withJavadocJar()
     withSourcesJar()
 }
@@ -62,8 +54,5 @@ tasks {
                 tags("vision.examples:a:Examples:")
             }
         }
-    }
-    test {
-        useJUnitPlatform()
     }
 }

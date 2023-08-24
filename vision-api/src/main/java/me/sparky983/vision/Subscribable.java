@@ -12,25 +12,22 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 public interface Subscribable<T extends Subscribable.Subscriber> {
+  /**
+   * Subscribes the specified subscriber to this {@code Subscribable} object.
+   *
+   * @param subscriber the subscriber
+   * @return a subscription that can be used to unsubscribe the subscriber
+   * @throws NullPointerException if the subscriber is {@code null}.
+   * @since 0.1
+   */
+  Subscription subscribe(T subscriber);
 
-    /**
-     * Subscribes the specified subscriber to this {@code Subscribable} object.
-     *
-     * @param subscriber the subscriber
-     * @return a subscription that can be used to unsubscribe the subscriber
-     * @throws NullPointerException if the subscriber is {@code null}.
-     * @since 0.1
-     */
-    Subscription subscribe(T subscriber);
-
-    /**
-     * Represents a subscriber to a {@link Subscribable} object.
-     *
-     * @see Button.Subscriber
-     * @see Gui.Subscriber
-     * @since 0.1
-     */
-    interface Subscriber {
-
-    }
+  /**
+   * Represents a subscriber to a {@link Subscribable} object.
+   *
+   * @see Button.Subscriber
+   * @see Gui.Subscriber
+   * @since 0.1
+   */
+  interface Subscriber {}
 }

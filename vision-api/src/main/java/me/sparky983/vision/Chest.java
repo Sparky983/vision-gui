@@ -1,11 +1,10 @@
 package me.sparky983.vision;
 
+import java.util.Set;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
-
-import java.util.Set;
 
 /**
  * Represents the {@code Chest} variant of a {@link Gui}.
@@ -22,159 +21,157 @@ import java.util.Set;
  */
 @NullMarked
 public non-sealed interface Chest extends Gui {
+  /**
+   * The minimum number of rows that a {@code Chest} can have.
+   *
+   * @see Gui#rows()
+   * @since 1.0
+   * @vision.experimental because this may be deleted, renamed or moved.
+   */
+  @ApiStatus.Experimental
+  int MIN_ROWS = 1;
+
+  /**
+   * The maximum number of rows that a {@code Chest} can have.
+   *
+   * @see Gui#rows()
+   * @since 1.0
+   * @vision.experimental because this may be deleted, renamed or moved.
+   */
+  @ApiStatus.Experimental
+  int MAX_ROWS = 6;
+
+  /**
+   * The number of columns {@code Chest}s have.
+   *
+   * @see Gui#columns()
+   * @since 1.0
+   * @vision.experimental because this may be deleted, renamed or moved.
+   */
+  @ApiStatus.Experimental
+  int COLUMNS = 9;
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IllegalArgumentException {@inheritDoc}
+   * @throws NullPointerException {@inheritDoc}
+   * @since 1.0
+   */
+  @Override
+  Chest button(Slot slot, @Nullable Button button);
+
+  /**
+   * A {@link Chest} builder.
+   *
+   * @see #chest()
+   * @since 1.0
+   * @vision.examples <pre>
+   *Gui gui = Gui.chest()
+   *        .title(Component.text("My GUI"))
+   *        .rows(3)
+   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .build();
+   *</pre>
+   */
+  non-sealed interface Builder extends Gui.Builder {
+    /**
+     * {@inheritDoc}
+     *
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.0
+     * @vision.apiNote {@inheritDoc}
+     */
+    @Override
+    Builder title(Component title);
 
     /**
-     * The minimum number of rows that a {@code Chest} can have.
+     * Sets the number of rows in the {@link Chest}.
      *
-     * @see Gui#rows()
+     * @param rows the number of rows
+     * @return this {@code Builder} instance (for chaining)
+     * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
+     * 6.
      * @since 1.0
-     * @vision.experimental because this may be deleted, renamed or moved.
+     * @vision.apiNote After the {@link Chest} is built, the number of rows cannot be changed,
+     * so it must be specified before the {@link Chest} is built.
      */
-    @ApiStatus.Experimental
-    int MIN_ROWS = 1;
-
-    /**
-     * The maximum number of rows that a {@code Chest} can have.
-     *
-     * @see Gui#rows()
-     * @since 1.0
-     * @vision.experimental because this may be deleted, renamed or moved.
-     */
-    @ApiStatus.Experimental
-    int MAX_ROWS = 6;
-
-    /**
-     * The number of columns {@code Chest}s have.
-     *
-     * @see Gui#columns()
-     * @since 1.0
-     * @vision.experimental because this may be deleted, renamed or moved.
-     */
-    @ApiStatus.Experimental
-    int COLUMNS = 9;
+    Builder rows(int rows);
 
     /**
      * {@inheritDoc}
      *
-     * @throws IllegalArgumentException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
      */
     @Override
-    Chest button(Slot slot, @Nullable Button button);
+    Builder button(Slot slot, Button button);
 
     /**
-     * A {@link Chest} builder.
+     * {@inheritDoc}
+     * <p>
+     * If the amount of rows change via subsequent calls to {@link #rows(int)}, they will be
+     * prefilled with the specified {@link Button}.
      *
-     * @see #chest()
+     * @throws NullPointerException {@inheritDoc}
      * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.chest()
-     *        .title(Component.text("My GUI"))
-     *        .rows(3)
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
+     * @vision.experimental {@inheritDoc}
      */
-    non-sealed interface Builder extends Gui.Builder {
+    @Override
+    @ApiStatus.Experimental
+    Builder fill(Button button);
 
-        /**
-         * {@inheritDoc}
-         *
-         * @throws NullPointerException {@inheritDoc}
-         * @since 1.0
-         * @vision.apiNote {@inheritDoc}
-         */
-        @Override
-        Builder title(Component title);
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
+     * will move the {@link Border#BOTTOM bottom border}.
+     *
+     * @throws IllegalArgumentException {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.0
+     * @vision.experimental {@inheritDoc}
+     */
+    @Override
+    @ApiStatus.Experimental
+    Builder border(Button button, Set<? extends Border> borders);
 
-        /**
-         * Sets the number of rows in the {@link Chest}.
-         *
-         * @param rows the number of rows
-         * @return this {@code Builder} instance (for chaining)
-         * @throws IllegalArgumentException if the number of rows is less than 1 or greater than
-         * 6.
-         * @since 1.0
-         * @vision.apiNote After the {@link Chest} is built, the number of rows cannot be changed,
-         * so it must be specified before the {@link Chest} is built.
-         */
-        Builder rows(int rows);
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
+     * will move the {@link Border#BOTTOM bottom border}.
+     *
+     * @throws IllegalArgumentException {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.0
+     * @vision.experimental {@inheritDoc}
+     */
+    @Override
+    @ApiStatus.Experimental
+    Builder border(Button button, Border... borders);
 
-        /**
-         * {@inheritDoc}
-         *
-         * @throws NullPointerException {@inheritDoc}
-         * @since 1.0
-         */
-        @Override
-        Builder button(Slot slot, Button button);
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
+     * will move the {@link Border#BOTTOM bottom border}.
+     *
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.0
+     * @vision.experimental {@inheritDoc}
+     */
+    @Override
+    @ApiStatus.Experimental
+    Builder border(Button button);
 
-        /**
-         * {@inheritDoc}
-         * <p>
-         * If the amount of rows change via subsequent calls to {@link #rows(int)}, they will be
-         * prefilled with the specified {@link Button}.
-         *
-         * @throws NullPointerException {@inheritDoc}
-         * @since 1.0
-         * @vision.experimental {@inheritDoc}
-         */
-        @Override
-        @ApiStatus.Experimental
-        Builder fill(Button button);
-
-        /**
-         * {@inheritDoc}
-         * <p>
-         * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
-         * will move the {@link Border#BOTTOM bottom border}.
-         *
-         * @throws IllegalArgumentException {@inheritDoc}
-         * @throws NullPointerException {@inheritDoc}
-         * @since 1.0
-         * @vision.experimental {@inheritDoc}
-         */
-        @Override
-        @ApiStatus.Experimental
-        Builder border(Button button, Set<? extends Border> borders);
-
-        /**
-         * {@inheritDoc}
-         * <p>
-         * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
-         * will move the {@link Border#BOTTOM bottom border}.
-         *
-         * @throws IllegalArgumentException {@inheritDoc}
-         * @throws NullPointerException {@inheritDoc}
-         * @since 1.0
-         * @vision.experimental {@inheritDoc}
-         */
-        @Override
-        @ApiStatus.Experimental
-        Builder border(Button button, Border... borders);
-
-        /**
-         * {@inheritDoc}
-         * <p>
-         * The borders are set during {@link #build()}, so subsequent calls to {@link #rows(int)}
-         * will move the {@link Border#BOTTOM bottom border}.
-         *
-         * @throws NullPointerException {@inheritDoc}
-         * @since 1.0
-         * @vision.experimental {@inheritDoc}
-         */
-        @Override
-        @ApiStatus.Experimental
-        Builder border(Button button);
-
-        /**
-         * {@inheritDoc}
-         *
-         * @throws IllegalStateException {@inheritDoc}
-         * @since 1.0
-         */
-        @Override
-        Chest build();
-    }
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IllegalStateException {@inheritDoc}
+     * @since 1.0
+     */
+    @Override
+    Chest build();
+  }
 }

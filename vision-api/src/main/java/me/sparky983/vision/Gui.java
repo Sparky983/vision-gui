@@ -1,13 +1,12 @@
 package me.sparky983.vision;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * Represents a GUI.
@@ -16,306 +15,298 @@ import java.util.Set;
  */
 @NullMarked
 public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, Hopper, Dropper {
+  /**
+   * Creates a new {@link Chest.Builder} with 1 row.
+   *
+   * @return the new {@link Chest.Builder}
+   * @see Chest.Builder
+   * @since 1.0
+   * @vision.examples <pre>
+   *Gui gui = Gui.gui()
+   *        .title(Component.text("My GUI"))
+   *        .rows(3)
+   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .build();
+   *</pre>
+   */
+  static Chest.Builder chest() {
+    return new ChestImpl.BuilderImpl();
+  }
 
+  /**
+   * Creates a new {@link Dropper.Builder}.
+   *
+   * @return the new {@link Dropper.Builder}
+   * @see Dropper.Builder
+   * @since 1.0
+   * @vision.examples <pre>
+   *Gui gui = Gui.dropper()
+   *        .title(Component.text("My GUI"))
+   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *        .build();
+   *</pre>
+   */
+  static Dropper.Builder dropper() {
+    return new DropperImpl.BuilderImpl();
+  }
+
+  /**
+   * Creates a new {@link Hopper.Builder}.
+   *
+   * @return the new {@link Hopper.Builder}
+   * @see Hopper.Builder
+   * @since 1.0
+   * @vision.examples <pre>
+   *Gui gui = Gui.hopper()
+   *        .title(Component.text("My GUI"))
+   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .build();
+   *</pre>
+   */
+  static Hopper.Builder hopper() {
+    return new HopperImpl.BuilderImpl();
+  }
+
+  /**
+   * Returns the type of this {@code Gui}.
+   *
+   * @return the type of this {@code Gui}
+   * @since 1.0
+   */
+  GuiType type();
+
+  /**
+   * Returns the title of this {@code Gui}.
+   * <p>
+   * If this {@code Gui} is untitled, the returned component will match Minecraft's default
+   * container title which is usually a translatable {@link Component} of the form
+   * {@literal "container.<container>"}.
+   *
+   * @return the title of this {@code Gui}
+   * @since 0.1
+   */
+  Component title();
+
+  /**
+   * Returns the number of rows in this {@code Gui}.
+   *
+   * @return the number of rows
+   * @since 0.1
+   */
+  int rows();
+
+  /**
+   * Returns the number of columns in this {@code Gui}.
+   *
+   * @return the number of columns
+   * @since 1.0
+   */
+  int columns();
+
+  /**
+   * Returns the {@link Button} at the specified {@link Slot}.
+   *
+   * @param slot the slot
+   * @return the button at the specified slot or {@link Optional#empty()} if there is no button.
+   * @throws IllegalArgumentException if the slot is out of bounds.
+   * @throws NullPointerException if the slot is {@code null}.
+   * @since 0.1
+   */
+  Optional<Button> button(Slot slot);
+
+  /**
+   * Sets the {@link Button} at the specified {@link Slot}.
+   *
+   * @param slot the slot
+   * @param button the button or {@code null} to remove the button
+   * @return this {@code Gui} instance (for chaining)
+   * @throws IllegalArgumentException if the slot is out of bounds.
+   * @throws NullPointerException if the slot is {@code null}.
+   * @since 0.1
+   */
+  Gui button(Slot slot, @Nullable Button button);
+
+  /**
+   * Returns an immutable list of all slots, present or absent, in this {@code Gui}.
+   * <p>
+   * The returned list is ordered from left to right, then top to bottom.
+   *
+   * @return an immutable list of all slots in this {@code Gui}
+   * @since 1.0
+   * @vision.apiNote This method returns a {@code List} so you can get each slot by index. This is
+   * similar to Bukkit slots work.
+   * @vision.implNote The returned list is cached.
+   */
+  List<Slot> slots();
+
+  /**
+   * Subscribes the specified {@link Subscriber} to this {@code Gui}.
+   *
+   * @param subscriber the subscriber to subscribe
+   * @return a {@link Subscription} that can be used to unsubscribe the subscriber
+   * @throws NullPointerException if the subscriber is {@code null}.
+   * @since 0.1
+   * @vision.examples <pre>
+   * {@code Gui gui = ....;
+   *gui.subscribe(new Gui.Subscriber() {
+   *    public void button(Slot slot, Button button) {
+   *        System.out.println("Slot changed");
+   *    }
+   *}}</pre>
+   */
+  @Override
+  Subscription subscribe(Subscriber subscriber);
+
+  /**
+   * Represents a subscriber to a {@link Gui}.
+   *
+   * @see Gui#subscribe(Subscriber)
+   * @since 0.1
+   */
+  interface Subscriber extends Subscribable.Subscriber {
     /**
-     * Creates a new {@link Chest.Builder} with 1 row.
-     *
-     * @return the new {@link Chest.Builder}
-     * @see Chest.Builder
-     * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.gui()
-     *        .title(Component.text("My GUI"))
-     *        .rows(3)
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    static Chest.Builder chest() {
-
-        return new ChestImpl.BuilderImpl();
-    }
-
-    /**
-     * Creates a new {@link Dropper.Builder}.
-     *
-     * @return the new {@link Dropper.Builder}
-     * @see Dropper.Builder
-     * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.dropper()
-     *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    static Dropper.Builder dropper() {
-
-        return new DropperImpl.BuilderImpl();
-    }
-
-    /**
-     * Creates a new {@link Hopper.Builder}.
-     *
-     * @return the new {@link Hopper.Builder}
-     * @see Hopper.Builder
-     * @since 1.0
-     * @vision.examples <pre>
-     *Gui gui = Gui.hopper()
-     *        .title(Component.text("My GUI"))
-     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     */
-    static Hopper.Builder hopper() {
-
-        return new HopperImpl.BuilderImpl();
-    }
-
-    /**
-     * Returns the type of this {@code Gui}.
-     *
-     * @return the type of this {@code Gui}
-     * @since 1.0
-     */
-    GuiType type();
-
-    /**
-     * Returns the title of this {@code Gui}.
+     * Called when the specified {@link Slot} changes.
      * <p>
-     * If this {@code Gui} is untitled, the returned component will match Minecraft's default
-     * container title which is usually a translatable {@link Component} of the form
-     * {@literal "container.<container>"}.
-     *
-     * @return the title of this {@code Gui}
-     * @since 0.1
-     */
-    Component title();
-
-    /**
-     * Returns the number of rows in this {@code Gui}.
-     *
-     * @return the number of rows
-     * @since 0.1
-     */
-    int rows();
-
-    /**
-     * Returns the number of columns in this {@code Gui}.
-     *
-     * @return the number of columns
-     * @since 1.0
-     */
-    int columns();
-
-    /**
-     * Returns the {@link Button} at the specified {@link Slot}.
+     * The default implementation does nothing.
      *
      * @param slot the slot
-     * @return the button at the specified slot or {@link Optional#empty()} if there is no button.
-     * @throws IllegalArgumentException if the slot is out of bounds.
-     * @throws NullPointerException if the slot is {@code null}.
+     * @param button the new button or {@code null} if there is no new {@link Button}
+     * @throws NullPointerException if the slot is {@code null} (optional).
+     * @see Gui#button(Slot, Button)
      * @since 0.1
      */
-    Optional<Button> button(Slot slot);
+    default void button(final Slot slot, final @Nullable Button button) {}
+  }
+
+  /**
+   * A {@link Gui} builder.
+   *
+   * @since 0.1
+   * @vision.examples <pre>
+   *Gui gui = Gui.chest()
+   *        .title(Component.text("My Gui"))
+   *        .rows(3)
+   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .build();
+   *</pre>
+   *<pre>
+   *Gui gui = Gui.dropper()
+   *        .title(Component.text("My Gui"))
+   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *        .build();
+   *</pre>
+   *<pre>
+   *Gui gui = Gui.hopper()
+   *        .title(Component.text("My Gui"))
+   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .build();
+   *</pre>
+   */
+  sealed interface Builder permits Chest.Builder, Dropper.Builder, Hopper.Builder {
+    /**
+     * Sets the title of the {@link Gui}.
+     *
+     * @param title the title
+     * @return this {@code Builder} instance (for chaining)
+     * @throws NullPointerException if the title is {@code null}.
+     * @since 0.1
+     * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
+     * must be specified before the {@link Gui} is built.
+     */
+    Builder title(Component title);
 
     /**
-     * Sets the {@link Button} at the specified {@link Slot}.
+     * Sets the {@link Button} at the specified {@link Slot} in the {@link Gui}.
      *
      * @param slot the slot
-     * @param button the button or {@code null} to remove the button
-     * @return this {@code Gui} instance (for chaining)
-     * @throws IllegalArgumentException if the slot is out of bounds.
-     * @throws NullPointerException if the slot is {@code null}.
-     * @since 0.1
-     */
-    Gui button(Slot slot, @Nullable Button button);
-
-    /**
-     * Returns an immutable list of all slots, present or absent, in this {@code Gui}.
-     * <p>
-     * The returned list is ordered from left to right, then top to bottom.
-     *
-     * @return an immutable list of all slots in this {@code Gui}
+     * @param button the button
+     * @return this {@code Builder} instance (for chaining)
+     * @throws NullPointerException if the slot or button is {@code null}.
      * @since 1.0
-     * @vision.apiNote This method returns a {@code List} so you can get each slot by index. This is
-     * similar to Bukkit slots work.
-     * @vision.implNote The returned list is cached.
      */
-    List<Slot> slots();
+    Builder button(Slot slot, Button button);
 
     /**
-     * Subscribes the specified {@link Subscriber} to this {@code Gui}.
+     * Sets all the empty slots to the specified {@link Button} in the {@link Gui}.
      *
-     * @param subscriber the subscriber to subscribe
-     * @return a {@link Subscription} that can be used to unsubscribe the subscriber
-     * @throws NullPointerException if the subscriber is {@code null}.
-     * @since 0.1
-     * @vision.examples <pre>
-     * {@code Gui gui = ....;
-     *gui.subscribe(new Gui.Subscriber() {
-     *    public void button(Slot slot, Button button) {
-     *        System.out.println("Slot changed");
-     *    }
-     *}}</pre>
+     * @param button the button
+     * @return this {@code Builder} instance (for chaining)
+     * @throws NullPointerException if the button is {@code null}.
+     * @since 1.0
+     * @vision.experimental because this may be changed, deleted or renamed.
      */
-    @Override
-    Subscription subscribe(Subscriber subscriber);
+    @ApiStatus.Experimental
+    Builder fill(Button button);
 
     /**
-     * Represents a subscriber to a {@link Gui}.
+     * Sets the specified borders of the {@link Gui} to the specified {@link Button}.
+     * <p>
+     * Changes to the border set after this method is called will not affect the {@link Gui}.
+     * <p>
+     * When the {@link Gui} is built, the {@link Button Buttons} will be placed in the empty
+     * slots covered by the borders. If a border has been specified multiple times, the last
+     * specified {@link Button} will be used. The same is the case for corners.
      *
-     * @see Gui#subscribe(Subscriber)
-     * @since 0.1
+     * @param button the button
+     * @param borders the borders
+     * @return this {@code Builder} instance (for chaining)
+     * @throws IllegalArgumentException if there are no borders.
+     * @throws NullPointerException if the button is {@code null} or the borders is or contains
+     * {@code null}.
+     * @since 1.0
+     * @vision.experimental because this may be changed, deleted or renamed.
      */
-    interface Subscriber extends Subscribable.Subscriber {
-
-        /**
-         * Called when the specified {@link Slot} changes.
-         * <p>
-         * The default implementation does nothing.
-         *
-         * @param slot the slot
-         * @param button the new button or {@code null} if there is no new {@link Button}
-         * @throws NullPointerException if the slot is {@code null} (optional).
-         * @see Gui#button(Slot, Button)
-         * @since 0.1
-         */
-        default void button(final Slot slot, final @Nullable Button button) {
-
-        }
-    }
+    @ApiStatus.Experimental
+    Builder border(Button button, Set<? extends Border> borders);
 
     /**
-     * A {@link Gui} builder.
+     * Sets the specified borders of the {@link Gui} to the specified {@link Button}.
+     * <p>
+     * Changes to the border array after this method is called will not affect the {@link Gui}.
+     * <p>
+     * When the {@link Gui} is built, the {@link Button Buttons} will be placed in the empty
+     * slots covered by the borders. If a border has been specified multiple times, the last
+     * specified {@link Button} will be used. The same is the case for corners.
      *
-     * @since 0.1
-     * @vision.examples <pre>
-     *Gui gui = Gui.chest()
-     *        .title(Component.text("My Gui"))
-     *        .rows(3)
-     *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     *<pre>
-     *Gui gui = Gui.dropper()
-     *        .title(Component.text("My Gui"))
-     *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
-     *<pre>
-     *Gui gui = Gui.hopper()
-     *        .title(Component.text("My Gui"))
-     *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-     *        .build();
-     *</pre>
+     * @param button the button
+     * @param borders the borders
+     * @return this {@code Builder} instance (for chaining)
+     * @throws IllegalArgumentException if there are no or duplicate borders.
+     * @throws NullPointerException if the button is {@code null} or the borders is or contains
+     * {@code null}.
+     * @since 1.0
+     * @vision.experimental because this may be changed, deleted or renamed.
      */
-    sealed interface Builder permits Chest.Builder, Dropper.Builder, Hopper.Builder {
+    @ApiStatus.Experimental
+    Builder border(Button button, Border... borders);
 
-        /**
-         * Sets the title of the {@link Gui}.
-         *
-         * @param title the title
-         * @return this {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the title is {@code null}.
-         * @since 0.1
-         * @vision.apiNote After the {@link Gui} is built, the title cannot be changed, so it
-         * must be specified before the {@link Gui} is built.
-         */
-        Builder title(Component title);
+    /**
+     * Sets all the borders of the {@link Gui} to the specified {@link Button}.
+     * <p>
+     * When the {@link Gui} is built, the {@link Button Buttons} will be placed in all empty
+     * border slots. If a border has been specified multiple times, the last specified
+     * {@link Button} will be used. The same is the case for corners.
+     *
+     * @param button the button
+     * @return this {@code Builder} instance (for chaining)
+     * @throws NullPointerException if the button is {@code null}
+     * @since 1.0
+     * @vision.experimental because this may be changed, deleted or renamed.
+     */
+    @ApiStatus.Experimental
+    Builder border(Button button);
 
-        /**
-         * Sets the {@link Button} at the specified {@link Slot} in the {@link Gui}.
-         *
-         * @param slot the slot
-         * @param button the button
-         * @return this {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the slot or button is {@code null}.
-         * @since 1.0
-         */
-        Builder button(Slot slot, Button button);
-
-        /**
-         * Sets all the empty slots to the specified {@link Button} in the {@link Gui}.
-         *
-         * @param button the button
-         * @return this {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the button is {@code null}.
-         * @since 1.0
-         * @vision.experimental because this may be changed, deleted or renamed.
-         */
-        @ApiStatus.Experimental
-        Builder fill(Button button);
-
-        /**
-         * Sets the specified borders of the {@link Gui} to the specified {@link Button}.
-         * <p>
-         * Changes to the border set after this method is called will not affect the {@link Gui}.
-         * <p>
-         * When the {@link Gui} is built, the {@link Button Buttons} will be placed in the empty
-         * slots covered by the borders. If a border has been specified multiple times, the last
-         * specified {@link Button} will be used. The same is the case for corners.
-         *
-         * @param button the button
-         * @param borders the borders
-         * @return this {@code Builder} instance (for chaining)
-         * @throws IllegalArgumentException if there are no borders.
-         * @throws NullPointerException if the button is {@code null} or the borders is or contains
-         * {@code null}.
-         * @since 1.0
-         * @vision.experimental because this may be changed, deleted or renamed.
-         */
-        @ApiStatus.Experimental
-        Builder border(Button button, Set<? extends Border> borders);
-
-        /**
-         * Sets the specified borders of the {@link Gui} to the specified {@link Button}.
-         * <p>
-         * Changes to the border array after this method is called will not affect the {@link Gui}.
-         * <p>
-         * When the {@link Gui} is built, the {@link Button Buttons} will be placed in the empty
-         * slots covered by the borders. If a border has been specified multiple times, the last
-         * specified {@link Button} will be used. The same is the case for corners.
-         *
-         * @param button the button
-         * @param borders the borders
-         * @return this {@code Builder} instance (for chaining)
-         * @throws IllegalArgumentException if there are no or duplicate borders.
-         * @throws NullPointerException if the button is {@code null} or the borders is or contains
-         * {@code null}.
-         * @since 1.0
-         * @vision.experimental because this may be changed, deleted or renamed.
-         */
-        @ApiStatus.Experimental
-        Builder border(Button button, Border... borders);
-
-        /**
-         * Sets all the borders of the {@link Gui} to the specified {@link Button}.
-         * <p>
-         * When the {@link Gui} is built, the {@link Button Buttons} will be placed in all empty
-         * border slots. If a border has been specified multiple times, the last specified
-         * {@link Button} will be used. The same is the case for corners.
-         *
-         * @param button the button
-         * @return this {@code Builder} instance (for chaining)
-         * @throws NullPointerException if the button is {@code null}
-         * @since 1.0
-         * @vision.experimental because this may be changed, deleted or renamed.
-         */
-        @ApiStatus.Experimental
-        Builder border(Button button);
-
-        /**
-         * Builds the {@link Gui}.
-         * <p>
-         * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
-         * specified, the {@link #border(Button, Set) border} will overlay the
-         * {@link #fill(Button) fill} in the returned {@link Gui}.
-         *
-         * @return the built {@link Gui}
-         * @throws IllegalStateException if any of the buttons are out of bounds.
-         * @since 1.0
-         */
-        Gui build();
-    }
+    /**
+     * Builds the {@link Gui}.
+     * <p>
+     * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
+     * specified, the {@link #border(Button, Set) border} will overlay the
+     * {@link #fill(Button) fill} in the returned {@link Gui}.
+     *
+     * @return the built {@link Gui}
+     * @throws IllegalStateException if any of the buttons are out of bounds.
+     * @since 1.0
+     */
+    Gui build();
+  }
 }
