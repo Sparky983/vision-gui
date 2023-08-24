@@ -10,10 +10,8 @@ public final class ExamplePlugin extends JavaPlugin {
   public void onEnable() {
     final PaperVision vision = PaperVision.create(this);
 
-    final CommandExecutor testGuiCommandExecutor = new ExampleGuiCommandExecutor(
-        vision,
-        this,
-        getServer().getScheduler());
+    final CommandExecutor testGuiCommandExecutor =
+        new ExampleGuiCommandExecutor(vision, this, getServer().getScheduler());
 
     final PluginCommand testGuiCommand = getCommand("example-gui");
     assert testGuiCommand != null;

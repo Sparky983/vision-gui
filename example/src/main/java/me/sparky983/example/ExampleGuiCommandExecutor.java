@@ -19,18 +19,16 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
   private final Plugin plugin;
   private final BukkitScheduler scheduler;
 
-  public ExampleGuiCommandExecutor(final PaperVision vision, final Plugin plugin,
-      final BukkitScheduler scheduler) {
+  public ExampleGuiCommandExecutor(
+      final PaperVision vision, final Plugin plugin, final BukkitScheduler scheduler) {
     this.vision = vision;
     this.plugin = plugin;
     this.scheduler = scheduler;
   }
 
   @Override
-  public boolean onCommand(final CommandSender sender,
-      final Command command,
-      final String label,
-      final String[] args) {
+  public boolean onCommand(
+      final CommandSender sender, final Command command, final String label, final String[] args) {
     if (!(sender instanceof Player player)) {
       sender.sendMessage(Component.text("Only players can use this command"));
       return false;
@@ -42,9 +40,13 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
         .type(ItemType.DIAMOND)
         .onClick((click) -> click.clicker().sendMessage(click.button().name()));
 
-    scheduler.runTaskTimer(plugin, () -> {
-      counter.name(Component.text("Counter: " + count.incrementAndGet()));
-    }, 20, 10);
+    scheduler.runTaskTimer(
+        plugin,
+        () -> {
+          counter.name(Component.text("Counter: " + count.incrementAndGet()));
+        },
+        20,
+        10);
 
     final Gui gui = Gui.chest()
         .title(Component.text("Test GUI"))
