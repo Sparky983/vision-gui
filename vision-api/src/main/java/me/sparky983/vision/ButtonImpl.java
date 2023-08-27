@@ -12,11 +12,9 @@ import org.jspecify.annotations.Nullable;
  * The default implementation of {@link Button}.
  *
  * @see Button#of(ItemType)
- * @see Button#button()
  */
 @NullMarked
 final class ButtonImpl implements Button {
-  static final Button.Factory FACTORY = ButtonImpl::new;
 
   private final Subscribers<Subscriber> subscribers = new Subscribers<>();
   private final Publisher publisher = new PublisherImpl();
