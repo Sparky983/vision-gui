@@ -37,26 +37,6 @@ public interface Button extends Subscribable<Button.Subscriber> {
   }
 
   /**
-   * Creates a new {@link Button.Factory}.
-   *
-   * @return the new {@link Button.Factory}
-   * @see Factory
-   * @see #of(ItemType)
-   * @since 1.0
-   * @vision.experimental because this may be deleted or repurposed. Use {@link #of(ItemType)}
-   * when possible.
-   * @vision.examples <pre>
-   *Button button = Button.button()
-   *        .type(ItemTypes.DIAMOND)
-   *        .name(Component.text("My Button"))
-   *        .lore(Component.text("My lore line 1"), Component.text("My lore line 2"));</pre>
-   */
-  @ApiStatus.Experimental
-  static Factory button() {
-    return ButtonImpl.FACTORY;
-  }
-
-  /**
    * Returns the type of this {@code Button}.
    *
    * @return the type of this {@code Button}
@@ -326,38 +306,5 @@ public interface Button extends Subscribable<Button.Subscriber> {
      * @since 0.1
      */
     default void click(final Click click) {}
-  }
-
-  /**
-   * A {@link Button} factory.
-   *
-   * @see #button()
-   * @see #type(ItemType)
-   * @since 1.0
-   * @vision.experimental because this may be deleted or repurposed.
-   * @vision.apiNote This class is designed to improve readability by requiring the type parameter
-   * to be named in source code.
-   * @vision.examples <pre>
-   *{@literal // With factory}
-   *Button button = Button.button()
-   *        .type(ItemType.STONE)
-   *        .name(Component.text("Stone"));
-   *
-   *{@literal // Without factory}
-   *Button button = Button.of(ItemType.STONE)
-   *        .name(Component.text("Stone"));</pre>
-   */
-  @FunctionalInterface
-  @ApiStatus.Experimental
-  interface Factory {
-    /**
-     * Creates a new {@code Button} of the specified type.
-     *
-     * @param type the item type
-     * @return the new {@link Button}
-     * @throws NullPointerException if the item type is {@code null}.
-     * @since 1.0
-     */
-    Button type(ItemType type);
   }
 }
