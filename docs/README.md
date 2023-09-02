@@ -20,8 +20,8 @@ Vision GUI is a minimal GUI API for Paper.
 
 ## Quick Links
 
-* [API Javadoc](https://repo.sparky983.me/javadoc/releases/me/sparky983/vision-api/1.0.1/me/sparky983/vision/package-summary.html)
-* [Paper Javadoc](https://repo.sparky983.me/javadoc/releases/me/sparky983/vision-paper/1.0.1/me/sparky983/vision/paper/package-summary.html)
+* [API Javadoc](https://repo.sparky983.me/javadoc/snapshots/me/sparky983/vision-api/1.1.0-SNAPSHOT/me/sparky983/vision/package-summary.html)
+* [Paper Javadoc](https://repo.sparky983.me/javadoc/snapshots/me/sparky983/vision-paper/1.1.0-SNAPSHOT/me/sparky983/vision/paper/package-summary.html)
 * [Sparky983/vision-gui](https://github.com/sparky983/vision-gui)
 
 ## Installation
@@ -34,7 +34,7 @@ Add the following to your build configuration:
 <repositories>
     <repository>
         <id>sparky983</id>
-        <url>https://repo.sparky983.me/releases</url>
+        <url>https://repo.sparky983.me/snapshots</url>
     </repository>
 </repositories>
 
@@ -42,7 +42,7 @@ Add the following to your build configuration:
     <dependency>
         <groupId>me.sparky983</groupId>
         <artifactId>vision-paper</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
@@ -51,11 +51,11 @@ Add the following to your build configuration:
 {% tab title="build.gradle" %}
 ```groovy
 repositories {
-    maven { url 'https://repo.sparky983.me/releases' }
+    maven { url 'https://repo.sparky983.me/snapshots' }
 }
 
 dependencies {
-    implementation 'me.sparky983:vision-paper:1.0.0'
+    implementation 'me.sparky983:vision-paper:1.1.0-SNAPSHOT'
 }
 ```
 {% endtab %}
@@ -63,11 +63,11 @@ dependencies {
 {% tab title="build.gradle.kts" %}
 ```kotlin
 repositories {
-    maven("https://repo.sparky983.me/releases")
+    maven("https://repo.sparky983.me/snapshots")
 }
 
 dependencies {
-    implementation("me.sparky983:vision-paper:1.0.0")
+    implementation("me.sparky983:vision-paper:1.1.0-SNAPSHOT")
 }
 ```
 {% endtab %}
