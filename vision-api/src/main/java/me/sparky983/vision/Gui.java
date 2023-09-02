@@ -233,9 +233,10 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @return this {@code Builder} instance (for chaining)
      * @throws NullPointerException if the button is {@code null}.
      * @since 1.0
-     * @vision.experimental because this may be changed, deleted or renamed.
+     * @deprecated use vision-elements instead.
      */
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder fill(Button button);
 
     /**
@@ -254,9 +255,10 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @throws NullPointerException if the button is {@code null} or the borders is or contains
      * {@code null}.
      * @since 1.0
-     * @vision.experimental because this may be changed, deleted or renamed.
+     * @deprecated use vision-elements instead.
      */
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder border(Button button, Set<? extends Border> borders);
 
     /**
@@ -275,9 +277,10 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @throws NullPointerException if the button is {@code null} or the borders is or contains
      * {@code null}.
      * @since 1.0
-     * @vision.experimental because this may be changed, deleted or renamed.
+     * @deprecated use vision-elements instead.
      */
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder border(Button button, Border... borders);
 
     /**
@@ -291,9 +294,10 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @return this {@code Builder} instance (for chaining)
      * @throws NullPointerException if the button is {@code null}
      * @since 1.0
-     * @vision.experimental because this may be changed, deleted or renamed.
+     * @deprecated use vision-elements instead.
      */
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder border(Button button);
 
     /**

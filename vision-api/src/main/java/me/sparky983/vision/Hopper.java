@@ -87,10 +87,11 @@ public non-sealed interface Hopper extends Gui {
      *
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
-     * @vision.experimental {@inheritDoc}
+     * @deprecated {@inheritDoc}
      */
     @Override
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder fill(Button button);
 
     /**
@@ -99,10 +100,11 @@ public non-sealed interface Hopper extends Gui {
      * @throws IllegalArgumentException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
-     * @vision.experimental {@inheritDoc}
+     * @deprecated {@inheritDoc}
      */
     @Override
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder border(Button button, Set<? extends Border> borders);
 
     /**
@@ -111,10 +113,11 @@ public non-sealed interface Hopper extends Gui {
      * @throws IllegalArgumentException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
-     * @vision.experimental {@inheritDoc}
+     * @deprecated {@inheritDoc}
      */
     @Override
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder border(Button button, Border... borders);
 
     /**
@@ -122,10 +125,11 @@ public non-sealed interface Hopper extends Gui {
      *
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
-     * @vision.experimental {@inheritDoc}
+     * @deprecated {@inheritDoc}
      */
     @Override
-    @ApiStatus.Experimental
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     Builder border(Button button);
 
     /**

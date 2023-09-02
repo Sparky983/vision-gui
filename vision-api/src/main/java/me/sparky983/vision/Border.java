@@ -8,8 +8,10 @@ import org.jspecify.annotations.NullMarked;
  * Represents a {@link Gui} border.
  *
  * @since 1.0
+ * @deprecated use vision-elements instead.
  */
-@ApiStatus.Experimental
+@Deprecated(forRemoval = true)
+@ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
 @NullMarked
 public enum Border {
   /**
