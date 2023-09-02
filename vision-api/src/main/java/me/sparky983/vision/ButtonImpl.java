@@ -15,7 +15,6 @@ import org.jspecify.annotations.Nullable;
  */
 @NullMarked
 final class ButtonImpl implements Button {
-
   private final Subscribers<Subscriber> subscribers = new Subscribers<>();
   private final Publisher publisher = new PublisherImpl();
 
