@@ -2,8 +2,10 @@ package me.sparky983.vision.paper;
 
 import java.util.Objects;
 import me.sparky983.vision.Gui;
+import me.sparky983.vision.GuiLike;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
 
 /**
@@ -45,4 +47,20 @@ public interface PaperVision {
    * @since 0.1
    */
   void open(Player player, Gui gui);
+
+  /**
+   * Converts specified {@link GuiLike} to a {@link Gui} and opens it for the specified player.
+   *
+   * @param player the player
+   * @param gui the {@link GuiLike}
+   * @throws NullPointerException if the player or the GUI is {@code null}.
+   * @since 1/1
+   */
+  @ApiStatus.Experimental
+  default void open(final Player player, final GuiLike gui) {
+    Objects.requireNonNull(player, "player cannot be null");
+    Objects.requireNonNull(gui, "gui cannot be null");
+
+    open(player, gui.asGui());
+  }
 }
