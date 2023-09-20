@@ -11,13 +11,13 @@ import org.jspecify.annotations.Nullable;
  *
  * @see #chest()
  * @since 1.0
- * @vision.examples <pre>
- *Gui gui = Gui.chest()
- *        .title(Component.text("My GUI"))
- *        .rows(3)
- *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
- *        .build();
- *</pre>
+ * @vision.examples {@snippet :
+ * Gui gui = Gui.chest()
+ *         .title(Component.text("My GUI"))
+ *         .rows(3)
+ *         .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+ *         .build();
+ * }
  */
 @NullMarked
 public non-sealed interface Chest extends Gui {
@@ -66,13 +66,13 @@ public non-sealed interface Chest extends Gui {
    *
    * @see #chest()
    * @since 1.0
-   * @vision.examples <pre>
-   *Gui gui = Gui.chest()
-   *        .title(Component.text("My GUI"))
-   *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = Gui.chest()
+   *         .title(Component.text("My GUI"))
+   *         .rows(3)
+   *         .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *         .build();
+   * }
    */
   non-sealed interface Builder extends Gui.Builder {
     /**

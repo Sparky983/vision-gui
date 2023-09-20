@@ -11,12 +11,12 @@ import org.jspecify.annotations.Nullable;
  *
  * @see #dropper()
  * @since 1.0
- * @vision.examples <pre>
- *Gui gui = Gui.dropper()
- *        .title(Component.text("My GUI"))
- *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
- *        .build();
- *</pre>
+ * @vision.examples {@snippet :
+ * Gui gui = Gui.dropper()
+ *         .title(Component.text("My GUI"))
+ *         .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+ *         .build();
+ * }
  */
 @NullMarked
 public non-sealed interface Dropper extends Gui {
@@ -55,12 +55,12 @@ public non-sealed interface Dropper extends Gui {
    *
    * @see #dropper()
    * @since 1.0
-   * @vision.examples <pre>
-   *Gui gui = Gui.dropper()
-   *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = Gui.dropper()
+   *         .title(Component.text("My GUI"))
+   *         .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *         .build();
+   * }
    */
   non-sealed interface Builder extends Gui.Builder {
     /**

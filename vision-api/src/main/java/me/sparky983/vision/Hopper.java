@@ -11,12 +11,12 @@ import org.jspecify.annotations.Nullable;
  *
  * @see #hopper()
  * @since 1.0
- * @vision.examples <pre>
- *Gui gui = Gui.hopper()
- *        .title(Component.text("My GUI"))
- *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
- *        .build();
- *</pre>
+ * @vision.examples {@snippet :
+ * Gui gui = Gui.hopper()
+ *         .title(Component.text("My GUI"))
+ *         .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+ *         .build();
+ * }
  */
 @NullMarked
 public non-sealed interface Hopper extends Gui {
@@ -55,12 +55,12 @@ public non-sealed interface Hopper extends Gui {
    *
    * @see #hopper()
    * @since 1.0
-   * @vision.examples <pre>
-   *Gui gui = Gui.hopper()
-   *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = Gui.hopper()
+   *         .title(Component.text("My GUI"))
+   *         .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *         .build();
+   * }
    */
   non-sealed interface Builder extends Gui.Builder {
     /**

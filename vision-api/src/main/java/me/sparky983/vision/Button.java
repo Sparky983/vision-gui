@@ -27,10 +27,11 @@ public interface Button extends Subscribable<Button.Subscriber> {
    * @return the created {@code Button}
    * @throws NullPointerException if the type is {@code null}.
    * @since 0.1
-   * @vision.examples <pre>
-   *Button button = Button.of(ItemTypes.DIAMOND)
-   *        .name(Component.text("My Button"))
-   *        .lore(Component.text("My lore line 1"), Component.text("My lore line 2"));</pre>
+   * @vision.examples {@snippet :
+   * Button button = Button.of(ItemTypes.DIAMOND)
+   *         .name(Component.text("My Button"))
+   *         .lore(Component.text("My lore line 1"), Component.text("My lore line 2"));
+   * }
    */
   static Button of(final ItemType type) {
     return new ButtonImpl(type);
@@ -165,11 +166,12 @@ public interface Button extends Subscribable<Button.Subscriber> {
    * @throws NullPointerException if the {@link Click} handler is {@code null}.
    * @since 0.1
    * @vision.apiNote This method may be called multiple times to add multiple handlers.
-   * @vision.examples <pre>
-   *{@code Button button = Button.button()
-   *        .name(Component.text("Click me!"))
-   *        .type(ItemType.DIAMOND);
-   *        .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))}</pre>
+   * @vision.examples {@snippet :
+   * Button button = Button.button()
+   *         .name(Component.text("Click me!"))
+   *         .type(ItemType.DIAMOND);
+   *         .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")));
+   * }
    */
   Button onClick(Consumer<? super Click> handler);
 
@@ -188,22 +190,23 @@ public interface Button extends Subscribable<Button.Subscriber> {
    * @return a {@link Subscription} that can be used to unsubscribe the subscriber
    * @throws NullPointerException if the subscriber is {@code null}.
    * @since 0.1
-   * @vision.examples <pre>
-   *{@code Button button = ...;
-   *button.subscribe(new Button.Subscriber() {
-   *    public void type(ItemType type) {
-   *        System.out.println("Type updated");
-   *    }
-   *    public void name(Component name) {
-   *        System.out.println("Name updated");
-   *    }
-   *    public void lore(List<Component> lore) {
-   *        System.out.println("Lore updated");
-   *    }
-   *    public void amount(int amount) {
-   *        System.out.println("Amount updated");
-   *    }
-   *})}</pre>
+   * @vision.examples {@snippet :
+   * Button button = ...;
+   * button.subscribe(new Button.Subscriber() {
+   *     public void type(ItemType type) {
+   *         System.out.println("Type updated");
+   *     }
+   *     public void name(Component name) {
+   *         System.out.println("Name updated");
+   *     }
+   *     public void lore(List<Component> lore) {
+   *         System.out.println("Lore updated");
+   *     }
+   *     public void amount(int amount) {
+   *         System.out.println("Amount updated");
+   *     }
+   * });
+   * }
    */
   @Override
   Subscription subscribe(Subscriber subscriber);

@@ -21,13 +21,13 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @return the new {@link Chest.Builder}
    * @see Chest.Builder
    * @since 1.0
-   * @vision.examples <pre>
-   *Gui gui = Gui.gui()
-   *        .title(Component.text("My GUI"))
-   *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = Gui.gui()
+   *         .title(Component.text("My GUI"))
+   *         .rows(3)
+   *         .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *         .build();
+   * }
    */
   static Chest.Builder chest() {
     return new ChestImpl.BuilderImpl();
@@ -39,12 +39,12 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @return the new {@link Dropper.Builder}
    * @see Dropper.Builder
    * @since 1.0
-   * @vision.examples <pre>
-   *Gui gui = Gui.dropper()
-   *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = Gui.dropper()
+   *         .title(Component.text("My GUI"))
+   *         .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *         .build();
+   * }
    */
   static Dropper.Builder dropper() {
     return new DropperImpl.BuilderImpl();
@@ -56,12 +56,12 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @return the new {@link Hopper.Builder}
    * @see Hopper.Builder
    * @since 1.0
-   * @vision.examples <pre>
-   *Gui gui = Gui.hopper()
-   *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = Gui.hopper()
+   *         .title(Component.text("My GUI"))
+   *         .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *         .build();
+   * }
    */
   static Hopper.Builder hopper() {
     return new HopperImpl.BuilderImpl();
@@ -146,13 +146,14 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @return a {@link Subscription} that can be used to unsubscribe the subscriber
    * @throws NullPointerException if the subscriber is {@code null}.
    * @since 0.1
-   * @vision.examples <pre>
-   * {@code Gui gui = ....;
-   *gui.subscribe(new Gui.Subscriber() {
-   *    public void button(Slot slot, Button button) {
-   *        System.out.println("Slot changed");
-   *    }
-   *}}</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = ....;
+   * gui.subscribe(new Gui.Subscriber() {
+   *     public void button(Slot slot, Button button) {
+   *         System.out.println("Slot changed");
+   *     }
+   * }
+   * }
    */
   @Override
   Subscription subscribe(Subscriber subscriber);
@@ -182,25 +183,25 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * A {@link Gui} builder.
    *
    * @since 0.1
-   * @vision.examples <pre>
-   *Gui gui = Gui.chest()
-   *        .title(Component.text("My Gui"))
-   *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
-   *<pre>
-   *Gui gui = Gui.dropper()
-   *        .title(Component.text("My Gui"))
-   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
-   *<pre>
-   *Gui gui = Gui.hopper()
-   *        .title(Component.text("My Gui"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
-   *        .build();
-   *</pre>
+   * @vision.examples {@snippet :
+   * Gui gui = Gui.chest()
+   *         .title(Component.text("My Gui"))
+   *         .rows(3)
+   *         .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *         .build();
+   * }
+   * {@snippet :
+   * Gui gui = Gui.dropper()
+   *         .title(Component.text("My Gui"))
+   *         .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *         .build();
+   * }
+   * {@snippet :
+   * Gui gui = Gui.hopper()
+   *         .title(Component.text("My Gui"))
+   *         .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *         .build();
+   * }
    */
   sealed interface Builder permits Chest.Builder, Dropper.Builder, Hopper.Builder {
     /**
