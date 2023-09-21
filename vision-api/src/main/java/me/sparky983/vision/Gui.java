@@ -73,6 +73,8 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @return the type of this {@code Gui}
    * @since 1.0
    */
+  @Deprecated
+  @ApiStatus.ScheduledForRemoval(inVersion = "1.3")
   GuiType type();
 
   /**

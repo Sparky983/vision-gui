@@ -6,7 +6,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import me.sparky983.vision.Button;
+import me.sparky983.vision.Chest;
+import me.sparky983.vision.Dropper;
 import me.sparky983.vision.Gui;
+import me.sparky983.vision.Hopper;
 import me.sparky983.vision.Slot;
 import me.sparky983.vision.Subscription;
 import net.kyori.adventure.text.Component;
@@ -53,10 +56,10 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
     final Component title = GlobalTranslator.render(gui.title(), locale);
 
     final Function<InventoryHolder, Inventory> inventoryFactory =
-        (inventoryHolder) -> switch (gui.type()) {
-          case CHEST -> server.createInventory(inventoryHolder, gui.rows() * gui.columns(), title);
-          case HOPPER -> server.createInventory(inventoryHolder, InventoryType.HOPPER, title);
-          case DROPPER -> server.createInventory(inventoryHolder, InventoryType.DROPPER, title);
+        (inventoryHolder) -> switch (gui) {
+          case final Chest chest -> server.createInventory(inventoryHolder, gui.rows() * gui.columns(), title);
+          case final Hopper hopper -> server.createInventory(inventoryHolder, InventoryType.HOPPER, title);
+          case final Dropper dropper -> server.createInventory(inventoryHolder, InventoryType.DROPPER, title);
         };
 
     final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();

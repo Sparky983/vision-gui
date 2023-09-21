@@ -6,11 +6,12 @@ import org.jetbrains.annotations.ApiStatus;
  * Represents the a {@link Gui} variant.
  *
  * @since 1.0
- * @vision.experimental because this will be removed after Java 21 is released.
+ * @deprecated because pattern matching for switch should be used instead.
  * @vision.apiNote This is intended to be used so {@code switch} statements can be used to determine
  * the type of {@link Gui} without having to use {@code instanceof}.
  */
-@ApiStatus.Experimental
+@Deprecated
+@ApiStatus.ScheduledForRemoval(inVersion = "1.3")
 public enum GuiType {
   /**
    * The {@link Chest} variant.
