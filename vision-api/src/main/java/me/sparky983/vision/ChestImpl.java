@@ -67,7 +67,7 @@ final class ChestImpl implements Chest {
   }
 
   @Override
-  public Gui onClose(final Consumer<? super Close> handler) {
+  public Chest onClose(final Consumer<? super Close> handler) {
     container.onClose(handler);
     return this;
   }

@@ -64,7 +64,7 @@ final class HopperImpl implements Hopper {
   }
 
   @Override
-  public Gui onClose(final Consumer<? super Close> handler) {
+  public Hopper onClose(final Consumer<? super Close> handler) {
     container.onClose(handler);
     return this;
   }

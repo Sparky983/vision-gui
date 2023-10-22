@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
@@ -60,6 +61,15 @@ public non-sealed interface Chest extends Gui {
    */
   @Override
   Chest button(Slot slot, @Nullable Button button);
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws NullPointerException {@inheritDoc}
+   * @since 1.1
+   */
+  @Override
+  Chest onClose(Consumer<? super Close> handler);
 
   /**
    * A {@link Chest} builder.

@@ -64,7 +64,7 @@ final class DropperImpl implements Dropper {
   }
 
   @Override
-  public Gui onClose(final Consumer<? super Close> handler) {
+  public Dropper onClose(final Consumer<? super Close> handler) {
     container.onClose(handler);
     return this;
   }
