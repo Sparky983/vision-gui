@@ -165,7 +165,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
   /**
    * A {@link Container} builder.
    */
-  static class Builder {
+  static final class Builder {
     private final Map<Slot, Button> buttons = new HashMap<>();
     private final Map<Border, Button> borders = new LinkedHashMap<>();
     private @Nullable Button filler = null;

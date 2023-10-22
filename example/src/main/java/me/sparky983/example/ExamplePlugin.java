@@ -5,20 +5,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ExamplePlugin extends JavaPlugin {
+public final class ExamplePlugin extends JavaPlugin {
+  @Override
+  public void onEnable() {
+    final PaperVision vision = PaperVision.create(this);
 
-    @Override
-    public void onEnable() {
+    final CommandExecutor testGuiCommandExecutor =
+        new ExampleGuiCommandExecutor(vision, this, getServer().getScheduler());
 
-        final PaperVision vision = PaperVision.create(this);
-
-        final CommandExecutor testGuiCommandExecutor = new ExampleGuiCommandExecutor(
-                vision,
-                this,
-                getServer().getScheduler());
-
-        final PluginCommand testGuiCommand = getCommand("example-gui");
-        assert testGuiCommand != null;
-        testGuiCommand.setExecutor(testGuiCommandExecutor);
-    }
+    final PluginCommand testGuiCommand = getCommand("example-gui");
+    assert testGuiCommand != null;
+    testGuiCommand.setExecutor(testGuiCommandExecutor);
+  }
 }
