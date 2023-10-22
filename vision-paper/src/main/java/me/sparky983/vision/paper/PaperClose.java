@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 @NullMarked
 final class PaperClose implements Close {
-
     private final Player closer;
     private final Gui gui;
     private final PaperVision vision;
@@ -25,7 +24,6 @@ final class PaperClose implements Close {
      * @throws NullPointerException if the closer or the GUI is {@code null}.
      */
     PaperClose(final Player closer, final Gui gui, final PaperVision vision) {
-
         Objects.requireNonNull(closer, "closer cannot be null");
         Objects.requireNonNull(gui, "gui cannot be null");
         Objects.requireNonNull(vision, "vision cannot be null");
@@ -37,7 +35,6 @@ final class PaperClose implements Close {
 
     @Override
     public void open(final Gui gui) {
-
         vision.open(closer, gui);
     }
 

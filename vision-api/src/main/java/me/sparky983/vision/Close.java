@@ -10,7 +10,6 @@ import org.jetbrains.annotations.ApiStatus;
  * @since 1.1
  */
 public interface Close {
-
     /**
      * Returns the {@link Audience} who closed the {@link Gui}.
      *

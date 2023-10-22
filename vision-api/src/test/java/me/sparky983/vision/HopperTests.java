@@ -24,7 +24,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 class HopperTests {
-
     /**
      * A slot to be used for testing.
      */
@@ -37,7 +36,6 @@ class HopperTests {
 
     @Test
     void testType() {
-
         final Gui gui = Gui.hopper().build();
 
         assertEquals(GuiType.HOPPER, gui.type());
@@ -46,7 +44,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderTitleWhenTitleIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
 
         final Exception e = assertThrows(NullPointerException.class, () -> builder.title(null));
@@ -55,7 +52,6 @@ class HopperTests {
 
     @Test
     void testBuilderTitle() {
-
         final Gui.Builder builder = Gui.hopper();
 
         assertEquals(builder, builder.title(Component.empty()));
@@ -67,7 +63,6 @@ class HopperTests {
 
     @Test
     void testUnspecifiedTitle() {
-
         final Gui gui = Gui.hopper().build();
 
         assertEquals(DEFAULT_TITLE, gui.title());
@@ -75,7 +70,6 @@ class HopperTests {
 
     @Test
     void testColumns() {
-
         final Gui gui = Gui.hopper().build();
 
         assertEquals(COLUMNS, gui.columns());
@@ -83,7 +77,6 @@ class HopperTests {
 
     @Test
     void testRows() {
-
         final Gui gui = Gui.hopper().build();
 
         assertEquals(ROWS, gui.rows());
@@ -92,7 +85,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderButtonWhenSlotIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -104,7 +96,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderButtonWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
 
         final Exception e = assertThrows(NullPointerException.class, () ->
@@ -120,7 +111,6 @@ class HopperTests {
     })
     @ParameterizedTest
     void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
-
         final Slot slot = Slot.of(row, column);
         final Gui.Builder builder = Gui.hopper()
                 .button(slot, Button.of(ItemType.STONE));
@@ -133,7 +123,6 @@ class HopperTests {
 
     @Test
     void testBuilderButton() {
-
         final Gui.Builder builder = Gui.hopper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -147,7 +136,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testGetButtonWhenSlotIsNull() {
-
         final Gui gui = Gui.hopper().build();
 
         final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
@@ -162,7 +150,6 @@ class HopperTests {
     })
     @ParameterizedTest
     void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
-
         final Slot slot = Slot.of(row, column);
         final Gui gui = Gui.hopper().build();
 
@@ -175,7 +162,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testSetButtonWhenSlotIsNull() {
-
         final Gui gui = Gui.hopper().build();
         final Button button = Button.of(ItemType.STONE);
 
@@ -186,7 +172,6 @@ class HopperTests {
 
     @Test
     void testSetButtonWhenButtonIsNull() {
-
         final Gui gui = Gui.hopper().build();
 
         gui.button(SLOT, Button.of(ItemType.STONE));
@@ -206,7 +191,6 @@ class HopperTests {
     })
     @ParameterizedTest
     void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
-
         final Slot slot = Slot.of(row, column);
         final Gui gui = Gui.hopper().build();
         final Button button = Button.of(ItemType.STONE);
@@ -220,7 +204,6 @@ class HopperTests {
 
     @Test
     void testSetButton() {
-
         final Gui gui = Gui.hopper().build();
         final Button button = Button.of(ItemType.STONE);
 
@@ -232,7 +215,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testSubscribeWhenSubscriberIsNull() {
-
         final Gui gui = Gui.hopper().build();
 
         final Exception e = assertThrows(NullPointerException.class, () -> gui.subscribe(null));
@@ -242,7 +224,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderFillWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
 
         assertThrows(NullPointerException.class, () -> builder.fill(null));
@@ -250,7 +231,6 @@ class HopperTests {
 
     @Test
     void testBuilderFill() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button filler = Button.of(ItemType.STONE);
         final Gui.Builder builder = Gui.hopper()
@@ -272,7 +252,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderSetWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
 
         assertThrows(NullPointerException.class, () -> builder.border(null, Set.of(Border.TOP)));
@@ -281,7 +260,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderSetWhenBordersIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -290,7 +268,6 @@ class HopperTests {
 
     @Test
     void testBuilderBorderSetWhenBordersIsEmpty() {
-
         final Gui.Builder builder = Gui.hopper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -299,7 +276,6 @@ class HopperTests {
 
     @Test
     void testBuilderBorderSet() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Gui.Builder builder = Gui.hopper()
@@ -321,7 +297,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderVarargsWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
 
         assertThrows(NullPointerException.class, () -> builder.border(null, Border.TOP));
@@ -330,7 +305,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderVarargsWhenBordersIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -339,7 +313,6 @@ class HopperTests {
 
     @Test
     void testBuilderBorderVarargsWhenBordersIsEmpty() {
-
         final Gui.Builder builder = Gui.hopper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -348,7 +321,6 @@ class HopperTests {
 
     @Test
     void testBuilderBorderVarargsWhenBordersHasDuplicates() {
-
         final Gui.Builder builder = Gui.hopper();
         final Button button = Button.of(ItemType.STONE);
 
@@ -358,7 +330,6 @@ class HopperTests {
 
     @Test
     void testBuilderBorderVarargs() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Gui.Builder builder = Gui.hopper()
@@ -384,7 +355,6 @@ class HopperTests {
     @SuppressWarnings("DataFlowIssue")
     @Test
     void testBuilderBorderWhenButtonIsNull() {
-
         final Gui.Builder builder = Gui.hopper();
 
         assertThrows(NullPointerException.class, () -> builder.border(null));
@@ -392,7 +362,6 @@ class HopperTests {
 
     @Test
     void testBuilderBorder() {
-
         final Button button = Button.of(ItemType.STONE);
         final Button border = Button.of(ItemType.DIAMOND);
         final Gui.Builder builder = Gui.hopper()
@@ -413,7 +382,6 @@ class HopperTests {
 
     @Test
     void testSlots() {
-
         final Gui gui = Gui.hopper().build();
 
         final List<Slot> slots = List.of(
@@ -428,7 +396,6 @@ class HopperTests {
     }
     @Test
     void testOnclickWhenHandlerIsNull() {
-
         final Gui gui = Gui.hopper().build();
 
         final Exception e = assertThrows(NullPointerException.class, () -> gui.onClose(null));
@@ -437,7 +404,6 @@ class HopperTests {
 
     @Test
     void testOnClick() {
-
         final Gui gui = Gui.hopper().build();
         final Consumer<Close> clickHandler = mock();
 
@@ -451,7 +417,6 @@ class HopperTests {
 
     @Test
     void testSubscribe() {
-
         final Gui gui = Gui.hopper().build();
         final Gui.Subscriber subscriber = mock();
         final Button button = Button.of(ItemType.STONE);
@@ -469,7 +434,6 @@ class HopperTests {
 
     @Test
     void testCancelSubscriptionWhenSubscriptionIsAlreadyCancelled() {
-
         final Gui gui = Gui.hopper().build();
 
         final Subscription subscription = gui.subscribe(mock());
@@ -481,7 +445,6 @@ class HopperTests {
 
     @Test
     void testCancelSubscription() {
-
         final Gui gui = Gui.hopper().build();
         final Gui.Subscriber subscriber = mock();
         final Button button = Button.of(ItemType.STONE);
@@ -501,7 +464,6 @@ class HopperTests {
 
     @Test
     void testToString() {
-
         final Gui gui = Gui.hopper()
                 .title(Component.text("title"))
                 .build();

@@ -15,11 +15,9 @@ import me.sparky983.vision.Slot;
 
 @NullMarked
 final class InventoryListener implements Listener {
-
     private final PaperVision vision;
 
     InventoryListener(final PaperVision vision) {
-
         Objects.requireNonNull(vision, "vision cannot be null");
 
         this.vision = vision;
@@ -27,7 +25,6 @@ final class InventoryListener implements Listener {
 
     @EventHandler
     void onInventoryClick(final InventoryClickEvent event) {
-
         Objects.requireNonNull(event, "event cannot be null");
 
         if (!(event.getInventory().getHolder() instanceof final GuiInventoryHolder guiInventoryHolder)) {
@@ -71,7 +68,6 @@ final class InventoryListener implements Listener {
 
     @EventHandler
     void onInventoryClose(final InventoryCloseEvent event) {
-
         Objects.requireNonNull(event, "event cannot be null");
 
         if (!(event.getInventory().getHolder() instanceof final GuiInventoryHolder guiInventoryHolder)) {
