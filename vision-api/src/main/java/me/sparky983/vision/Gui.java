@@ -204,7 +204,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @vision.examples <pre>
    * {@code Gui gui = ....;
    *gui.subscribe(new Gui.Subscriber() {
-   *    public void button(Slot slot, Button button) {
+   *    public void slot(Slot slot, Button button) {
    *        System.out.println("Slot changed");
    *    }
    *}}</pre>
