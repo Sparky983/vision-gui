@@ -3,6 +3,7 @@ package me.sparky983.vision;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
@@ -140,6 +141,29 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
   List<Slot> slots();
 
   /**
+   * Subscribes the specified {@link Close} handler to this {@code Gui}.
+   *
+   * @param handler the {@link Close} handler
+   * @return this {@code Gui} instance (for chaining)
+   * @throws NullPointerException if the {@link Click} handler is {@code null}.
+   * @since 1.1
+   * @vision.apiNote This method may be called multiple times to add multiple handlers.
+   * @vision.examples <pre>
+   *{@code Gui gui = Gui.chest()
+   *        .build()
+   *        .onClick(close -> close.closer().sendMessage(Component.text("You closed me!")))}</pre>
+   */
+  Gui onClose(Consumer<? super Close> handler);
+
+  /**
+   * Returns the {@link Publisher} associated with this {@code Gui}.
+   *
+   * @return the {@link Publisher} associated with this {@code Gui}
+   * @since 1.1
+   */
+  Publisher publisher();
+
+  /**
    * Subscribes the specified {@link Subscriber} to this {@code Gui}.
    *
    * @param subscriber the subscriber to subscribe
@@ -156,6 +180,23 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    */
   @Override
   Subscription subscribe(Subscriber subscriber);
+
+  /**
+   * Represents a {@link Gui} {@link Publisher}
+   *
+   * @see #publisher()
+   * @since 1.1
+   */
+  interface Publisher {
+    /**
+     * Publishes the close event.
+     *
+     * @param close the close
+     * @throws NullPointerException if the close is {@code null}.
+     * @since 1.1
+     */
+    void close(Close close);
+  }
 
   /**
    * Represents a subscriber to a {@link Gui}.
@@ -176,6 +217,16 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @since 0.1
      */
     default void button(final Slot slot, final @Nullable Button button) {}
+
+    /**
+     * Called when a {@link Gui} is closed.
+     *
+     * @param close an object describing the closure
+     * @throws NullPointerException if the close is {@code null} (optional).
+     * @see Publisher#close(Close)
+     * @since 1.1
+     */
+    default void close(final Close close) {}
   }
 
   /**
@@ -297,11 +348,29 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Builder border(Button button);
 
     /**
+     * Adds the specified {@link Close} handler to the {@code Gui}.
+     *
+     * @param handler the {@link Close} handler
+     * @return this {@code Builder} instance (for chaining)
+     * @throws NullPointerException if the {@link Click} handler is {@code null}.
+     * @since 1.1
+     * @vision.apiNote This method may be called multiple times to add multiple handlers.
+     * @vision.examples <pre>
+     *{@code Gui gui = Gui.chest()
+     *        .onClick(close -> close.closer().sendMessage(Component.text("You closed me!")))
+     *        .build()}</pre>
+     */
+    Builder onClose(Consumer<? super Close> handler);
+
+    /**
      * Builds the {@link Gui}.
      * <p>
      * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
      * specified, the {@link #border(Button, Set) border} will overlay the
      * {@link #fill(Button) fill} in the returned {@link Gui}.
+     * <p>
+     * All {@linkplain #onClose(Consumer) close handlers} will be subscribed in the order they were
+     * added to this {@code Builder}.
      *
      * @return the built {@link Gui}
      * @throws IllegalStateException if any of the buttons are out of bounds.
