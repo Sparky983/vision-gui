@@ -446,14 +446,14 @@ class HopperTests {
 
     final Subscription subscription = gui.subscribe(subscriber);
 
-    assertFalse(subscription.isCancelled());
+    assertFalse(subscription.isCanceled());
 
     subscription.cancel();
 
     gui.button(SLOT, button);
     gui.publisher().close(CLOSE);
 
-    assertTrue(subscription.isCancelled());
+    assertTrue(subscription.isCanceled());
     verifyNoMoreInteractions(subscriber);
   }
 
