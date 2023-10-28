@@ -77,7 +77,7 @@ class ChestTests {
     assertEquals(COLUMNS, gui.columns());
   }
 
-  @ValueSource(ints = { Integer.MIN_VALUE, 0, -1, 7, 8, Integer.MAX_VALUE })
+  @ValueSource(ints = {Integer.MIN_VALUE, 0, -1, 7, 8, Integer.MAX_VALUE})
   @ParameterizedTest
   void testBuilderRowsWhenRowsIsOutOfBounds(final int rows) {
     final Chest.Builder builder = Gui.chest();
@@ -86,7 +86,7 @@ class ChestTests {
     assertEquals("rows must be between 1 and " + MAX_ROWS, e.getMessage());
   }
 
-  @ValueSource(ints = { 1, 2, 4, 5, 6 })
+  @ValueSource(ints = {1, 2, 4, 5, 6})
   @ParameterizedTest
   void testBuilderRows(final int rows) {
     final Chest.Builder builder = Gui.chest();
@@ -124,7 +124,7 @@ class ChestTests {
     assertEquals("button cannot be null", e.getMessage());
   }
 
-  @CsvSource({ "1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5" })
+  @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
   @ParameterizedTest
   void testBuilderButtonWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
@@ -157,7 +157,7 @@ class ChestTests {
     assertEquals("slot cannot be null", e.getMessage());
   }
 
-  @CsvSource({ "1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5" })
+  @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
   @ParameterizedTest
   void testGetButtonWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
@@ -192,7 +192,7 @@ class ChestTests {
     assertEquals(Optional.empty(), gui.slot(SLOT));
   }
 
-  @CsvSource({ "1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5" })
+  @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
   @ParameterizedTest
   void testSetButtonWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
@@ -424,8 +424,8 @@ class ChestTests {
 
         // Slot.of(0, 8) - corner
         Slot.of(1, 8)
-    // Slot.of(2, 8) - corner
-    );
+        // Slot.of(2, 8) - corner
+        );
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {

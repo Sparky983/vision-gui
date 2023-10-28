@@ -99,7 +99,7 @@ class DropperTest {
     assertEquals("button cannot be null", e.getMessage());
   }
 
-  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
+  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
   void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -132,7 +132,7 @@ class DropperTest {
     assertEquals("slot cannot be null", e.getMessage());
   }
 
-  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
+  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
   void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -167,7 +167,7 @@ class DropperTest {
     assertEquals(Optional.empty(), gui.slot(SLOT));
   }
 
-  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
+  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
   void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -254,7 +254,8 @@ class DropperTest {
 
     final Gui gui = builder.build();
 
-    final Set<Slot> slots = Set.of(Slot.of(0, 0), /* Slot.of(0, 1), */ Slot.of(0, 2), Slot.of(1, 0), Slot.of(2, 0));
+    final Set<Slot> slots =
+        Set.of(Slot.of(0, 0), /* Slot.of(0, 1), */ Slot.of(0, 2), Slot.of(1, 0), Slot.of(2, 0));
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
@@ -311,7 +312,8 @@ class DropperTest {
 
     final Gui gui = builder.build();
 
-    final Set<Slot> slots = Set.of(Slot.of(0, 0), /* Slot.of(0, 1), */ Slot.of(0, 2), Slot.of(1, 0), Slot.of(2, 0));
+    final Set<Slot> slots =
+        Set.of(Slot.of(0, 0), /* Slot.of(0, 1), */ Slot.of(0, 2), Slot.of(1, 0), Slot.of(2, 0));
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {

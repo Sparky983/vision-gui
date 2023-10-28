@@ -99,7 +99,7 @@ class HopperTests {
     assertEquals("button cannot be null", e.getMessage());
   }
 
-  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
+  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
   void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -132,7 +132,7 @@ class HopperTests {
     assertEquals("slot cannot be null", e.getMessage());
   }
 
-  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
+  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
   void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -167,7 +167,7 @@ class HopperTests {
     assertEquals(Optional.empty(), gui.slot(SLOT));
   }
 
-  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
+  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
   void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -358,7 +358,8 @@ class HopperTests {
   void testSlots() {
     final Gui gui = Gui.hopper().build();
 
-    final List<Slot> slots = List.of(Slot.of(0, 0), Slot.of(0, 1), Slot.of(0, 2), Slot.of(0, 3), Slot.of(0, 4));
+    final List<Slot> slots =
+        List.of(Slot.of(0, 0), Slot.of(0, 1), Slot.of(0, 2), Slot.of(0, 3), Slot.of(0, 4));
 
     assertEquals(slots, gui.slots());
   }
