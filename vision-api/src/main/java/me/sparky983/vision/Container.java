@@ -11,7 +11,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.annotations.NullMarked;
