@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
@@ -49,6 +50,15 @@ public non-sealed interface Dropper extends Gui {
    */
   @Override
   Dropper button(Slot slot, @Nullable Button button);
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws NullPointerException {@inheritDoc}
+   * @since 1.1
+   */
+  @Override
+  Dropper onClose(Consumer<? super Close> handler);
 
   /**
    * A {@link Dropper} builder.
@@ -127,6 +137,15 @@ public non-sealed interface Dropper extends Gui {
     @Override
     @ApiStatus.Experimental
     Builder border(Button button);
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.1
+     */
+    @Override
+    Builder onClose(Consumer<? super Close> handler);
 
     /**
      * {@inheritDoc}
