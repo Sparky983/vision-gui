@@ -19,6 +19,7 @@ import org.jspecify.annotations.Nullable;
  *        .build();
  *</pre>
  */
+@ApiStatus.NonExtendable
 @NullMarked
 public non-sealed interface Hopper extends Gui {
   /**

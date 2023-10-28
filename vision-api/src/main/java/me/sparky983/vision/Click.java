@@ -9,6 +9,7 @@ import org.jspecify.annotations.NullMarked;
  *
  * @see Button.Publisher#click(Click)
  */
+@ApiStatus.NonExtendable
 @NullMarked
 public interface Click {
   /**

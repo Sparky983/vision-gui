@@ -19,6 +19,7 @@ import org.jspecify.annotations.Nullable;
  * meaning you can always mutate the {@code Button} and have the mutation be reflected in the
  * {@link Gui}.
  */
+@ApiStatus.NonExtendable
 @NullMarked
 public interface Button extends Subscribable<Button.Subscriber> {
   /**
