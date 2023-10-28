@@ -223,7 +223,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
       return this;
     }
 
-    Builder border(final Button button, final Set<? extends Border> borders) {
+    Builder border(final Set<? extends Border> borders, final Button button) {
       Objects.requireNonNull(button, "button cannot be null");
       Objects.requireNonNull(borders, "borders cannot be null");
 
@@ -245,24 +245,14 @@ final class Container implements Subscribable<Gui.Subscriber> {
       return this;
     }
 
-    Builder border(final Button button, final Border... borders) {
-      Objects.requireNonNull(borders, "borders cannot be null");
+    Builder border(final Border border, final Button button) {
+      Objects.requireNonNull(border, "border cannot be null");
 
-      final Set<Border> borderSet = new LinkedHashSet<>();
-
-      for (int i = 0; i < borders.length; i++) {
-        final Border border = borders[i];
-        Objects.requireNonNull(border, "borders[" + i + " cannot contain null");
-        if (!borderSet.add(border)) {
-          throw new IllegalArgumentException("borders cannot contain duplicates");
-        }
-      }
-
-      return border(button, borderSet);
+      return border(Set.of(border), button);
     }
 
     Builder border(final Button button) {
-      return border(button, Border.all());
+      return border(Border.all(), button);
     }
 
     Builder onClose(final Consumer<? super Close> handler) {

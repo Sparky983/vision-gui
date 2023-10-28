@@ -359,8 +359,8 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * slots covered by the borders. If a border has been specified multiple times, the last
      * specified {@link Button} will be used. The same is the case for corners.
      *
-     * @param button the button
      * @param borders the borders
+     * @param button the button
      * @return this {@code Builder} instance (for chaining)
      * @throws IllegalArgumentException if there are no borders.
      * @throws NullPointerException if the button is {@code null} or the borders is or contains
@@ -369,28 +369,24 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @vision.experimental because this may be changed, deleted or renamed.
      */
     @ApiStatus.Experimental
-    Builder border(Button button, Set<? extends Border> borders);
+    Builder border(Set<Border> borders, Button button);
 
     /**
-     * Sets the specified borders of the {@link Gui} to the specified {@link Button}.
-     * <p>
-     * Changes to the border array after this method is called will not affect the {@link Gui}.
+     * Sets the specified border of the {@link Gui} to the specified {@link Button}.
      * <p>
      * When the {@link Gui} is built, the {@link Button Buttons} will be placed in the empty
      * slots covered by the borders. If a border has been specified multiple times, the last
      * specified {@link Button} will be used. The same is the case for corners.
      *
+     * @param border the borders
      * @param button the button
-     * @param borders the borders
      * @return this {@code Builder} instance (for chaining)
-     * @throws IllegalArgumentException if there are no or duplicate borders.
-     * @throws NullPointerException if the button is {@code null} or the borders is or contains
-     * {@code null}.
+     * @throws NullPointerException if the button is {@code null} or the borders is {@code null}.
      * @since 1.0
      * @vision.experimental because this may be changed, deleted or renamed.
      */
     @ApiStatus.Experimental
-    Builder border(Button button, Border... borders);
+    Builder border(Border border, Button button);
 
     /**
      * Sets all the borders of the {@link Gui} to the specified {@link Button}.
@@ -426,9 +422,9 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     /**
      * Builds the {@link Gui}.
      * <p>
-     * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
-     * specified, the {@link #border(Button, Set) border} will overlay the
-     * {@link #fill(Button) fill} in the returned {@link Gui}.
+     * If both a {@linkplain #fill(Button) fill} and a {@linkplain #border(Set, Button) border} have
+     * been specified, the {@linkplain #border(Set, Button) border} will overlay the
+     * {@linkplain #fill(Button) fill} in the returned {@link Gui}.
      * <p>
      * All {@linkplain #onClose(Consumer) close handlers} will be subscribed in the order they were
      * added to this {@code Builder}.

@@ -224,7 +224,7 @@ class DropperTest {
   void testBuilderBorderSetWhenButtonIsNull() {
     final Gui.Builder builder = Gui.dropper();
 
-    assertThrows(NullPointerException.class, () -> builder.border(null, Set.of(Border.TOP)));
+    assertThrows(NullPointerException.class, () -> builder.border(Set.of(Border.TOP), null));
   }
 
   @SuppressWarnings("DataFlowIssue")
@@ -233,7 +233,7 @@ class DropperTest {
     final Gui.Builder builder = Gui.dropper();
     final Button button = Button.of(ItemType.STONE);
 
-    assertThrows(NullPointerException.class, () -> builder.border(button, (Set<Border>) null));
+    assertThrows(NullPointerException.class, () -> builder.border((Set<Border>) null, button));
   }
 
   @Test
@@ -241,7 +241,7 @@ class DropperTest {
     final Gui.Builder builder = Gui.dropper();
     final Button button = Button.of(ItemType.STONE);
 
-    assertThrows(IllegalArgumentException.class, () -> builder.border(button, Set.of()));
+    assertThrows(IllegalArgumentException.class, () -> builder.border(Set.of(), button));
   }
 
   @Test
@@ -250,7 +250,7 @@ class DropperTest {
     final Button border = Button.of(ItemType.DIAMOND);
     final Gui.Builder builder = Gui.dropper().slot(Slot.of(0, 1), button);
 
-    assertEquals(builder, builder.border(border, Set.of(Border.TOP, Border.LEFT)));
+    assertEquals(builder, builder.border(Set.of(Border.TOP, Border.LEFT), border));
 
     final Gui gui = builder.build();
 
@@ -270,45 +270,29 @@ class DropperTest {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderBorderVarargsWhenButtonIsNull() {
+  void testBuilderBorderArgWhenButtonIsNull() {
     final Gui.Builder builder = Gui.dropper();
 
-    assertThrows(NullPointerException.class, () -> builder.border(null, Border.TOP));
+    assertThrows(NullPointerException.class, () -> builder.border(Border.TOP, null));
   }
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderBorderVarargsWhenBordersIsNull() {
+  void testBuilderBorderArgWhenBordersIsNull() {
     final Gui.Builder builder = Gui.dropper();
     final Button button = Button.of(ItemType.STONE);
 
-    assertThrows(NullPointerException.class, () -> builder.border(button, (Border) null));
+    assertThrows(NullPointerException.class, () -> builder.border((Border) null, button));
   }
 
   @Test
-  void testBuilderBorderVarargsWhenBordersIsEmpty() {
-    final Gui.Builder builder = Gui.dropper();
-    final Button button = Button.of(ItemType.STONE);
-
-    assertThrows(IllegalArgumentException.class, () -> builder.border(button, new Border[0]));
-  }
-
-  @Test
-  void testBuilderBorderVarargsWhenBordersHasDuplicates() {
-    final Gui.Builder builder = Gui.dropper();
-    final Button button = Button.of(ItemType.STONE);
-
-    assertThrows(
-        IllegalArgumentException.class, () -> builder.border(button, Border.TOP, Border.TOP));
-  }
-
-  @Test
-  void testBuilderBorderVarargs() {
+  void testBuilderBorderArg() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
     final Gui.Builder builder = Gui.dropper().slot(Slot.of(0, 1), button);
 
-    assertEquals(builder, builder.border(border, Border.TOP, Border.LEFT));
+    assertEquals(builder, builder.border(Border.TOP, border));
+    assertEquals(builder, builder.border(Border.LEFT, border));
 
     final Gui gui = builder.build();
 
