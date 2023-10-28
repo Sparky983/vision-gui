@@ -82,7 +82,7 @@ class DropperTest {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderButtonWhenSlotIsNull() {
+  void testBuilderSlotWhenSlotIsNull() {
     final Gui.Builder builder = Gui.dropper();
     final Button button = Button.of(ItemType.STONE);
 
@@ -92,7 +92,7 @@ class DropperTest {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderButtonWhenButtonIsNull() {
+  void testBuilderSlotWhenButtonIsNull() {
     final Gui.Builder builder = Gui.dropper();
 
     final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(SLOT, null));
@@ -101,7 +101,7 @@ class DropperTest {
 
   @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
-  void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
+  void testBuilderSlotWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
     final Gui.Builder builder = Gui.dropper().slot(slot, Button.of(ItemType.STONE));
 
@@ -112,7 +112,7 @@ class DropperTest {
   }
 
   @Test
-  void testBuilderButton() {
+  void testBuilderSlot() {
     final Gui.Builder builder = Gui.dropper();
     final Button button = Button.of(ItemType.STONE);
 
@@ -125,7 +125,7 @@ class DropperTest {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testGetButtonWhenSlotIsNull() {
+  void testGetSlotWhenSlotIsNull() {
     final Gui gui = Gui.dropper().build();
 
     final Exception e = assertThrows(NullPointerException.class, () -> gui.slot(null));
@@ -134,7 +134,7 @@ class DropperTest {
 
   @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
-  void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
+  void testGetSlotWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
     final Gui gui = Gui.dropper().build();
 
@@ -146,7 +146,7 @@ class DropperTest {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testSetButtonWhenSlotIsNull() {
+  void testSetSlotWhenSlotIsNull() {
     final Gui gui = Gui.dropper().build();
     final Button button = Button.of(ItemType.STONE);
 
@@ -155,7 +155,7 @@ class DropperTest {
   }
 
   @Test
-  void testSetButtonWhenButtonIsNull() {
+  void testSetSlotWhenButtonIsNull() {
     final Gui gui = Gui.dropper().build();
 
     gui.slot(SLOT, Button.of(ItemType.STONE));
@@ -169,7 +169,7 @@ class DropperTest {
 
   @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
   @ParameterizedTest
-  void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
+  void testSetSlotWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
     final Gui gui = Gui.dropper().build();
     final Button button = Button.of(ItemType.STONE);
@@ -181,7 +181,7 @@ class DropperTest {
   }
 
   @Test
-  void testSetButton() {
+  void testSetSlot() {
     final Gui gui = Gui.dropper().build();
     final Button button = Button.of(ItemType.STONE);
 

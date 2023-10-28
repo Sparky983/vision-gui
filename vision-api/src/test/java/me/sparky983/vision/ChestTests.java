@@ -107,7 +107,7 @@ class ChestTests {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderButtonWhenSlotIsNull() {
+  void testBuilderSlotWhenSlotIsNull() {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
@@ -117,7 +117,7 @@ class ChestTests {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderButtonWhenButtonIsNull() {
+  void testBuilderSlotWhenButtonIsNull() {
     final Gui.Builder builder = Gui.chest();
 
     final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(SLOT, null));
@@ -126,7 +126,7 @@ class ChestTests {
 
   @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
   @ParameterizedTest
-  void testBuilderButtonWhenSlotIsOutOfBounds(
+  void testBuilderSlotWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
     final Slot slot = Slot.of(slotRow, slotColumn);
     final Gui.Builder builder = Gui.chest().rows(guiRows).slot(slot, Button.of(ItemType.STONE));
@@ -137,7 +137,7 @@ class ChestTests {
   }
 
   @Test
-  void testBuilderButton() {
+  void testBuilderSlot() {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
@@ -150,7 +150,7 @@ class ChestTests {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testGetButtonWhenSlotIsNull() {
+  void testGetSlotWhenSlotIsNull() {
     final Gui gui = Gui.chest().build();
 
     final Exception e = assertThrows(NullPointerException.class, () -> gui.slot(null));
@@ -159,7 +159,7 @@ class ChestTests {
 
   @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
   @ParameterizedTest
-  void testGetButtonWhenSlotIsOutOfBounds(
+  void testGetSlotWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
     final Gui gui = Gui.chest().rows(guiRows).build();
     final Slot slot = Slot.of(slotRow, slotColumn);
@@ -171,7 +171,7 @@ class ChestTests {
 
   @SuppressWarnings("ConstantConditions")
   @Test
-  void testSetButtonWhenSlotIsNull() {
+  void testSetSlotWhenSlotIsNull() {
     final Gui gui = Gui.chest().build();
     final Button button = Button.of(ItemType.STONE);
 
@@ -180,7 +180,7 @@ class ChestTests {
   }
 
   @Test
-  void testSetButtonWhenButtonIsNull() {
+  void testSetSlotWhenButtonIsNull() {
     final Gui gui = Gui.chest().build();
 
     gui.slot(SLOT, Button.of(ItemType.STONE));
@@ -194,7 +194,7 @@ class ChestTests {
 
   @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
   @ParameterizedTest
-  void testSetButtonWhenSlotIsOutOfBounds(
+  void testSetSlotWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
     final Gui gui = Gui.chest().rows(guiRows).build();
     final Slot slot = Slot.of(slotRow, slotColumn);
@@ -206,7 +206,7 @@ class ChestTests {
   }
 
   @Test
-  void testSetButton() {
+  void testSetSlot() {
     final Gui gui = Gui.chest().build();
     final Button button = Button.of(ItemType.STONE);
 
