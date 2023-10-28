@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,6 +26,11 @@ class HopperTests {
    * A slot to be used for testing.
    */
   static final Slot SLOT = Slot.of(0, 0);
+
+  /**
+   * A close to be used for testing.
+   */
+  static final Close CLOSE = mock();
 
   @Test
   void testType() {
@@ -80,8 +86,7 @@ class HopperTests {
     final Gui.Builder builder = Gui.hopper();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(NullPointerException.class, () -> builder.slot(null, button));
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(null, button));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -94,7 +99,7 @@ class HopperTests {
     assertEquals("button cannot be null", e.getMessage());
   }
 
-  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
+  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
   @ParameterizedTest
   void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -127,7 +132,7 @@ class HopperTests {
     assertEquals("slot cannot be null", e.getMessage());
   }
 
-  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
+  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
   @ParameterizedTest
   void testGetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
@@ -162,15 +167,14 @@ class HopperTests {
     assertEquals(Optional.empty(), gui.slot(SLOT));
   }
 
-  @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
+  @CsvSource({ "2, 3", "3, 3", "3, 2", "3, 3" })
   @ParameterizedTest
   void testSetButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
     final Gui gui = Gui.hopper().build();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(IllegalArgumentException.class, () -> gui.slot(slot, button));
+    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.slot(slot, button));
     assertEquals(
         String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
         e.getMessage());
@@ -354,10 +358,53 @@ class HopperTests {
   void testSlots() {
     final Gui gui = Gui.hopper().build();
 
-    final List<Slot> slots =
-        List.of(Slot.of(0, 0), Slot.of(0, 1), Slot.of(0, 2), Slot.of(0, 3), Slot.of(0, 4));
+    final List<Slot> slots = List.of(Slot.of(0, 0), Slot.of(0, 1), Slot.of(0, 2), Slot.of(0, 3), Slot.of(0, 4));
 
     assertEquals(slots, gui.slots());
+  }
+
+  @Test
+  void testBuilderOnClickWhenHandlerIsNull() {
+    final Gui.Builder builder = Gui.hopper();
+
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.onClose(null));
+    assertEquals("handler cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testBuilderOnclick() {
+    final Gui.Builder builder = Gui.hopper();
+    final Consumer<Close> clickHandler = mock();
+
+    assertEquals(builder, builder.onClose(clickHandler));
+
+    final Gui gui = builder.build();
+
+    gui.publisher().close(CLOSE);
+
+    verify(clickHandler).accept(CLOSE);
+    verifyNoMoreInteractions(clickHandler);
+  }
+
+  @Test
+  void testOnClickWhenHandlerIsNull() {
+    final Gui gui = Gui.hopper().build();
+
+    final Exception e = assertThrows(NullPointerException.class, () -> gui.onClose(null));
+    assertEquals("handler cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testOnClick() {
+    final Gui gui = Gui.hopper().build();
+    final Consumer<Close> clickHandler = mock();
+
+    assertEquals(gui, gui.onClose(clickHandler));
+
+    gui.publisher().close(CLOSE);
+
+    verify(clickHandler).accept(CLOSE);
+    verifyNoMoreInteractions(clickHandler);
   }
 
   @Test
@@ -370,6 +417,10 @@ class HopperTests {
 
     gui.slot(SLOT, button);
     verify(subscriber).button(SLOT, button);
+
+    gui.publisher().close(CLOSE);
+    verify(subscriber).close(CLOSE);
+
     verifyNoMoreInteractions(subscriber);
   }
 
@@ -397,6 +448,7 @@ class HopperTests {
     subscription.cancel();
 
     gui.slot(SLOT, button);
+    gui.publisher().close(CLOSE);
 
     assertTrue(subscription.isCancelled());
     verifyNoMoreInteractions(subscriber);

@@ -3,6 +3,7 @@ package me.sparky983.vision;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.annotations.NullMarked;
@@ -63,6 +64,17 @@ final class HopperImpl implements Hopper {
   }
 
   @Override
+  public Hopper onClose(final Consumer<? super Close> handler) {
+    container.onClose(handler);
+    return this;
+  }
+
+  @Override
+  public Publisher publisher() {
+    return container.publisher();
+  }
+
+  @Override
   public Subscription subscribe(final Subscriber subscriber) {
     return container.subscribe(subscriber);
   }
@@ -113,6 +125,12 @@ final class HopperImpl implements Hopper {
     @Override
     public Builder border(final Button button) {
       container.border(button);
+      return this;
+    }
+
+    @Override
+    public Builder onClose(final Consumer<? super Close> handler) {
+      container.onClose(handler);
       return this;
     }
 

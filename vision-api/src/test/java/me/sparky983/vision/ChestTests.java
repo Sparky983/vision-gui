@@ -16,6 +16,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,11 @@ class ChestTests {
    * A slot to be used for testing.
    */
   static final Slot SLOT = Slot.of(0, 0);
+
+  /**
+   * A close to be used for testing.
+   */
+  static final Close CLOSE = mock();
 
   @Test
   void testType() {
@@ -71,7 +77,7 @@ class ChestTests {
     assertEquals(COLUMNS, gui.columns());
   }
 
-  @ValueSource(ints = {Integer.MIN_VALUE, 0, -1, 7, 8, Integer.MAX_VALUE})
+  @ValueSource(ints = { Integer.MIN_VALUE, 0, -1, 7, 8, Integer.MAX_VALUE })
   @ParameterizedTest
   void testBuilderRowsWhenRowsIsOutOfBounds(final int rows) {
     final Chest.Builder builder = Gui.chest();
@@ -80,7 +86,7 @@ class ChestTests {
     assertEquals("rows must be between 1 and " + MAX_ROWS, e.getMessage());
   }
 
-  @ValueSource(ints = {1, 2, 4, 5, 6})
+  @ValueSource(ints = { 1, 2, 4, 5, 6 })
   @ParameterizedTest
   void testBuilderRows(final int rows) {
     final Chest.Builder builder = Gui.chest();
@@ -105,8 +111,7 @@ class ChestTests {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(NullPointerException.class, () -> builder.slot(null, button));
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(null, button));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -119,7 +124,7 @@ class ChestTests {
     assertEquals("button cannot be null", e.getMessage());
   }
 
-  @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
+  @CsvSource({ "1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5" })
   @ParameterizedTest
   void testBuilderButtonWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
@@ -152,7 +157,7 @@ class ChestTests {
     assertEquals("slot cannot be null", e.getMessage());
   }
 
-  @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
+  @CsvSource({ "1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5" })
   @ParameterizedTest
   void testGetButtonWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
@@ -187,7 +192,7 @@ class ChestTests {
     assertEquals(Optional.empty(), gui.slot(SLOT));
   }
 
-  @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
+  @CsvSource({ "1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5" })
   @ParameterizedTest
   void testSetButtonWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
@@ -195,8 +200,7 @@ class ChestTests {
     final Slot slot = Slot.of(slotRow, slotColumn);
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(IllegalArgumentException.class, () -> gui.slot(slot, button));
+    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.slot(slot, button));
     assertEquals(
         String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS), e.getMessage());
   }
@@ -420,8 +424,8 @@ class ChestTests {
 
         // Slot.of(0, 8) - corner
         Slot.of(1, 8)
-        // Slot.of(2, 8) - corner
-        );
+    // Slot.of(2, 8) - corner
+    );
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
@@ -461,6 +465,50 @@ class ChestTests {
     assertEquals(slots, gui.slots());
   }
 
+  @Test
+  void testBuilderOnClickWhenHandlerIsNull() {
+    final Gui.Builder builder = Gui.chest();
+
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.onClose(null));
+    assertEquals("handler cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testBuilderOnclick() {
+    final Gui.Builder builder = Gui.chest();
+    final Consumer<Close> clickHandler = mock();
+
+    assertEquals(builder, builder.onClose(clickHandler));
+
+    final Gui gui = builder.build();
+
+    gui.publisher().close(CLOSE);
+
+    verify(clickHandler).accept(CLOSE);
+    verifyNoMoreInteractions(clickHandler);
+  }
+
+  @Test
+  void testOnClickWhenHandlerIsNull() {
+    final Gui gui = Gui.chest().build();
+
+    final Exception e = assertThrows(NullPointerException.class, () -> gui.onClose(null));
+    assertEquals("handler cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testOnClick() {
+    final Gui gui = Gui.chest().build();
+    final Consumer<Close> clickHandler = mock();
+
+    assertEquals(gui, gui.onClose(clickHandler));
+
+    gui.publisher().close(CLOSE);
+
+    verify(clickHandler).accept(CLOSE);
+    verifyNoMoreInteractions(clickHandler);
+  }
+
   @SuppressWarnings("DataFlowIssue")
   @Test
   void testSubscribeWhenSubscriberIsNull() {
@@ -480,6 +528,10 @@ class ChestTests {
 
     gui.slot(SLOT, button);
     verify(subscriber).button(SLOT, button);
+
+    gui.publisher().close(CLOSE);
+    verify(subscriber).close(CLOSE);
+
     verifyNoMoreInteractions(subscriber);
   }
 
@@ -507,6 +559,7 @@ class ChestTests {
     subscription.cancel();
 
     gui.slot(SLOT, button);
+    gui.publisher().close(CLOSE);
 
     assertTrue(subscription.isCancelled());
     verifyNoMoreInteractions(subscriber);

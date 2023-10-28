@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
@@ -63,6 +64,15 @@ public non-sealed interface Hopper extends Gui {
    */
   @Override
   Hopper slot(Slot slot, @Nullable Button button);
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws NullPointerException {@inheritDoc}
+   * @since 1.1
+   */
+  @Override
+  Hopper onClose(Consumer<? super Close> handler);
 
   /**
    * A {@link Hopper} builder.
@@ -155,6 +165,15 @@ public non-sealed interface Hopper extends Gui {
     @Override
     @ApiStatus.Experimental
     Builder border(Button button);
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.1
+     */
+    @Override
+    Builder onClose(Consumer<? super Close> handler);
 
     /**
      * {@inheritDoc}
