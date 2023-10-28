@@ -16,7 +16,7 @@ import org.jspecify.annotations.Nullable;
  *Gui gui = Gui.chest()
  *        .title(Component.text("My GUI"))
  *        .rows(3)
- *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+ *        .slot(Slot.of(1, 4), Button.of(ItemType.STONE))
  *        .build();
  *</pre>
  */
@@ -58,9 +58,23 @@ public non-sealed interface Chest extends Gui {
    * @throws IllegalArgumentException {@inheritDoc}
    * @throws NullPointerException {@inheritDoc}
    * @since 1.0
+   * @deprecated {@inheritDoc}
+   */
+  @Deprecated
+  @Override
+  default Chest button(final Slot slot, final @Nullable Button button) {
+    return slot(slot, button);
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IllegalArgumentException {@inheritDoc}
+   * @throws NullPointerException {@inheritDoc}
+   * @since 1.1
    */
   @Override
-  Chest button(Slot slot, @Nullable Button button);
+  Chest slot(Slot slot, @Nullable Button button);
 
   /**
    * {@inheritDoc}
@@ -80,7 +94,7 @@ public non-sealed interface Chest extends Gui {
    *Gui gui = Gui.chest()
    *        .title(Component.text("My GUI"))
    *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 4), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -113,9 +127,22 @@ public non-sealed interface Chest extends Gui {
      *
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
+     * @deprecated {@inheritDoc}
+     */
+    @Deprecated
+    @Override
+    default Builder button(final Slot slot, final Button button) {
+      return slot(slot, button);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.1
      */
     @Override
-    Builder button(Slot slot, Button button);
+    Builder slot(Slot slot, Button button);
 
     /**
      * {@inheritDoc}

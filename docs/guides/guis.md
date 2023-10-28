@@ -72,7 +72,7 @@ val gui = Gui.hopper()
 
 ## Adding Buttons
 
-A `Button` can be added by chaining a `button(Slot, Button)` call:
+A `Button` can be added by chaining a `slot(Slot, Button)` call:
 
 {% hint style="info" %}
 Air is always represented by a `null` `Button`.
@@ -82,7 +82,7 @@ Air is always represented by a `null` `Button`.
 {% tab title="Java" %}
 ```java
 Gui gui = Gui.chest()
-        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+        .slot(Slot.of(1, 4), Button.of(ItemType.STONE))
         .build();
 ```
 {% endtab %}
@@ -90,7 +90,7 @@ Gui gui = Gui.chest()
 {% tab title="Kotlin" %}
 ```kotlin
 val gui = Gui.chest()
-        .button(Slot(1, 4), Button.of(ItemType.STONE))
+        .slot(Slot(1, 4), Button.of(ItemType.STONE))
         .build()
 ```
 {% endtab %}
@@ -101,13 +101,13 @@ The method may also be called on a built `Gui`:
 {% tabs %}
 {% tab title="Java" %}
 ```java
-gui.button(Slot.of(1, 4), Button.of(ItemType.STONE));
+gui.slot(Slot.of(1, 4), Button.of(ItemType.STONE));
 ```
 {% endtab %}
 
 {% tab title="Kotlin" %}
 ```kotlin
-gui.button(Slot(1, 4), Button.of(ItemType.STONE))
+gui.slot(Slot(1, 4), Button.of(ItemType.STONE))
 ```
 {% endtab %}
 {% endtabs %}

@@ -111,8 +111,7 @@ class ChestTests {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(NullPointerException.class, () -> builder.button(null, button));
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(null, button));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -121,7 +120,7 @@ class ChestTests {
   void testBuilderButtonWhenButtonIsNull() {
     final Gui.Builder builder = Gui.chest();
 
-    final Exception e = assertThrows(NullPointerException.class, () -> builder.button(SLOT, null));
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(SLOT, null));
     assertEquals("button cannot be null", e.getMessage());
   }
 
@@ -130,7 +129,7 @@ class ChestTests {
   void testBuilderButtonWhenSlotIsOutOfBounds(
       final int slotRow, final int slotColumn, final int guiRows) {
     final Slot slot = Slot.of(slotRow, slotColumn);
-    final Gui.Builder builder = Gui.chest().rows(guiRows).button(slot, Button.of(ItemType.STONE));
+    final Gui.Builder builder = Gui.chest().rows(guiRows).slot(slot, Button.of(ItemType.STONE));
 
     final Exception e = assertThrows(IllegalStateException.class, builder::build);
     assertEquals(
@@ -142,11 +141,11 @@ class ChestTests {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
-    assertEquals(builder, builder.button(SLOT, button));
+    assertEquals(builder, builder.slot(SLOT, button));
 
     final Gui gui = builder.build();
 
-    assertEquals(Optional.of(button), gui.button(SLOT));
+    assertEquals(Optional.of(button), gui.slot(SLOT));
   }
 
   @SuppressWarnings("DataFlowIssue")
@@ -154,7 +153,7 @@ class ChestTests {
   void testGetButtonWhenSlotIsNull() {
     final Gui gui = Gui.chest().build();
 
-    final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
+    final Exception e = assertThrows(NullPointerException.class, () -> gui.slot(null));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -165,7 +164,7 @@ class ChestTests {
     final Gui gui = Gui.chest().rows(guiRows).build();
     final Slot slot = Slot.of(slotRow, slotColumn);
 
-    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
+    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.slot(slot));
     assertEquals(
         String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS), e.getMessage());
   }
@@ -176,7 +175,7 @@ class ChestTests {
     final Gui gui = Gui.chest().build();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null, button));
+    final Exception e = assertThrows(NullPointerException.class, () -> gui.slot(null, button));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -184,13 +183,13 @@ class ChestTests {
   void testSetButtonWhenButtonIsNull() {
     final Gui gui = Gui.chest().build();
 
-    gui.button(SLOT, Button.of(ItemType.STONE));
+    gui.slot(SLOT, Button.of(ItemType.STONE));
 
-    assertTrue(gui.button(SLOT).isPresent());
+    assertTrue(gui.slot(SLOT).isPresent());
 
-    gui.button(SLOT, null);
+    gui.slot(SLOT, null);
 
-    assertEquals(Optional.empty(), gui.button(SLOT));
+    assertEquals(Optional.empty(), gui.slot(SLOT));
   }
 
   @CsvSource({"1, 0, 1", "1, 8, 1", "5, 0, 5", "5, 8, 5"})
@@ -201,8 +200,7 @@ class ChestTests {
     final Slot slot = Slot.of(slotRow, slotColumn);
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(IllegalArgumentException.class, () -> gui.button(slot, button));
+    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.slot(slot, button));
     assertEquals(
         String.format(SLOT_OUT_OF_BOUNDS, slotRow, slotColumn, guiRows, COLUMNS), e.getMessage());
   }
@@ -212,9 +210,9 @@ class ChestTests {
     final Gui gui = Gui.chest().build();
     final Button button = Button.of(ItemType.STONE);
 
-    assertEquals(gui, gui.button(SLOT, button));
+    assertEquals(gui, gui.slot(SLOT, button));
 
-    assertEquals(Optional.of(button), gui.button(SLOT));
+    assertEquals(Optional.of(button), gui.slot(SLOT));
   }
 
   @SuppressWarnings("DataFlowIssue")
@@ -229,7 +227,7 @@ class ChestTests {
   void testBuilderFill() {
     final Button button = Button.of(ItemType.STONE);
     final Button filler = Button.of(ItemType.STONE);
-    final Chest.Builder builder = Gui.chest().button(Slot.of(1, 4), button);
+    final Chest.Builder builder = Gui.chest().slot(Slot.of(1, 4), button);
 
     assertEquals(builder, builder.fill(filler));
 
@@ -240,9 +238,9 @@ class ChestTests {
     for (int row = 0; row < gui.rows(); row++) {
       for (int column = 0; column < gui.columns(); column++) {
         if (row == 1 && column == 4) {
-          assertEquals(Optional.of(button), gui.button(Slot.of(row, column)));
+          assertEquals(Optional.of(button), gui.slot(Slot.of(row, column)));
         } else {
-          assertEquals(Optional.of(filler), gui.button(Slot.of(row, column)));
+          assertEquals(Optional.of(filler), gui.slot(Slot.of(row, column)));
         }
       }
     }
@@ -277,7 +275,7 @@ class ChestTests {
   void testBuilderBorderSet() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
-    final Chest.Builder builder = Gui.chest().button(Slot.of(0, 4), button);
+    final Chest.Builder builder = Gui.chest().slot(Slot.of(0, 4), button);
 
     assertEquals(builder, builder.border(border, Set.of(Border.TOP, Border.LEFT)));
 
@@ -301,11 +299,11 @@ class ChestTests {
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
-        assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(border), gui.slot(slot), slot.toString());
       } else if (slot.row() == 0 && slot.column() == 4) {
-        assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(button), gui.slot(slot), slot.toString());
       } else {
-        assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+        assertEquals(Optional.empty(), gui.slot(slot), slot.toString());
       }
     }
   }
@@ -348,7 +346,7 @@ class ChestTests {
   void testBuilderBorderVarargs() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
-    final Chest.Builder builder = Gui.chest().button(Slot.of(0, 4), button);
+    final Chest.Builder builder = Gui.chest().slot(Slot.of(0, 4), button);
 
     assertEquals(builder, builder.border(border, Border.TOP, Border.LEFT));
 
@@ -372,11 +370,11 @@ class ChestTests {
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
-        assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(border), gui.slot(slot), slot.toString());
       } else if (slot.row() == 0 && slot.column() == 4) {
-        assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(button), gui.slot(slot), slot.toString());
       } else {
-        assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+        assertEquals(Optional.empty(), gui.slot(slot), slot.toString());
       }
     }
   }
@@ -393,7 +391,7 @@ class ChestTests {
   void testBuilderBorder() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
-    final Chest.Builder builder = Gui.chest().button(Slot.of(0, 4), button);
+    final Chest.Builder builder = Gui.chest().slot(Slot.of(0, 4), button);
 
     assertEquals(builder, builder.border(border)); // all borders
 
@@ -431,11 +429,11 @@ class ChestTests {
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
-        assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(border), gui.slot(slot), slot.toString());
       } else if (slot.row() == 0 && slot.column() == 4) {
-        assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(button), gui.slot(slot), slot.toString());
       } else {
-        assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+        assertEquals(Optional.empty(), gui.slot(slot), slot.toString());
       }
     }
   }
@@ -528,8 +526,9 @@ class ChestTests {
 
     gui.subscribe(subscriber);
 
-    gui.button(SLOT, button);
+    gui.slot(SLOT, button);
     verify(subscriber).button(SLOT, button);
+    verify(subscriber).slot(SLOT, button);
 
     gui.publisher().close(CLOSE);
     verify(subscriber).close(CLOSE);
@@ -560,7 +559,7 @@ class ChestTests {
 
     subscription.cancel();
 
-    gui.button(SLOT, button);
+    gui.slot(SLOT, button);
     gui.publisher().close(CLOSE);
 
     assertTrue(subscription.isCanceled());

@@ -65,7 +65,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
       private final Map<Slot, Subscription> subscriptions = new HashMap<>();
 
       @Override
-      public void button(final Slot slot, final @Nullable Button button) {
+      public void slot(final Slot slot, final @Nullable Button button) {
         final Subscription subscription = subscriptions.get(slot);
         if (subscription != null) {
           subscription.cancel();
@@ -92,9 +92,9 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
     };
 
     for (final Slot slot : gui.slots()) {
-      gui.button(slot).ifPresent((button) -> {
+      gui.slot(slot).ifPresent((button) -> {
         // Essentially replaying the button sets
-        subscriber.button(slot, button);
+        subscriber.slot(slot, button);
       });
     }
 

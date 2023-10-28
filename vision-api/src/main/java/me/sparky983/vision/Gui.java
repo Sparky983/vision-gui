@@ -26,7 +26,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    *Gui gui = Gui.gui()
    *        .title(Component.text("My GUI"))
    *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 4), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -43,7 +43,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @vision.examples <pre>
    *Gui gui = Gui.dropper()
    *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 1), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -60,7 +60,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @vision.examples <pre>
    *Gui gui = Gui.hopper()
    *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -112,8 +112,23 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @throws IllegalArgumentException if the slot is out of bounds.
    * @throws NullPointerException if the slot is {@code null}.
    * @since 0.1
+   * @deprecated in favour of the more well-named {@link #slot(Slot)}.
    */
-  Optional<Button> button(Slot slot);
+  @Deprecated
+  default Optional<Button> button(final Slot slot) {
+    return slot(slot);
+  }
+
+  /**
+   * Returns the {@link Button} at the specified {@link Slot}.
+   *
+   * @param slot the slot
+   * @return the button at the specified slot or {@link Optional#empty()} if there is no button.
+   * @throws IllegalArgumentException if the slot is out of bounds.
+   * @throws NullPointerException if the slot is {@code null}.
+   * @since 1.1
+   */
+  Optional<Button> slot(Slot slot);
 
   /**
    * Sets the {@link Button} at the specified {@link Slot}.
@@ -124,8 +139,24 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @throws IllegalArgumentException if the slot is out of bounds.
    * @throws NullPointerException if the slot is {@code null}.
    * @since 0.1
+   * @deprecated in favour of the more well-named {@link #slot(Slot, Button)}.
    */
-  Gui button(Slot slot, @Nullable Button button);
+  @Deprecated
+  default Gui button(final Slot slot, final @Nullable Button button) {
+    return slot(slot, button);
+  }
+
+  /**
+   * Sets the {@link Button} at the specified {@link Slot}.
+   *
+   * @param slot the slot
+   * @param button the button or {@code null} to remove the button
+   * @return this {@code Gui} instance (for chaining)
+   * @throws IllegalArgumentException if the slot is out of bounds.
+   * @throws NullPointerException if the slot is {@code null}.
+   * @since 1.1
+   */
+  Gui slot(Slot slot, @Nullable Button button);
 
   /**
    * Returns an immutable list of all slots, present or absent, in this {@code Gui}.
@@ -173,7 +204,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @vision.examples <pre>
    * {@code Gui gui = ....;
    *gui.subscribe(new Gui.Subscriber() {
-   *    public void button(Slot slot, Button button) {
+   *    public void slot(Slot slot, Button button) {
    *        System.out.println("Slot changed");
    *    }
    *}}</pre>
@@ -206,17 +237,32 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    */
   interface Subscriber extends Subscribable.Subscriber {
     /**
-     * Called when the specified {@link Slot} changes.
+     * Called when the a {@link Slot} changes.
      * <p>
      * The default implementation does nothing.
      *
      * @param slot the slot
      * @param button the new button or {@code null} if there is no new {@link Button}
      * @throws NullPointerException if the slot is {@code null} (optional).
-     * @see Gui#button(Slot, Button)
+     * @see Gui#slot(Slot, Button)
      * @since 0.1
+     * @deprecated in favour of the more well-named {@link #slot(Slot, Button)}.
      */
+    @Deprecated
     default void button(final Slot slot, final @Nullable Button button) {}
+
+    /**
+     * Called when the a {@link Slot} changes.
+     * <p>
+     * The default implementation does nothing.
+     *
+     * @param slot the slot
+     * @param button the new button or {@code null} if there is no new {@link Button}
+     * @throws NullPointerException if the slot is {@code null} (optional).
+     * @see Gui#slot(Slot, Button)
+     * @since 1.1
+     */
+    default void slot(final Slot slot, final @Nullable Button button) {}
 
     /**
      * Called when a {@link Gui} is closed.
@@ -237,19 +283,19 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    *Gui gui = Gui.chest()
    *        .title(Component.text("My Gui"))
    *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 4), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    *<pre>
    *Gui gui = Gui.dropper()
    *        .title(Component.text("My Gui"))
-   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 1), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    *<pre>
    *Gui gui = Gui.hopper()
    *        .title(Component.text("My Gui"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -274,8 +320,23 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @return this {@code Builder} instance (for chaining)
      * @throws NullPointerException if the slot or button is {@code null}.
      * @since 1.0
+     * @deprecated in favour of the more well-named {@link #slot(Slot, Button)}.
      */
-    Builder button(Slot slot, Button button);
+    @Deprecated
+    default Builder button(final Slot slot, final Button button) {
+      return slot(slot, button);
+    }
+
+    /**
+     * Sets the {@link Button} at the specified {@link Slot} in the {@link Gui}.
+     *
+     * @param slot the slot
+     * @param button the button
+     * @return this {@code Builder} instance (for chaining)
+     * @throws NullPointerException if the slot or button is {@code null}.
+     * @since 1.1
+     */
+    Builder slot(Slot slot, Button button);
 
     /**
      * Sets all the empty slots to the specified {@link Button} in the {@link Gui}.

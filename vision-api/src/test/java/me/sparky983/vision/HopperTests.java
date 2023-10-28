@@ -86,8 +86,7 @@ class HopperTests {
     final Gui.Builder builder = Gui.hopper();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(NullPointerException.class, () -> builder.button(null, button));
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(null, button));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -96,7 +95,7 @@ class HopperTests {
   void testBuilderButtonWhenButtonIsNull() {
     final Gui.Builder builder = Gui.hopper();
 
-    final Exception e = assertThrows(NullPointerException.class, () -> builder.button(SLOT, null));
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.slot(SLOT, null));
     assertEquals("button cannot be null", e.getMessage());
   }
 
@@ -104,7 +103,7 @@ class HopperTests {
   @ParameterizedTest
   void testBuilderButtonWhenSlotIsOutOfBounds(final int row, final int column) {
     final Slot slot = Slot.of(row, column);
-    final Gui.Builder builder = Gui.hopper().button(slot, Button.of(ItemType.STONE));
+    final Gui.Builder builder = Gui.hopper().slot(slot, Button.of(ItemType.STONE));
 
     final Exception e = assertThrows(IllegalStateException.class, builder::build);
     assertEquals(
@@ -117,11 +116,11 @@ class HopperTests {
     final Gui.Builder builder = Gui.hopper();
     final Button button = Button.of(ItemType.STONE);
 
-    assertEquals(builder, builder.button(SLOT, button));
+    assertEquals(builder, builder.slot(SLOT, button));
 
     final Gui gui = builder.build();
 
-    assertEquals(Optional.of(button), gui.button(SLOT));
+    assertEquals(Optional.of(button), gui.slot(SLOT));
   }
 
   @SuppressWarnings("DataFlowIssue")
@@ -129,7 +128,7 @@ class HopperTests {
   void testGetButtonWhenSlotIsNull() {
     final Gui gui = Gui.hopper().build();
 
-    final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null));
+    final Exception e = assertThrows(NullPointerException.class, () -> gui.slot(null));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -139,7 +138,7 @@ class HopperTests {
     final Slot slot = Slot.of(row, column);
     final Gui gui = Gui.hopper().build();
 
-    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.button(slot));
+    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.slot(slot));
     assertEquals(
         String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
         e.getMessage());
@@ -151,7 +150,7 @@ class HopperTests {
     final Gui gui = Gui.hopper().build();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e = assertThrows(NullPointerException.class, () -> gui.button(null, button));
+    final Exception e = assertThrows(NullPointerException.class, () -> gui.slot(null, button));
     assertEquals("slot cannot be null", e.getMessage());
   }
 
@@ -159,13 +158,13 @@ class HopperTests {
   void testSetButtonWhenButtonIsNull() {
     final Gui gui = Gui.hopper().build();
 
-    gui.button(SLOT, Button.of(ItemType.STONE));
+    gui.slot(SLOT, Button.of(ItemType.STONE));
 
-    assertTrue(gui.button(SLOT).isPresent());
+    assertTrue(gui.slot(SLOT).isPresent());
 
-    gui.button(SLOT, null);
+    gui.slot(SLOT, null);
 
-    assertEquals(Optional.empty(), gui.button(SLOT));
+    assertEquals(Optional.empty(), gui.slot(SLOT));
   }
 
   @CsvSource({"2, 3", "3, 3", "3, 2", "3, 3"})
@@ -175,8 +174,7 @@ class HopperTests {
     final Gui gui = Gui.hopper().build();
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e =
-        assertThrows(IllegalArgumentException.class, () -> gui.button(slot, button));
+    final Exception e = assertThrows(IllegalArgumentException.class, () -> gui.slot(slot, button));
     assertEquals(
         String.format(SLOT_OUT_OF_BOUNDS, slot.row(), slot.column(), ROWS, COLUMNS),
         e.getMessage());
@@ -187,9 +185,9 @@ class HopperTests {
     final Gui gui = Gui.hopper().build();
     final Button button = Button.of(ItemType.STONE);
 
-    assertEquals(gui, gui.button(SLOT, button));
+    assertEquals(gui, gui.slot(SLOT, button));
 
-    assertEquals(Optional.of(button), gui.button(SLOT));
+    assertEquals(Optional.of(button), gui.slot(SLOT));
   }
 
   @SuppressWarnings("DataFlowIssue")
@@ -213,7 +211,7 @@ class HopperTests {
   void testBuilderFill() {
     final Button button = Button.of(ItemType.STONE);
     final Button filler = Button.of(ItemType.STONE);
-    final Gui.Builder builder = Gui.hopper().button(Slot.of(0, 2), button);
+    final Gui.Builder builder = Gui.hopper().slot(Slot.of(0, 2), button);
 
     assertEquals(builder, builder.fill(filler));
 
@@ -221,9 +219,9 @@ class HopperTests {
 
     for (int column = 0; column < gui.columns(); column++) {
       if (column == 2) {
-        assertEquals(Optional.of(button), gui.button(Slot.of(0, column)));
+        assertEquals(Optional.of(button), gui.slot(Slot.of(0, column)));
       } else {
-        assertEquals(Optional.of(filler), gui.button(Slot.of(0, column)));
+        assertEquals(Optional.of(filler), gui.slot(Slot.of(0, column)));
       }
     }
   }
@@ -257,7 +255,7 @@ class HopperTests {
   void testBuilderBorderSet() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
-    final Gui.Builder builder = Gui.hopper().button(Slot.of(0, 2), button);
+    final Gui.Builder builder = Gui.hopper().slot(Slot.of(0, 2), button);
 
     assertEquals(builder, builder.border(border, Set.of(Border.TOP)));
 
@@ -265,9 +263,9 @@ class HopperTests {
 
     for (final Slot slot : gui.slots()) {
       if (slot.column() == 2) {
-        assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(button), gui.slot(slot), slot.toString());
       } else {
-        assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(border), gui.slot(slot), slot.toString());
       }
     }
   }
@@ -310,7 +308,7 @@ class HopperTests {
   void testBuilderBorderVarargs() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
-    final Gui.Builder builder = Gui.hopper().button(Slot.of(0, 2), button);
+    final Gui.Builder builder = Gui.hopper().slot(Slot.of(0, 2), button);
 
     assertEquals(builder, builder.border(border, Border.LEFT, Border.RIGHT));
 
@@ -320,11 +318,11 @@ class HopperTests {
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
-        assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(border), gui.slot(slot), slot.toString());
       } else if (slot.column() == 2) {
-        assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(button), gui.slot(slot), slot.toString());
       } else {
-        assertEquals(Optional.empty(), gui.button(slot), slot.toString());
+        assertEquals(Optional.empty(), gui.slot(slot), slot.toString());
       }
     }
   }
@@ -341,7 +339,7 @@ class HopperTests {
   void testBuilderBorder() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
-    final Gui.Builder builder = Gui.hopper().button(Slot.of(0, 1), button);
+    final Gui.Builder builder = Gui.hopper().slot(Slot.of(0, 1), button);
 
     assertEquals(builder, builder.border(border));
 
@@ -349,9 +347,9 @@ class HopperTests {
 
     for (final Slot slot : gui.slots()) {
       if (slot.column() == 1) {
-        assertEquals(Optional.of(button), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(button), gui.slot(slot), slot.toString());
       } else {
-        assertEquals(Optional.of(border), gui.button(slot), slot.toString());
+        assertEquals(Optional.of(border), gui.slot(slot), slot.toString());
       }
     }
   }
@@ -418,8 +416,9 @@ class HopperTests {
 
     gui.subscribe(subscriber);
 
-    gui.button(SLOT, button);
+    gui.slot(SLOT, button);
     verify(subscriber).button(SLOT, button);
+    verify(subscriber).slot(SLOT, button);
 
     gui.publisher().close(CLOSE);
     verify(subscriber).close(CLOSE);
@@ -450,7 +449,7 @@ class HopperTests {
 
     subscription.cancel();
 
-    gui.button(SLOT, button);
+    gui.slot(SLOT, button);
     gui.publisher().close(CLOSE);
 
     assertTrue(subscription.isCanceled());

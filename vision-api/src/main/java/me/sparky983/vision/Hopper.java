@@ -15,7 +15,7 @@ import org.jspecify.annotations.Nullable;
  * @vision.examples <pre>
  *Gui gui = Gui.hopper()
  *        .title(Component.text("My GUI"))
- *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+ *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
  *        .build();
  *</pre>
  */
@@ -47,9 +47,23 @@ public non-sealed interface Hopper extends Gui {
    * @throws IllegalArgumentException {@inheritDoc}
    * @throws NullPointerException {@inheritDoc}
    * @since 1.0
+   * @deprecated {@inheritDoc}
+   */
+  @Deprecated
+  @Override
+  default Hopper button(final Slot slot, final @Nullable Button button) {
+    return slot(slot, button);
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IllegalArgumentException {@inheritDoc}
+   * @throws NullPointerException {@inheritDoc}
+   * @since 1.1
    */
   @Override
-  Hopper button(Slot slot, @Nullable Button button);
+  Hopper slot(Slot slot, @Nullable Button button);
 
   /**
    * {@inheritDoc}
@@ -68,7 +82,7 @@ public non-sealed interface Hopper extends Gui {
    * @vision.examples <pre>
    *Gui gui = Gui.hopper()
    *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -88,9 +102,23 @@ public non-sealed interface Hopper extends Gui {
      *
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
+     * @deprecated {@inheritDoc}
+     */
+    @Deprecated
+    @Override
+    default Builder button(final Slot slot, final Button button) {
+      return slot(slot, button);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException {@inheritDoc}
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.1
      */
     @Override
-    Builder button(Slot slot, Button button);
+    Builder slot(Slot slot, Button button);
 
     /**
      * {@inheritDoc}
