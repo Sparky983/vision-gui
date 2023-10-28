@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import me.sparky983.vision.Button.Subscriber;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -69,6 +70,32 @@ class ButtonTests {
     final Button button = Button.of(ItemType.STONE);
 
     assertEquals(ItemType.STONE, button.type());
+  }
+
+  @Test
+  void testButtonCopyOfWhenButtonIsNull() {
+    final Exception e = assertThrows(NullPointerException.class, () -> Button.copyOf(null));
+    assertEquals("button cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testButtonCopyOf() {
+    final Button button = Button.of(ItemType.STONE)
+        .name(NAME)
+        .lore(LORE_ARRAY)
+        .amount(2)
+        .glow(true);
+    final Button.Subscriber subscriber = mock();
+    button.subscribe(subscriber);
+    final Button copy = Button.copyOf(button);
+
+    assertEquals(NAME, copy.name());
+    assertEquals(LORE_LIST, copy.lore());
+    assertEquals(2, copy.amount());
+    assertTrue(copy.glow());
+
+    copy.type(ItemType.DIRT);
+    verifyNoInteractions(subscriber);
   }
 
   @SuppressWarnings("ConstantConditions")

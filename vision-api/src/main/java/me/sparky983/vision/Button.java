@@ -1,6 +1,7 @@
 package me.sparky983.vision;
 
 import java.util.List;
+import java.util.concurrent.Flow.Publisher;
 import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -34,6 +35,21 @@ public interface Button extends Subscribable<Button.Subscriber> {
    */
   static Button of(final ItemType type) {
     return new ButtonImpl(type);
+  }
+
+  /**
+   * Creates a copy of the specified {@code Button}.
+   * <p>
+   * The returned button will have all the same properties as the specified {@code Button}, except
+   * without any {@link Subscriber Subscribers}.
+   *
+   * @param button the {@code Button} to copy
+   * @return a copy of the specified {@code Button}
+   * @throws NullPointerException if the {@code Button} is {@code null}.
+   * @since 1.1
+   */
+  static Button copyOf(final Button button) {
+    return new ButtonImpl(button);
   }
 
   /**

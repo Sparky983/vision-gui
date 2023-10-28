@@ -20,15 +20,28 @@ final class ButtonImpl implements Button {
 
   private ItemType type;
   private Component name;
-  private List<Component> lore = List.of();
-  private int amount = 1;
-  private boolean glow = false;
+  private List<Component> lore;
+  private int amount;
+  private boolean glow;
 
   ButtonImpl(final ItemType type) {
     Objects.requireNonNull(type, "type cannot be null");
 
     this.type = type;
     this.name = Component.translatable(type);
+    this.lore = List.of();
+    this.amount = 1;
+    this.glow = false;
+  }
+
+  ButtonImpl(final Button button) {
+    Objects.requireNonNull(button, "button cannot be null");
+
+    this.type = button.type();
+    this.name = button.name();
+    this.lore = button.lore();
+    this.amount = button.amount();
+    this.glow = button.glow();
   }
 
   @Override
