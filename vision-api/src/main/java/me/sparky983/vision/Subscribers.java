@@ -29,7 +29,7 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
       }
 
       @Override
-      public boolean isCancelled() {
+      public boolean isCanceled() {
         return !subscribers.containsKey(this);
       }
     };

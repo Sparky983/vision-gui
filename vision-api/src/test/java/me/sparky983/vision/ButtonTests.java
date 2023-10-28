@@ -326,7 +326,7 @@ class ButtonTests {
 
     final Subscription subscription = button.subscribe(subscriber);
 
-    assertFalse(subscription.isCancelled());
+    assertFalse(subscription.isCanceled());
 
     subscription.cancel();
 
@@ -338,7 +338,7 @@ class ButtonTests {
     button.glow(true);
     button.publisher().click(CLICK);
 
-    assertTrue(subscription.isCancelled());
+    assertTrue(subscription.isCanceled());
     verifyNoInteractions(subscriber);
   }
 

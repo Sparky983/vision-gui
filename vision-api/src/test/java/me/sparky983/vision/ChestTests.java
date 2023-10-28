@@ -502,13 +502,13 @@ class ChestTests {
 
     final Subscription subscription = gui.subscribe(subscriber);
 
-    assertFalse(subscription.isCancelled());
+    assertFalse(subscription.isCanceled());
 
     subscription.cancel();
 
     gui.button(SLOT, button);
 
-    assertTrue(subscription.isCancelled());
+    assertTrue(subscription.isCanceled());
     verifyNoMoreInteractions(subscriber);
   }
 

@@ -16,10 +16,21 @@ public interface Subscription {
   void cancel();
 
   /**
-   * Checks whether this {@code Subscription} is cancelled.
+   * Checks whether this {@code Subscription} is canceled.
    *
-   * @return whether this {@code Subscription} is cancelled
+   * @return whether this {@code Subscription} is canceled
    * @since 0.1
    */
-  boolean isCancelled();
+  @Deprecated(forRemoval = true)
+  default boolean isCancelled() {
+    return isCanceled();
+  }
+
+  /**
+   * Checks whether this {@code Subscription} is canceled.
+   *
+   * @return whether this {@code Subscription} is canceled
+   * @since 1.1
+   */
+  boolean isCanceled();
 }
