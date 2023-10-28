@@ -348,11 +348,29 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
     Builder border(Button button);
 
     /**
+     * Adds the specified {@link Close} handler to the {@code Gui}.
+     *
+     * @param handler the {@link Close} handler
+     * @return this {@code Builder} instance (for chaining)
+     * @throws NullPointerException if the {@link Click} handler is {@code null}.
+     * @since 1.1
+     * @vision.apiNote This method may be called multiple times to add multiple handlers.
+     * @vision.examples <pre>
+     *{@code Gui gui = Gui.chest()
+     *        .onClick(close -> close.closer().sendMessage(Component.text("You closed me!")))
+     *        .build()}</pre>
+     */
+    Builder onClose(Consumer<? super Close> handler);
+
+    /**
      * Builds the {@link Gui}.
      * <p>
      * If both a {@link #fill(Button) fill} and a {@link #border(Button, Set) border} has been
      * specified, the {@link #border(Button, Set) border} will overlay the
      * {@link #fill(Button) fill} in the returned {@link Gui}.
+     * <p>
+     * All {@linkplain #onClose(Consumer) close handlers} will be subscribed in the order they were
+     * added to this {@code Builder}.
      *
      * @return the built {@link Gui}
      * @throws IllegalStateException if any of the buttons are out of bounds.

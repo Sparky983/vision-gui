@@ -129,6 +129,12 @@ final class HopperImpl implements Hopper {
     }
 
     @Override
+    public Builder onClose(final Consumer<? super Close> handler) {
+      container.onClose(handler);
+      return this;
+    }
+
+    @Override
     public Hopper build() {
       return new HopperImpl(container.build());
     }

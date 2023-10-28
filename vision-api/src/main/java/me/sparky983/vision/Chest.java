@@ -178,6 +178,15 @@ public non-sealed interface Chest extends Gui {
     /**
      * {@inheritDoc}
      *
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.1
+     */
+    @Override
+    Builder onClose(Consumer<? super Close> handler);
+
+    /**
+     * {@inheritDoc}
+     *
      * @throws IllegalStateException {@inheritDoc}
      * @since 1.0
      */

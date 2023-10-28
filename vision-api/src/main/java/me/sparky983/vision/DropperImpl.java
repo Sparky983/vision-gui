@@ -129,6 +129,12 @@ final class DropperImpl implements Dropper {
     }
 
     @Override
+    public Builder onClose(final Consumer<? super Close> handler) {
+      container.onClose(handler);
+      return this;
+    }
+
+    @Override
     public Dropper build() {
       return new DropperImpl(container.build());
     }

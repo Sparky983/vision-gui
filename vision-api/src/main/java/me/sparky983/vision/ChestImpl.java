@@ -139,6 +139,12 @@ final class ChestImpl implements Chest {
     }
 
     @Override
+    public Builder onClose(final Consumer<? super Close> handler) {
+      container.onClose(handler);
+      return this;
+    }
+
+    @Override
     public Chest build() {
       return new ChestImpl(container.build());
     }

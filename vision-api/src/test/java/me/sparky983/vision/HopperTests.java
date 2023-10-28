@@ -367,7 +367,30 @@ class HopperTests {
   }
 
   @Test
-  void testOnclickWhenHandlerIsNull() {
+  void testBuilderOnClickWhenHandlerIsNull() {
+    final Gui.Builder builder = Gui.hopper();
+
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.onClose(null));
+    assertEquals("handler cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testBuilderOnclick() {
+    final Gui.Builder builder = Gui.hopper();
+    final Consumer<Close> clickHandler = mock();
+
+    assertEquals(builder, builder.onClose(clickHandler));
+
+    final Gui gui = builder.build();
+
+    gui.publisher().close(CLOSE);
+
+    verify(clickHandler).accept(CLOSE);
+    verifyNoMoreInteractions(clickHandler);
+  }
+
+  @Test
+  void testOnClickWhenHandlerIsNull() {
     final Gui gui = Gui.hopper().build();
 
     final Exception e = assertThrows(NullPointerException.class, () -> gui.onClose(null));
