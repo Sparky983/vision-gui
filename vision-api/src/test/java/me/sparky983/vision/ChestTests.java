@@ -16,6 +16,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,11 @@ class ChestTests {
    * A slot to be used for testing.
    */
   static final Slot SLOT = Slot.of(0, 0);
+
+  /**
+   * A close to be used for testing.
+   */
+  static final Close CLOSE = mock();
 
   @Test
   void testType() {
@@ -461,6 +467,50 @@ class ChestTests {
     assertEquals(slots, gui.slots());
   }
 
+  @Test
+  void testBuilderOnClickWhenHandlerIsNull() {
+    final Gui.Builder builder = Gui.chest();
+
+    final Exception e = assertThrows(NullPointerException.class, () -> builder.onClose(null));
+    assertEquals("handler cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testBuilderOnclick() {
+    final Gui.Builder builder = Gui.chest();
+    final Consumer<Close> clickHandler = mock();
+
+    assertEquals(builder, builder.onClose(clickHandler));
+
+    final Gui gui = builder.build();
+
+    gui.publisher().close(CLOSE);
+
+    verify(clickHandler).accept(CLOSE);
+    verifyNoMoreInteractions(clickHandler);
+  }
+
+  @Test
+  void testOnClickWhenHandlerIsNull() {
+    final Gui gui = Gui.chest().build();
+
+    final Exception e = assertThrows(NullPointerException.class, () -> gui.onClose(null));
+    assertEquals("handler cannot be null", e.getMessage());
+  }
+
+  @Test
+  void testOnClick() {
+    final Gui gui = Gui.chest().build();
+    final Consumer<Close> clickHandler = mock();
+
+    assertEquals(gui, gui.onClose(clickHandler));
+
+    gui.publisher().close(CLOSE);
+
+    verify(clickHandler).accept(CLOSE);
+    verifyNoMoreInteractions(clickHandler);
+  }
+
   @SuppressWarnings("DataFlowIssue")
   @Test
   void testSubscribeWhenSubscriberIsNull() {
@@ -480,6 +530,10 @@ class ChestTests {
 
     gui.button(SLOT, button);
     verify(subscriber).button(SLOT, button);
+
+    gui.publisher().close(CLOSE);
+    verify(subscriber).close(CLOSE);
+
     verifyNoMoreInteractions(subscriber);
   }
 
@@ -507,6 +561,7 @@ class ChestTests {
     subscription.cancel();
 
     gui.button(SLOT, button);
+    gui.publisher().close(CLOSE);
 
     assertTrue(subscription.isCanceled());
     verifyNoMoreInteractions(subscriber);

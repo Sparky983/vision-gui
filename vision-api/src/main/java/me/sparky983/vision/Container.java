@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.annotations.NullMarked;
@@ -49,6 +50,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
   private static final int MAX_COLUMNS = Chest.COLUMNS;
 
   private final Subscribers<Gui.Subscriber> subscribers = new Subscribers<>();
+  private final Gui.Publisher publisher = new PublisherImpl();
 
   private final Map<Slot, Button> buttons;
   private final Component title;
@@ -138,6 +140,21 @@ final class Container implements Subscribable<Gui.Subscriber> {
     return slots;
   }
 
+  void onClose(final Consumer<? super Close> handler) {
+    Objects.requireNonNull(handler, "handler cannot be null");
+
+    subscribers.subscribe(new Gui.Subscriber() {
+      @Override
+      public void close(final Close close) {
+        handler.accept(close);
+      }
+    });
+  }
+
+  Gui.Publisher publisher() {
+    return publisher;
+  }
+
   @Override
   public Subscription subscribe(final Gui.Subscriber subscriber) {
     Objects.requireNonNull(subscriber, "subscriber cannot be null");
@@ -151,6 +168,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
   static final class Builder {
     private final Map<Slot, Button> buttons = new HashMap<>();
     private final Map<Border, Button> borders = new LinkedHashMap<>();
+    private final List<Consumer<? super Close>> closeHandlers = new ArrayList<>(1);
     private @Nullable Button filler = null;
     private Component title;
     private int rows;
@@ -244,6 +262,13 @@ final class Container implements Subscribable<Gui.Subscriber> {
       return border(button, Border.all());
     }
 
+    Builder onClose(final Consumer<? super Close> handler) {
+      Objects.requireNonNull(handler, "handler cannot be null");
+
+      closeHandlers.add(handler);
+      return this;
+    }
+
     Container build() {
       final Map<Slot, Button> buttons = new HashMap<>();
 
@@ -290,7 +315,18 @@ final class Container implements Subscribable<Gui.Subscriber> {
 
       buttons.putAll(this.buttons);
 
-      return new Container(title, rows, columns, buttons);
+      final Container container = new Container(title, rows, columns, buttons);
+      closeHandlers.forEach(container::onClose);
+      return container;
+    }
+  }
+
+  private final class PublisherImpl implements Gui.Publisher {
+    @Override
+    public void close(final Close close) {
+      Objects.requireNonNull(close, "close cannot be null");
+
+      subscribers.notify((subscriber) -> subscriber.close(close));
     }
   }
 }
