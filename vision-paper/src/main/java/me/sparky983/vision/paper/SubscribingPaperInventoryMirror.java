@@ -92,7 +92,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
     };
 
     for (final Slot slot : gui.slots()) {
-      gui.button(slot).ifPresent((button) -> {
+      gui.slot(slot).ifPresent((button) -> {
         // Essentially replaying the button sets
         subscriber.button(slot, button);
       });

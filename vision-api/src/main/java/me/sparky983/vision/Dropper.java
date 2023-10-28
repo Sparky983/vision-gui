@@ -46,9 +46,23 @@ public non-sealed interface Dropper extends Gui {
    * @throws IllegalArgumentException {@inheritDoc}
    * @throws NullPointerException {@inheritDoc}
    * @since 1.0
+   * @deprecated {@inheritDoc}
+   */
+  @Deprecated
+  @Override
+  default Dropper button(final Slot slot, @Nullable final Button button) {
+    return slot(slot, button);
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IllegalArgumentException {@inheritDoc}
+   * @throws NullPointerException {@inheritDoc}
+   * @since 1.1
    */
   @Override
-  Dropper button(Slot slot, @Nullable Button button);
+  Dropper slot(Slot slot, @Nullable Button button);
 
   /**
    * A {@link Dropper} builder.
@@ -78,9 +92,22 @@ public non-sealed interface Dropper extends Gui {
      *
      * @throws NullPointerException {@inheritDoc}
      * @since 1.0
+     * @deprecated {@inheritDoc}
+     */
+    @Deprecated
+    @Override
+    default Builder button(final Slot slot, final Button button) {
+      return slot(slot, button);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.1
      */
     @Override
-    Builder button(Slot slot, Button button);
+    Builder slot(Slot slot, Button button);
 
     /**
      * {@inheritDoc}

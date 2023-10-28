@@ -47,12 +47,12 @@ final class DropperImpl implements Dropper {
   }
 
   @Override
-  public Optional<Button> button(final Slot slot) {
+  public Optional<Button> slot(final Slot slot) {
     return container.button(slot);
   }
 
   @Override
-  public Dropper button(final Slot slot, final @Nullable Button button) {
+  public Dropper slot(final Slot slot, final @Nullable Button button) {
     container.button(slot, button);
     return this;
   }
@@ -87,7 +87,7 @@ final class DropperImpl implements Dropper {
     }
 
     @Override
-    public Builder button(final Slot slot, final Button button) {
+    public Builder slot(final Slot slot, final Button button) {
       container.button(slot, button);
       return this;
     }

@@ -50,7 +50,7 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
     final Gui gui = Gui.chest()
         .title(Component.text("Test GUI"))
         .rows(3)
-        .button(Slot.of(1, 4), counter)
+        .slot(Slot.of(1, 4), counter)
         .build();
 
     vision.open(player, gui);
