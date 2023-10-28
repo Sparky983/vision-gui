@@ -15,7 +15,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-import me.sparky983.vision.Button.Subscriber;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -80,11 +79,8 @@ class ButtonTests {
 
   @Test
   void testButtonCopyOf() {
-    final Button button = Button.of(ItemType.STONE)
-        .name(NAME)
-        .lore(LORE_ARRAY)
-        .amount(2)
-        .glow(true);
+    final Button button =
+        Button.of(ItemType.STONE).name(NAME).lore(LORE_ARRAY).amount(2).glow(true);
     final Button.Subscriber subscriber = mock();
     button.subscribe(subscriber);
     final Button copy = Button.copyOf(button);
