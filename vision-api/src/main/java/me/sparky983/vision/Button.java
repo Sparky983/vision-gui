@@ -182,9 +182,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
    * @since 0.1
    * @vision.apiNote This method may be called multiple times to add multiple handlers.
    * @vision.examples <pre>
-   *{@code Button button = Button.button()
+   *{@code Button button = Button.of(ItemType.DIAMOND)
    *        .name(Component.text("Click me!"))
-   *        .type(ItemType.DIAMOND);
    *        .onClick(click -> click.clicker().sendMessage(Component.text("You clicked me!")))}</pre>
    */
   Button onClick(Consumer<? super Click> handler);
