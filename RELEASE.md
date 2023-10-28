@@ -48,3 +48,5 @@
   - If an element has been marked with `@Deprecated(forRemoval = true)` for at least one minor 
     version, it may be removed without a major release
   - Source or binary incompatibilities are always considered breaking
+  - If an element is marked with `@org.jetbrains.annotations.ApiStatus.NonExtendable`, new methods
+    may be added to the class without a major release
