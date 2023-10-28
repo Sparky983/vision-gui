@@ -21,7 +21,7 @@
     
     # Dependency Information
     - [Javadoc](<Javadoc Link>)
-    - Maven: [me.sparky983:vision-api](<link to dependency on repositlite>)
+    - Maven: [me.sparky983:vision-api](<repositlite-link>)
     ```
 7. Close the milestone and create a new one for the next minor version if one does not already exist
 8. Create a new branch for continued patches to the current minor version named 
@@ -37,3 +37,14 @@
      - Javadoc links
      - Installation
 2. Create a marge request into main and merge when ready
+
+# Versioning
+
+- This project uses [semantic versioning](https://semver.org/)
+- What is considered breaking is generally up to the discretion of the developer, however there are
+  a few exceptions:
+  - If an element is marked with `@org.jetbrains.annotations.ApiStatus.Experimental`, it is free to
+    be modified or removed without a major release
+  - If an element has been marked with `@Deprecated(forRemoval = true)` for at least one minor 
+    version, it may be removed without a major release
+  - Source or binary incompatibilities are always considered breaking
