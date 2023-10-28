@@ -26,7 +26,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    *Gui gui = Gui.gui()
    *        .title(Component.text("My GUI"))
    *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 4), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -43,7 +43,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @vision.examples <pre>
    *Gui gui = Gui.dropper()
    *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 1), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -60,7 +60,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    * @vision.examples <pre>
    *Gui gui = Gui.hopper()
    *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */
@@ -237,7 +237,7 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    */
   interface Subscriber extends Subscribable.Subscriber {
     /**
-     * Called when the specified {@link Slot} changes.
+     * Called when the a {@link Slot} changes.
      * <p>
      * The default implementation does nothing.
      *
@@ -246,8 +246,23 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
      * @throws NullPointerException if the slot is {@code null} (optional).
      * @see Gui#slot(Slot, Button)
      * @since 0.1
+     * @deprecated in favour of the more well-named {@link #slot(Slot, Button)}.
      */
+    @Deprecated
     default void button(final Slot slot, final @Nullable Button button) {}
+
+    /**
+     * Called when the a {@link Slot} changes.
+     * <p>
+     * The default implementation does nothing.
+     *
+     * @param slot the slot
+     * @param button the new button or {@code null} if there is no new {@link Button}
+     * @throws NullPointerException if the slot is {@code null} (optional).
+     * @see Gui#slot(Slot, Button)
+     * @since 1.1
+     */
+    default void slot(final Slot slot, final @Nullable Button button) {}
 
     /**
      * Called when a {@link Gui} is closed.
@@ -268,19 +283,19 @@ public sealed interface Gui extends Subscribable<Gui.Subscriber> permits Chest, 
    *Gui gui = Gui.chest()
    *        .title(Component.text("My Gui"))
    *        .rows(3)
-   *        .button(Slot.of(1, 4), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 4), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    *<pre>
    *Gui gui = Gui.dropper()
    *        .title(Component.text("My Gui"))
-   *        .button(Slot.of(1, 1), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(1, 1), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    *<pre>
    *Gui gui = Gui.hopper()
    *        .title(Component.text("My Gui"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */

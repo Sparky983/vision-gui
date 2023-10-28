@@ -109,7 +109,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
     return rows;
   }
 
-  Optional<Button> button(final Slot slot) {
+  Optional<Button> slot(final Slot slot) {
     Objects.requireNonNull(slot, "slot cannot be null");
 
     if (slot.column() >= columns || slot.row() >= rows) {
@@ -120,7 +120,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
     return Optional.ofNullable(buttons.get(slot));
   }
 
-  void button(final Slot slot, final @Nullable Button button) {
+  void slot(final Slot slot, final @Nullable Button button) {
     Objects.requireNonNull(slot, "slot cannot be null");
 
     if (slot.row() >= rows || slot.column() >= columns) {
@@ -133,7 +133,10 @@ final class Container implements Subscribable<Gui.Subscriber> {
     } else {
       buttons.put(slot, button);
     }
-    subscribers.notify((subscriber) -> subscriber.button(slot, button));
+    subscribers.notify((subscriber) -> {
+      subscriber.button(slot, button); // Backwards compatibility
+      subscriber.slot(slot, button);
+    });
   }
 
   List<Slot> slots() {
@@ -205,7 +208,7 @@ final class Container implements Subscribable<Gui.Subscriber> {
       return this;
     }
 
-    Builder button(final Slot slot, final Button button) {
+    Builder slot(final Slot slot, final Button button) {
       Objects.requireNonNull(slot, "slot cannot be null");
       Objects.requireNonNull(button, "button cannot be null");
 

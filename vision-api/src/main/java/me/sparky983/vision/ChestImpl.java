@@ -52,12 +52,12 @@ final class ChestImpl implements Chest {
 
   @Override
   public Optional<Button> slot(final Slot slot) {
-    return container.button(slot);
+    return container.slot(slot);
   }
 
   @Override
   public Chest slot(final Slot slot, final @Nullable Button button) {
-    container.button(slot, button);
+    container.slot(slot, button);
     return this;
   }
 
@@ -110,7 +110,7 @@ final class ChestImpl implements Chest {
 
     @Override
     public Builder slot(final Slot slot, final Button button) {
-      container.button(slot, button);
+      container.slot(slot, button);
       return this;
     }
 

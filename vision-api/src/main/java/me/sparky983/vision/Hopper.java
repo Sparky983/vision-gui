@@ -15,7 +15,7 @@ import org.jspecify.annotations.Nullable;
  * @vision.examples <pre>
  *Gui gui = Gui.hopper()
  *        .title(Component.text("My GUI"))
- *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+ *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
  *        .build();
  *</pre>
  */
@@ -82,7 +82,7 @@ public non-sealed interface Hopper extends Gui {
    * @vision.examples <pre>
    *Gui gui = Gui.hopper()
    *        .title(Component.text("My GUI"))
-   *        .button(Slot.of(0, 2), Button.of(ItemType.STONE))
+   *        .slot(Slot.of(0, 2), Button.of(ItemType.STONE))
    *        .build();
    *</pre>
    */

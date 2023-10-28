@@ -49,12 +49,12 @@ final class HopperImpl implements Hopper {
 
   @Override
   public Optional<Button> slot(final Slot slot) {
-    return container.button(slot);
+    return container.slot(slot);
   }
 
   @Override
   public Hopper slot(final Slot slot, final @Nullable Button button) {
-    container.button(slot, button);
+    container.slot(slot, button);
     return this;
   }
 
@@ -100,7 +100,7 @@ final class HopperImpl implements Hopper {
 
     @Override
     public Builder slot(final Slot slot, final Button button) {
-      container.button(slot, button);
+      container.slot(slot, button);
       return this;
     }
 
