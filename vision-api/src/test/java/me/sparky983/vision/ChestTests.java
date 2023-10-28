@@ -527,6 +527,7 @@ class ChestTests {
     gui.subscribe(subscriber);
 
     gui.slot(SLOT, button);
+    verify(subscriber).button(SLOT, button);
     verify(subscriber).slot(SLOT, button);
 
     gui.publisher().close(CLOSE);
