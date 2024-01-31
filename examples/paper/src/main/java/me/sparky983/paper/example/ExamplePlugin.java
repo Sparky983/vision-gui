@@ -1,4 +1,4 @@
-package me.sparky983.example;
+package me.sparky983.paper.example;
 
 import me.sparky983.vision.paper.PaperVision;
 import org.bukkit.command.CommandExecutor;

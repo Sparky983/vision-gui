@@ -1,7 +1,7 @@
 rootProject.name = "vision-gui"
 
 sequenceOf(
-    "example",
+    "examples:paper",
     "vision-api",
     "vision-paper"
 ).forEach { include(it) }

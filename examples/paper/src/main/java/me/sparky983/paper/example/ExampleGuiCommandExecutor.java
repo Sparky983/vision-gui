@@ -1,4 +1,4 @@
-package me.sparky983.example;
+package me.sparky983.paper.example;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import me.sparky983.vision.Button;
@@ -29,7 +29,7 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(
       final CommandSender sender, final Command command, final String label, final String[] args) {
-    if (!(sender instanceof Player player)) {
+    if (!(sender instanceof final Player player)) {
       sender.sendMessage(Component.text("Only players can use this command"));
       return false;
     }
@@ -37,7 +37,7 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
     final AtomicInteger count = new AtomicInteger(0);
 
     final Button counter = Button.of(ItemType.DIAMOND)
-        .onClick((click) -> click.clicker().sendMessage(click.button().name()));
+        .onClick((click) -> sender.sendMessage(click.button().name()));
 
     scheduler.runTaskTimer(
         plugin,
@@ -48,7 +48,7 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
         10);
 
     final Gui gui = Gui.chest()
-        .title(Component.text("Test GUI"))
+        .title(Component.text("Paper Example"))
         .rows(3)
         .slot(Slot.of(1, 4), counter)
         .build();
