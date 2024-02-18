@@ -11,7 +11,7 @@ dependencies {
         exclude("net.kyori", "adventure-api")
     }
 
-    compileOnlyApi("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT") {
+    compileOnly("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT") {
         exclude("org.jetbrains", "annotations")
     }
 
