@@ -1,4 +1,4 @@
-package me.sparky983.vision.minestom.example;
+package me.sparky983.vision.examples.minestom;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import me.sparky983.vision.Button;

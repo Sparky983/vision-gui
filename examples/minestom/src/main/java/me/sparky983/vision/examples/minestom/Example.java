@@ -1,4 +1,4 @@
-package me.sparky983.vision.minestom.example;
+package me.sparky983.vision.examples.minestom;
 
 import me.sparky983.vision.minestom.MinestomVision;
 import net.minestom.server.MinecraftServer;
