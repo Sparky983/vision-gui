@@ -1,4 +1,4 @@
-main: me.sparky983.example.ExamplePlugin
+main: me.sparky983.vision.examples.paper.ExamplePlugin
 name: example-plugin
 version: '1.0'
 api-version: '1.20'

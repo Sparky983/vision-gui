@@ -1,4 +1,4 @@
-package me.sparky983.paper.example;
+package me.sparky983.vision.examples.paper;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import me.sparky983.vision.Button;
