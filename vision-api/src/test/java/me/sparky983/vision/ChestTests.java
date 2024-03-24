@@ -251,7 +251,7 @@ class ChestTests {
   void testBuilderBorderSetWhenButtonIsNull() {
     final Gui.Builder builder = Gui.chest();
 
-    assertThrows(NullPointerException.class, () -> builder.border(null, Set.of(Border.TOP)));
+    assertThrows(NullPointerException.class, () -> builder.border(Set.of(Border.TOP), null));
   }
 
   @SuppressWarnings("DataFlowIssue")
@@ -260,7 +260,7 @@ class ChestTests {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
-    assertThrows(NullPointerException.class, () -> builder.border(button, (Set<Border>) null));
+    assertThrows(NullPointerException.class, () -> builder.border((Set<Border>) null, button));
   }
 
   @Test
@@ -268,7 +268,7 @@ class ChestTests {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
-    assertThrows(IllegalArgumentException.class, () -> builder.border(button, Set.of()));
+    assertThrows(IllegalArgumentException.class, () -> builder.border(Set.of(), button));
   }
 
   @Test
@@ -277,7 +277,7 @@ class ChestTests {
     final Button border = Button.of(ItemType.DIAMOND);
     final Chest.Builder builder = Gui.chest().slot(Slot.of(0, 4), button);
 
-    assertEquals(builder, builder.border(border, Set.of(Border.TOP, Border.LEFT)));
+    assertEquals(builder, builder.border(Set.of(Border.TOP, Border.LEFT), border));
 
     builder.rows(3);
 
@@ -310,45 +310,29 @@ class ChestTests {
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderBorderVarargsWhenButtonIsNull() {
+  void testBuilderBorderArgWhenButtonIsNull() {
     final Gui.Builder builder = Gui.chest();
 
-    assertThrows(NullPointerException.class, () -> builder.border(null, Border.TOP));
+    assertThrows(NullPointerException.class, () -> builder.border(Border.TOP, null));
   }
 
   @SuppressWarnings("DataFlowIssue")
   @Test
-  void testBuilderBorderVarargsWhenBordersIsNull() {
+  void testBuilderBorderArgWhenBordersIsNull() {
     final Gui.Builder builder = Gui.chest();
     final Button button = Button.of(ItemType.STONE);
 
-    assertThrows(NullPointerException.class, () -> builder.border(button, (Border) null));
+    assertThrows(NullPointerException.class, () -> builder.border((Border) null, button));
   }
 
   @Test
-  void testBuilderBorderVarargsWhenBordersIsEmpty() {
-    final Gui.Builder builder = Gui.chest();
-    final Button button = Button.of(ItemType.STONE);
-
-    assertThrows(IllegalArgumentException.class, () -> builder.border(button, new Border[0]));
-  }
-
-  @Test
-  void testBuilderBorderVarargsWhenBordersHasDuplicates() {
-    final Gui.Builder builder = Gui.chest();
-    final Button button = Button.of(ItemType.STONE);
-
-    assertThrows(
-        IllegalArgumentException.class, () -> builder.border(button, Border.TOP, Border.TOP));
-  }
-
-  @Test
-  void testBuilderBorderVarargs() {
+  void testBuilderBorderArg() {
     final Button button = Button.of(ItemType.STONE);
     final Button border = Button.of(ItemType.DIAMOND);
     final Chest.Builder builder = Gui.chest().slot(Slot.of(0, 4), button);
 
-    assertEquals(builder, builder.border(border, Border.TOP, Border.LEFT));
+    assertEquals(builder, builder.border(Border.TOP, border));
+    assertEquals(builder, builder.border(Border.LEFT, border));
 
     builder.rows(3);
 
