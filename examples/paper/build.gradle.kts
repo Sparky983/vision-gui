@@ -1,6 +1,6 @@
 plugins {
     id("vision.java-conventions")
-    id("xyz.jpenilla.run-paper") version "2.2.0"
+    id("xyz.jpenilla.run-paper") version "2.2.4"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
