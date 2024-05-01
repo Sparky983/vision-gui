@@ -243,6 +243,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType ARCHER_POTTERY_SHERD = item(Key.key("archer_pottery_sherd"));
 
   /**
+   * The minecraft:armadillo_scute item type.
+   *
+   * @since 1.1
+   */
+  ItemType ARMADILLO_SCUTE = item(Key.key("armadillo_scute"));
+
+  /**
+   * The minecraft:armadillo_spawn_egg item type.
+   *
+   * @since 1.1
+   */
+  ItemType ARMADILLO_SPAWN_EGG = item(Key.key("armadillo_spawn_egg"));
+
+  /**
    * The minecraft:armor_stand item type.
    *
    * @since 0.1
@@ -915,6 +929,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType BLUE_WOOL = block(Key.key("blue_wool"));
 
   /**
+   * The minecraft:bogged_spawn_egg item type.
+   *
+   * @since 1.1
+   */
+  ItemType BOGGED_SPAWN_EGG = item(Key.key("bogged_spawn_egg"));
+
+  /**
+   * The minecraft:bolt_armor_trim_smithing_template item type.
+   *
+   * @since 1.1
+   */
+  ItemType BOLT_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("bolt_armor_trim_smithing_template"));
+
+  /**
    * The minecraft:bone item type.
    *
    * @since 0.1
@@ -990,6 +1018,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType BREAD = item(Key.key("bread"));
+
+  /**
+   * The minecraft:breeze_rod item type.
+   *
+   * @since 1.1
+   */
+  ItemType BREEZE_ROD = item(Key.key("breeze_rod"));
+
+  /**
+   * The minecraft:breeze_spawn_egg item type.
+   *
+   * @since 1.1
+   */
+  ItemType BREEZE_SPAWN_EGG = item(Key.key("breeze_spawn_egg"));
 
   /**
    * The minecraft:brewer_pottery_sherd item type.
@@ -1510,6 +1552,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType CHISELED_BOOKSHELF = block(Key.key("chiseled_bookshelf"));
 
   /**
+   * The minecraft:chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType CHISELED_COPPER = block(Key.key("chiseled_copper"));
+
+  /**
    * The minecraft:chiseled_deepslate item type.
    *
    * @since 0.1
@@ -1557,6 +1606,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType CHISELED_STONE_BRICKS = block(Key.key("chiseled_stone_bricks"));
+
+  /**
+   * The minecraft:chiseled_tuff item type.
+   *
+   * @since 1.1
+   */
+  ItemType CHISELED_TUFF = block(Key.key("chiseled_tuff"));
+
+  /**
+   * The minecraft:chiseled_tuff_bricks item type.
+   *
+   * @since 1.1
+   */
+  ItemType CHISELED_TUFF_BRICKS = block(Key.key("chiseled_tuff_bricks"));
 
   /**
    * The minecraft:chorus_flower item type.
@@ -1832,6 +1895,27 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType COPPER_BLOCK = block(Key.key("copper_block"));
 
   /**
+   * The minecraft:copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType COPPER_BULB = block(Key.key("copper_bulb"));
+
+  /**
+   * The minecraft:copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType COPPER_DOOR = block(Key.key("copper_door"));
+
+  /**
+   * The minecraft:copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType COPPER_GRATE = block(Key.key("copper_grate"));
+
+  /**
    * The minecraft:copper_ingot item type.
    *
    * @since 0.1
@@ -1844,6 +1928,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType COPPER_ORE = block(Key.key("copper_ore"));
+
+  /**
+   * The minecraft:copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType COPPER_TRAPDOOR = block(Key.key("copper_trapdoor"));
 
   /**
    * The minecraft:cornflower item type.
@@ -1894,6 +1985,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType CRACKED_STONE_BRICKS = block(Key.key("cracked_stone_bricks"));
+
+  /**
+   * The minecraft:crafter item type.
+   *
+   * @since 1.1
+   */
+  ItemType CRAFTER = block(Key.key("crafter"));
 
   /**
    * The minecraft:crafting_table item type.
@@ -3023,11 +3121,46 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType EXPLORER_POTTERY_SHERD = item(Key.key("explorer_pottery_sherd"));
 
   /**
+   * The minecraft:exposed_chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType EXPOSED_CHISELED_COPPER = block(Key.key("exposed_chiseled_copper"));
+
+  /**
    * The minecraft:exposed_copper item type.
    *
    * @since 0.1
    */
   ItemType EXPOSED_COPPER = block(Key.key("exposed_copper"));
+
+  /**
+   * The minecraft:exposed_copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType EXPOSED_COPPER_BULB = block(Key.key("exposed_copper_bulb"));
+
+  /**
+   * The minecraft:exposed_copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType EXPOSED_COPPER_DOOR = block(Key.key("exposed_copper_door"));
+
+  /**
+   * The minecraft:exposed_copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType EXPOSED_COPPER_GRATE = block(Key.key("exposed_copper_grate"));
+
+  /**
+   * The minecraft:exposed_copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType EXPOSED_COPPER_TRAPDOOR = block(Key.key("exposed_copper_trapdoor"));
 
   /**
    * The minecraft:exposed_cut_copper item type.
@@ -3161,6 +3294,27 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType FLINT_AND_STEEL = item(Key.key("flint_and_steel"));
+
+  /**
+   * The minecraft:flow_armor_trim_smithing_template item type.
+   *
+   * @since 1.1
+   */
+  ItemType FLOW_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("flow_armor_trim_smithing_template"));
+
+  /**
+   * The minecraft:flow_banner_pattern item type.
+   *
+   * @since 1.1
+   */
+  ItemType FLOW_BANNER_PATTERN = item(Key.key("flow_banner_pattern"));
+
+  /**
+   * The minecraft:flow_pottery_sherd item type.
+   *
+   * @since 1.1
+   */
+  ItemType FLOW_POTTERY_SHERD = item(Key.key("flow_pottery_sherd"));
 
   /**
    * The minecraft:flower_banner_pattern item type.
@@ -3492,13 +3646,6 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType GRANITE_WALL = block(Key.key("granite_wall"));
 
   /**
-   * The minecraft:grass item type.
-   *
-   * @since 0.1
-   */
-  ItemType GRASS = block(Key.key("grass"));
-
-  /**
    * The minecraft:grass_block item type.
    *
    * @since 0.1
@@ -3716,6 +3863,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType GUNPOWDER = item(Key.key("gunpowder"));
 
   /**
+   * The minecraft:guster_banner_pattern item type.
+   *
+   * @since 1.1
+   */
+  ItemType GUSTER_BANNER_PATTERN = item(Key.key("guster_banner_pattern"));
+
+  /**
+   * The minecraft:guster_pottery_sherd item type.
+   *
+   * @since 1.1
+   */
+  ItemType GUSTER_POTTERY_SHERD = item(Key.key("guster_pottery_sherd"));
+
+  /**
    * The minecraft:hanging_roots item type.
    *
    * @since 0.1
@@ -3749,6 +3910,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.2
    */
   ItemType HEARTBREAK_POTTERY_SHERD = item(Key.key("heartbreak_pottery_sherd"));
+
+  /**
+   * The minecraft:heavy_core item type.
+   *
+   * @since 1.1
+   */
+  ItemType HEAVY_CORE = block(Key.key("heavy_core"));
 
   /**
    * The minecraft:heavy_weighted_pressure_plate item type.
@@ -4666,6 +4834,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType LOOM = block(Key.key("loom"));
+
+  /**
+   * The minecraft:mace item type.
+   *
+   * @since 1.1
+   */
+  ItemType MACE = item(Key.key("mace"));
 
   /**
    * The minecraft:magenta_banner item type.
@@ -5593,6 +5768,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType OCHRE_FROGLIGHT = block(Key.key("ochre_froglight"));
 
   /**
+   * The minecraft:ominous_bottle item type.
+   *
+   * @since 1.1
+   */
+  ItemType OMINOUS_BOTTLE = item(Key.key("ominous_bottle"));
+
+  /**
+   * The minecraft:ominous_trial_key item type.
+   *
+   * @since 1.1
+   */
+  ItemType OMINOUS_TRIAL_KEY = item(Key.key("ominous_trial_key"));
+
+  /**
    * The minecraft:orange_banner item type.
    *
    * @since 0.1
@@ -5698,11 +5887,46 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType OXEYE_DAISY = block(Key.key("oxeye_daisy"));
 
   /**
+   * The minecraft:oxidized_chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType OXIDIZED_CHISELED_COPPER = block(Key.key("oxidized_chiseled_copper"));
+
+  /**
    * The minecraft:oxidized_copper item type.
    *
    * @since 0.1
    */
   ItemType OXIDIZED_COPPER = block(Key.key("oxidized_copper"));
+
+  /**
+   * The minecraft:oxidized_copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType OXIDIZED_COPPER_BULB = block(Key.key("oxidized_copper_bulb"));
+
+  /**
+   * The minecraft:oxidized_copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType OXIDIZED_COPPER_DOOR = block(Key.key("oxidized_copper_door"));
+
+  /**
+   * The minecraft:oxidized_copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType OXIDIZED_COPPER_GRATE = block(Key.key("oxidized_copper_grate"));
+
+  /**
+   * The minecraft:oxidized_copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType OXIDIZED_COPPER_TRAPDOOR = block(Key.key("oxidized_copper_trapdoor"));
 
   /**
    * The minecraft:oxidized_cut_copper item type.
@@ -6180,6 +6404,34 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType POLISHED_GRANITE_STAIRS = block(Key.key("polished_granite_stairs"));
+
+  /**
+   * The minecraft:polished_tuff item type.
+   *
+   * @since 1.1
+   */
+  ItemType POLISHED_TUFF = block(Key.key("polished_tuff"));
+
+  /**
+   * The minecraft:polished_tuff_slab item type.
+   *
+   * @since 1.1
+   */
+  ItemType POLISHED_TUFF_SLAB = block(Key.key("polished_tuff_slab"));
+
+  /**
+   * The minecraft:polished_tuff_stairs item type.
+   *
+   * @since 1.1
+   */
+  ItemType POLISHED_TUFF_STAIRS = block(Key.key("polished_tuff_stairs"));
+
+  /**
+   * The minecraft:polished_tuff_wall item type.
+   *
+   * @since 1.1
+   */
+  ItemType POLISHED_TUFF_WALL = block(Key.key("polished_tuff_wall"));
 
   /**
    * The minecraft:popped_chorus_fruit item type.
@@ -6946,6 +7198,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType SCAFFOLDING = block(Key.key("scaffolding"));
 
   /**
+   * The minecraft:scrape_pottery_sherd item type.
+   *
+   * @since 1.1
+   */
+  ItemType SCRAPE_POTTERY_SHERD = item(Key.key("scrape_pottery_sherd"));
+
+  /**
    * The minecraft:sculk item type.
    *
    * @since 0.1
@@ -6979,13 +7238,6 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType SCULK_VEIN = block(Key.key("sculk_vein"));
-
-  /**
-   * The minecraft:scute item type.
-   *
-   * @since 0.1
-   */
-  ItemType SCUTE = item(Key.key("scute"));
 
   /**
    * The minecraft:sea_lantern item type.
@@ -7058,6 +7310,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType SHIELD = item(Key.key("shield"));
+
+  /**
+   * The minecraft:short_grass item type.
+   *
+   * @since 1.1
+   */
+  ItemType SHORT_GRASS = block(Key.key("short_grass"));
 
   /**
    * The minecraft:shroomlight item type.
@@ -8013,6 +8272,20 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType TRAPPED_CHEST = block(Key.key("trapped_chest"));
 
   /**
+   * The minecraft:trial_key item type.
+   *
+   * @since 1.1
+   */
+  ItemType TRIAL_KEY = item(Key.key("trial_key"));
+
+  /**
+   * The minecraft:trial_spawner item type.
+   *
+   * @since 1.1
+   */
+  ItemType TRIAL_SPAWNER = block(Key.key("trial_spawner"));
+
+  /**
    * The minecraft:trident item type.
    *
    * @since 0.1
@@ -8076,6 +8349,55 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType TUFF = block(Key.key("tuff"));
 
   /**
+   * The minecraft:tuff_brick_slab item type.
+   *
+   * @since 1.1
+   */
+  ItemType TUFF_BRICK_SLAB = block(Key.key("tuff_brick_slab"));
+
+  /**
+   * The minecraft:tuff_brick_stairs item type.
+   *
+   * @since 1.1
+   */
+  ItemType TUFF_BRICK_STAIRS = block(Key.key("tuff_brick_stairs"));
+
+  /**
+   * The minecraft:tuff_brick_wall item type.
+   *
+   * @since 1.1
+   */
+  ItemType TUFF_BRICK_WALL = block(Key.key("tuff_brick_wall"));
+
+  /**
+   * The minecraft:tuff_bricks item type.
+   *
+   * @since 1.1
+   */
+  ItemType TUFF_BRICKS = block(Key.key("tuff_bricks"));
+
+  /**
+   * The minecraft:tuff_slab item type.
+   *
+   * @since 1.1
+   */
+  ItemType TUFF_SLAB = block(Key.key("tuff_slab"));
+
+  /**
+   * The minecraft:tuff_stairs item type.
+   *
+   * @since 1.1
+   */
+  ItemType TUFF_STAIRS = block(Key.key("tuff_stairs"));
+
+  /**
+   * The minecraft:tuff_wall item type.
+   *
+   * @since 1.1
+   */
+  ItemType TUFF_WALL = block(Key.key("tuff_wall"));
+
+  /**
    * The minecraft:turtle_egg item type.
    *
    * @since 0.1
@@ -8090,6 +8412,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType TURTLE_HELMET = item(Key.key("turtle_helmet"));
 
   /**
+   * The minecraft:turtle_scute item type.
+   *
+   * @since 1.1
+   */
+  ItemType TURTLE_SCUTE = item(Key.key("turtle_scute"));
+
+  /**
    * The minecraft:turtle_spawn_egg item type.
    *
    * @since 0.1
@@ -8102,6 +8431,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType TWISTING_VINES = block(Key.key("twisting_vines"));
+
+  /**
+   * The minecraft:vault item type.
+   *
+   * @since 1.1
+   */
+  ItemType VAULT = block(Key.key("vault"));
 
   /**
    * The minecraft:verdant_froglight item type.
@@ -8300,11 +8636,46 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType WATER_BUCKET = item(Key.key("water_bucket"));
 
   /**
+   * The minecraft:waxed_chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_CHISELED_COPPER = block(Key.key("waxed_chiseled_copper"));
+
+  /**
    * The minecraft:waxed_copper_block item type.
    *
    * @since 0.1
    */
   ItemType WAXED_COPPER_BLOCK = block(Key.key("waxed_copper_block"));
+
+  /**
+   * The minecraft:waxed_copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_COPPER_BULB = block(Key.key("waxed_copper_bulb"));
+
+  /**
+   * The minecraft:waxed_copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_COPPER_DOOR = block(Key.key("waxed_copper_door"));
+
+  /**
+   * The minecraft:waxed_copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_COPPER_GRATE = block(Key.key("waxed_copper_grate"));
+
+  /**
+   * The minecraft:waxed_copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_COPPER_TRAPDOOR = block(Key.key("waxed_copper_trapdoor"));
 
   /**
    * The minecraft:waxed_cut_copper item type.
@@ -8328,11 +8699,46 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType WAXED_CUT_COPPER_STAIRS = block(Key.key("waxed_cut_copper_stairs"));
 
   /**
+   * The minecraft:waxed_exposed_chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_EXPOSED_CHISELED_COPPER = block(Key.key("waxed_exposed_chiseled_copper"));
+
+  /**
    * The minecraft:waxed_exposed_copper item type.
    *
    * @since 0.1
    */
   ItemType WAXED_EXPOSED_COPPER = block(Key.key("waxed_exposed_copper"));
+
+  /**
+   * The minecraft:waxed_exposed_copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_EXPOSED_COPPER_BULB = block(Key.key("waxed_exposed_copper_bulb"));
+
+  /**
+   * The minecraft:waxed_exposed_copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_EXPOSED_COPPER_DOOR = block(Key.key("waxed_exposed_copper_door"));
+
+  /**
+   * The minecraft:waxed_exposed_copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_EXPOSED_COPPER_GRATE = block(Key.key("waxed_exposed_copper_grate"));
+
+  /**
+   * The minecraft:waxed_exposed_copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_EXPOSED_COPPER_TRAPDOOR = block(Key.key("waxed_exposed_copper_trapdoor"));
 
   /**
    * The minecraft:waxed_exposed_cut_copper item type.
@@ -8356,11 +8762,46 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType WAXED_EXPOSED_CUT_COPPER_STAIRS = block(Key.key("waxed_exposed_cut_copper_stairs"));
 
   /**
+   * The minecraft:waxed_oxidized_chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_OXIDIZED_CHISELED_COPPER = block(Key.key("waxed_oxidized_chiseled_copper"));
+
+  /**
    * The minecraft:waxed_oxidized_copper item type.
    *
    * @since 0.1
    */
   ItemType WAXED_OXIDIZED_COPPER = block(Key.key("waxed_oxidized_copper"));
+
+  /**
+   * The minecraft:waxed_oxidized_copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_OXIDIZED_COPPER_BULB = block(Key.key("waxed_oxidized_copper_bulb"));
+
+  /**
+   * The minecraft:waxed_oxidized_copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_OXIDIZED_COPPER_DOOR = block(Key.key("waxed_oxidized_copper_door"));
+
+  /**
+   * The minecraft:waxed_oxidized_copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_OXIDIZED_COPPER_GRATE = block(Key.key("waxed_oxidized_copper_grate"));
+
+  /**
+   * The minecraft:waxed_oxidized_copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_OXIDIZED_COPPER_TRAPDOOR = block(Key.key("waxed_oxidized_copper_trapdoor"));
 
   /**
    * The minecraft:waxed_oxidized_cut_copper item type.
@@ -8384,11 +8825,46 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType WAXED_OXIDIZED_CUT_COPPER_STAIRS = block(Key.key("waxed_oxidized_cut_copper_stairs"));
 
   /**
+   * The minecraft:waxed_weathered_chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_WEATHERED_CHISELED_COPPER = block(Key.key("waxed_weathered_chiseled_copper"));
+
+  /**
    * The minecraft:waxed_weathered_copper item type.
    *
    * @since 0.1
    */
   ItemType WAXED_WEATHERED_COPPER = block(Key.key("waxed_weathered_copper"));
+
+  /**
+   * The minecraft:waxed_weathered_copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_WEATHERED_COPPER_BULB = block(Key.key("waxed_weathered_copper_bulb"));
+
+  /**
+   * The minecraft:waxed_weathered_copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_WEATHERED_COPPER_DOOR = block(Key.key("waxed_weathered_copper_door"));
+
+  /**
+   * The minecraft:waxed_weathered_copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_WEATHERED_COPPER_GRATE = block(Key.key("waxed_weathered_copper_grate"));
+
+  /**
+   * The minecraft:waxed_weathered_copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType WAXED_WEATHERED_COPPER_TRAPDOOR = block(Key.key("waxed_weathered_copper_trapdoor"));
 
   /**
    * The minecraft:waxed_weathered_cut_copper item type.
@@ -8420,11 +8896,46 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
       item(Key.key("wayfinder_armor_trim_smithing_template"));
 
   /**
+   * The minecraft:weathered_chiseled_copper item type.
+   *
+   * @since 1.1
+   */
+  ItemType WEATHERED_CHISELED_COPPER = block(Key.key("weathered_chiseled_copper"));
+
+  /**
    * The minecraft:weathered_copper item type.
    *
    * @since 0.1
    */
   ItemType WEATHERED_COPPER = block(Key.key("weathered_copper"));
+
+  /**
+   * The minecraft:weathered_copper_bulb item type.
+   *
+   * @since 1.1
+   */
+  ItemType WEATHERED_COPPER_BULB = block(Key.key("weathered_copper_bulb"));
+
+  /**
+   * The minecraft:weathered_copper_door item type.
+   *
+   * @since 1.1
+   */
+  ItemType WEATHERED_COPPER_DOOR = block(Key.key("weathered_copper_door"));
+
+  /**
+   * The minecraft:weathered_copper_grate item type.
+   *
+   * @since 1.1
+   */
+  ItemType WEATHERED_COPPER_GRATE = block(Key.key("weathered_copper_grate"));
+
+  /**
+   * The minecraft:weathered_copper_trapdoor item type.
+   *
+   * @since 1.1
+   */
+  ItemType WEATHERED_COPPER_TRAPDOOR = block(Key.key("weathered_copper_trapdoor"));
 
   /**
    * The minecraft:weathered_cut_copper item type.
@@ -8581,6 +9092,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
   ItemType WILD_ARMOR_TRIM_SMITHING_TEMPLATE = item(Key.key("wild_armor_trim_smithing_template"));
 
   /**
+   * The minecraft:wind_charge item type.
+   *
+   * @since 1.1
+   */
+  ItemType WIND_CHARGE = item(Key.key("wind_charge"));
+
+  /**
    * The minecraft:witch_spawn_egg item type.
    *
    * @since 0.1
@@ -8614,6 +9132,13 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType WITHER_SPAWN_EGG = item(Key.key("wither_spawn_egg"));
+
+  /**
+   * The minecraft:wolf_armor item type.
+   *
+   * @since 1.1
+   */
+  ItemType WOLF_ARMOR = item(Key.key("wolf_armor"));
 
   /**
    * The minecraft:wolf_spawn_egg item type.
