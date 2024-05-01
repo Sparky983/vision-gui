@@ -1,7 +1,7 @@
 plugins {
     id("vision.java-conventions")
     id("xyz.jpenilla.run-paper") version "2.2.4"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.github.goooler.shadow") version "8.1.7"
 }
 
 repositories {
