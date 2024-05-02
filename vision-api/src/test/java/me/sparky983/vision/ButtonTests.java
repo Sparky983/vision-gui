@@ -160,8 +160,9 @@ class ButtonTests {
   void testVarargsLoreWhenLoreContainsNull() {
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e = assertThrows(
-        NullPointerException.class, () -> button.lore(Arrays.asList(LORE_LINE_1, null)));
+    final Exception e =
+        assertThrows(
+            NullPointerException.class, () -> button.lore(Arrays.asList(LORE_LINE_1, null)));
     assertEquals("lore[1] cannot be null", e.getMessage());
 
     assertNotEquals(Arrays.asList(LORE_LINE_1, null), button.lore());
@@ -191,8 +192,9 @@ class ButtonTests {
   void testListLoreWhenLoreContainsNull() {
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e = assertThrows(
-        NullPointerException.class, () -> button.lore(Arrays.asList(LORE_LINE_1, null)));
+    final Exception e =
+        assertThrows(
+            NullPointerException.class, () -> button.lore(Arrays.asList(LORE_LINE_1, null)));
     assertEquals("lore[1] cannot be null", e.getMessage());
   }
 
@@ -367,8 +369,7 @@ class ButtonTests {
 
   @Test
   void testToString() {
-    final Button button =
-        Button.of(ItemType.STONE).name(NAME).lore(LORE_LIST).amount(2).glow(true);
+    final Button button = Button.of(ItemType.STONE).name(NAME).lore(LORE_LIST).amount(2).glow(true);
 
     assertEquals(
         String.format(

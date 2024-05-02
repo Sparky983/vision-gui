@@ -31,8 +31,8 @@ class PaperVisionTests {
   @SuppressWarnings("ConstantConditions")
   @Test
   void testOpenWhenPlayerIsNull() {
-    final Exception e = assertThrows(
-        NullPointerException.class, () -> paperVision.open(null, Gui.chest().build()));
+    final Exception e =
+        assertThrows(NullPointerException.class, () -> paperVision.open(null, Gui.chest().build()));
     assertEquals("player cannot be null", e.getMessage());
   }
 

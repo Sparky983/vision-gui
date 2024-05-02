@@ -9328,6 +9328,7 @@ public sealed interface ItemType extends Keyed, Translatable permits ItemTypeImp
    * @since 0.1
    */
   ItemType ZOMBIFIED_PIGLIN_SPAWN_EGG = item(Key.key("zombified_piglin_spawn_egg"));
+
   // @formatter:on
   // </editor-fold>
 
