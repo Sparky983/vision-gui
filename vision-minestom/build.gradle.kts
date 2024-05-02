@@ -8,7 +8,7 @@ repositories {
 
 dependencies {
     api(project(":vision-api"))
-    implementation("dev.hollowcube:minestom-ce:aec3694a4a")
+    implementation("net.minestom:minestom-snapshots:1_20_5-3a6dfc6e67")
 }
 
 tasks {

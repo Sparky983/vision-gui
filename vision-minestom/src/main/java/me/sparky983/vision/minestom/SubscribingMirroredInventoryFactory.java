@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Predicate;
 import me.sparky983.vision.Button;
 import me.sparky983.vision.ClickType;
 import me.sparky983.vision.Gui;
@@ -14,11 +15,16 @@ import me.sparky983.vision.Slot;
 import me.sparky983.vision.Subscription;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.renderer.ComponentRenderer;
+import net.minestom.server.event.EventFilter;
+import net.minestom.server.event.EventNode;
+import net.minestom.server.event.inventory.InventoryCloseEvent;
+import net.minestom.server.event.inventory.InventoryPreClickEvent;
+import net.minestom.server.event.trait.InventoryEvent;
+import net.minestom.server.inventory.ContainerInventory;
 import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.InventoryType;
-import net.minestom.server.item.Enchantment;
-import net.minestom.server.item.ItemHideFlag;
-import net.minestom.server.item.ItemMeta.Builder;
+import net.minestom.server.inventory.click.Click;
+import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.utils.NamespaceID;
@@ -30,11 +36,14 @@ final class SubscribingMirroredInventoryFactory implements MirroredInventoryFact
 
   private final MinestomVision vision;
   private final ComponentRenderer<Locale> componentRenderer;
+  private final EventNode<InventoryEvent> inventoryNode;
 
   SubscribingMirroredInventoryFactory(final MinestomVision vision,
-      final ComponentRenderer<Locale> componentRenderer) {
-    this.vision = vision;
-    this.componentRenderer = componentRenderer;
+      final ComponentRenderer<Locale> componentRenderer,
+      final EventNode<InventoryEvent> inventoryNode) {
+    this.vision = Objects.requireNonNull(vision, "vision");
+    this.componentRenderer = Objects.requireNonNull(componentRenderer, "componentRenderer");
+    this.inventoryNode = Objects.requireNonNull(inventoryNode, "inventoryNode");
   }
 
   @Override
@@ -56,31 +65,54 @@ final class SubscribingMirroredInventoryFactory implements MirroredInventoryFact
       case DROPPER -> InventoryType.WINDOW_3X3;
     };
 
-    final Inventory inventory = new Inventory(inventoryType, gui.title());
+    final ContainerInventory guiInventory = new ContainerInventory(inventoryType, gui.title());
 
-    inventory.addInventoryCondition(
-        (player, rawSlot, minestomClickType, inventoryConditionResult) -> {
-          inventoryConditionResult.setCancel(true);
+    EventNode<InventoryEvent> guiNode = EventNode.value(
+        "gui-click",
+        EventFilter.INVENTORY,
+        Predicate.isEqual(guiInventory));
 
-          final Slot slot = gui.slots().get(rawSlot);
-          final ClickType clickType = switch (minestomClickType) {
-            case LEFT_CLICK, START_LEFT_DRAGGING -> ClickType.LEFT;
-            case RIGHT_CLICK, START_RIGHT_DRAGGING -> ClickType.RIGHT;
-            case CHANGE_HELD -> ClickType.NUMBER_KEY;
-            case START_SHIFT_CLICK ->
-                ClickType.SHIFT_LEFT; // TODO: pr minestom so we can see if it's a left or right click
-            case START_DOUBLE_CLICK -> ClickType.DOUBLE_CLICK;
-            case DROP -> ClickType.DROP;
-            default -> null; // TODO: what triggers half of these
-          };
+    guiNode.addListener(InventoryPreClickEvent.class, (event) -> {
+      event.setCancelled(true);
 
-          if (clickType == null) {
-            return;
-          }
+      record SlotClick(ClickType type, int rawSlot) {}
 
-          gui.slot(slot).ifPresent((button) -> button.publisher()
-              .click(new MinestomClick(player, button, slot, clickType, vision)));
-        });
+      final SlotClick slotClick = switch (event.getClickInfo()) {
+        case Click.Info.Left(int slot) -> new SlotClick(ClickType.LEFT, slot);
+        case Click.Info.LeftShift(int slot) -> new SlotClick(ClickType.SHIFT_LEFT, slot);
+        case Click.Info.Right(int slot) -> new SlotClick(ClickType.RIGHT, slot);
+        case Click.Info.RightShift(int slot) -> new SlotClick(ClickType.SHIFT_LEFT, slot);
+        case Click.Info.Middle(int slot) -> new SlotClick(ClickType.MIDDLE, slot);
+        case Click.Info.DropSlot(int slot, boolean control) -> new SlotClick(
+            control ?
+                ClickType.CONTROL_DROP :
+              ClickType.DROP,
+            slot);
+        case Click.Info.Double(int slot) -> new SlotClick(ClickType.DOUBLE_CLICK, slot);
+        case Click.Info.HotbarSwap(int hotbarSlot, int slot) ->
+            new SlotClick(ClickType.NUMBER_KEY, slot);
+        default -> null;
+      };
+
+      if (slotClick == null) {
+        return;
+      }
+
+      if (slotClick.rawSlot >= gui.slots().size()) {
+        return;
+      }
+
+      final Slot slot = gui.slots().get(slotClick.rawSlot);
+
+      gui.slot(slot).ifPresent((button) -> button.publisher()
+          .click(new MinestomClick(event.getPlayer(), button, slot, slotClick.type(), vision)));
+    });
+
+    guiNode.addListener(InventoryCloseEvent.class, (event) -> {
+      gui.publisher().close(new MinestomClose(event.getPlayer(), gui, vision));
+    });
+
+    inventoryNode.addChild(guiNode);
 
     final Subscriber subscriber = new Subscriber() {
       private final Map<Slot, Subscription> subscriptions = new HashMap<>();
@@ -95,14 +127,14 @@ final class SubscribingMirroredInventoryFactory implements MirroredInventoryFact
         final int rawSlot = slot.column() + (slot.row() * gui.columns());
 
         if (button == null) {
-          inventory.setItemStack(rawSlot, ItemStack.AIR);
+          guiInventory.setItemStack(rawSlot, ItemStack.AIR);
           subscriptions.remove(slot);
           return;
         }
 
-        inventory.setItemStack(rawSlot, createItemStack(button, locale));
+        guiInventory.setItemStack(rawSlot, createItemStack(button, locale));
 
-        subscriptions.put(slot, mirror(inventory, rawSlot, button, locale));
+        subscriptions.put(slot, mirror(guiInventory, rawSlot, button, locale));
       }
     };
 
@@ -117,24 +149,22 @@ final class SubscribingMirroredInventoryFactory implements MirroredInventoryFact
       gui.subscribe(subscriber);
     }
 
-    return inventory;
+    return guiInventory;
   }
 
   private ItemStack createItemStack(final Button button, final Locale locale) {
     return ItemStack.builder(convertItemType(button.type()))
-        .displayName(componentRenderer.render(button.name(), locale))
-        .lore(button.lore().stream()
-            .map((component) -> componentRenderer.render(component, locale)).toList())
+        .set(ItemComponent.ITEM_NAME, componentRenderer.render(button.name(), locale))
+        .set(ItemComponent.LORE, button.lore().stream()
+            .map((component) -> componentRenderer.render(component, locale))
+            .toList())
+        .set(ItemComponent.ENCHANTMENT_GLINT_OVERRIDE, button.glow())
         .amount(button.amount())
-        .meta((meta) -> {
-          meta.hideFlag(ItemHideFlag.values());
-          makeGlow(meta, button.glow());
-        })
         .build();
   }
 
   private Material convertItemType(final ItemType type) {
-    final Material material = Material.fromNamespaceId(NamespaceID.from(type.key()));
+    final Material material = Material.fromNamespaceId(type.key().toString());
 
     if (material == null) {
       throw new RuntimeException(); // TODO
@@ -143,34 +173,22 @@ final class SubscribingMirroredInventoryFactory implements MirroredInventoryFact
     return material;
   }
 
-  private static void makeGlow(final Builder meta, final boolean glow) {
-    if (glow) {
-      meta.enchantment(Enchantment.UNBREAKING, (short) 1);
-    } else {
-      meta.clearEnchantment();
-    }
-  }
-
   private Subscription mirror(final Inventory inventory, final int slot, final Button button,
       final Locale locale) {
     return button.subscribe(new Button.Subscriber() {
       @Override
       public void type(final ItemType type) {
-        inventory.replaceItemStack(slot,
-            (itemStack) -> itemStack.withMaterial(convertItemType(type)));
+        inventory.replaceItemStack(slot, (itemStack) -> itemStack.withMaterial(convertItemType(type)));
       }
 
       @Override
       public void name(final Component name) {
-        inventory.replaceItemStack(slot, (itemStack) -> itemStack.withDisplayName(
-            componentRenderer.render(name, locale)));
+        inventory.replaceItemStack(slot, (itemStack) -> itemStack.with(ItemComponent.ITEM_NAME, componentRenderer.render(name, locale)));
       }
 
       @Override
       public void lore(final List<Component> lore) {
-        inventory.replaceItemStack(slot, (itemStack) -> itemStack.withLore(
-            lore.stream().map((component) -> componentRenderer.render(component, locale))
-                .toList()));
+        inventory.replaceItemStack(slot, (itemStack) -> itemStack.with(ItemComponent.LORE, lore.stream().map((component) -> componentRenderer.render(component, locale)).toList()));
       }
 
       @Override
@@ -180,8 +198,7 @@ final class SubscribingMirroredInventoryFactory implements MirroredInventoryFact
 
       @Override
       public void glow(final boolean glow) {
-        inventory.replaceItemStack(slot,
-            (itemStack) -> itemStack.withMeta((meta) -> makeGlow(meta, glow)));
+        inventory.replaceItemStack(slot, (itemStack) -> itemStack.with(ItemComponent.ENCHANTMENT_GLINT_OVERRIDE, glow));
       }
     });
   }
