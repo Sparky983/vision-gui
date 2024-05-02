@@ -15,10 +15,11 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 final class MinestomComponentRenderer implements ComponentRenderer<Locale> {
-  static final Style VISION_STYLE = Style.style()
-      .color(NamedTextColor.WHITE)
-      .decorations(TextDecoration.NAMES.values(), false)
-      .build();
+  static final Style VISION_STYLE =
+      Style.style()
+          .color(NamedTextColor.WHITE)
+          .decorations(TextDecoration.NAMES.values(), false)
+          .build();
 
   /**
    * Fixes the given {@link Component}.

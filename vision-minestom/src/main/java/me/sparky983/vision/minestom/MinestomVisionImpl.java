@@ -16,11 +16,10 @@ final class MinestomVisionImpl implements MinestomVision {
   private final MirroredInventoryFactory inventoryFactory;
 
   MinestomVisionImpl() {
-    final EventNode<InventoryEvent> inventoryNode = EventNode.type("inventory", EventFilter.INVENTORY);
-    inventoryFactory = new MirroredInventoryFactory(
-        this,
-        new MinestomComponentRenderer(),
-        inventoryNode);
+    final EventNode<InventoryEvent> inventoryNode =
+        EventNode.type("inventory", EventFilter.INVENTORY);
+    inventoryFactory =
+        new MirroredInventoryFactory(this, new MinestomComponentRenderer(), inventoryNode);
     MinecraftServer.getGlobalEventHandler().addChild(inventoryNode);
   }
 
@@ -31,8 +30,8 @@ final class MinestomVisionImpl implements MinestomVision {
 
     final Locale locale = player.getLocale();
 
-    final Inventory inventory = inventoryFactory.create(gui,
-        locale != null ? locale : Locale.getDefault());
+    final Inventory inventory =
+        inventoryFactory.create(gui, locale != null ? locale : Locale.getDefault());
 
     player.openInventory(inventory);
   }

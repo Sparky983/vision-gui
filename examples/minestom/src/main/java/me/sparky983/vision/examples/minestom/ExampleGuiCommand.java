@@ -16,31 +16,34 @@ public final class ExampleGuiCommand extends Command {
   public ExampleGuiCommand(final MinestomVision vision, final Scheduler scheduler) {
     super("example-gui");
 
-    setDefaultExecutor((sender, context) -> {
-      if (!(sender instanceof final Player player)) {
-        sender.sendMessage(Component.text("Only players can use this command"));
-        return;
-      }
+    setDefaultExecutor(
+        (sender, context) -> {
+          if (!(sender instanceof final Player player)) {
+            sender.sendMessage(Component.text("Only players can use this command"));
+            return;
+          }
 
-      final AtomicInteger count = new AtomicInteger(0);
+          final AtomicInteger count = new AtomicInteger(0);
 
-      final Button counter = Button.of(ItemType.DIAMOND)
-          .onClick((click) -> click.clicker().sendMessage(click.button().name()));
+          final Button counter =
+              Button.of(ItemType.DIAMOND)
+                  .onClick((click) -> click.clicker().sendMessage(click.button().name()));
 
-      scheduler.scheduleTask(
-          () -> {
-            counter.name(Component.text("Counter: " + count.incrementAndGet()));
-          },
-          TaskSchedule.seconds(1),
-          TaskSchedule.millis(500));
+          scheduler.scheduleTask(
+              () -> {
+                counter.name(Component.text("Counter: " + count.incrementAndGet()));
+              },
+              TaskSchedule.seconds(1),
+              TaskSchedule.millis(500));
 
-      final Gui gui = Gui.chest()
-          .title(Component.text("Test GUI"))
-          .rows(3)
-          .slot(Slot.of(1, 4), counter)
-          .build();
+          final Gui gui =
+              Gui.chest()
+                  .title(Component.text("Test GUI"))
+                  .rows(3)
+                  .slot(Slot.of(1, 4), counter)
+                  .build();
 
-      vision.open(player, gui);
-    });
+          vision.open(player, gui);
+        });
   }
 }
