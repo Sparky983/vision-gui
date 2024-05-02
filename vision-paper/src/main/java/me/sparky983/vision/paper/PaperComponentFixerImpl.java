@@ -16,10 +16,11 @@ final class PaperComponentFixerImpl implements PaperComponentFixer {
    * The style Vision uses for all items.
    */
   @VisibleForTesting
-  static final Style VISION_STYLE = Style.style()
-      .color(NamedTextColor.WHITE)
-      .decorations(TextDecoration.NAMES.values(), false)
-      .build();
+  static final Style VISION_STYLE =
+      Style.style()
+          .color(NamedTextColor.WHITE)
+          .decorations(TextDecoration.NAMES.values(), false)
+          .build();
 
   @Override
   public Component convert(final Component component, final Locale locale) {

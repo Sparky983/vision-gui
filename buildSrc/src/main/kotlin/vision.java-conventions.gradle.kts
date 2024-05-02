@@ -23,7 +23,7 @@ java {
 
 spotless {
     java {
-        palantirJavaFormat().style("GOOGLE")
+        googleJavaFormat().formatJavadoc(false)
         formatAnnotations()
     }
 }

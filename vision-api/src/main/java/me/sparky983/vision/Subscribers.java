@@ -18,21 +18,22 @@ final class Subscribers<T extends Subscribable.Subscriber> implements Subscribab
   public Subscription subscribe(final T subscriber) {
     Objects.requireNonNull(subscriber, "subscriber cannot be null");
 
-    final Subscription subscription = new Subscription() {
-      @Override
-      public void cancel() {
-        final Map<Subscription, T> copy = new HashMap<>(subscribers);
-        if (copy.remove(this) == null) {
-          throw new IllegalStateException("Subscription has already been cancelled");
-        }
-        subscribers = copy;
-      }
+    final Subscription subscription =
+        new Subscription() {
+          @Override
+          public void cancel() {
+            final Map<Subscription, T> copy = new HashMap<>(subscribers);
+            if (copy.remove(this) == null) {
+              throw new IllegalStateException("Subscription has already been cancelled");
+            }
+            subscribers = copy;
+          }
 
-      @Override
-      public boolean isCanceled() {
-        return !subscribers.containsKey(this);
-      }
-    };
+          @Override
+          public boolean isCanceled() {
+            return !subscribers.containsKey(this);
+          }
+        };
 
     final Map<Subscription, T> copy = new HashMap<>(subscribers);
     copy.put(subscription, subscriber);
