@@ -12,9 +12,13 @@ final class MinestomClose implements Close {
   private final MinestomVision vision;
 
   MinestomClose(final Player closer, final Gui gui, final MinestomVision vision) {
-    this.closer = Objects.requireNonNull(closer, "closer cannot be null");
-    this.gui = Objects.requireNonNull(gui, "gui cannot be null");
-    this.vision = Objects.requireNonNull(vision, "vision cannot be null");
+    Objects.requireNonNull(closer, "closer cannot be null");
+    Objects.requireNonNull(gui, "gui cannot be null");
+    Objects.requireNonNull(vision, "vision cannot be null");
+
+    this.closer = closer;
+    this.gui = gui;
+    this.vision = vision;
   }
 
   @Override

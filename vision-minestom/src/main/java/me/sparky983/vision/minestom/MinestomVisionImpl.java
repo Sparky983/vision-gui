@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.Objects;
 import me.sparky983.vision.Gui;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.ServerProcess;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
@@ -14,12 +13,11 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked
 final class MinestomVisionImpl implements MinestomVision {
-
   private final MirroredInventoryFactory inventoryFactory;
 
   MinestomVisionImpl() {
     final EventNode<InventoryEvent> inventoryNode = EventNode.type("inventory", EventFilter.INVENTORY);
-    inventoryFactory = new SubscribingMirroredInventoryFactory(
+    inventoryFactory = new MirroredInventoryFactory(
         this,
         new MinestomComponentRenderer(),
         inventoryNode);
