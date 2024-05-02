@@ -39,6 +39,8 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
     final Button.Subscriber subscriber = new Button.Subscriber() {
       @Override
       public void type(final ItemType type) {
+        // TODO: this should be safe because we only use components allowed by all item types,
+        //  but we want to avoid this for the future
         itemTypeConverter.convert(type).ifPresent(item::setType);
       }
 
@@ -60,11 +62,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
       @Override
       public void glow(final boolean glow) {
-        if (glow) {
-          item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
-        } else {
-          item.removeEnchantment(Enchantment.DURABILITY);
-        }
+        item.editMeta((meta) -> meta.setEnchantmentGlintOverride(glow));
       }
     };
 
