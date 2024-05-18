@@ -25,6 +25,7 @@ mavenPublishing {
         javadocJar = JavadocJar.Javadoc(),
         sourcesJar = true,
     ))
+    signAllPublications()
     if (!isSnapshot) {
         publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     }
