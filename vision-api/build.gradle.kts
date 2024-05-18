@@ -2,6 +2,8 @@ plugins {
     id("vision.library-conventions")
 }
 
+description = "A platform-independent inventory API"
+
 dependencies {
     api("net.kyori:adventure-api:4.15.0") {
         exclude("org.jetbrains", "annotations")

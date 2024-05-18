@@ -2,6 +2,8 @@ plugins {
     id("vision.library-conventions")
 }
 
+description = "An implementation of Vision for the Paper API"
+
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
