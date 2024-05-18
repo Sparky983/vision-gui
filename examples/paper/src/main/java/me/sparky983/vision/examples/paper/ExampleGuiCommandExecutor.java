@@ -1,6 +1,6 @@
 package me.sparky983.vision.examples.paper;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import me.sparky983.state.MutableState;
 import me.sparky983.vision.Button;
 import me.sparky983.vision.Gui;
 import me.sparky983.vision.ItemType;
@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.jetbrains.annotations.NotNull;
 
 public final class ExampleGuiCommandExecutor implements CommandExecutor {
   private final PaperVision vision;
@@ -34,15 +35,16 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
       return false;
     }
 
-    final AtomicInteger count = new AtomicInteger(0);
+    final MutableState<Integer> count = MutableState.of(0);
 
     final Button counter = Button.of(ItemType.DIAMOND)
-        .onClick((click) -> sender.sendMessage(click.button().name()));
+        .name(count.map(Component::text))
+        .onClick((click) -> sender.sendMessage(Component.text(count.get())));
 
     scheduler.runTaskTimer(
         plugin,
         () -> {
-          counter.name(Component.text("Counter: " + count.incrementAndGet()));
+          count.set(count.get() + 1);
         },
         20,
         10);
