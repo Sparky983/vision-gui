@@ -99,7 +99,8 @@ class ButtonTests {
   void testTypeWhenTypeIsNull() {
     final Button button = Button.of(ItemType.STONE);
 
-    final Exception e = assertThrows(NullPointerException.class, () -> button.type((ItemType) null));
+    final Exception e =
+        assertThrows(NullPointerException.class, () -> button.type((ItemType) null));
     assertEquals("type cannot be null", e.getMessage());
 
     assertNotNull(button.type());
