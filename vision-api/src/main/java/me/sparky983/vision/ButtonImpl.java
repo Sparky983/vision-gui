@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import me.sparky983.state.State;
 import net.kyori.adventure.text.Component;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -59,6 +60,14 @@ final class ButtonImpl implements Button {
   }
 
   @Override
+  public Button type(final State<? extends ItemType> type) {
+    Objects.requireNonNull(type, "type cannot be null");
+
+    type.subscribe(this::type);
+    return this;
+  }
+
+  @Override
   public Component name() {
     return name;
   }
@@ -71,6 +80,14 @@ final class ButtonImpl implements Button {
       this.name = Component.translatable(type);
     }
     subscribers.notify((subscriber) -> subscriber.name(this.name));
+    return this;
+  }
+
+  @Override
+  public Button name(final State<? extends @Nullable Component> type) {
+    Objects.requireNonNull(type, "type");
+
+    type.subscribe(this::name);
     return this;
   }
 
@@ -100,6 +117,14 @@ final class ButtonImpl implements Button {
   }
 
   @Override
+  public Button lore(final State<? extends List<? extends Component>> lore) {
+    Objects.requireNonNull(lore, "lore cannot be null");
+
+    lore.subscribe(this::lore);
+    return this;
+  }
+
+  @Override
   public int amount() {
     return amount;
   }
@@ -116,6 +141,14 @@ final class ButtonImpl implements Button {
   }
 
   @Override
+  public Button amount(final State<Integer> amount) {
+    Objects.requireNonNull(amount, "amount cannot be null");
+
+    amount.subscribe(this::amount);
+    return this;
+  }
+
+  @Override
   public boolean glow() {
     return glow;
   }
@@ -124,6 +157,14 @@ final class ButtonImpl implements Button {
   public Button glow(final boolean glow) {
     this.glow = glow;
     subscribers.notify((subscriber) -> subscriber.glow(glow));
+    return this;
+  }
+
+  @Override
+  public Button glow(final State<Boolean> glow) {
+    Objects.requireNonNull(glow, "glow cannot be null");
+
+    glow.subscribe(this::glow);
     return this;
   }
 

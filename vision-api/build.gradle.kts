@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+    api("me.sparky983.state:state:0.1.0")
+
     api("net.kyori:adventure-api:4.16.0") {
         exclude("org.jetbrains", "annotations")
     }

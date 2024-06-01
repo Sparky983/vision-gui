@@ -1,8 +1,8 @@
 package me.sparky983.vision;
 
 import java.util.List;
-import java.util.concurrent.Flow.Publisher;
 import java.util.function.Consumer;
+import me.sparky983.state.State;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -71,6 +71,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
    */
   Button type(ItemType type);
 
+  Button type(State<? extends ItemType> type);
+
   /**
    * Returns the name of this {@code Button}.
    * <p>
@@ -94,6 +96,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
    * (italics).
    */
   Button name(@Nullable Component name);
+
+  Button name(State<? extends @Nullable Component> type);
 
   /**
    * Returns the lore of this {@code Button}.
@@ -134,6 +138,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
    */
   Button lore(List<? extends Component> lore);
 
+  Button lore(State<? extends List<? extends Component>> lore);
+
   /**
    * Returns the amount items in this {@code Button}.
    *
@@ -152,6 +158,8 @@ public interface Button extends Subscribable<Button.Subscriber> {
    * @since 0.1
    */
   Button amount(int amount);
+
+  Button amount(State<Integer> amount);
 
   /**
    * Checks whether this {@code Button} is glowing.
@@ -173,6 +181,9 @@ public interface Button extends Subscribable<Button.Subscriber> {
    */
   @ApiStatus.Experimental
   Button glow(boolean glow);
+
+  @ApiStatus.Experimental
+  Button glow(State<Boolean> glow);
 
   /**
    * Subscribes the specified {@link Click} handler to this button.
