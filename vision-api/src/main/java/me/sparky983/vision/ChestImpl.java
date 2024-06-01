@@ -19,8 +19,7 @@ final class ChestImpl implements Chest {
   @VisibleForTesting
   static final Component DEFAULT_TITLE = Component.translatable("container.chest");
 
-  @VisibleForTesting
-  static final int DEFAULT_ROWS = 1;
+  @VisibleForTesting static final int DEFAULT_ROWS = 1;
 
   private final Container container;
 
