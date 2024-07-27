@@ -15,33 +15,22 @@ import org.bukkit.Server;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 @NullMarked
 final class MirroredInventoryFactory {
-  private static final String UNABLE_TO_MIRROR_MESSAGE =
-      """
-            Unable to converter item type "%s". Possible causes:
-            - The item is not available in this version of Minecraft
-            - Legacy materials are enabled
-            """;
 
   private final Server server;
-  private final ItemTypeConverter itemTypeConverter;
   private final ButtonMirror buttonMirror;
 
   MirroredInventoryFactory(
       final Server server,
-      final ItemTypeConverter itemTypeConverter,
       final ButtonMirror buttonMirror) {
     Objects.requireNonNull(server, "server cannot be null");
-    Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
     Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
 
     this.server = server;
-    this.itemTypeConverter = itemTypeConverter;
     this.buttonMirror = buttonMirror;
   }
 
@@ -79,20 +68,8 @@ final class MirroredInventoryFactory {
               subscriptions.remove(slot);
               return;
             }
-            final ItemStack item =
-                itemTypeConverter
-                    .convert(button.type())
-                    .map(ItemStack::new)
-                    .orElseThrow(
-                        () ->
-                            new IllegalStateException(
-                                String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
-            inventory.setItem(rawSlot, item);
 
-            final ItemStack craftItem = inventory.getItem(rawSlot);
-            // We need to get the item from the inventory because the item is cloned
-            assert craftItem != null;
-            subscriptions.put(slot, buttonMirror.mirror(button, craftItem, locale));
+            subscriptions.put(slot, buttonMirror.mirror(inventory, rawSlot, button, locale));
           }
         };
 
