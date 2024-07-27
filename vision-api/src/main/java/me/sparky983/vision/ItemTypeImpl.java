@@ -10,7 +10,7 @@ import org.jspecify.annotations.NullMarked;
  * The default implementation of {@link ItemType}.
  */
 @NullMarked
-record ItemTypeImpl(@Override Key key, boolean isBlock) implements ItemType {
+record ItemTypeImpl(Key key, boolean isBlock) implements ItemType {
   private static final HashMap<Key, ItemType> itemTypes = new HashMap<>();
 
   /**

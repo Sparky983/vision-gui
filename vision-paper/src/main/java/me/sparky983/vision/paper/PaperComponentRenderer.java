@@ -18,10 +18,11 @@ final class PaperComponentRenderer implements ComponentRenderer<Locale> {
   /**
    * The style Vision uses for all items.
    */
-  private static final Style VISION_STYLE = Style.style()
-      .color(NamedTextColor.WHITE)
-      .decoration(TextDecoration.ITALIC, false)
-      .build();
+  private static final Style VISION_STYLE =
+      Style.style()
+          .color(NamedTextColor.WHITE)
+          .decoration(TextDecoration.ITALIC, false)
+          .build();
 
   /**
    * Fixes the given {@link Component}.

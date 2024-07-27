@@ -283,19 +283,20 @@ class ChestTests {
 
     final Gui gui = builder.build();
 
-    final Set<Slot> slots = Set.of(
-        Slot.of(0, 0),
-        Slot.of(0, 1),
-        Slot.of(0, 2),
-        Slot.of(0, 3),
-        Slot.of(0, 5),
-        Slot.of(0, 6),
-        Slot.of(0, 7),
-        Slot.of(0, 8),
+    final Set<Slot> slots =
+        Set.of(
+            Slot.of(0, 0),
+            Slot.of(0, 1),
+            Slot.of(0, 2),
+            Slot.of(0, 3),
+            Slot.of(0, 5),
+            Slot.of(0, 6),
+            Slot.of(0, 7),
+            Slot.of(0, 8),
 
-        // Slot.of(0, 0) - corner
-        Slot.of(1, 0),
-        Slot.of(2, 0));
+            // Slot.of(0, 0) - corner
+            Slot.of(1, 0),
+            Slot.of(2, 0));
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
@@ -354,19 +355,20 @@ class ChestTests {
 
     final Gui gui = builder.build();
 
-    final Set<Slot> slots = Set.of(
-        Slot.of(0, 0),
-        Slot.of(0, 1),
-        Slot.of(0, 2),
-        Slot.of(0, 3),
-        Slot.of(0, 5),
-        Slot.of(0, 6),
-        Slot.of(0, 7),
-        Slot.of(0, 8),
+    final Set<Slot> slots =
+        Set.of(
+            Slot.of(0, 0),
+            Slot.of(0, 1),
+            Slot.of(0, 2),
+            Slot.of(0, 3),
+            Slot.of(0, 5),
+            Slot.of(0, 6),
+            Slot.of(0, 7),
+            Slot.of(0, 8),
 
-        // Slot.of(0, 0) - corner
-        Slot.of(1, 0),
-        Slot.of(2, 0));
+            // Slot.of(0, 0) - corner
+            Slot.of(1, 0),
+            Slot.of(2, 0));
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
@@ -399,33 +401,34 @@ class ChestTests {
 
     final Gui gui = builder.build();
 
-    final Set<Slot> slots = Set.of(
-        Slot.of(0, 0),
-        Slot.of(0, 1),
-        Slot.of(0, 2),
-        Slot.of(0, 3),
-        Slot.of(0, 5),
-        Slot.of(0, 6),
-        Slot.of(0, 7),
-        Slot.of(0, 8),
-        Slot.of(2, 0),
-        Slot.of(2, 1),
-        Slot.of(2, 2),
-        Slot.of(2, 3),
-        Slot.of(2, 4),
-        Slot.of(2, 5),
-        Slot.of(2, 6),
-        Slot.of(2, 7),
-        Slot.of(2, 8),
+    final Set<Slot> slots =
+        Set.of(
+            Slot.of(0, 0),
+            Slot.of(0, 1),
+            Slot.of(0, 2),
+            Slot.of(0, 3),
+            Slot.of(0, 5),
+            Slot.of(0, 6),
+            Slot.of(0, 7),
+            Slot.of(0, 8),
+            Slot.of(2, 0),
+            Slot.of(2, 1),
+            Slot.of(2, 2),
+            Slot.of(2, 3),
+            Slot.of(2, 4),
+            Slot.of(2, 5),
+            Slot.of(2, 6),
+            Slot.of(2, 7),
+            Slot.of(2, 8),
 
-        // Slot.of(0, 0) - corner
-        Slot.of(1, 0),
-        // Slot.of(2, 0), - corner
+            // Slot.of(0, 0) - corner
+            Slot.of(1, 0),
+            // Slot.of(2, 0), - corner
 
-        // Slot.of(0, 8) - corner
-        Slot.of(1, 8)
-        // Slot.of(2, 8) - corner
-        );
+            // Slot.of(0, 8) - corner
+            Slot.of(1, 8)
+            // Slot.of(2, 8) - corner
+            );
 
     for (final Slot slot : gui.slots()) {
       if (slots.contains(slot)) {
@@ -442,25 +445,26 @@ class ChestTests {
   void testSlots() {
     final Gui gui = Gui.chest().rows(2).build();
 
-    final List<Slot> slots = List.of(
-        Slot.of(0, 0),
-        Slot.of(0, 1),
-        Slot.of(0, 2),
-        Slot.of(0, 3),
-        Slot.of(0, 4),
-        Slot.of(0, 5),
-        Slot.of(0, 6),
-        Slot.of(0, 7),
-        Slot.of(0, 8),
-        Slot.of(1, 0),
-        Slot.of(1, 1),
-        Slot.of(1, 2),
-        Slot.of(1, 3),
-        Slot.of(1, 4),
-        Slot.of(1, 5),
-        Slot.of(1, 6),
-        Slot.of(1, 7),
-        Slot.of(1, 8));
+    final List<Slot> slots =
+        List.of(
+            Slot.of(0, 0),
+            Slot.of(0, 1),
+            Slot.of(0, 2),
+            Slot.of(0, 3),
+            Slot.of(0, 4),
+            Slot.of(0, 5),
+            Slot.of(0, 6),
+            Slot.of(0, 7),
+            Slot.of(0, 8),
+            Slot.of(1, 0),
+            Slot.of(1, 1),
+            Slot.of(1, 2),
+            Slot.of(1, 3),
+            Slot.of(1, 4),
+            Slot.of(1, 5),
+            Slot.of(1, 6),
+            Slot.of(1, 7),
+            Slot.of(1, 8));
 
     assertEquals(slots, gui.slots());
   }

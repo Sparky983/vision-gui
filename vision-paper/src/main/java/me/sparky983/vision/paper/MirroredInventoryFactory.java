@@ -52,49 +52,57 @@ final class MirroredInventoryFactory {
     final Component title = GlobalTranslator.render(gui.title(), locale);
 
     final Function<InventoryHolder, Inventory> inventoryFactory =
-        (inventoryHolder) -> switch (gui.type()) {
-          case CHEST -> server.createInventory(inventoryHolder, gui.rows() * gui.columns(), title);
-          case HOPPER -> server.createInventory(inventoryHolder, InventoryType.HOPPER, title);
-          case DROPPER -> server.createInventory(inventoryHolder, InventoryType.DROPPER, title);
-        };
+        (inventoryHolder) ->
+            switch (gui.type()) {
+              case CHEST ->
+                  server.createInventory(inventoryHolder, gui.rows() * gui.columns(), title);
+              case HOPPER -> server.createInventory(inventoryHolder, InventoryType.HOPPER, title);
+              case DROPPER -> server.createInventory(inventoryHolder, InventoryType.DROPPER, title);
+            };
 
     final Inventory inventory = new GuiInventoryHolder(gui, inventoryFactory).getInventory();
 
-    final Gui.Subscriber subscriber = new Gui.Subscriber() {
-      private final Map<Slot, Subscription> subscriptions = new HashMap<>();
+    final Gui.Subscriber subscriber =
+        new Gui.Subscriber() {
+          private final Map<Slot, Subscription> subscriptions = new HashMap<>();
 
-      @Override
-      public void slot(final Slot slot, final @Nullable Button button) {
-        final Subscription subscription = subscriptions.get(slot);
-        if (subscription != null) {
-          subscription.cancel();
-        }
+          @Override
+          public void slot(final Slot slot, final @Nullable Button button) {
+            final Subscription subscription = subscriptions.get(slot);
+            if (subscription != null) {
+              subscription.cancel();
+            }
 
-        final int rawSlot = slot.column() + (slot.row() * gui.columns());
-        if (button == null) {
-          inventory.setItem(rawSlot, null);
-          subscriptions.remove(slot);
-          return;
-        }
-        final ItemStack item = itemTypeConverter
-            .convert(button.type())
-            .map(ItemStack::new)
-            .orElseThrow(() ->
-                new IllegalStateException(String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
-        inventory.setItem(rawSlot, item);
+            final int rawSlot = slot.column() + (slot.row() * gui.columns());
+            if (button == null) {
+              inventory.setItem(rawSlot, null);
+              subscriptions.remove(slot);
+              return;
+            }
+            final ItemStack item =
+                itemTypeConverter
+                    .convert(button.type())
+                    .map(ItemStack::new)
+                    .orElseThrow(
+                        () ->
+                            new IllegalStateException(
+                                String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
+            inventory.setItem(rawSlot, item);
 
-        final ItemStack craftItem = inventory.getItem(rawSlot);
-        // We need to get the item from the inventory because the item is cloned
-        assert craftItem != null;
-        subscriptions.put(slot, buttonMirror.mirror(button, craftItem, locale));
-      }
-    };
+            final ItemStack craftItem = inventory.getItem(rawSlot);
+            // We need to get the item from the inventory because the item is cloned
+            assert craftItem != null;
+            subscriptions.put(slot, buttonMirror.mirror(button, craftItem, locale));
+          }
+        };
 
     for (final Slot slot : gui.slots()) {
-      gui.slot(slot).ifPresent((button) -> {
-        // Essentially replaying the button sets
-        subscriber.slot(slot, button);
-      });
+      gui.slot(slot)
+          .ifPresent(
+              (button) -> {
+                // Essentially replaying the button sets
+                subscriber.slot(slot, button);
+              });
     }
 
     gui.subscribe(subscriber);

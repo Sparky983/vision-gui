@@ -30,8 +30,7 @@ public non-sealed interface Chest extends Gui {
    * @since 1.0
    * @vision.experimental because this may be deleted, renamed or moved.
    */
-  @ApiStatus.Experimental
-  int MIN_ROWS = 1;
+  @ApiStatus.Experimental int MIN_ROWS = 1;
 
   /**
    * The maximum number of rows that a {@code Chest} can have.
@@ -40,8 +39,7 @@ public non-sealed interface Chest extends Gui {
    * @since 1.0
    * @vision.experimental because this may be deleted, renamed or moved.
    */
-  @ApiStatus.Experimental
-  int MAX_ROWS = 6;
+  @ApiStatus.Experimental int MAX_ROWS = 6;
 
   /**
    * The number of columns {@code Chest}s have.
@@ -50,8 +48,7 @@ public non-sealed interface Chest extends Gui {
    * @since 1.0
    * @vision.experimental because this may be deleted, renamed or moved.
    */
-  @ApiStatus.Experimental
-  int COLUMNS = 9;
+  @ApiStatus.Experimental int COLUMNS = 9;
 
   /**
    * {@inheritDoc}
