@@ -4,7 +4,6 @@ plugins {
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
@@ -28,8 +27,7 @@ tasks {
                 links("https://jd.papermc.io/paper/1.20.6")
                 links("https://javadoc.jitpack.io/me/sparky983/vision-gui/vision-api/2f95721ee1/javadoc")
                 sequenceOf("api", "key").forEach {
-                    // TODO: 4.17.0
-                    links("https://jd.advntr.dev/$it/4.16.0")
+                    links("https://jd.advntr.dev/$it/4.17.0")
                 }
             }
         }
