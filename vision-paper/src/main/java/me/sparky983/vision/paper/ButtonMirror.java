@@ -51,8 +51,12 @@ final class ButtonMirror {
 
           @Override
           public void lore(final List<Component> lore) {
-            item.editMeta((meta) -> meta.lore(
-                lore.stream().map((line) -> componentRenderer.render(line, locale)).toList()));
+            item.editMeta(
+                (meta) ->
+                    meta.lore(
+                        lore.stream()
+                            .map((line) -> componentRenderer.render(line, locale))
+                            .toList()));
           }
 
           @Override
