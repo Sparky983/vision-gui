@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew build
 
   publish:
-    if: github.event_name == 'push' || github.event_name == 'release'
+    if: github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
     steps:
