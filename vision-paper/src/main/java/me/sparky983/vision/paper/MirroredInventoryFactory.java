@@ -24,9 +24,7 @@ final class MirroredInventoryFactory {
   private final Server server;
   private final ButtonMirror buttonMirror;
 
-  MirroredInventoryFactory(
-      final Server server,
-      final ButtonMirror buttonMirror) {
+  MirroredInventoryFactory(final Server server, final ButtonMirror buttonMirror) {
     Objects.requireNonNull(server, "server cannot be null");
     Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
 

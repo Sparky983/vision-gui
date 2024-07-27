@@ -26,7 +26,8 @@ final class ButtonMirror {
   private final ItemTypeConverter itemTypeConverter;
 
   ButtonMirror(
-      final ComponentRenderer<Locale> componentRenderer, final ItemTypeConverter itemTypeConverter) {
+      final ComponentRenderer<Locale> componentRenderer,
+      final ItemTypeConverter itemTypeConverter) {
     Objects.requireNonNull(componentRenderer, "componentRenderer cannot be null");
     Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
 
@@ -35,23 +36,25 @@ final class ButtonMirror {
   }
 
   Subscription mirror(
-      final Inventory inventory,
-      final int slot,
-      final Button button,
-      final Locale locale) {
+      final Inventory inventory, final int slot, final Button button, final Locale locale) {
     Objects.requireNonNull(inventory, "inventory cannot be null");
     Objects.requireNonNull(button, "button cannot be null");
     Objects.requireNonNull(locale, "locale cannot be null");
 
-    final Material material = itemTypeConverter.convert(button.type())
-        .orElseThrow(() ->
-            new IllegalStateException(String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
+    final Material material =
+        itemTypeConverter
+            .convert(button.type())
+            .orElseThrow(
+                () ->
+                    new IllegalStateException(
+                        String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
     final ItemStack item = new ItemStack(material, button.amount());
-    item.editMeta((meta) -> {
-      editName(meta, button.name(), locale);
-      editLore(meta, button.lore(), locale);
-      meta.setEnchantmentGlintOverride(button.glow());
-    });
+    item.editMeta(
+        (meta) -> {
+          editName(meta, button.name(), locale);
+          editLore(meta, button.lore(), locale);
+          meta.setEnchantmentGlintOverride(button.glow());
+        });
     inventory.setItem(slot, item);
 
     // When we call setItem, Bukkit sets the slot to a CraftItemStack with the same properties
@@ -65,10 +68,13 @@ final class ButtonMirror {
 
           @Override
           public void type(final ItemType type) {
-            itemTypeConverter.convert(type).ifPresent((material) -> {
-              currentItem = currentItem.withType(material);
-              inventory.setItem(slot, item);
-            });
+            itemTypeConverter
+                .convert(type)
+                .ifPresent(
+                    (material) -> {
+                      currentItem = currentItem.withType(material);
+                      inventory.setItem(slot, item);
+                    });
           }
 
           @Override
@@ -100,9 +106,8 @@ final class ButtonMirror {
   }
 
   private void editLore(final ItemMeta meta, final List<Component> lore, final Locale locale) {
-    final List<Component> renderedLore = lore.stream()
-            .map((line) -> componentRenderer.render(line, locale))
-            .toList();
+    final List<Component> renderedLore =
+        lore.stream().map((line) -> componentRenderer.render(line, locale)).toList();
     meta.lore(renderedLore);
   }
 }

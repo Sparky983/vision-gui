@@ -8,7 +8,6 @@ import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.renderer.ComponentRenderer;
 import net.kyori.adventure.translation.GlobalTranslator;
-import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.annotations.NullMarked;
 
 /**
@@ -19,10 +18,11 @@ final class PaperComponentRenderer implements ComponentRenderer<Locale> {
   /**
    * The style Vision uses for all items.
    */
-  static final Style VISION_STYLE = Style.style()
-      .color(NamedTextColor.WHITE)
-      .decorations(TextDecoration.NAMES.values(), false)
-      .build();
+  static final Style VISION_STYLE =
+      Style.style()
+          .color(NamedTextColor.WHITE)
+          .decorations(TextDecoration.NAMES.values(), false)
+          .build();
 
   /**
    * Fixes the given {@link Component}.
