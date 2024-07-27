@@ -9,6 +9,9 @@ dependencies {
 }
 
 tasks {
+    withType<JavaCompile> {
+        options.release = 17
+    }
     javadoc {
         options {
             (this as StandardJavadocDocletOptions).run {
