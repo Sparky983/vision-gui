@@ -133,10 +133,11 @@ final class Container implements Subscribable<Gui.Subscriber> {
     } else {
       buttons.put(slot, button);
     }
-    subscribers.notify((subscriber) -> {
-      subscriber.button(slot, button); // Backwards compatibility
-      subscriber.slot(slot, button);
-    });
+    subscribers.notify(
+        (subscriber) -> {
+          subscriber.button(slot, button); // Backwards compatibility
+          subscriber.slot(slot, button);
+        });
   }
 
   List<Slot> slots() {
@@ -146,12 +147,13 @@ final class Container implements Subscribable<Gui.Subscriber> {
   void onClose(final Consumer<? super Close> handler) {
     Objects.requireNonNull(handler, "handler cannot be null");
 
-    subscribers.subscribe(new Gui.Subscriber() {
-      @Override
-      public void close(final Close close) {
-        handler.accept(close);
-      }
-    });
+    subscribers.subscribe(
+        new Gui.Subscriber() {
+          @Override
+          public void close(final Close close) {
+            handler.accept(close);
+          }
+        });
   }
 
   Gui.Publisher publisher() {

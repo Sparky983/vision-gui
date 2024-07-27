@@ -345,14 +345,15 @@ class DropperTest {
     final Gui gui = builder.build();
 
     // @formatter:off
-    final Set<Slot> slots = Set.of(
-        Slot.of(0, 0), /*Slot.of(0, 1),*/
-        Slot.of(0, 2),
-        Slot.of(1, 0),
-        Slot.of(1, 2),
-        Slot.of(2, 0),
-        Slot.of(2, 1),
-        Slot.of(2, 2));
+    final Set<Slot> slots =
+        Set.of(
+            Slot.of(0, 0), /*Slot.of(0, 1),*/
+            Slot.of(0, 2),
+            Slot.of(1, 0),
+            Slot.of(1, 2),
+            Slot.of(2, 0),
+            Slot.of(2, 1),
+            Slot.of(2, 2));
     // @formatter:on
 
     for (final Slot slot : gui.slots()) {
@@ -370,16 +371,17 @@ class DropperTest {
   void testSlots() {
     final Gui gui = Gui.dropper().build();
 
-    final List<Slot> slots = List.of(
-        Slot.of(0, 0),
-        Slot.of(0, 1),
-        Slot.of(0, 2),
-        Slot.of(1, 0),
-        Slot.of(1, 1),
-        Slot.of(1, 2),
-        Slot.of(2, 0),
-        Slot.of(2, 1),
-        Slot.of(2, 2));
+    final List<Slot> slots =
+        List.of(
+            Slot.of(0, 0),
+            Slot.of(0, 1),
+            Slot.of(0, 2),
+            Slot.of(1, 0),
+            Slot.of(1, 1),
+            Slot.of(1, 2),
+            Slot.of(2, 0),
+            Slot.of(2, 1),
+            Slot.of(2, 2));
 
     assertEquals(slots, gui.slots());
   }

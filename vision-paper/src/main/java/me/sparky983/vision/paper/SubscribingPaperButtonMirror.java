@@ -36,37 +36,42 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
     item.addItemFlags(ITEM_FLAGS);
 
-    final Button.Subscriber subscriber = new Button.Subscriber() {
-      @Override
-      public void type(final ItemType type) {
-        itemTypeConverter.convert(type).ifPresent(item::setType);
-      }
+    final Button.Subscriber subscriber =
+        new Button.Subscriber() {
+          @Override
+          public void type(final ItemType type) {
+            itemTypeConverter.convert(type).ifPresent(item::setType);
+          }
 
-      @Override
-      public void name(final Component name) {
-        item.editMeta((meta) -> meta.displayName(componentFixer.convert(name, locale)));
-      }
+          @Override
+          public void name(final Component name) {
+            item.editMeta((meta) -> meta.displayName(componentFixer.convert(name, locale)));
+          }
 
-      @Override
-      public void lore(final List<Component> lore) {
-        item.editMeta((meta) -> meta.lore(
-            lore.stream().map((line) -> componentFixer.convert(line, locale)).toList()));
-      }
+          @Override
+          public void lore(final List<Component> lore) {
+            item.editMeta(
+                (meta) ->
+                    meta.lore(
+                        lore.stream()
+                            .map((line) -> componentFixer.convert(line, locale))
+                            .toList()));
+          }
 
-      @Override
-      public void amount(final int amount) {
-        item.setAmount(amount);
-      }
+          @Override
+          public void amount(final int amount) {
+            item.setAmount(amount);
+          }
 
-      @Override
-      public void glow(final boolean glow) {
-        if (glow) {
-          item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
-        } else {
-          item.removeEnchantment(Enchantment.DURABILITY);
-        }
-      }
-    };
+          @Override
+          public void glow(final boolean glow) {
+            if (glow) {
+              item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+            } else {
+              item.removeEnchantment(Enchantment.DURABILITY);
+            }
+          }
+        };
 
     // Essentially replay the button's state to the subscriber
     // Ensures that the ItemStack and Button are consistent
