@@ -35,7 +35,7 @@ public interface PaperVision {
         new SubscribingPaperInventoryMirror(
             plugin.getServer(),
             itemTypeConverter,
-            new SubscribingPaperButtonMirror(new PaperComponentFixerImpl(), itemTypeConverter)));
+            new SubscribingPaperButtonMirror(new PaperComponentRenderer(), itemTypeConverter)));
   }
 
   /**

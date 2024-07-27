@@ -7,6 +7,7 @@ import me.sparky983.vision.Button;
 import me.sparky983.vision.ItemType;
 import me.sparky983.vision.Subscription;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.renderer.ComponentRenderer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -16,15 +17,15 @@ import org.jspecify.annotations.NullMarked;
 final class SubscribingPaperButtonMirror implements PaperButtonMirror {
   private static final ItemFlag[] ITEM_FLAGS = ItemFlag.values();
 
-  private final PaperComponentFixer componentFixer;
+  private final ComponentRenderer<Locale> componentRenderer;
   private final PaperItemTypeConverter itemTypeConverter;
 
   SubscribingPaperButtonMirror(
-      final PaperComponentFixer componentFixer, final PaperItemTypeConverter itemTypeConverter) {
-    Objects.requireNonNull(componentFixer, "componentFixer cannot be null");
+      final ComponentRenderer<Locale> componentRenderer, final PaperItemTypeConverter itemTypeConverter) {
+    Objects.requireNonNull(componentRenderer, "componentFixer cannot be null");
     Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
 
-    this.componentFixer = componentFixer;
+    this.componentRenderer = componentRenderer;
     this.itemTypeConverter = itemTypeConverter;
   }
 
@@ -44,13 +45,13 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
 
       @Override
       public void name(final Component name) {
-        item.editMeta((meta) -> meta.displayName(componentFixer.convert(name, locale)));
+        item.editMeta((meta) -> meta.displayName(componentRenderer.render(name, locale)));
       }
 
       @Override
       public void lore(final List<Component> lore) {
         item.editMeta((meta) -> meta.lore(
-            lore.stream().map((line) -> componentFixer.convert(line, locale)).toList()));
+            lore.stream().map((line) -> componentRenderer.render(line, locale)).toList()));
       }
 
       @Override
