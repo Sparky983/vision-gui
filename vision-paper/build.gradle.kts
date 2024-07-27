@@ -11,11 +11,11 @@ dependencies {
         exclude("net.kyori", "adventure-api")
     }
 
-    compileOnly("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT") {
+    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT") {
         exclude("org.jetbrains", "annotations")
     }
 
-    testImplementation("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT") {
+    testImplementation("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT") {
         exclude("org.jetbrains", "annotations")
     }
 }

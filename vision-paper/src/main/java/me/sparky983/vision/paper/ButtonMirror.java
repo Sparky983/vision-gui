@@ -48,7 +48,7 @@ final class ButtonMirror {
                 () ->
                     new IllegalStateException(
                         String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
-    final ItemStack item = new ItemStack(material, button.amount());
+    final ItemStack item = ItemStack.of(material, button.amount());
     item.editMeta(
         (meta) -> {
           editName(meta, button.name(), locale);
@@ -57,14 +57,9 @@ final class ButtonMirror {
         });
     inventory.setItem(slot, item);
 
-    // When we call setItem, Bukkit sets the slot to a CraftItemStack with the same properties
-    //  which can be mutated and have its changes reflected
-    final ItemStack craftItem = inventory.getItem(slot);
-    assert craftItem != null;
-
     final Button.Subscriber subscriber =
         new Button.Subscriber() {
-          private ItemStack currentItem = craftItem;
+          private ItemStack currentItem = item;
 
           @Override
           public void type(final ItemType type) {
