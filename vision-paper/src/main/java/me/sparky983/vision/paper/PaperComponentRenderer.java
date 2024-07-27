@@ -20,7 +20,7 @@ final class PaperComponentRenderer implements ComponentRenderer<Locale> {
    */
   static final Style VISION_STYLE = Style.style()
       .color(NamedTextColor.WHITE)
-      .decorations(TextDecoration.NAMES.values(), false)
+      .decoration(TextDecoration.ITALIC, false)
       .build();
 
   /**
