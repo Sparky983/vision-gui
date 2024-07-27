@@ -18,7 +18,7 @@ final class PaperComponentRenderer implements ComponentRenderer<Locale> {
   /**
    * The style Vision uses for all items.
    */
-  static final Style VISION_STYLE =
+  private static final Style VISION_STYLE =
       Style.style()
           .color(NamedTextColor.WHITE)
           .decoration(TextDecoration.ITALIC, false)
