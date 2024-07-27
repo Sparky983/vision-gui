@@ -13,13 +13,13 @@ import org.jspecify.annotations.Nullable;
 final class PaperVisionImpl implements PaperVision {
   private final Plugin plugin;
   private final PluginManager pluginManager;
-  private final PaperInventoryMirror inventoryMirror;
+  private final MirroredInventoryFactory inventoryMirror;
   private @Nullable InventoryListener inventoryListener;
 
   PaperVisionImpl(
       final Plugin plugin,
       final PluginManager pluginManager,
-      final PaperInventoryMirror inventoryMirror) {
+      final MirroredInventoryFactory inventoryMirror) {
     Objects.requireNonNull(plugin, "plugin cannot be null");
     Objects.requireNonNull(pluginManager, "pluginManager cannot be null");
     Objects.requireNonNull(inventoryMirror, "inventoryMirror cannot be null");

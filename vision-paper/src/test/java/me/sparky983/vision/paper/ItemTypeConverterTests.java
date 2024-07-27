@@ -12,7 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class ModernPaperItemTypeConverterTests {
+class ItemTypeConverterTests {
   static List<Arguments> provideConversions() {
     return List.of(
         Arguments.of(ItemType.STONE, Material.STONE),
@@ -25,7 +25,7 @@ class ModernPaperItemTypeConverterTests {
   @SuppressWarnings("ConstantConditions")
   @Test
   void testConvertWhenItemTypeIsNull() {
-    final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
+    final ItemTypeConverter itemTypeConverter = new ItemTypeConverter();
 
     final Exception e =
         assertThrows(NullPointerException.class, () -> itemTypeConverter.convert(null));
@@ -36,7 +36,7 @@ class ModernPaperItemTypeConverterTests {
   @ParameterizedTest
   @MethodSource("provideConversions")
   void testConvert(final ItemType itemType, final Material expectedMaterial) {
-    final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
+    final ItemTypeConverter itemTypeConverter = new ItemTypeConverter();
 
     final Optional<Material> material = itemTypeConverter.convert(itemType);
 

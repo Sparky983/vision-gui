@@ -27,15 +27,15 @@ public interface PaperVision {
   static PaperVision create(final Plugin plugin) {
     Objects.requireNonNull(plugin, "plugin cannot be null");
 
-    final PaperItemTypeConverter itemTypeConverter = new ModernPaperItemTypeConverter();
+    final ItemTypeConverter itemTypeConverter = new ItemTypeConverter();
 
     return new PaperVisionImpl(
         plugin,
         plugin.getServer().getPluginManager(),
-        new SubscribingPaperInventoryMirror(
+        new MirroredInventoryFactory(
             plugin.getServer(),
             itemTypeConverter,
-            new SubscribingPaperButtonMirror(new PaperComponentRenderer(), itemTypeConverter)));
+            new ButtonMirror(new PaperComponentRenderer(), itemTypeConverter)));
   }
 
   /**

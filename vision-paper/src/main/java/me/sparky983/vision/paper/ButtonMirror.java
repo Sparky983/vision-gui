@@ -14,14 +14,15 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-final class SubscribingPaperButtonMirror implements PaperButtonMirror {
+final class ButtonMirror {
   private static final ItemFlag[] ITEM_FLAGS = ItemFlag.values();
 
   private final ComponentRenderer<Locale> componentRenderer;
-  private final PaperItemTypeConverter itemTypeConverter;
+  private final ItemTypeConverter itemTypeConverter;
 
-  SubscribingPaperButtonMirror(
-      final ComponentRenderer<Locale> componentRenderer, final PaperItemTypeConverter itemTypeConverter) {
+  ButtonMirror(
+      final ComponentRenderer<Locale> componentRenderer,
+      final ItemTypeConverter itemTypeConverter) {
     Objects.requireNonNull(componentRenderer, "componentFixer cannot be null");
     Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
 
@@ -29,8 +30,7 @@ final class SubscribingPaperButtonMirror implements PaperButtonMirror {
     this.itemTypeConverter = itemTypeConverter;
   }
 
-  @Override
-  public Subscription mirror(final Button button, final ItemStack item, final Locale locale) {
+  Subscription mirror(final Button button, final ItemStack item, final Locale locale) {
     Objects.requireNonNull(button, "button cannot be null");
     Objects.requireNonNull(item, "item cannot be null");
     Objects.requireNonNull(locale, "locale cannot be null");
