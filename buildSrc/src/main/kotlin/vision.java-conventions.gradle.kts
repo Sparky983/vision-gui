@@ -17,13 +17,13 @@ dependencies {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 spotless {
     java {
-        palantirJavaFormat().style("GOOGLE")
+        googleJavaFormat().formatJavadoc(false)
         formatAnnotations()
     }
 }

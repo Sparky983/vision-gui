@@ -36,8 +36,8 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
 
     final AtomicInteger count = new AtomicInteger(0);
 
-    final Button counter = Button.of(ItemType.DIAMOND)
-        .onClick((click) -> sender.sendMessage(click.button().name()));
+    final Button counter =
+        Button.of(ItemType.DIAMOND).onClick((click) -> sender.sendMessage(click.button().name()));
 
     scheduler.runTaskTimer(
         plugin,
@@ -47,11 +47,12 @@ public final class ExampleGuiCommandExecutor implements CommandExecutor {
         20,
         10);
 
-    final Gui gui = Gui.chest()
-        .title(Component.text("Paper Example"))
-        .rows(3)
-        .slot(Slot.of(1, 4), counter)
-        .build();
+    final Gui gui =
+        Gui.chest()
+            .title(Component.text("Paper Example"))
+            .rows(3)
+            .slot(Slot.of(1, 4), counter)
+            .build();
 
     vision.open(player, gui);
 

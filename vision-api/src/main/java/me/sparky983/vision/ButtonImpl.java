@@ -131,12 +131,13 @@ final class ButtonImpl implements Button {
   public Button onClick(final Consumer<? super Click> handler) {
     Objects.requireNonNull(handler, "handler cannot be null");
 
-    subscribe(new Subscriber() {
-      @Override
-      public void click(final Click click) {
-        handler.accept(click);
-      }
-    });
+    subscribe(
+        new Subscriber() {
+          @Override
+          public void click(final Click click) {
+            handler.accept(click);
+          }
+        });
 
     return this;
   }

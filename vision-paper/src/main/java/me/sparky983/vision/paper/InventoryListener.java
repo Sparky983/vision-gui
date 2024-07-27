@@ -43,27 +43,29 @@ final class InventoryListener implements Listener {
     final Gui gui = guiInventoryHolder.gui();
     final Slot slot = gui.slots().get(event.getSlot());
 
-    gui.slot(slot).ifPresent((button) -> {
-      final ClickType type =
-          switch (event.getClick()) {
-            case LEFT -> ClickType.LEFT;
-            case SHIFT_LEFT -> ClickType.SHIFT_LEFT;
-            case RIGHT -> ClickType.RIGHT;
-            case SHIFT_RIGHT -> ClickType.SHIFT_RIGHT;
-            case MIDDLE -> ClickType.MIDDLE;
-            case DROP -> ClickType.DROP;
-            case CONTROL_DROP -> ClickType.CONTROL_DROP;
-            case DOUBLE_CLICK -> ClickType.DOUBLE_CLICK;
-            case NUMBER_KEY -> ClickType.NUMBER_KEY;
-            default -> null;
-          };
+    gui.slot(slot)
+        .ifPresent(
+            (button) -> {
+              final ClickType type =
+                  switch (event.getClick()) {
+                    case LEFT -> ClickType.LEFT;
+                    case SHIFT_LEFT -> ClickType.SHIFT_LEFT;
+                    case RIGHT -> ClickType.RIGHT;
+                    case SHIFT_RIGHT -> ClickType.SHIFT_RIGHT;
+                    case MIDDLE -> ClickType.MIDDLE;
+                    case DROP -> ClickType.DROP;
+                    case CONTROL_DROP -> ClickType.CONTROL_DROP;
+                    case DOUBLE_CLICK -> ClickType.DOUBLE_CLICK;
+                    case NUMBER_KEY -> ClickType.NUMBER_KEY;
+                    default -> null;
+                  };
 
-      if (type == null) {
-        return;
-      }
+              if (type == null) {
+                return;
+              }
 
-      button.publisher().click(new PaperClick(player, button, slot, type, vision));
-    });
+              button.publisher().click(new PaperClick(player, button, slot, type, vision));
+            });
   }
 
   @EventHandler

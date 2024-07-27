@@ -29,8 +29,7 @@ public non-sealed interface Dropper extends Gui {
    * @since 1.0
    * @vision.experimental because this may be deleted, renamed or moved.
    */
-  @ApiStatus.Experimental
-  int ROWS = 3;
+  @ApiStatus.Experimental int ROWS = 3;
 
   /**
    * The number of columns {@code Dropper}s have.
@@ -39,8 +38,7 @@ public non-sealed interface Dropper extends Gui {
    * @since 1.0
    * @vision.experimental because this may be deleted, renamed or moved.
    */
-  @ApiStatus.Experimental
-  int COLUMNS = 3;
+  @ApiStatus.Experimental int COLUMNS = 3;
 
   /**
    * {@inheritDoc}
