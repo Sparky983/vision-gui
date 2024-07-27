@@ -15,38 +15,24 @@ import org.bukkit.Server;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 @NullMarked
-final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
-  private static final String UNABLE_TO_MIRROR_MESSAGE =
-      """
-            Unable to converter item type "%s". Possible causes:
-            - The item is not available in this version of Minecraft
-            - Legacy materials are enabled
-            """;
+final class MirroredInventoryFactory {
 
   private final Server server;
-  private final PaperItemTypeConverter itemTypeConverter;
-  private final PaperButtonMirror buttonMirror;
+  private final ButtonMirror buttonMirror;
 
-  SubscribingPaperInventoryMirror(
-      final Server server,
-      final PaperItemTypeConverter itemTypeConverter,
-      final PaperButtonMirror buttonMirror) {
+  MirroredInventoryFactory(final Server server, final ButtonMirror buttonMirror) {
     Objects.requireNonNull(server, "server cannot be null");
-    Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
     Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
 
     this.server = server;
-    this.itemTypeConverter = itemTypeConverter;
     this.buttonMirror = buttonMirror;
   }
 
-  @Override
-  public Inventory mirror(final Gui gui, final Locale locale) {
+  Inventory mirror(final Gui gui, final Locale locale) {
     Objects.requireNonNull(gui, "gui cannot be null");
     Objects.requireNonNull(locale, "locale cannot be null");
 
@@ -80,20 +66,8 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
               subscriptions.remove(slot);
               return;
             }
-            final ItemStack item =
-                itemTypeConverter
-                    .convert(button.type())
-                    .map(ItemStack::new)
-                    .orElseThrow(
-                        () ->
-                            new IllegalStateException(
-                                String.format(UNABLE_TO_MIRROR_MESSAGE, button.type())));
-            inventory.setItem(rawSlot, item);
 
-            final ItemStack craftItem = inventory.getItem(rawSlot);
-            // We need to get the item from the inventory because the item is cloned
-            assert craftItem != null;
-            subscriptions.put(slot, buttonMirror.mirror(button, craftItem, locale));
+            subscriptions.put(slot, buttonMirror.mirror(inventory, rawSlot, button, locale));
           }
         };
 
