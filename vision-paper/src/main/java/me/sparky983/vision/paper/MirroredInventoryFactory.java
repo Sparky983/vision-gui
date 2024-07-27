@@ -20,7 +20,7 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 @NullMarked
-final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
+final class MirroredInventoryFactory {
   private static final String UNABLE_TO_MIRROR_MESSAGE =
       """
             Unable to converter item type "%s". Possible causes:
@@ -29,13 +29,13 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
             """;
 
   private final Server server;
-  private final PaperItemTypeConverter itemTypeConverter;
-  private final PaperButtonMirror buttonMirror;
+  private final ItemTypeConverter itemTypeConverter;
+  private final ButtonMirror buttonMirror;
 
-  SubscribingPaperInventoryMirror(
+  MirroredInventoryFactory(
       final Server server,
-      final PaperItemTypeConverter itemTypeConverter,
-      final PaperButtonMirror buttonMirror) {
+      final ItemTypeConverter itemTypeConverter,
+      final ButtonMirror buttonMirror) {
     Objects.requireNonNull(server, "server cannot be null");
     Objects.requireNonNull(itemTypeConverter, "itemTypeConverter cannot be null");
     Objects.requireNonNull(buttonMirror, "buttonMirror cannot be null");
@@ -45,8 +45,7 @@ final class SubscribingPaperInventoryMirror implements PaperInventoryMirror {
     this.buttonMirror = buttonMirror;
   }
 
-  @Override
-  public Inventory mirror(final Gui gui, final Locale locale) {
+  Inventory mirror(final Gui gui, final Locale locale) {
     Objects.requireNonNull(gui, "gui cannot be null");
     Objects.requireNonNull(locale, "locale cannot be null");
 
