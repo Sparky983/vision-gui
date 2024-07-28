@@ -111,14 +111,14 @@ final class HopperImpl implements Hopper {
     }
 
     @Override
-    public Builder border(final Button button, final Set<? extends Border> borders) {
-      container.border(button, borders);
+    public Builder border(final Set<Border> borders, final Button button) {
+      container.border(borders, button);
       return this;
     }
 
     @Override
-    public Builder border(final Button button, final Border... borders) {
-      container.border(button, borders);
+    public Builder border(final Border border, final Button button) {
+      container.border(border, button);
       return this;
     }
 
