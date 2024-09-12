@@ -139,7 +139,7 @@ public non-sealed interface Dropper extends Gui {
      */
     @Override
     @ApiStatus.Experimental
-    Builder border(Button button, Set<? extends Border> borders);
+    Builder border(Set<Border> borders, Button button);
 
     /**
      * {@inheritDoc}
@@ -151,7 +151,7 @@ public non-sealed interface Dropper extends Gui {
      */
     @Override
     @ApiStatus.Experimental
-    Builder border(Button button, Border... borders);
+    Builder border(Border border, Button button);
 
     /**
      * {@inheritDoc}
