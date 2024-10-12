@@ -1,5 +1,6 @@
 package me.sparky983.vision.paper;
 
+import com.google.common.collect.ImmutableMultimap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -53,6 +54,7 @@ final class ButtonMirror {
         (meta) -> {
           editName(meta, button.name(), locale);
           editLore(meta, button.lore(), locale);
+          meta.setAttributeModifiers(ImmutableMultimap.of());
           meta.setEnchantmentGlintOverride(button.glow());
         });
     inventory.setItem(slot, item);
